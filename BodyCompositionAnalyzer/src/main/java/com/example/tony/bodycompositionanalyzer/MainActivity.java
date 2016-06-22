@@ -20,9 +20,12 @@ import android.view.MenuItem;
 
 import com.example.tony.bodycompositionanalyzer.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClick(View v) {
+    public String createPdf() {
         // create a new document
         PdfDocument document = new PdfDocument();
 
@@ -65,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         // 写「Hello World」
         paint.setColor(Color.BLACK);
         page.getCanvas().drawText("Hello World!", 50, 50, paint);
+
+        // 写「Hello World」
+        paint.setColor(Color.BLACK);
+        page.getCanvas().drawText("Hello World!", 20, 20, paint);
 
         // 写「√」
         paint.setColor(Color.BLACK);
@@ -95,7 +102,51 @@ public class MainActivity extends AppCompatActivity {
             document.close();
         }
 
-        startActivity(getPdfFileIntent(string));
+        return string;
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.parse_textview:
+                try {
+                    parseData();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.textview:
+                /* 创建PDF */
+                String string = createPdf();
+                /* 打开PDF */
+                startActivity(getPdfFileIntent(string));
+                break;
+        }
+    }
+
+    private void parseData() throws IOException {
+        Log.i(LOG_TAG, "parseData");
+        InputStream in = getResources().getAssets().open("data.bin");
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        byte[] data = new byte[16384];
+        while ((nRead = in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+
+        byte[] bufferArray = buffer.toByteArray();
+
+        /* 1. 判断回复是否正常 */
+        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
+        System.arraycopy(bufferArray, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
+        if(Arrays.equals(ack, BodyComposition.ACK)) {
+            /* 提取各个数据 */
+            byte[] data2 = new byte[BodyComposition.DATA_LENGTH];
+            System.arraycopy(bufferArray, BodyComposition.DATA_START, data2, 0, BodyComposition.DATA_LENGTH);
+            /* 解析数据 */
+            new BodyComposition(data2);
+        }
     }
 
     //android获取一个用于打开PDF文件的intent
