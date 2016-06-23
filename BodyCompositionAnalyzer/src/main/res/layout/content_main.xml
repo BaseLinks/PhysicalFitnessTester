@@ -12,7 +12,7 @@
     tools:context="com.example.tony.bodycompositionanalyzer.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <Button
         android:id="@+id/textview"
         android:layout_margin="10dp"
         android:onClick="onClick"

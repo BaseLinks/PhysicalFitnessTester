@@ -58,11 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 mBodyCompositionAnalyzer.doIt();
                 break;
             case R.id.textview:
-//                /* 创建PDF */
-//                String string = createPdf();
-//                /* 打开PDF */
-//                startActivity(getPdfFileIntent(string));
-                mBodyCompositionAnalyzer.toPdf(null);
+                /* 创建PDF */
+                String pdf = mBodyCompositionAnalyzer.toPdf(null);
+                /* 打开PDF */
+                startActivity(getPdfFileIntent(pdf));
                 break;
             case R.id.print_button:
                 doPhotoPrint();

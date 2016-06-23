@@ -10,6 +10,12 @@ import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.View;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -177,9 +183,9 @@ public class BodyCompositionAnalyzer {
 	/**
 	 * 将BodayComposition生成PDF
 	 * @bc BodyComposition对象
-	 * @return
+	 * @return path
 	 */
-	public boolean toPdf(BodyComposition bc) {
+	public String toPdf(BodyComposition bc) {
 		Log.i(LOG_TAG, "toPdf");
 
 		/* 1. 打开串口 */
@@ -188,19 +194,39 @@ public class BodyCompositionAnalyzer {
 //		}
 
 		/* 2. 生成PDF两种方法：Android Api或者iText Api */
-		createPdf();
-		/* 3. 关闭串口 */
-		return false;
+		return createPdf(bc);
 	}
 
 	/**
 	 * 当API >= 19 时使用系统自带PDF API，否则使用iText
 	 * @return
 	 */
-	public String createPdf() {
+	public String createPdf(BodyComposition bc) {
 		String pdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
 				+ File.separator + "test.pdf";
-		if (Build.VERSION.SDK_INT >= 19) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 系统API
+			createPdfwithAndroid(pdfPath, bc);
+		} else {
+			// 使用iText
+			try {
+				createPdfwithiText(pdfPath, bc);
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return pdfPath;
+	}
+
+	/**
+	 * Android 4.4+ 版本的官方PDF Api
+	 * @param pdfPath
+	 * @param bc
+	 */
+	private void createPdfwithAndroid(String pdfPath, BodyComposition bc) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// create a new document
 			PdfDocument document = new PdfDocument();
 
@@ -245,9 +271,26 @@ public class BodyCompositionAnalyzer {
 				// close the document
 				document.close();
 			}
-		} else {
-			// 使用iText
 		}
-		return pdfPath;
+	}
+
+	/**
+	 * Creates a PDF document.
+	 * @param pdfPath the path to the new PDF document
+	 * @throws    DocumentException
+	 * @throws    IOException
+	 */
+	public void createPdfwithiText(String pdfPath, BodyComposition bc)
+			throws DocumentException, IOException {
+		// step 1
+		Document document = new Document(PageSize.A4);
+		// step 2
+		PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+		// step 3
+		document.open();
+		// step 4
+		document.add(new Paragraph("Hello World!"));
+		// step 5
+		document.close();
 	}
 }
