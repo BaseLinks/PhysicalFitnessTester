@@ -1,8 +1,12 @@
 package com.example.tony.bodycompositionanalyzer;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Environment;
@@ -226,10 +230,11 @@ public class BodyCompositionAnalyzer {
 	 * @return 返回文件路径
 	 */
 	public String createPdf(BodyComposition bc) {
+		Log.i(LOG_TAG, "createPdf");
 		String pdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
 				+ File.separator + "test.pdf";
 		// TODO: Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-		if (1 + 1 != 2) {
+		if (1 + 1 == 2) {
 			// 系统API
 			createPdfwithAndroid(pdfPath, bc);
 		} else {
@@ -249,8 +254,10 @@ public class BodyCompositionAnalyzer {
 	 * Android 4.4+ 版本的官方PDF Api
 	 * @param pdfPath pdf文件路径
 	 * @param bc BodyComposition对象
+	 * 我去，官方API 21才可以打开已经存在的PDF文件，有可能得用iText了
 	 */
 	private void createPdfwithAndroid(String pdfPath, BodyComposition bc) {
+		Log.i(LOG_TAG, "createPdfwithAndroid");
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// create a new document
 			PdfDocument document = new PdfDocument();
@@ -263,9 +270,19 @@ public class BodyCompositionAnalyzer {
 
 			// start a page
 			PdfDocument.Page page = document.startPage(pageInfo);
-
 			// 画笔
 			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+			// 0.1 画底板 (调试对比使用，成品不画此界面)
+			Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
+			if(bm != null) {
+				// 将图片拉伸至整个页面
+				page.getCanvas().drawBitmap(bm, null, new Rect(
+						0,
+						0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+						PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
+						null);
+			}
 
 			// 写「Hello World」
 			paint.setColor(Color.BLACK);
@@ -307,6 +324,7 @@ public class BodyCompositionAnalyzer {
 	 */
 	public void createPdfwithiText(String pdfPath, BodyComposition bc)
 			throws DocumentException, IOException {
+		Log.i(LOG_TAG, "createPdfwithiText");
 		// step 1
 		Document document = new Document(PageSize.A4);
 		// step 2
@@ -317,5 +335,21 @@ public class BodyCompositionAnalyzer {
 		document.add(new Paragraph("Hello World!"));
 		// step 5
 		document.close();
+	}
+
+
+	public static Bitmap getBitmapFromAsset(Context context, String filePath) {
+		AssetManager assetManager = context.getAssets();
+
+		InputStream istr;
+		Bitmap bitmap = null;
+		try {
+			istr = assetManager.open(filePath);
+			bitmap = BitmapFactory.decodeStream(istr);
+		} catch (IOException e) {
+			// handle exception
+			e.printStackTrace();
+		}
+		return bitmap;
 	}
 }
