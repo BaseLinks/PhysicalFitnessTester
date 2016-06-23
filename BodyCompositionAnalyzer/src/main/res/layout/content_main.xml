@@ -14,6 +14,7 @@
 
     <TextView
         android:id="@+id/textview"
+        android:layout_margin="10dp"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,9 +22,21 @@
 
     <Button
         android:layout_below="@id/textview"
-        android:id="@+id/parse_textview"
+        android:id="@+id/parse_button"
+        android:layout_margin="10dp"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="解析数据" />
+
+    <Button
+        android:layout_below="@id/parse_button"
+        android:layout_margin="10dp"
+        android:id="@+id/print_button"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打印测试" />
+
+
 </RelativeLayout>
