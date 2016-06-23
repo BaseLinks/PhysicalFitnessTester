@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.parse_button:
-                mBodyCompositionAnalyzer.doPrint();
+                mBodyCompositionAnalyzer.doIt();
                 break;
             case R.id.textview:
 //                /* 创建PDF */

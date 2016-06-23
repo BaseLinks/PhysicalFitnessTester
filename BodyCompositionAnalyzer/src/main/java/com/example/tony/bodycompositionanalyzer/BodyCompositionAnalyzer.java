@@ -101,17 +101,9 @@ public class BodyCompositionAnalyzer {
 	/** 初始化串口 */
 	private boolean initCoinMachine() {
 		boolean ret = false;
-		/* 如果已经打开状态，强制关闭，以中断诸如循环发送状态 */
-		/* TODO:如果强制关闭会导致下次读取时会有缓存硬币数量 */
+		/* 如果已经打开状态，则不再重新打开，这样可以节省不少时间 */
 		if (serialCtrl.isOpen()) {
-			try {
-				serialCtrl.stopSend();
-				Thread.sleep(1000);
-				serialCtrl.close();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				return false;
-			}
+			return true;
 		}
 
 		/* 1. 打开串口 */
@@ -150,10 +142,10 @@ public class BodyCompositionAnalyzer {
 	}
 
 	/**
-	 * 打印小票的例子
+	 * 做一次获取数据处理
 	 * @return
 	 */
-	public boolean doPrint() {
+	public boolean doIt() {
 		Log.i(LOG_TAG, "doPrint");
 
 		/* 1. 打开串口 */
@@ -166,7 +158,7 @@ public class BodyCompositionAnalyzer {
 		serialCtrl.send(getDianjiTest());
 
 		/* 3. 关闭串口 */
-		serialCtrl.close();
+//		serialCtrl.close();
 		return false;
 	}
 }
