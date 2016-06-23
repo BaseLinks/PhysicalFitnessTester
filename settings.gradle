@@ -1,1 +1,1 @@
-include ':app', ':BodyCompositionAnalyzer'
+include ':app', ':BodyCompositionAnalyzer', ':usbprinter', ':javaapk.com-comassistant'

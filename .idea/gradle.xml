@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BodyCompositionAnalyzer" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/javaapk.com-comassistant" />
+            <option value="$PROJECT_DIR$/usbprinter" />
           </set>
         </option>
       </GradleProjectSettings>
