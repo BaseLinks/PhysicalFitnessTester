@@ -42,6 +42,7 @@ public class BodyCompositionAnalyzer {
 	private final Context mContext;
 	private String                 serialPort       = null;
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS2";
+	private static BodyComposition mBodyComposition;
 	/**
 	 * 需要发送的数据
 	 */
@@ -69,6 +70,10 @@ public class BodyCompositionAnalyzer {
 		}
 	}
 
+	public BodyComposition getBodyComposition() {
+		return this.mBodyComposition;
+	}
+
 	private void parseData(byte[] inputData) {
 		Log.i(LOG_TAG, "parseData");
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -81,7 +86,7 @@ public class BodyCompositionAnalyzer {
 			byte[] data2 = new byte[BodyComposition.DATA_LENGTH];
 			System.arraycopy(inputData, BodyComposition.DATA_START, data2, 0, BodyComposition.DATA_LENGTH);
             /* 解析数据 */
-			new BodyComposition(data2);
+			mBodyComposition = new BodyComposition(data2);
 		}
 	}
 
@@ -163,8 +168,27 @@ public class BodyCompositionAnalyzer {
 	 * 做一次获取数据处理
 	 * @return 成功返回true,否则返回false
 	 */
-	public boolean doIt() {
-		Log.i(LOG_TAG, "doPrint");
+	public boolean doIt(boolean isDebug)  throws IOException {
+		Log.i(LOG_TAG, "doIt");
+
+		/* 0.调试模式，不使用串口，直接读取已有数据 */
+		if(isDebug) {
+			// 读取样本数据
+			InputStream in = mContext.getResources().getAssets().open("data.bin");
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+			int nRead;
+			byte[] data = new byte[16384];
+			while ((nRead = in.read(data, 0, data.length)) != -1) {
+				buffer.write(data, 0, nRead);
+			}
+			buffer.flush();
+			byte[] bufferArray = buffer.toByteArray();
+			// 解析数据
+			parseData(bufferArray);
+
+			return true;
+		}
 
 		/* 1. 打开串口 */
 		if (!initCoinMachine()) {

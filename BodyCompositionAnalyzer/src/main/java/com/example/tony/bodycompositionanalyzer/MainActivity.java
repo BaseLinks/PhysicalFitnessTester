@@ -54,14 +54,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.parse_button:
-                mBodyCompositionAnalyzer.doIt();
-                break;
-            case R.id.textview:
+            case R.id.textview: {
                 /* 创建PDF */
-                String pdf = mBodyCompositionAnalyzer.toPdf(null);
+                String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
                 /* 打开PDF */
                 startActivity(getPdfFileIntent(pdf));
+                break;
+            }
+            case R.id.parse_button:
+                try {
+                    mBodyCompositionAnalyzer.doIt(true);
+                    /* 创建PDF */
+                    String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
+                    /* 打开PDF */
+                    startActivity(getPdfFileIntent(pdf));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.print_button:
                 doPhotoPrint();
@@ -80,32 +89,6 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.selection);
         photoPrinter.printBitmap("droids.jpg - test print", bitmap);
-    }
-
-    private void parseData() throws IOException {
-        Log.i(LOG_TAG, "parseData");
-        InputStream in = getResources().getAssets().open("data.bin");
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-        int nRead;
-        byte[] data = new byte[16384];
-        while ((nRead = in.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-        buffer.flush();
-
-        byte[] bufferArray = buffer.toByteArray();
-
-        /* 1. 判断回复是否正常 */
-        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
-        System.arraycopy(bufferArray, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
-        if(Arrays.equals(ack, BodyComposition.ACK)) {
-            /* 提取各个数据 */
-            byte[] data2 = new byte[BodyComposition.DATA_LENGTH];
-            System.arraycopy(bufferArray, BodyComposition.DATA_START, data2, 0, BodyComposition.DATA_LENGTH);
-            /* 解析数据 */
-            new BodyComposition(data2);
-        }
     }
 
     //android获取一个用于打开PDF文件的intent
