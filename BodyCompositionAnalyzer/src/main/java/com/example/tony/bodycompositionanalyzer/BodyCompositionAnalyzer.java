@@ -1,10 +1,18 @@
 package com.example.tony.bodycompositionanalyzer;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.os.Build;
+import android.os.Environment;
+import android.print.PrintAttributes;
 import android.util.Log;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,8 +33,9 @@ public class BodyCompositionAnalyzer {
 	/** */
 	private final SerialHelper serialCtrl       = new SerialControl();;
 	private final SerialPortFinder serialPortFinder = new SerialPortFinder();
+	private final Context mContext;
 	private String                 serialPort       = null;
-
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS2";
 	/**
 	 * 需要发送的数据
 	 */
@@ -35,6 +44,10 @@ public class BodyCompositionAnalyzer {
 
 	/** 串口相关 */
 	private static final String BAUDRATE_COIN = "9600";
+
+	public BodyCompositionAnalyzer(Context context) {
+		this.mContext = context;
+	}
 
 	private class SerialControl extends SerialHelper {
 		@Override
@@ -47,7 +60,6 @@ public class BodyCompositionAnalyzer {
 			if (DEBUG) Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
 			if (DEBUG) Log.i(LOG_TAG, "handleRecStri:" + new String(ComRecData.bRec));
 			parseData(ComRecData.bRec);
-
 		}
 	}
 
@@ -94,7 +106,7 @@ public class BodyCompositionAnalyzer {
 	}
 
 	private boolean updatePort() {
-		serialPort = "/dev/ttyS2";
+		serialPort = TRADITIONAL_TTY_DEV_NODE;
 		return true;
 	}
 
@@ -160,5 +172,82 @@ public class BodyCompositionAnalyzer {
 		/* 3. 关闭串口 */
 //		serialCtrl.close();
 		return false;
+	}
+
+	/**
+	 * 将BodayComposition生成PDF
+	 * @bc BodyComposition对象
+	 * @return
+	 */
+	public boolean toPdf(BodyComposition bc) {
+		Log.i(LOG_TAG, "toPdf");
+
+		/* 1. 打开串口 */
+//		if (bc == null) {
+//			return false;
+//		}
+
+		/* 2. 生成PDF两种方法：Android Api或者iText Api */
+		createPdf();
+		/* 3. 关闭串口 */
+		return false;
+	}
+
+	/**
+	 * 当API >= 19 时使用系统自带PDF API，否则使用iText
+	 * @return
+	 */
+	public String createPdf() {
+		String pdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+				+ File.separator + "test.pdf";
+		if (Build.VERSION.SDK_INT >= 19) {
+			// create a new document
+			PdfDocument document = new PdfDocument();
+
+			// crate a page description
+			PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
+					PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+					PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
+					.create();
+
+			// start a page
+			PdfDocument.Page page = document.startPage(pageInfo);
+
+			// 画笔
+			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+			// 写「Hello World」
+			paint.setColor(Color.BLACK);
+			page.getCanvas().drawText("Hello World!", 50, 50, paint);
+
+			// 写「Hello World」
+			paint.setColor(Color.BLACK);
+			page.getCanvas().drawText("Hello World!", 20, 20, paint);
+
+			// 写「√」
+			paint.setColor(Color.BLACK);
+			page.getCanvas().drawText("√", 100, 100, paint);
+
+			// finish the page
+			document.finishPage(page);
+			// add more pages
+			// write the document content
+			FileOutputStream os = null;
+			try {
+				Log.i(LOG_TAG, "String:" + pdfPath);
+				os = new FileOutputStream(pdfPath);
+				document.writeTo(os);
+				os.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				// close the document
+				document.close();
+			}
+		} else {
+			// 使用iText
+		}
+		return pdfPath;
 	}
 }
