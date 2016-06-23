@@ -161,7 +161,7 @@ public class BodyCompositionAnalyzer {
 
 	/**
 	 * 做一次获取数据处理
-	 * @return
+	 * @return 成功返回true,否则返回false
 	 */
 	public boolean doIt() {
 		Log.i(LOG_TAG, "doPrint");
@@ -199,12 +199,13 @@ public class BodyCompositionAnalyzer {
 
 	/**
 	 * 当API >= 19 时使用系统自带PDF API，否则使用iText
-	 * @return
+	 * @return 返回文件路径
 	 */
 	public String createPdf(BodyComposition bc) {
 		String pdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
 				+ File.separator + "test.pdf";
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+		// TODO: Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+		if (1 + 1 != 2) {
 			// 系统API
 			createPdfwithAndroid(pdfPath, bc);
 		} else {
@@ -222,8 +223,8 @@ public class BodyCompositionAnalyzer {
 
 	/**
 	 * Android 4.4+ 版本的官方PDF Api
-	 * @param pdfPath
-	 * @param bc
+	 * @param pdfPath pdf文件路径
+	 * @param bc BodyComposition对象
 	 */
 	private void createPdfwithAndroid(String pdfPath, BodyComposition bc) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -258,7 +259,7 @@ public class BodyCompositionAnalyzer {
 			document.finishPage(page);
 			// add more pages
 			// write the document content
-			FileOutputStream os = null;
+			FileOutputStream os;
 			try {
 				Log.i(LOG_TAG, "String:" + pdfPath);
 				os = new FileOutputStream(pdfPath);
