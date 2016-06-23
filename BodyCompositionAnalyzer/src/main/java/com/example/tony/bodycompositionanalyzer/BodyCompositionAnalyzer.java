@@ -286,7 +286,7 @@ public class BodyCompositionAnalyzer {
 
 			// 写「Hello World」
 			paint.setColor(Color.BLACK);
-			page.getCanvas().drawText("Hello World!", 50, 50, paint);
+			page.getCanvas().drawText("Hello World!", (float)(4 * 72 * 0.394), (float)(5 * 72 * 0.394), paint);
 
 			// 写「Hello World」
 			paint.setColor(Color.BLACK);
