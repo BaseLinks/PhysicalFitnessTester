@@ -256,13 +256,13 @@ public class BodyComposition {
 
     // ...
 
-    public static final int 身体总评分_LENGTH    = 198;
-    public static final int 身体年龄_LENGTH      = 200;
-    public static final int 体重调节_LENGTH      = 202;
-    public static final int 脂肪调节_LENGTH      = 206;
-    public static final int 肌肉调节_LENGTH      = 210;
-    public static final int 基础代谢量_LENGTH    = 214;
-    public static final int 总能量消耗_LENGTH    = 216;
+    public static final int 身体总评分_LENGTH    = 2;
+    public static final int 身体年龄_LENGTH      = 2;
+    public static final int 体重调节_LENGTH      = 4;
+    public static final int 脂肪调节_LENGTH      = 4;
+    public static final int 肌肉调节_LENGTH      = 4;
+    public static final int 基础代谢量_LENGTH    = 2;
+    public static final int 总能量消耗_LENGTH    = 2;
 
     /* 女 */
     public static final byte FEMALE = 0x00;
@@ -275,7 +275,10 @@ public class BodyComposition {
      */
     public BodyComposition(final byte[] data) {
         int tmpInt = 0;
+        //
         float tmpFloat = 0;
+        // 符号
+        String opt = "";
 
         // 0. 姓名 编号 3号
         byte[] b = null;
@@ -397,8 +400,10 @@ public class BodyComposition {
 
         // 23. 体重标准范围
         b = Arrays.copyOfRange(data, 体重标准范围_START, 体重标准范围_START + 体重标准范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         体重标准范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        体重标准范围 = String.format("%s-%.1f", 体重标准范围, tmpFloat);
 
         // 24. 体重标准值
         b = Arrays.copyOfRange(data, 体重标准值_START, 体重标准值_START + 体重标准值_LENGTH);
@@ -412,8 +417,10 @@ public class BodyComposition {
 
         // 26. 去脂肪体重标准
         b = Arrays.copyOfRange(data, 去脂肪体重标准_START, 去脂肪体重标准_START + 去脂肪体重标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         去脂肪体重标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        去脂肪体重标准 = String.format("%s-%.1f", 去脂肪体重标准, tmpFloat);
 
         // 27. 体脂肪量
         b = Arrays.copyOfRange(data, 体脂肪量_START, 体脂肪量_START + 体脂肪量_LENGTH);
@@ -422,8 +429,10 @@ public class BodyComposition {
 
         // 28. 体脂肪量标准
         b = Arrays.copyOfRange(data, 体脂肪量标准_START, 体脂肪量标准_START + 体脂肪量标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         体脂肪量标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        体脂肪量标准 = String.format("%s-%.1f", 体脂肪量标准, tmpFloat);
 
         // 29. 肌肉量
         b = Arrays.copyOfRange(data, 肌肉量_START, 肌肉量_START + 肌肉量_LENGTH);
@@ -432,8 +441,10 @@ public class BodyComposition {
 
         // 30. 肌肉标准
         b = Arrays.copyOfRange(data, 肌肉标准_START, 肌肉标准_START + 肌肉标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         肌肉标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        肌肉标准 = String.format("%s-%.1f", 肌肉标准, tmpFloat);
 
         // 31. 躯干脂肪
         b = Arrays.copyOfRange(data, 躯干脂肪_START, 躯干脂肪_START + 躯干脂肪_LENGTH);
@@ -442,8 +453,10 @@ public class BodyComposition {
 
         // 32. 躯干脂肪标准
         b = Arrays.copyOfRange(data, 躯干脂肪标准_START, 躯干脂肪标准_START + 躯干脂肪标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         躯干脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        躯干脂肪标准 = String.format("%s-%.1f", 躯干脂肪标准, tmpFloat);
 
         // 33. 左上肢脂肪量
         b = Arrays.copyOfRange(data, 左上肢脂肪量_START, 左上肢脂肪量_START + 左上肢脂肪量_LENGTH);
@@ -452,9 +465,10 @@ public class BodyComposition {
 
         // 34. 左上肢脂肪标准
         b = Arrays.copyOfRange(data, 左上肢脂肪标准_START, 左上肢脂肪标准_START + 左上肢脂肪标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         左上肢脂肪标准 = String.format("%.1f", tmpFloat);
-
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        左上肢脂肪标准 = String.format("%s-%.1f", 左上肢脂肪标准, tmpFloat);
 
         // 35. 右上肢脂肪量
         b = Arrays.copyOfRange(data, 右上肢脂肪量_START, 右上肢脂肪量_START + 右上肢脂肪量_LENGTH);
@@ -463,8 +477,10 @@ public class BodyComposition {
 
         // 36. 右上肢脂肪标准
         b = Arrays.copyOfRange(data, 右上肢脂肪标准_START, 右上肢脂肪标准_START + 右上肢脂肪标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         右上肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        右上肢脂肪标准 = String.format("%s-%.1f", 右上肢脂肪标准, tmpFloat);
 
         // 37. 左下肢脂肪量
         b = Arrays.copyOfRange(data, 左下肢脂肪量_START, 左下肢脂肪量_START + 左下肢脂肪量_LENGTH);
@@ -473,8 +489,10 @@ public class BodyComposition {
 
         // 38. 左下肢脂肪标准
         b = Arrays.copyOfRange(data, 左下肢脂肪标准_START, 左下肢脂肪标准_START + 左下肢脂肪标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         左下肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        左下肢脂肪标准 = String.format("%s-%.1f", 左下肢脂肪标准, tmpFloat);
 
         // 39. 右下肢脂肪量
         b = Arrays.copyOfRange(data, 右下肢脂肪量_START, 右下肢脂肪量_START + 右下肢脂肪量_LENGTH);
@@ -483,8 +501,10 @@ public class BodyComposition {
 
         // 40. 右下肢脂肪标准
         b = Arrays.copyOfRange(data, 右下肢脂肪标准_START, 右下肢脂肪标准_START + 右下肢脂肪标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         右下肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        右下肢脂肪标准 = String.format("%s-%.1f", 右下肢脂肪标准, tmpFloat);
 
         // 41. 内脏脂肪指数
         b = Arrays.copyOfRange(data, 内脏脂肪指数_START, 内脏脂肪指数_START + 内脏脂肪指数_LENGTH);
@@ -493,8 +513,10 @@ public class BodyComposition {
 
         // 42. 内脏指数正常范围
         b = Arrays.copyOfRange(data, 内脏指数正常范围_START, 内脏指数正常范围_START + 内脏指数正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         内脏指数正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        内脏指数正常范围 = String.format("%s-%.1f", 内脏指数正常范围, tmpFloat);
 
         // 43. 躯干肌肉
         b = Arrays.copyOfRange(data, 躯干肌肉_START, 躯干肌肉_START + 躯干肌肉_LENGTH);
@@ -503,8 +525,10 @@ public class BodyComposition {
 
         // 44. 躯干肌肉标准
         b = Arrays.copyOfRange(data, 躯干肌肉标准_START, 躯干肌肉标准_START + 躯干肌肉标准_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         躯干肌肉标准 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        躯干肌肉标准 = String.format("%s-%.1f", 躯干肌肉标准, tmpFloat);
 
         // 45. 左上肢肌肉含量
         b = Arrays.copyOfRange(data, 左上肢肌肉含量_START, 左上肢肌肉含量_START + 左上肢肌肉含量_LENGTH);
@@ -513,8 +537,10 @@ public class BodyComposition {
 
         // 46. 左上肢肉正常范围
         b = Arrays.copyOfRange(data, 左上肢肉正常范围_START, 左上肢肉正常范围_START + 左上肢肉正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         左上肢肉正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        左上肢肉正常范围 = String.format("%s-%.1f", 左上肢肉正常范围, tmpFloat);
 
         // 47. 右上肢肌肉含量
         b = Arrays.copyOfRange(data, 右上肢肌肉含量_START, 右上肢肌肉含量_START + 右上肢肌肉含量_LENGTH);
@@ -523,8 +549,10 @@ public class BodyComposition {
 
         // 48. 右上肢肌肉含量正常范围
         b = Arrays.copyOfRange(data, 右上肢肌肉含量正常范围_START, 右上肢肌肉含量正常范围_START + 右上肢肌肉含量正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         右上肢肌肉含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        右上肢肌肉含量正常范围 = String.format("%s-%.1f", 右上肢肌肉含量正常范围, tmpFloat);
 
         // 49. 左下肢肌肉含量
         b = Arrays.copyOfRange(data, 左下肢肌肉含量_START, 左下肢肌肉含量_START +  左下肢肌肉含量_LENGTH);
@@ -533,8 +561,10 @@ public class BodyComposition {
 
         // 50. 左下肢肌肉正常范围
         b = Arrays.copyOfRange(data, 左下肢肌肉正常范围_START, 左下肢肌肉正常范围_START + 左下肢肌肉正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         左下肢肌肉正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        左下肢肌肉正常范围 = String.format("%s-%.1f", 左下肢肌肉正常范围, tmpFloat);
 
         // 51. 右下肢肌肉含量
         b = Arrays.copyOfRange(data, 右下肢肌肉含量_START, 右下肢肌肉含量_START + 右下肢肌肉含量_LENGTH);
@@ -543,58 +573,70 @@ public class BodyComposition {
 
         // 52. 右下肢肌肉含量正常范围
         b = Arrays.copyOfRange(data, 右下肢肌肉含量正常范围_START, 右下肢肌肉含量正常范围_START + 右下肢肌肉含量正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         右下肢肌肉含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        右下肢肌肉含量正常范围 = String.format("%s-%.1f", 右下肢肌肉含量正常范围, tmpFloat);
 
         // 53. 身体总水分
         b = Arrays.copyOfRange(data, 身体总水分_START, 身体总水分_START + 身体总水分_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         身体总水分 = String.format("%.1f", tmpFloat);
 
-        // 54. 身体总水分正常范围
+        // 54. 身体总水分正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 身体总水分正常范围_START, 身体总水分正常范围_START + 身体总水分正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         身体总水分正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        身体总水分正常范围 = String.format("%s-%.1f", 身体总水分正常范围, tmpFloat);
 
-        // 55. 蛋白质含量
+        // 55. 蛋白质含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质含量_START, 蛋白质含量_START + 蛋白质含量_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         蛋白质含量 = String.format("%.1f", tmpFloat);
 
-        // 56. 蛋白质正常范围
+        // 56. 蛋白质正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质正常范围_START, 蛋白质正常范围_START + 蛋白质正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         蛋白质正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        蛋白质正常范围 = String.format("%s-%.1f", 蛋白质正常范围, tmpFloat);
 
-        // 57. 无机盐含量
+        // 57. 无机盐含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量_START, 无机盐含量_START + 无机盐含量_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         无机盐含量 = String.format("%.1f", tmpFloat);
 
-        // 58. 无机盐含量正常范围
+        // 58. 无机盐含量正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量正常范围_START, 无机盐含量正常范围_START + 无机盐含量正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         无机盐含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        无机盐含量正常范围 = String.format("%s-%.1f", 无机盐含量正常范围, tmpFloat);
 
-        // 59. 细胞外液含量
+        // 59. 细胞外液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液含量_START, 细胞外液含量_START + 细胞外液含量_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         细胞外液含量 = String.format("%.1f", tmpFloat);
 
-        // 60. 细胞外液正常范围
+        // 60. 细胞外液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液正常范围_START, 细胞外液正常范围_START + 细胞外液正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         细胞外液正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        细胞外液正常范围 = String.format("%s-%.1f", 细胞外液正常范围, tmpFloat);
 
-        // 61. 细胞内液含量
+        // 61. 细胞内液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液含量_START, 细胞内液含量_START + 细胞内液含量_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         细胞内液含量 = String.format("%.1f", tmpFloat);
 
-        // 62. 细胞内液正常范围
+        // 62. 细胞内液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液正常范围_START, 细胞内液正常范围_START + 细胞内液正常范围_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         细胞内液正常范围 = String.format("%.1f", tmpFloat);
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        细胞内液正常范围 = String.format("%s-%.1f", 细胞内液正常范围, tmpFloat);
 
         // 63. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
@@ -631,32 +673,35 @@ public class BodyComposition {
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         去脂肪体重 = String.format("%d", tmpInt);
 
-        // 70. 身体总评分
+        // 70. 身体总评分 okay 保留一位小数
         b = Arrays.copyOfRange(data, 身体总评分_START, 身体总评分_START + 身体总评分_LENGTH);
         tmpFloat = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         身体总评分 = String.format("%.1f", tmpFloat);
 
-        // 71. 身体年龄
+        // 71. 身体年龄 okay 整数
         b = Arrays.copyOfRange(data, 身体年龄_START, 身体年龄_START + 身体年龄_LENGTH);
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         身体年龄 = String.format("%d", tmpInt);
 
-        // 72. 体重调节
+        // 72. 体重调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 体重调节_START, 体重调节_START + 体重调节_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        体重调节 = String.format("%d", tmpInt);
+        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        体重调节 = String.format("%s%.1f", opt, tmpFloat);
 
-        // 73. 脂肪调节
+        // 73. 脂肪调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 脂肪调节_START, 脂肪调节_START + 脂肪调节_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        脂肪调节 = String.format("%d", tmpInt);
+        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        脂肪调节 = String.format("%s%.1f", opt, tmpFloat);
 
-        // 74. 肌肉调节
+        // 74. 肌肉调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 肌肉调节_START, 肌肉调节_START + 肌肉调节_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        肌肉调节 = String.format("%d", tmpInt);
+        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        肌肉调节 = String.format("%s%.1f", opt, tmpFloat);
 
-        // 75. 基础代谢量
+        // 75. 基础代谢量 okay
         b = Arrays.copyOfRange(data, 基础代谢量_START, 基础代谢量_START + 基础代谢量_LENGTH);
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         基础代谢量 = String.format("%d", tmpInt);
