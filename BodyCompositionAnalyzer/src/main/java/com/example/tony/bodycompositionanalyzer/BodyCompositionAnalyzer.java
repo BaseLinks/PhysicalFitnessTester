@@ -793,6 +793,14 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Posistion.身体年龄,
 					mAlignment);
 
+			// 11x.健康评估 okay
+			textPaint.setTextSize(20);
+			tmpStr = bc.身体总评分;
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.健康评估,
+					mAlignment);
+
 			// finish the page
 			document.finishPage(page);
 			// add more pages

@@ -518,6 +518,9 @@ public class BodyComposition {
         public static final Posistion 身体年龄 =
                 new Posistion(171 * 2836, 200 * 2836, 12 * 2836, 46810);
 
+        // 10x.健康评估
+        public static final Posistion 健康评估 =
+                new Posistion(135 * 2836, 280 * 2836, 18 * 2836, 46810);
         /**
          * Creates a new instance.
          * @param widthMils The width in mils (thousands of an inch).
