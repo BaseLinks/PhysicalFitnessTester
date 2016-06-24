@@ -316,13 +316,13 @@ public class BodyComposition {
                 new Posistion(38 * 2836, 115 * 2836, 33110, 46810);
         // 27 蛋白质量
         public static final Posistion 蛋白质量 =
-                new Posistion(60 * 2836, 500 * 2836, 33110, 46810);
+                new Posistion(60 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 28 无机盐量
         public static final Posistion 无机盐量 =
-                new Posistion(82 * 2836, 500 * 2836, 33110, 46810);
+                new Posistion(82 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 29 体脂肪量
         public static final Posistion 体脂肪量 =
-                new Posistion(104 * 2836, 500 * 2836, 33110, 46810);
+                new Posistion(104 * 2836, 104 * 2836, 20 * 2836, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准

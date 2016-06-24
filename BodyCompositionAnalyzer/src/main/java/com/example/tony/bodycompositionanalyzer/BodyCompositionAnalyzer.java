@@ -407,29 +407,28 @@ public class BodyCompositionAnalyzer {
 					paint);
 			// 27 蛋白质量
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.蛋白质含量 + "[" + bc.蛋白质正常范围 + "]",
-					BodyComposition.Posistion.蛋白质量.getXMils() / 1000,
-					BodyComposition.Posistion.蛋白质量.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
+			tmpStr = bc.蛋白质含量 + "kg\n[" + bc.蛋白质正常范围 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.蛋白质量,
+					mAlignment);
 			// 28 无机盐量
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.无机盐含量 + "[" + bc.无机盐含量正常范围 + "]",
-					BodyComposition.Posistion.无机盐量.getXMils() / 1000,
-					BodyComposition.Posistion.无机盐量.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
+			tmpStr = bc.无机盐含量 + "kg\n[" + bc.无机盐含量正常范围 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.无机盐量,
+					mAlignment);
 			// 29 体脂肪量
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.体脂肪量 + "[" + bc.体脂肪量标准 + "]",
-					BodyComposition.Posistion.体脂肪量.getXMils() / 1000,
-					BodyComposition.Posistion.体脂肪量.getYMils() / 1000,
-					paint);
-
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
+			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.体脂肪量,
+					mAlignment);
 			/* 3. 体成分分析　*/
 
 			/* 4X. 调节建议 */
