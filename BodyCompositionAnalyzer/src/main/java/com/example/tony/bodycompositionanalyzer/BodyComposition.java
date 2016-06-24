@@ -1,13 +1,10 @@
 package com.example.tony.bodycompositionanalyzer;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Created by tony on 16-6-22.
@@ -60,7 +57,7 @@ public class BodyComposition {
     public final String 内脏脂肪指数;
     public final String 内脏指数正常范围;
     /* 节段分析， */
-    public final String 躯干肌肉;
+    public final String 躯干肌肉含量;
     public final String 躯干肌肉标准;
     public final String 左上肢肌肉含量;
     public final String 左上肢肉正常范围;
@@ -356,14 +353,47 @@ public class BodyComposition {
         public static final Posistion 肌肉量_调节量 =
                 new Posistion(112 * 2836, 235 * 2836, 33110, 46810);
 
-        /* 5x  */
+        /* 5x 节段肌肉 */
         // 51 右上肢肌肉含量
         public static final Posistion 右上肢肌肉含量 =
-                new Posistion(15 * 2836, 253 * 2836, 10 * 2836, 46810);
+                new Posistion(13 * 2836, 253 * 2836, 12 * 2836, 46810);
 
+        // 52 右下肢肌肉含量
+        public static final Posistion 右下肢肌肉含量 =
+                new Posistion(13 * 2836, 275 * 2836, 12 * 2836, 46810);
 
+        // 53 左上肢肌肉含量
+        public static final Posistion 左上肢肌肉含量 =
+                new Posistion(41 * 2836, 253 * 2836, 12 * 2836, 46810);
 
+        // 54 左下肢肌肉含量
+        public static final Posistion 左下肢肌肉含量 =
+                new Posistion(41 * 2836, 275 * 2836, 12 * 2836, 46810);
 
+        // 55 躯干肌肉含量
+        public static final Posistion 躯干肌肉含量 =
+                new Posistion(28 * 2836, 262 * 2836, 12 * 2836, 46810);
+
+        /* 6x 节段脂肪 */
+        // 61 左上肢脂肪量
+        public static final Posistion 右上肢脂肪量 =
+                new Posistion(58 * 2836, 253 * 2836, 12 * 2836, 46810);
+
+        // 62 右下肢脂肪量
+        public static final Posistion 右下肢脂肪量 =
+                new Posistion(58 * 2836, 275 * 2836, 12 * 2836, 46810);
+
+        // 63 左上肢脂肪量
+        public static final Posistion 左上肢脂肪量 =
+                new Posistion(87 * 2836, 253 * 2836, 12 * 2836, 46810);
+
+        // 64 左下肢脂肪量
+        public static final Posistion 左下肢脂肪量 =
+                new Posistion(87 * 2836, 275 * 2836, 12 * 2836, 46810);
+
+        // 65 躯干脂肪量
+        public static final Posistion 躯干肢脂肪量 =
+                new Posistion(72 * 2836, 262 * 2836, 12 * 2836, 46810);
 
         /**
          * Creates a new instance.
@@ -689,10 +719,10 @@ public class BodyComposition {
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         内脏指数正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
-        // 43. 躯干肌肉
+        // 43. 躯干肌肉含量
         b = Arrays.copyOfRange(data, 躯干肌肉_START, 躯干肌肉_START + 躯干肌肉_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        躯干肌肉 = String.format("%.1f", tmpFloat);
+        躯干肌肉含量 = String.format("%.1f", tmpFloat);
 
         // 44. 躯干肌肉标准
         b = Arrays.copyOfRange(data, 躯干肌肉标准_START, 躯干肌肉标准_START + 躯干肌肉标准_LENGTH);
@@ -930,7 +960,7 @@ public class BodyComposition {
                 "\n右下肢脂肪标准='" + 右下肢脂肪标准 + '\'' +
                 "\n内脏脂肪指数='" + 内脏脂肪指数 + '\'' +
                 "\n内脏指数正常范围='" + 内脏指数正常范围 + '\'' +
-                "\n躯干肌肉='" + 躯干肌肉 + '\'' +
+                "\n躯干肌肉含量='" + 躯干肌肉含量 + '\'' +
                 "\n躯干肌肉标准='" + 躯干肌肉标准 + '\'' +
                 "\n左上肢肌肉含量='" + 左上肢肌肉含量 + '\'' +
                 "\n左上肢肉正常范围='" + 左上肢肉正常范围 + '\'' +

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -273,6 +274,9 @@ public class BodyCompositionAnalyzer {
 
 			// start a page
 			PdfDocument.Page page = document.startPage(pageInfo);
+			// canvas
+			Canvas canvas = page.getCanvas();
+
 			// 画笔
 			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			float size = paint.getTextSize();
@@ -281,27 +285,29 @@ public class BodyCompositionAnalyzer {
 
 			// 文字画笔
 			TextPaint textPaint = new TextPaint();
+			StaticLayout mTextLayout = null;
+			String tmpStr = null;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
 			Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
 			if(bm != null) {
 				// 将图片拉伸至整个页面
-				page.getCanvas().drawBitmap(bm, null, new Rect(
-						0,
-						0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
-						PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
+				canvas.drawBitmap(bm, null, new Rect(
+								0,
+								0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+								PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
 						null);
 			}
 
 			// 写「Hello World」
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText("Hello World!", 0, 4, paint);
+			canvas.drawText("Hello World!", 0, 4, paint);
 
 			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.姓名,
 					BodyComposition.Posistion.姓名.getXMils() / 1000,
 					BodyComposition.Posistion.姓名.getYMils() / 1000,
@@ -310,7 +316,7 @@ public class BodyCompositionAnalyzer {
 			// 02 身高
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.身高,
 					BodyComposition.Posistion.身高.getXMils() / 1000,
 					BodyComposition.Posistion.身高.getYMils() / 1000,
@@ -319,7 +325,7 @@ public class BodyCompositionAnalyzer {
 			// 03 体重
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体重1,
 					BodyComposition.Posistion.体重1.getXMils() / 1000,
 					BodyComposition.Posistion.体重1.getYMils() / 1000,
@@ -328,7 +334,7 @@ public class BodyCompositionAnalyzer {
 			// 04 测试日期
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.测试日期,
 					BodyComposition.Posistion.测试日期.getXMils() / 1000,
 					BodyComposition.Posistion.测试日期.getYMils() / 1000,
@@ -337,7 +343,7 @@ public class BodyCompositionAnalyzer {
 			// 05 年龄
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.年龄,
 					BodyComposition.Posistion.年龄.getXMils() / 1000,
 					BodyComposition.Posistion.年龄.getYMils() / 1000,
@@ -346,7 +352,7 @@ public class BodyCompositionAnalyzer {
 			// 06 性别
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.性别,
 					BodyComposition.Posistion.性别.getXMils() / 1000,
 					BodyComposition.Posistion.性别.getYMils() / 1000,
@@ -356,7 +362,7 @@ public class BodyCompositionAnalyzer {
 			// 21 体重2
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体重2,
 					BodyComposition.Posistion.体重2.getXMils() / 1000,
 					BodyComposition.Posistion.体重2.getYMils() / 1000,
@@ -364,7 +370,7 @@ public class BodyCompositionAnalyzer {
 			// 22 去脂肪体重
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.去脂肪体重 + "[" + bc.去脂肪体重标准 + "]",
 					BodyComposition.Posistion.去脂肪体重.getXMils() / 1000,
 					BodyComposition.Posistion.去脂肪体重.getYMils() / 1000,
@@ -372,7 +378,7 @@ public class BodyCompositionAnalyzer {
 			// 23 肌肉量
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.肌肉量 + "[" + bc.肌肉标准 + "]",
 					BodyComposition.Posistion.肌肉量.getXMils() / 1000,
 					BodyComposition.Posistion.肌肉量.getYMils() / 1000,
@@ -380,7 +386,7 @@ public class BodyCompositionAnalyzer {
 			// 24 身体总水分
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.身体总水分 + "[" + bc.身体总水分正常范围 + "]",
 					BodyComposition.Posistion.身体总水分.getXMils() / 1000,
 					BodyComposition.Posistion.身体总水分.getYMils() / 1000,
@@ -388,7 +394,7 @@ public class BodyCompositionAnalyzer {
 			// 25 细胞内液
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.细胞内液含量 + "[" + bc.细胞内液正常范围 + "]",
 					BodyComposition.Posistion.细胞内液.getXMils() / 1000,
 					BodyComposition.Posistion.细胞内液.getYMils() / 1000,
@@ -396,7 +402,7 @@ public class BodyCompositionAnalyzer {
 			// 26 细胞外液
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.细胞外液含量 + "[" + bc.细胞外液正常范围 + "]",
 					BodyComposition.Posistion.细胞外液.getXMils() / 1000,
 					BodyComposition.Posistion.细胞外液.getYMils() / 1000,
@@ -404,7 +410,7 @@ public class BodyCompositionAnalyzer {
 			// 27 蛋白质量
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.蛋白质含量 + "[" + bc.蛋白质正常范围 + "]",
 					BodyComposition.Posistion.蛋白质量.getXMils() / 1000,
 					BodyComposition.Posistion.蛋白质量.getYMils() / 1000,
@@ -412,7 +418,7 @@ public class BodyCompositionAnalyzer {
 			// 28 无机盐量
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.无机盐含量 + "[" + bc.无机盐含量正常范围 + "]",
 					BodyComposition.Posistion.无机盐量.getXMils() / 1000,
 					BodyComposition.Posistion.无机盐量.getYMils() / 1000,
@@ -420,7 +426,7 @@ public class BodyCompositionAnalyzer {
 			// 29 体脂肪量
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.LEFT);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体脂肪量 + "[" + bc.体脂肪量标准 + "]",
 					BodyComposition.Posistion.体脂肪量.getXMils() / 1000,
 					BodyComposition.Posistion.体脂肪量.getYMils() / 1000,
@@ -432,7 +438,7 @@ public class BodyCompositionAnalyzer {
 			// 41 体重_标准 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体重标准值,
 					BodyComposition.Posistion.体重_标准.getXMils() / 1000,
 					BodyComposition.Posistion.体重_标准.getYMils() / 1000,
@@ -440,7 +446,7 @@ public class BodyCompositionAnalyzer {
 			// 42 体重_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体重2,
 					BodyComposition.Posistion.体重_当前.getXMils() / 1000,
 					BodyComposition.Posistion.体重_当前.getYMils() / 1000,
@@ -448,7 +454,7 @@ public class BodyCompositionAnalyzer {
 			// 43 体重_调节量 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体重调节,
 					BodyComposition.Posistion.体重_调节量.getXMils() / 1000,
 					BodyComposition.Posistion.体重_调节量.getYMils() / 1000,
@@ -456,7 +462,7 @@ public class BodyCompositionAnalyzer {
 			// 44 身体脂肪量_标准 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体脂肪量标准,
 					BodyComposition.Posistion.身体脂肪量_标准.getXMils() / 1000,
 					BodyComposition.Posistion.身体脂肪量_标准.getYMils() / 1000,
@@ -464,7 +470,7 @@ public class BodyCompositionAnalyzer {
 			// 45 身体脂肪量_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.体脂肪量,
 					BodyComposition.Posistion.身体脂肪量_当前.getXMils() / 1000,
 					BodyComposition.Posistion.身体脂肪量_当前.getYMils() / 1000,
@@ -472,7 +478,7 @@ public class BodyCompositionAnalyzer {
 			// 46 身体脂肪量_调节量 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.脂肪调节,
 					BodyComposition.Posistion.身体脂肪量_调节量.getXMils() / 1000,
 					BodyComposition.Posistion.身体脂肪量_调节量.getYMils() / 1000,
@@ -480,7 +486,7 @@ public class BodyCompositionAnalyzer {
 			// 47 肌肉量_标准 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.肌肉标准,
 					BodyComposition.Posistion.肌肉量_标准.getXMils() / 1000,
 					BodyComposition.Posistion.肌肉量_标准.getYMils() / 1000,
@@ -488,7 +494,7 @@ public class BodyCompositionAnalyzer {
 			// 48 肌肉量_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.肌肉量,
 					BodyComposition.Posistion.肌肉量_当前.getXMils() / 1000,
 					BodyComposition.Posistion.肌肉量_当前.getYMils() / 1000,
@@ -496,34 +502,77 @@ public class BodyCompositionAnalyzer {
 			// 49 肌肉量_调节量 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			page.getCanvas().drawText(
+			canvas.drawText(
 					bc.肌肉调节,
 					BodyComposition.Posistion.肌肉量_调节量.getXMils() / 1000,
 					BodyComposition.Posistion.肌肉量_调节量.getYMils() / 1000,
 					paint);
 
-			// 5X
-			// 49 右上肢肌肉含量 okay
-			//Set your own color, size etc.
-			String tmp = bc.右上肢肌肉含量 + "kg\n低标准";
-			textPaint.setTextSize(FONT_SIZE_8);
-			StaticLayout mTextLayout = new StaticLayout(
-					tmp,
-					textPaint,
-					BodyComposition.Posistion.右上肢肌肉含量.getWidthMils() / 1000,
-					Layout.Alignment.ALIGN_CENTER,
-					1.0f,
-					0.0f,
-					false);
-			page.getCanvas().translate(
-					BodyComposition.Posistion.右上肢肌肉含量.getXMils() / 1000,
-					BodyComposition.Posistion.右上肢肌肉含量.getYMils() / 1000);
-			mTextLayout.draw(page.getCanvas());
+			/* 5x 节段肌肉 */
+			// 51 右上肢脂肪量 okay
+			tmpStr = bc.右上肢肌肉含量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右上肢肌肉含量);
 
+			// 52 右下肢脂肪量 okay
+			tmpStr = bc.右下肢肌肉含量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右下肢肌肉含量);
+
+			// 53 左上肢脂肪量 okay
+			tmpStr = bc.左上肢肌肉含量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左上肢肌肉含量);
+
+			// 54 左下肢脂肪量 okay
+			tmpStr = bc.左下肢肌肉含量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左下肢肌肉含量);
+
+			// 55 躯干肌肉含量 okay
+			tmpStr = bc.躯干肌肉含量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.躯干肌肉含量);
+
+			/* 6x 节段脂肪 */
+			// 61 左上肢脂肪量 okay
+			tmpStr = bc.右上肢脂肪量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右上肢脂肪量);
+
+			// 62 左下肢脂肪量 okay
+			tmpStr = bc.右下肢脂肪量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右下肢脂肪量);
+
+			// 63 左上肢脂肪量 okay
+			tmpStr = bc.左上肢脂肪量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左上肢脂肪量);
+
+			// 64 左下肢脂肪量 okay
+			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左下肢脂肪量);
+
+			// 65 躯干肢脂肪量 okay
+			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.躯干肢脂肪量);
 
 			// 写「√」
 			paint.setColor(Color.BLACK);
-			page.getCanvas().drawText("√", 100, 100, paint);
+			canvas.drawText("√", 100, 100, paint);
 
 			// finish the page
 			document.finishPage(page);
@@ -543,6 +592,33 @@ public class BodyCompositionAnalyzer {
 				document.close();
 			}
 		}
+	}
+
+	/**
+	 *
+	 * @param bc
+	 * @param tmpStr
+	 * @param textPaint
+	 * @param textLayout
+	 * @param canvas
+	 * @param pos
+	 */
+	private void drawMutilLineText(BodyComposition bc, String tmpStr, TextPaint textPaint,
+								   StaticLayout textLayout, Canvas canvas,
+								   BodyComposition.Posistion pos) {
+		textPaint.setTextSize(FONT_SIZE_8);
+		textLayout = new StaticLayout(
+				tmpStr,
+				textPaint,
+				pos.getWidthMils() / 1000,
+				Layout.Alignment.ALIGN_CENTER,
+				1.0f,
+				0.0f,
+				false);
+		canvas.save();
+		canvas.translate(pos.getXMils() / 1000, pos.getYMils() / 1000);
+		textLayout.draw(canvas);
+		canvas.restore();
 	}
 
 	/**
