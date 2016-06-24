@@ -457,15 +457,35 @@ public class BodyComposition {
                 new Posistion((105 + 5*17) * 2836, 272 * 2836, 12 * 2836, 46810);
 
         /* 8x 肥胖评估 */
-        // 81.频率
-//        public static final Posistion 频率_5k =
-//                new Posistion(105 * 2836, 264 * 2836, 12 * 2836, 46810);
-//
-//        public static final Posistion 频率_50k =
-//                new Posistion(105 * 2836, 268 * 2836, 12 * 2836, 46810);
-//
-//        public static final Posistion 频率_250k =
-//                new Posistion(105 * 2836, 272 * 2836, 12 * 2836, 46810);
+        // 81.体重
+        public static final Posistion 肥胖评估_体重_不足 =
+                new Posistion(155 * 2836, 220 * 2836, 4 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_体重_正常 =
+                new Posistion((155 + 17) * 2836, 220 * 2836, 4 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_体重_过量 =
+                new Posistion((155 + 35) * 2836, 220 * 2836, 4 * 2836, 46810);
+
+        // 82.脂肪量
+        public static final Posistion 肥胖评估_脂肪量_不足 =
+                new Posistion(155 * 2836, 228 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_脂肪量_正常 =
+                new Posistion((155 + 17) * 2836, 228 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_脂肪量_过量 =
+                new Posistion((155 + 35) * 2836, 228 * 2836, 12 * 2836, 46810);
+
+        // 83.肌肉量
+        public static final Posistion 肥胖评估_肌肉量_不足 =
+                new Posistion(155 * 2836, 236 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_肌肉量_正常 =
+                new Posistion((155 + 17) * 2836, 236 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 肥胖评估_肌肉量_过量 =
+                new Posistion((155 + 35) * 2836, 236 * 2836, 12 * 2836, 46810);
 
         /**
          * Creates a new instance.

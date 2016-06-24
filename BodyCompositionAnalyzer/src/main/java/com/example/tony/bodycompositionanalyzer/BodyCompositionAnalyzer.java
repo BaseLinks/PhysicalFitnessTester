@@ -300,10 +300,7 @@ public class BodyCompositionAnalyzer {
 						null);
 			}
 
-			// 写「Hello World」
-			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText("Hello World!", 0, 4, paint);
+			textPaint.setTextSize(8);
 
 			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
@@ -701,10 +698,48 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Posistion.左下肢_250k,
 					mAlignment);
 
-			// 写「√」
-			paint.setTextSize(50);
-			paint.setColor(Color.BLACK);
-			canvas.drawText("√", 155 * 2836 / 1000, 223 * 2836 / 1000, paint);
+			// 8.肥胖评估 写「√」
+			textPaint.setTextSize(20);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = "√";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_体重_不足,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_体重_正常,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_体重_过量,
+					mAlignment);
+
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_脂肪量_不足,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_脂肪量_正常,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_脂肪量_过量,
+					mAlignment);
+
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_肌肉量_不足,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_肌肉量_正常,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.肥胖评估_肌肉量_过量,
+					mAlignment);
 
 			// finish the page
 			document.finishPage(page);
@@ -740,7 +775,6 @@ public class BodyCompositionAnalyzer {
 								   Canvas canvas,
 								   BodyComposition.Posistion pos,
 								   Layout.Alignment la) {
-		textPaint.setTextSize(FONT_SIZE_8);
 		StaticLayout textLayout = new StaticLayout(
 				tmpStr,
 				textPaint,
