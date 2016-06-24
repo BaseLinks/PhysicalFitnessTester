@@ -487,6 +487,37 @@ public class BodyComposition {
         public static final Posistion 肥胖评估_肌肉量_过量 =
                 new Posistion((155 + 35) * 2836, 236 * 2836, 12 * 2836, 46810);
 
+        /* 9x 营养评估 */
+        // 91.蛋白质
+        public static final Posistion 营养评估_蛋白质_不足 =
+                new Posistion(155 * 2836, 163 * 2836, 4 * 2836, 46810);
+
+        public static final Posistion 营养评估_蛋白质_正常 =
+                new Posistion((155 + 17) * 2836, 163 * 2836, 4 * 2836, 46810);
+
+        public static final Posistion 营养评估_蛋白质_过量 =
+                new Posistion((155 + 35) * 2836, 163 * 2836, 4 * 2836, 46810);
+
+        // 92.无机盐
+        public static final Posistion 营养评估_无机盐_不足 =
+                new Posistion(155 * 2836, 171 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 营养评估_无机盐_正常 =
+                new Posistion((155 + 17) * 2836, 171 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 营养评估_无机盐_过量 =
+                new Posistion((155 + 35) * 2836, 171 * 2836, 12 * 2836, 46810);
+
+        // 93.基础代谢量
+        public static final Posistion 基础代谢量 =
+                new Posistion(171 * 2836, 184 * 2836, 12 * 2836, 46810);
+        // 94.总能量消耗
+        public static final Posistion 总能量消耗 =
+                new Posistion(171 * 2836, 192 * 2836, 12 * 2836, 46810);
+        // 95.身体年龄
+        public static final Posistion 身体年龄 =
+                new Posistion(171 * 2836, 200 * 2836, 12 * 2836, 46810);
+
         /**
          * Creates a new instance.
          * @param widthMils The width in mils (thousands of an inch).

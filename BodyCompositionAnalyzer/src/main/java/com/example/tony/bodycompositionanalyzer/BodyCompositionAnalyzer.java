@@ -741,6 +741,58 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Posistion.肥胖评估_肌肉量_过量,
 					mAlignment);
 
+			// 9.营养评估 写「√」
+			textPaint.setTextSize(20);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = "√";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_蛋白质_不足,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_蛋白质_正常,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_蛋白质_过量,
+					mAlignment);
+
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_无机盐_不足,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_无机盐_正常,
+					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.营养评估_无机盐_过量,
+					mAlignment);
+
+			textPaint.setTextSize(8);
+			// 93.基础代谢量 okay
+			tmpStr = bc.基础代谢量;
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.基础代谢量,
+					mAlignment);
+
+			// 94.总能量消耗　okay
+			tmpStr = bc.总能量消耗;
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.总能量消耗,
+					mAlignment);
+
+			// 95.身体年龄 okay
+			tmpStr = bc.身体年龄;
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.身体年龄,
+					mAlignment);
+
 			// finish the page
 			document.finishPage(page);
 			// add more pages
