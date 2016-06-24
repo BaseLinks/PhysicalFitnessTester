@@ -284,54 +284,89 @@ public class BodyComposition {
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Posistion 姓名 =
-                new Posistion(35 * 2836, 51 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 49 * 2836, 33110, 46810);
         public static final Posistion 身高 =
-                new Posistion(35 * 2836, 57 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 56 * 2836, 33110, 46810);
         public static final Posistion 体重1 =
-                new Posistion(35 * 2836, 63 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 62 * 2836, 33110, 46810);
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Posistion 测试日期 =
-                new Posistion(88 * 2836, 51 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 49 * 2836, 33110, 46810);
         public static final Posistion 年龄 =
-                new Posistion(88 * 2836, 57 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 56 * 2836, 33110, 46810);
         public static final Posistion 性别 =
-                new Posistion(88 * 2836, 63 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 62 * 2836, 33110, 46810);
 
-        			/* 2. 休成分结果 */
+        /* 2X. 休成分结果 */
         // 21 体重
-        // 22 去脂肪体重
-        // 23 肌肉量
-        // 24 身体总水分
-        // 25 细胞内液
-        // 26 细胞外液
-        // 27 蛋白质量
-        // 28 无机盐量
-        // 29 体脂肪量
-
-        /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Posistion 体重2 =
-                new Posistion(42 * 2836, 81 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 83 * 2836, 33110, 46810);
+        // 22 去脂肪体重
         public static final Posistion 去脂肪体重 =
-                new Posistion(42 * 2836, 87 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 89 * 2836, 33110, 46810);
+        // 23 肌肉量
         public static final Posistion 肌肉量 =
-                new Posistion(42 * 2836, 93 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 96 * 2836, 33110, 46810);
+        // 24 身体总水分
         public static final Posistion 身体总水分 =
-                new Posistion(42 * 2836, 99 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 102 * 2836, 33110, 46810);
+        // 25 细胞内液
         public static final Posistion 细胞内液 =
-                new Posistion(42 * 2836, 57 * 2836, 33110, 46810);
+                new Posistion(15 * 2836, 115 * 2836, 33110, 46810);
+        // 26 细胞外液
         public static final Posistion 细胞外液 =
-                new Posistion(42 * 2836, 63 * 2836, 33110, 46810);
+                new Posistion(38 * 2836, 115 * 2836, 33110, 46810);
+        // 27 蛋白质量
         public static final Posistion 蛋白质量 =
-                new Posistion(35 * 2836, 51 * 2836, 33110, 46810);
+                new Posistion(60 * 2836, 500 * 2836, 33110, 46810);
+        // 28 无机盐量
         public static final Posistion 无机盐量 =
-                new Posistion(35 * 2836, 57 * 2836, 33110, 46810);
+                new Posistion(82 * 2836, 500 * 2836, 33110, 46810);
+        // 29 体脂肪量
         public static final Posistion 体脂肪量 =
-                new Posistion(35 * 2836, 63 * 2836, 33110, 46810);
+                new Posistion(104 * 2836, 500 * 2836, 33110, 46810);
+
+        /* 4X. 调节建议 */
+        // 41 体重_标准
+        public static final Posistion 体重_标准 =
+                new Posistion(58 * 2836, 219 * 2836, 33110, 46810);
+        // 42 体重_当前
+        public static final Posistion 体重_当前 =
+                new Posistion(85 * 2836, 219 * 2836, 33110, 46810);
+        // 43 体重_调试量
+        public static final Posistion 体重_调节量 =
+                new Posistion(112 * 2836, 219 * 2836, 33110, 46810);
+        // 44 身体脂肪量_标准
+        public static final Posistion 身体脂肪量_标准 =
+                new Posistion(58 * 2836, 227 * 2836, 33110, 46810);
+        // 45 身体脂肪量_当前
+        public static final Posistion 身体脂肪量_当前 =
+                new Posistion(85 * 2836, 227 * 2836, 33110, 46810);
+        // 46 身体脂肪量_调试量
+        public static final Posistion 身体脂肪量_调节量 =
+                new Posistion(112 * 2836, 227 * 2836, 33110, 46810);
+        // 47 肌肉量_标准
+        public static final Posistion 肌肉量_标准 =
+                new Posistion(58 * 2836, 235 * 2836, 33110, 46810);
+        // 48 肌肉量_当前
+        public static final Posistion 肌肉量_当前 =
+                new Posistion(85 * 2836, 235 * 2836, 33110, 46810);
+        // 49 肌肉量_调节量
+        public static final Posistion 肌肉量_调节量 =
+                new Posistion(112 * 2836, 235 * 2836, 33110, 46810);
+
+        /* 5x  */
+        // 51 右上肢肌肉含量
+        public static final Posistion 右上肢肌肉含量 =
+                new Posistion(15 * 2836, 253 * 2836, 10 * 2836, 46810);
+
+
+
+
 
         /**
          * Creates a new instance.
-         *
          * @param widthMils The width in mils (thousands of an inch).
          * @param heightMils The height in mils (thousands of an inch).
          *

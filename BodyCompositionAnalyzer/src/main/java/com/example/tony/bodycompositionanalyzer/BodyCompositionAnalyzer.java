@@ -11,8 +11,10 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Environment;
 import android.print.PrintAttributes;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
-import android.view.View;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -25,7 +27,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
@@ -55,6 +56,8 @@ public class BodyCompositionAnalyzer {
 
 	/** 串口相关 */
 	private static final String BAUDRATE_COIN = "9600";
+	/** 字体大小 */
+	private static final float FONT_SIZE_8 = 8;
 
 	public BodyCompositionAnalyzer(Context context) {
 		this.mContext = context;
@@ -272,6 +275,12 @@ public class BodyCompositionAnalyzer {
 			PdfDocument.Page page = document.startPage(pageInfo);
 			// 画笔
 			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+			float size = paint.getTextSize();
+			paint.setTextSize(8);
+			Log.i(LOG_TAG, "size: " + size);
+
+			// 文字画笔
+			TextPaint textPaint = new TextPaint();
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
 			Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
@@ -418,6 +427,98 @@ public class BodyCompositionAnalyzer {
 					paint);
 
 			/* 3. 体成分分析　*/
+
+			/* 4X. 调节建议 */
+			// 41 体重_标准 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.体重标准值,
+					BodyComposition.Posistion.体重_标准.getXMils() / 1000,
+					BodyComposition.Posistion.体重_标准.getYMils() / 1000,
+					paint);
+			// 42 体重_当前 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.体重2,
+					BodyComposition.Posistion.体重_当前.getXMils() / 1000,
+					BodyComposition.Posistion.体重_当前.getYMils() / 1000,
+					paint);
+			// 43 体重_调节量 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.体重调节,
+					BodyComposition.Posistion.体重_调节量.getXMils() / 1000,
+					BodyComposition.Posistion.体重_调节量.getYMils() / 1000,
+					paint);
+			// 44 身体脂肪量_标准 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.体脂肪量标准,
+					BodyComposition.Posistion.身体脂肪量_标准.getXMils() / 1000,
+					BodyComposition.Posistion.身体脂肪量_标准.getYMils() / 1000,
+					paint);
+			// 45 身体脂肪量_当前 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.体脂肪量,
+					BodyComposition.Posistion.身体脂肪量_当前.getXMils() / 1000,
+					BodyComposition.Posistion.身体脂肪量_当前.getYMils() / 1000,
+					paint);
+			// 46 身体脂肪量_调节量 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.脂肪调节,
+					BodyComposition.Posistion.身体脂肪量_调节量.getXMils() / 1000,
+					BodyComposition.Posistion.身体脂肪量_调节量.getYMils() / 1000,
+					paint);
+			// 47 肌肉量_标准 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.肌肉标准,
+					BodyComposition.Posistion.肌肉量_标准.getXMils() / 1000,
+					BodyComposition.Posistion.肌肉量_标准.getYMils() / 1000,
+					paint);
+			// 48 肌肉量_当前 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.肌肉量,
+					BodyComposition.Posistion.肌肉量_当前.getXMils() / 1000,
+					BodyComposition.Posistion.肌肉量_当前.getYMils() / 1000,
+					paint);
+			// 49 肌肉量_调节量 okay
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.CENTER);
+			page.getCanvas().drawText(
+					bc.肌肉调节,
+					BodyComposition.Posistion.肌肉量_调节量.getXMils() / 1000,
+					BodyComposition.Posistion.肌肉量_调节量.getYMils() / 1000,
+					paint);
+
+			// 5X
+			// 49 右上肢肌肉含量 okay
+			//Set your own color, size etc.
+			String tmp = bc.右上肢肌肉含量 + "kg\n低标准";
+			textPaint.setTextSize(FONT_SIZE_8);
+			StaticLayout mTextLayout = new StaticLayout(
+					tmp,
+					textPaint,
+					BodyComposition.Posistion.右上肢肌肉含量.getWidthMils() / 1000,
+					Layout.Alignment.ALIGN_CENTER,
+					1.0f,
+					0.0f,
+					false);
+			page.getCanvas().translate(
+					BodyComposition.Posistion.右上肢肌肉含量.getXMils() / 1000,
+					BodyComposition.Posistion.右上肢肌肉含量.getYMils() / 1000);
+			mTextLayout.draw(page.getCanvas());
 
 
 			// 写「√」
