@@ -601,38 +601,38 @@ public class BodyCompositionAnalyzer {
 					mAlignment);
 
 			// 72 右上肢 okay
-			tmpStr = "357.2";
+			tmpStr = bc._5k下ra电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右上肢_5k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._50k下ra电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右上肢_50k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._250k下ra电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右上肢_250k,
 					mAlignment);
 
 			// 73 左上肢 okay
-			tmpStr = "357.2";
+			tmpStr = bc._5k下la电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左上肢_5k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._50k下la电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左上肢_50k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._250k下la电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左上肢_250k,
@@ -640,19 +640,19 @@ public class BodyCompositionAnalyzer {
 
 
 			// 74 躯干 okay
-			tmpStr = "357.2";
+			tmpStr = bc._5k下tr电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.躯干_5k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._50k下tr电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.躯干_50k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._250k下tr电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.躯干_250k,
@@ -660,19 +660,19 @@ public class BodyCompositionAnalyzer {
 
 
 			// 75 右下肢 okay
-			tmpStr = "357.2";
+			tmpStr = bc._5k下rl电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右下肢_5k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._50k下rl电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右下肢_50k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._250k下rl电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.右下肢_250k,
@@ -680,19 +680,19 @@ public class BodyCompositionAnalyzer {
 
 
 			// 76 左下肢 okay
-			tmpStr = "357.2";
+			tmpStr = bc._5k下ll电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左下肢_5k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._50k下ll电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左下肢_50k,
 					mAlignment);
 
-			tmpStr = "357.2";
+			tmpStr = bc._250k下ll电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint,
 					canvas,
 					BodyComposition.Posistion.左下肢_250k,
