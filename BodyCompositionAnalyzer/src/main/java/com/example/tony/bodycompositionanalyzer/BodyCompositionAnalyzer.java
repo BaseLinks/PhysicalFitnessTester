@@ -304,108 +304,80 @@ public class BodyCompositionAnalyzer {
 
 			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.姓名,
-					BodyComposition.Posistion.姓名.getXMils() / 1000,
-					BodyComposition.Posistion.姓名.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.姓名;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.姓名, mAlignment);
 
 			// 02 身高
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.身高,
-					BodyComposition.Posistion.身高.getXMils() / 1000,
-					BodyComposition.Posistion.身高.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.身高;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.身高, mAlignment);
 
 			// 03 体重
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.体重1,
-					BodyComposition.Posistion.体重1.getXMils() / 1000,
-					BodyComposition.Posistion.体重1.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.体重1;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.体重1, mAlignment);
 
 			// 04 测试日期
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.测试日期,
-					BodyComposition.Posistion.测试日期.getXMils() / 1000,
-					BodyComposition.Posistion.测试日期.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.测试日期;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.测试日期, mAlignment);
 
 			// 05 年龄
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.年龄,
-					BodyComposition.Posistion.年龄.getXMils() / 1000,
-					BodyComposition.Posistion.年龄.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.年龄;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.年龄, mAlignment);
 
 			// 06 性别
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.性别,
-					BodyComposition.Posistion.性别.getXMils() / 1000,
-					BodyComposition.Posistion.性别.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.性别;
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.性别, mAlignment);
 
 			/* 2. 休成分结果 */
 			// 21 体重2
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.体重2,
-					BodyComposition.Posistion.体重2.getXMils() / 1000,
-					BodyComposition.Posistion.体重2.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.体重2 + "kg";
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.体重2, mAlignment);
+
 			// 22 去脂肪体重
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.去脂肪体重 + "[" + bc.去脂肪体重标准 + "]",
-					BodyComposition.Posistion.去脂肪体重.getXMils() / 1000,
-					BodyComposition.Posistion.去脂肪体重.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.去脂肪体重 + "kg [" + bc.去脂肪体重标准 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.去脂肪体重, mAlignment);
+
 			// 23 肌肉量
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.肌肉量 + "[" + bc.肌肉标准 + "]",
-					BodyComposition.Posistion.肌肉量.getXMils() / 1000,
-					BodyComposition.Posistion.肌肉量.getYMils() / 1000,
-					paint);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.肌肉量 + "kg [" + bc.肌肉标准 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肌肉量, mAlignment);
+
 			// 24 身体总水分
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.身体总水分 + "[" + bc.身体总水分正常范围 + "]",
-					BodyComposition.Posistion.身体总水分.getXMils() / 1000,
-					BodyComposition.Posistion.身体总水分.getYMils() / 1000,
-					paint);
-			// 25 细胞内液
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.身体总水分 + "kg [" + bc.身体总水分正常范围 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.身体总水分, mAlignment);
+
+			// 25 细胞内液 okay
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.细胞内液含量 + "[" + bc.细胞内液正常范围 + "]",
-					BodyComposition.Posistion.细胞内液.getXMils() / 1000,
-					BodyComposition.Posistion.细胞内液.getYMils() / 1000,
-					paint);
-			// 26 细胞外液
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.细胞内液含量 + "kg [" + bc.细胞内液正常范围 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.细胞内液, mAlignment);
+
+			// 26 细胞外液 okay
 			paint.setColor(Color.BLACK);
-			paint.setTextAlign(Paint.Align.LEFT);
-			canvas.drawText(
-					bc.细胞外液含量 + "[" + bc.细胞外液正常范围 + "]",
-					BodyComposition.Posistion.细胞外液.getXMils() / 1000,
-					BodyComposition.Posistion.细胞外液.getYMils() / 1000,
-					paint);
-			// 27 蛋白质量
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.细胞外液含量 + "kg [" + bc.细胞外液正常范围 + "]";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					canvas,
+					BodyComposition.Posistion.细胞外液,
+					mAlignment);
+			// 27 蛋白质量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.蛋白质含量 + "kg\n[" + bc.蛋白质正常范围 + "]";
@@ -413,7 +385,7 @@ public class BodyCompositionAnalyzer {
 					canvas,
 					BodyComposition.Posistion.蛋白质量,
 					mAlignment);
-			// 28 无机盐量
+			// 28 无机盐量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.无机盐含量 + "kg\n[" + bc.无机盐含量正常范围 + "]";
@@ -421,7 +393,7 @@ public class BodyCompositionAnalyzer {
 					canvas,
 					BodyComposition.Posistion.无机盐量,
 					mAlignment);
-			// 29 体脂肪量
+			// 29 体脂肪量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
