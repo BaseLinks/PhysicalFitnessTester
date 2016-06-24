@@ -286,11 +286,139 @@ public class BodyCompositionAnalyzer {
 
 			// 写「Hello World」
 			paint.setColor(Color.BLACK);
-			page.getCanvas().drawText("Hello World!", (float)(4 * 72 * 0.394), (float)(5 * 72 * 0.394), paint);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText("Hello World!", 0, 4, paint);
 
-			// 写「Hello World」
+			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
-			page.getCanvas().drawText("Hello World!", 20, 20, paint);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.姓名,
+					BodyComposition.Posistion.姓名.getXMils() / 1000,
+					BodyComposition.Posistion.姓名.getYMils() / 1000,
+					paint);
+
+			// 02 身高
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.身高,
+					BodyComposition.Posistion.身高.getXMils() / 1000,
+					BodyComposition.Posistion.身高.getYMils() / 1000,
+					paint);
+
+			// 03 体重
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.体重1,
+					BodyComposition.Posistion.体重1.getXMils() / 1000,
+					BodyComposition.Posistion.体重1.getYMils() / 1000,
+					paint);
+
+			// 04 测试日期
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.测试日期,
+					BodyComposition.Posistion.测试日期.getXMils() / 1000,
+					BodyComposition.Posistion.测试日期.getYMils() / 1000,
+					paint);
+
+			// 05 年龄
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.年龄,
+					BodyComposition.Posistion.年龄.getXMils() / 1000,
+					BodyComposition.Posistion.年龄.getYMils() / 1000,
+					paint);
+
+			// 06 性别
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.性别,
+					BodyComposition.Posistion.性别.getXMils() / 1000,
+					BodyComposition.Posistion.性别.getYMils() / 1000,
+					paint);
+
+			/* 2. 休成分结果 */
+			// 21 体重2
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.体重2,
+					BodyComposition.Posistion.体重2.getXMils() / 1000,
+					BodyComposition.Posistion.体重2.getYMils() / 1000,
+					paint);
+			// 22 去脂肪体重
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.去脂肪体重 + "[" + bc.去脂肪体重标准 + "]",
+					BodyComposition.Posistion.去脂肪体重.getXMils() / 1000,
+					BodyComposition.Posistion.去脂肪体重.getYMils() / 1000,
+					paint);
+			// 23 肌肉量
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.肌肉量 + "[" + bc.肌肉标准 + "]",
+					BodyComposition.Posistion.肌肉量.getXMils() / 1000,
+					BodyComposition.Posistion.肌肉量.getYMils() / 1000,
+					paint);
+			// 24 身体总水分
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.身体总水分 + "[" + bc.身体总水分正常范围 + "]",
+					BodyComposition.Posistion.身体总水分.getXMils() / 1000,
+					BodyComposition.Posistion.身体总水分.getYMils() / 1000,
+					paint);
+			// 25 细胞内液
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.细胞内液含量 + "[" + bc.细胞内液正常范围 + "]",
+					BodyComposition.Posistion.细胞内液.getXMils() / 1000,
+					BodyComposition.Posistion.细胞内液.getYMils() / 1000,
+					paint);
+			// 26 细胞外液
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.细胞外液含量 + "[" + bc.细胞外液正常范围 + "]",
+					BodyComposition.Posistion.细胞外液.getXMils() / 1000,
+					BodyComposition.Posistion.细胞外液.getYMils() / 1000,
+					paint);
+			// 27 蛋白质量
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.蛋白质含量 + "[" + bc.蛋白质正常范围 + "]",
+					BodyComposition.Posistion.蛋白质量.getXMils() / 1000,
+					BodyComposition.Posistion.蛋白质量.getYMils() / 1000,
+					paint);
+			// 28 无机盐量
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.无机盐含量 + "[" + bc.无机盐含量正常范围 + "]",
+					BodyComposition.Posistion.无机盐量.getXMils() / 1000,
+					BodyComposition.Posistion.无机盐量.getYMils() / 1000,
+					paint);
+			// 29 体脂肪量
+			paint.setColor(Color.BLACK);
+			paint.setTextAlign(Paint.Align.LEFT);
+			page.getCanvas().drawText(
+					bc.体脂肪量 + "[" + bc.体脂肪量标准 + "]",
+					BodyComposition.Posistion.体脂肪量.getXMils() / 1000,
+					BodyComposition.Posistion.体脂肪量.getYMils() / 1000,
+					paint);
+
+			/* 3. 体成分分析　*/
+
 
 			// 写「√」
 			paint.setColor(Color.BLACK);

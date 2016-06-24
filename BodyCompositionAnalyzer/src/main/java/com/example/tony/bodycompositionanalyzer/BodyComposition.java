@@ -1,96 +1,98 @@
 package com.example.tony.bodycompositionanalyzer;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Created by tony on 16-6-22.
  */
 public class BodyComposition {
     private static final String LOG_TAG = "BodyComposition";
-    private String 姓名;
-    private String 身高;
-    private String 体重1;
-    private String 性别;
-    private String 年龄;
-    private String 身体电阻值;
+    public final String 姓名;
+    public final String 身高;
+    public final String 体重1;
+    public final String 性别;
+    public final String 年龄;
+    public final String 身体电阻值;
 
-    private String _50k下la电阻值;
-    private String _50k下ra电阻值;
-    private String _50k下tr电阻值;
-    private String _50k下ll电阻值;
-    private String _50k下rl电阻值;
-    private String _5k下la电阻值;
-    private String _5k下ra电阻值;
-    private String _5k下tr电阻值;
-    private String _5k下ll电阻值;
-    private String _5k下rl电阻值;
-    private String _250k下la电阻值;
-    private String _250k下ra电阻值;
-    private String _250k下tr电阻值;
-    private String _250k下ll电阻值;
-    private String _250k下rl电阻值;
+    public final String _50k下la电阻值;
+    public final String _50k下ra电阻值;
+    public final String _50k下tr电阻值;
+    public final String _50k下ll电阻值;
+    public final String _50k下rl电阻值;
+    public final String _5k下la电阻值;
+    public final String _5k下ra电阻值;
+    public final String _5k下tr电阻值;
+    public final String _5k下ll电阻值;
+    public final String _5k下rl电阻值;
+    public final String _250k下la电阻值;
+    public final String _250k下ra电阻值;
+    public final String _250k下tr电阻值;
+    public final String _250k下ll电阻值;
+    public final String _250k下rl电阻值;
 
-    private String 测试时间;
-    private String 体重2;
-    private String 体重标准范围;
-    private String 体重标准值;
-    private String 去脂肪体重;
-    private String 去脂肪体重标准;
-    private String 体脂肪量;
-    private String 体脂肪量标准;
-    private String 肌肉量;
-    private String 肌肉标准;
-    private String 躯干脂肪;
-    private String 躯干脂肪标准;
-    private String 左上肢脂肪量;
-    private String 左上肢脂肪标准;
-    private String 右上肢脂肪量;
-    private String 右上肢脂肪标准;
-    private String 左下肢脂肪量;
-    private String 左下肢脂肪标准;
-    private String 右下肢脂肪量;
-    private String 右下肢脂肪标准;
-    private String 内脏脂肪指数;
-    private String 内脏指数正常范围;
+    public final String 测试日期;
+    public final String 体重2;
+    public final String 体重标准范围;
+    public final String 体重标准值;
+    public final String 去脂肪体重;
+    public final String 去脂肪体重标准;
+    public final String 体脂肪量;
+    public final String 体脂肪量标准;
+    public final String 肌肉量;
+    public final String 肌肉标准;
+    public final String 躯干脂肪;
+    public final String 躯干脂肪标准;
+    public final String 左上肢脂肪量;
+    public final String 左上肢脂肪标准;
+    public final String 右上肢脂肪量;
+    public final String 右上肢脂肪标准;
+    public final String 左下肢脂肪量;
+    public final String 左下肢脂肪标准;
+    public final String 右下肢脂肪量;
+    public final String 右下肢脂肪标准;
+    public final String 内脏脂肪指数;
+    public final String 内脏指数正常范围;
     /* 节段分析， */
-    private String 躯干肌肉;
-    private String 躯干肌肉标准;
-    private String 左上肢肌肉含量;
-    private String 左上肢肉正常范围;
-    private String 右上肢肌肉含量;
-    private String 右上肢肌肉含量正常范围;
-    private String 左下肢肌肉含量;
-    private String 左下肢肌肉正常范围;
-    private String 右下肢肌肉含量;
-    private String 右下肢肌肉含量正常范围;
+    public final String 躯干肌肉;
+    public final String 躯干肌肉标准;
+    public final String 左上肢肌肉含量;
+    public final String 左上肢肉正常范围;
+    public final String 右上肢肌肉含量;
+    public final String 右上肢肌肉含量正常范围;
+    public final String 左下肢肌肉含量;
+    public final String 左下肢肌肉正常范围;
+    public final String 右下肢肌肉含量;
+    public final String 右下肢肌肉含量正常范围;
 
-    private String 身体总水分;
-    private String 身体总水分正常范围;
-    private String 蛋白质含量;
-    private String 蛋白质正常范围;
-    private String 无机盐含量;
-    private String 无机盐含量正常范围;
-    private String 细胞外液含量;
-    private String 细胞外液正常范围;
-    private String 细胞内液含量;
-    private String 细胞内液正常范围;
+    public final String 身体总水分;
+    public final String 身体总水分正常范围;
+    public final String 蛋白质含量;
+    public final String 蛋白质正常范围;
+    public final String 无机盐含量;
+    public final String 无机盐含量正常范围;
+    public final String 细胞外液含量;
+    public final String 细胞外液正常范围;
+    public final String 细胞内液含量;
+    public final String 细胞内液正常范围;
     // ...
-    private String BMI结果;
-    private String 脂肪率;
+    public final String BMI结果;
+    public final String 脂肪率;
 
     // ...
-    private String 身体总评分;
-    private String 身体年龄;
-    private String 体重调节;
-    private String 脂肪调节;
-    private String 肌肉调节;
-    private String 基础代谢量;
-    private String 总能量消耗;
+    public final String 身体总评分;
+    public final String 身体年龄;
+    public final String 体重调节;
+    public final String 脂肪调节;
+    public final String 肌肉调节;
+    public final String 基础代谢量;
+    public final String 总能量消耗;
 
     /* 从机回复语句 */
     public static final byte[] ACK = {(byte)0xCC, 0x00, 0x00, (byte)0xE0, (byte)0xDE, 0x00};
@@ -269,6 +271,140 @@ public class BodyComposition {
     /* 男 */
     public static final byte MALE   = 0x01;
 
+
+    /* 位置 */
+    /**
+     * This class specifies a supported media size. Media size is the
+     * dimension of the media on which the content is printed. For
+     * example, the {@link #NA_LETTER} media size designates a page
+     * with size 8.5" x 11".
+     */
+    public static final class Posistion {
+        private static final String LOG_TAG = "Posistion";
+
+        /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
+        public static final Posistion 姓名 =
+                new Posistion(35 * 2836, 51 * 2836, 33110, 46810);
+        public static final Posistion 身高 =
+                new Posistion(35 * 2836, 57 * 2836, 33110, 46810);
+        public static final Posistion 体重1 =
+                new Posistion(35 * 2836, 63 * 2836, 33110, 46810);
+
+        /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
+        public static final Posistion 测试日期 =
+                new Posistion(88 * 2836, 51 * 2836, 33110, 46810);
+        public static final Posistion 年龄 =
+                new Posistion(88 * 2836, 57 * 2836, 33110, 46810);
+        public static final Posistion 性别 =
+                new Posistion(88 * 2836, 63 * 2836, 33110, 46810);
+
+        			/* 2. 休成分结果 */
+        // 21 体重
+        // 22 去脂肪体重
+        // 23 肌肉量
+        // 24 身体总水分
+        // 25 细胞内液
+        // 26 细胞外液
+        // 27 蛋白质量
+        // 28 无机盐量
+        // 29 体脂肪量
+
+        /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
+        public static final Posistion 体重2 =
+                new Posistion(42 * 2836, 81 * 2836, 33110, 46810);
+        public static final Posistion 去脂肪体重 =
+                new Posistion(42 * 2836, 87 * 2836, 33110, 46810);
+        public static final Posistion 肌肉量 =
+                new Posistion(42 * 2836, 93 * 2836, 33110, 46810);
+        public static final Posistion 身体总水分 =
+                new Posistion(42 * 2836, 99 * 2836, 33110, 46810);
+        public static final Posistion 细胞内液 =
+                new Posistion(42 * 2836, 57 * 2836, 33110, 46810);
+        public static final Posistion 细胞外液 =
+                new Posistion(42 * 2836, 63 * 2836, 33110, 46810);
+        public static final Posistion 蛋白质量 =
+                new Posistion(35 * 2836, 51 * 2836, 33110, 46810);
+        public static final Posistion 无机盐量 =
+                new Posistion(35 * 2836, 57 * 2836, 33110, 46810);
+        public static final Posistion 体脂肪量 =
+                new Posistion(35 * 2836, 63 * 2836, 33110, 46810);
+
+        /**
+         * Creates a new instance.
+         *
+         * @param widthMils The width in mils (thousands of an inch).
+         * @param heightMils The height in mils (thousands of an inch).
+         *
+         * @throws IllegalArgumentException If the id is empty or the label
+         * is empty or the widthMils is less than or equal to zero or the
+         * heightMils is less than or equal to zero.
+         *
+         * @hide
+         */
+        public Posistion(int xMils, int yMils, int widthMils, int heightMils) {
+
+            if (xMils <= 0) {
+                throw new IllegalArgumentException("xMils "
+                        + "cannot be less than or equal to zero.");
+            }
+            if (yMils <= 0) {
+                throw new IllegalArgumentException("yMils "
+                        + "cannot be less than or euqual to zero.");
+            }
+            if (widthMils <= 0) {
+                throw new IllegalArgumentException("widthMils "
+                        + "cannot be less than or equal to zero.");
+            }
+            if (heightMils <= 0) {
+                throw new IllegalArgumentException("heightMils "
+                        + "cannot be less than or euqual to zero.");
+            }
+            mXMils = xMils;
+            mYMils = yMils;
+            mWidthMils = widthMils;
+            mHeightMils = heightMils;
+        }
+
+        private final int mXMils;
+        private final int mYMils;
+        private final int mWidthMils;
+        private final int mHeightMils;
+        /**
+         * Gets the media width in mils (thousands of an inch).
+         *
+         * @return The media width.
+         */
+        public int getXMils() {
+            return mXMils;
+        }
+
+        /**
+         * Gets the media height in mils (thousands of an inch).
+         *
+         * @return The media height.
+         */
+        public int getYMils() {
+            return mYMils;
+        }
+        /**
+         * Gets the media width in mils (thousands of an inch).
+         *
+         * @return The media width.
+         */
+        public int getWidthMils() {
+            return mWidthMils;
+        }
+
+        /**
+         * Gets the media height in mils (thousands of an inch).
+         *
+         * @return The media height.
+         */
+        public int getHeightMils() {
+            return mHeightMils;
+        }
+    }
+
     /**
      * 从数据段进行解析各项参数
      * @param data
@@ -278,7 +414,7 @@ public class BodyComposition {
         //
         float tmpFloat = 0;
         // 符号
-        String opt = "";
+        String tmpStr = "";
 
         // 0. 姓名 编号 3号
         byte[] b = null;
@@ -386,7 +522,7 @@ public class BodyComposition {
 
         // 21. 测试时间(默认：2016-01-24 13:42)
         b = Arrays.copyOfRange(data, DATE_START, DATE_START + DATE_LENGTH);
-        测试时间 = "20" + new String(new byte[]{b[0],b[1]}) + "-" + /* 年 */
+        测试日期 = "20" + new String(new byte[]{b[0],b[1]}) + "-" + /* 年 */
                 new String(new byte[]{b[2],b[3]}) + "-" +   /* 月 */
                 new String(new byte[]{b[4],b[5]}) + " " +   /* 日 */
                 new String(new byte[]{b[6],b[7]}) + ":" +   /* 时 */
@@ -401,9 +537,9 @@ public class BodyComposition {
         // 23. 体重标准范围
         b = Arrays.copyOfRange(data, 体重标准范围_START, 体重标准范围_START + 体重标准范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体重标准范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体重标准范围 = String.format("%s-%.1f", 体重标准范围, tmpFloat);
+        体重标准范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 24. 体重标准值
         b = Arrays.copyOfRange(data, 体重标准值_START, 体重标准值_START + 体重标准值_LENGTH);
@@ -418,9 +554,9 @@ public class BodyComposition {
         // 26. 去脂肪体重标准
         b = Arrays.copyOfRange(data, 去脂肪体重标准_START, 去脂肪体重标准_START + 去脂肪体重标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        去脂肪体重标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        去脂肪体重标准 = String.format("%s-%.1f", 去脂肪体重标准, tmpFloat);
+        去脂肪体重标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 27. 体脂肪量
         b = Arrays.copyOfRange(data, 体脂肪量_START, 体脂肪量_START + 体脂肪量_LENGTH);
@@ -430,9 +566,9 @@ public class BodyComposition {
         // 28. 体脂肪量标准
         b = Arrays.copyOfRange(data, 体脂肪量标准_START, 体脂肪量标准_START + 体脂肪量标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体脂肪量标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体脂肪量标准 = String.format("%s-%.1f", 体脂肪量标准, tmpFloat);
+        体脂肪量标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 29. 肌肉量
         b = Arrays.copyOfRange(data, 肌肉量_START, 肌肉量_START + 肌肉量_LENGTH);
@@ -442,9 +578,9 @@ public class BodyComposition {
         // 30. 肌肉标准
         b = Arrays.copyOfRange(data, 肌肉标准_START, 肌肉标准_START + 肌肉标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        肌肉标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        肌肉标准 = String.format("%s-%.1f", 肌肉标准, tmpFloat);
+        肌肉标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 31. 躯干脂肪
         b = Arrays.copyOfRange(data, 躯干脂肪_START, 躯干脂肪_START + 躯干脂肪_LENGTH);
@@ -454,9 +590,9 @@ public class BodyComposition {
         // 32. 躯干脂肪标准
         b = Arrays.copyOfRange(data, 躯干脂肪标准_START, 躯干脂肪标准_START + 躯干脂肪标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        躯干脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        躯干脂肪标准 = String.format("%s-%.1f", 躯干脂肪标准, tmpFloat);
+        躯干脂肪标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 33. 左上肢脂肪量
         b = Arrays.copyOfRange(data, 左上肢脂肪量_START, 左上肢脂肪量_START + 左上肢脂肪量_LENGTH);
@@ -466,9 +602,9 @@ public class BodyComposition {
         // 34. 左上肢脂肪标准
         b = Arrays.copyOfRange(data, 左上肢脂肪标准_START, 左上肢脂肪标准_START + 左上肢脂肪标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左上肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左上肢脂肪标准 = String.format("%s-%.1f", 左上肢脂肪标准, tmpFloat);
+        左上肢脂肪标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 35. 右上肢脂肪量
         b = Arrays.copyOfRange(data, 右上肢脂肪量_START, 右上肢脂肪量_START + 右上肢脂肪量_LENGTH);
@@ -478,9 +614,9 @@ public class BodyComposition {
         // 36. 右上肢脂肪标准
         b = Arrays.copyOfRange(data, 右上肢脂肪标准_START, 右上肢脂肪标准_START + 右上肢脂肪标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右上肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右上肢脂肪标准 = String.format("%s-%.1f", 右上肢脂肪标准, tmpFloat);
+        右上肢脂肪标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 37. 左下肢脂肪量
         b = Arrays.copyOfRange(data, 左下肢脂肪量_START, 左下肢脂肪量_START + 左下肢脂肪量_LENGTH);
@@ -490,9 +626,9 @@ public class BodyComposition {
         // 38. 左下肢脂肪标准
         b = Arrays.copyOfRange(data, 左下肢脂肪标准_START, 左下肢脂肪标准_START + 左下肢脂肪标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左下肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左下肢脂肪标准 = String.format("%s-%.1f", 左下肢脂肪标准, tmpFloat);
+        左下肢脂肪标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 39. 右下肢脂肪量
         b = Arrays.copyOfRange(data, 右下肢脂肪量_START, 右下肢脂肪量_START + 右下肢脂肪量_LENGTH);
@@ -502,9 +638,9 @@ public class BodyComposition {
         // 40. 右下肢脂肪标准
         b = Arrays.copyOfRange(data, 右下肢脂肪标准_START, 右下肢脂肪标准_START + 右下肢脂肪标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右下肢脂肪标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右下肢脂肪标准 = String.format("%s-%.1f", 右下肢脂肪标准, tmpFloat);
+        右下肢脂肪标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 41. 内脏脂肪指数
         b = Arrays.copyOfRange(data, 内脏脂肪指数_START, 内脏脂肪指数_START + 内脏脂肪指数_LENGTH);
@@ -514,9 +650,9 @@ public class BodyComposition {
         // 42. 内脏指数正常范围
         b = Arrays.copyOfRange(data, 内脏指数正常范围_START, 内脏指数正常范围_START + 内脏指数正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        内脏指数正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        内脏指数正常范围 = String.format("%s-%.1f", 内脏指数正常范围, tmpFloat);
+        内脏指数正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 43. 躯干肌肉
         b = Arrays.copyOfRange(data, 躯干肌肉_START, 躯干肌肉_START + 躯干肌肉_LENGTH);
@@ -526,9 +662,9 @@ public class BodyComposition {
         // 44. 躯干肌肉标准
         b = Arrays.copyOfRange(data, 躯干肌肉标准_START, 躯干肌肉标准_START + 躯干肌肉标准_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        躯干肌肉标准 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        躯干肌肉标准 = String.format("%s-%.1f", 躯干肌肉标准, tmpFloat);
+        躯干肌肉标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 45. 左上肢肌肉含量
         b = Arrays.copyOfRange(data, 左上肢肌肉含量_START, 左上肢肌肉含量_START + 左上肢肌肉含量_LENGTH);
@@ -538,9 +674,9 @@ public class BodyComposition {
         // 46. 左上肢肉正常范围
         b = Arrays.copyOfRange(data, 左上肢肉正常范围_START, 左上肢肉正常范围_START + 左上肢肉正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左上肢肉正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左上肢肉正常范围 = String.format("%s-%.1f", 左上肢肉正常范围, tmpFloat);
+        左上肢肉正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 47. 右上肢肌肉含量
         b = Arrays.copyOfRange(data, 右上肢肌肉含量_START, 右上肢肌肉含量_START + 右上肢肌肉含量_LENGTH);
@@ -550,9 +686,9 @@ public class BodyComposition {
         // 48. 右上肢肌肉含量正常范围
         b = Arrays.copyOfRange(data, 右上肢肌肉含量正常范围_START, 右上肢肌肉含量正常范围_START + 右上肢肌肉含量正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右上肢肌肉含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右上肢肌肉含量正常范围 = String.format("%s-%.1f", 右上肢肌肉含量正常范围, tmpFloat);
+        右上肢肌肉含量正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 49. 左下肢肌肉含量
         b = Arrays.copyOfRange(data, 左下肢肌肉含量_START, 左下肢肌肉含量_START +  左下肢肌肉含量_LENGTH);
@@ -562,9 +698,9 @@ public class BodyComposition {
         // 50. 左下肢肌肉正常范围
         b = Arrays.copyOfRange(data, 左下肢肌肉正常范围_START, 左下肢肌肉正常范围_START + 左下肢肌肉正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左下肢肌肉正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        左下肢肌肉正常范围 = String.format("%s-%.1f", 左下肢肌肉正常范围, tmpFloat);
+        左下肢肌肉正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 51. 右下肢肌肉含量
         b = Arrays.copyOfRange(data, 右下肢肌肉含量_START, 右下肢肌肉含量_START + 右下肢肌肉含量_LENGTH);
@@ -574,9 +710,9 @@ public class BodyComposition {
         // 52. 右下肢肌肉含量正常范围
         b = Arrays.copyOfRange(data, 右下肢肌肉含量正常范围_START, 右下肢肌肉含量正常范围_START + 右下肢肌肉含量正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右下肢肌肉含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        右下肢肌肉含量正常范围 = String.format("%s-%.1f", 右下肢肌肉含量正常范围, tmpFloat);
+        右下肢肌肉含量正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 53. 身体总水分
         b = Arrays.copyOfRange(data, 身体总水分_START, 身体总水分_START + 身体总水分_LENGTH);
@@ -586,9 +722,9 @@ public class BodyComposition {
         // 54. 身体总水分正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 身体总水分正常范围_START, 身体总水分正常范围_START + 身体总水分正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        身体总水分正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        身体总水分正常范围 = String.format("%s-%.1f", 身体总水分正常范围, tmpFloat);
+        身体总水分正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 55. 蛋白质含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质含量_START, 蛋白质含量_START + 蛋白质含量_LENGTH);
@@ -598,11 +734,11 @@ public class BodyComposition {
         // 56. 蛋白质正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质正常范围_START, 蛋白质正常范围_START + 蛋白质正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        蛋白质正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        蛋白质正常范围 = String.format("%s-%.1f", 蛋白质正常范围, tmpFloat);
+        蛋白质正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
-        // 57. 无机盐含量 okay 保留一位小数 kg
+        // 57. 无机盐量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量_START, 无机盐含量_START + 无机盐含量_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         无机盐含量 = String.format("%.1f", tmpFloat);
@@ -610,9 +746,9 @@ public class BodyComposition {
         // 58. 无机盐含量正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量正常范围_START, 无机盐含量正常范围_START + 无机盐含量正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        无机盐含量正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        无机盐含量正常范围 = String.format("%s-%.1f", 无机盐含量正常范围, tmpFloat);
+        无机盐含量正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 59. 细胞外液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液含量_START, 细胞外液含量_START + 细胞外液含量_LENGTH);
@@ -622,9 +758,9 @@ public class BodyComposition {
         // 60. 细胞外液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液正常范围_START, 细胞外液正常范围_START + 细胞外液正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        细胞外液正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        细胞外液正常范围 = String.format("%s-%.1f", 细胞外液正常范围, tmpFloat);
+        细胞外液正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 61. 细胞内液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液含量_START, 细胞内液含量_START + 细胞内液含量_LENGTH);
@@ -634,14 +770,14 @@ public class BodyComposition {
         // 62. 细胞内液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液正常范围_START, 细胞内液正常范围_START + 细胞内液正常范围_LENGTH);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        细胞内液正常范围 = String.format("%.1f", tmpFloat);
+        tmpStr = String.format("%.1f", tmpFloat);
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        细胞内液正常范围 = String.format("%s-%.1f", 细胞内液正常范围, tmpFloat);
+        细胞内液正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 63. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        去脂肪体重 = String.format("%.1f", tmpFloat);
+//        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 64. BMI结果
         b = Arrays.copyOfRange(data, BMI结果_START, BMI结果_START + BMI结果_LENGTH);
@@ -656,22 +792,22 @@ public class BodyComposition {
         // 66. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        去脂肪体重 = String.format("%.1f", tmpFloat);
+//        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 67. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        去脂肪体重 = String.format("%.1f", tmpFloat);
+//        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 68. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        去脂肪体重 = String.format("%d", tmpInt);
+//        去脂肪体重 = String.format("%d", tmpInt);
 
         // 69. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        去脂肪体重 = String.format("%d", tmpInt);
+//        去脂肪体重 = String.format("%d", tmpInt);
 
         // 70. 身体总评分 okay 保留一位小数
         b = Arrays.copyOfRange(data, 身体总评分_START, 身体总评分_START + 身体总评分_LENGTH);
@@ -685,21 +821,21 @@ public class BodyComposition {
 
         // 72. 体重调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 体重调节_START, 体重调节_START + 体重调节_LENGTH);
-        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体重调节 = String.format("%s%.1f", opt, tmpFloat);
+        体重调节 = String.format("%s%.1f", tmpStr, tmpFloat);
 
         // 73. 脂肪调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 脂肪调节_START, 脂肪调节_START + 脂肪调节_LENGTH);
-        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        脂肪调节 = String.format("%s%.1f", opt, tmpFloat);
+        脂肪调节 = String.format("%s%.1f", tmpStr, tmpFloat);
 
         // 74. 肌肉调节 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 肌肉调节_START, 肌肉调节_START + 肌肉调节_LENGTH);
-        opt = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
+        tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        肌肉调节 = String.format("%s%.1f", opt, tmpFloat);
+        肌肉调节 = String.format("%s%.1f", tmpStr, tmpFloat);
 
         // 75. 基础代谢量 okay
         b = Arrays.copyOfRange(data, 基础代谢量_START, 基础代谢量_START + 基础代谢量_LENGTH);
@@ -737,7 +873,7 @@ public class BodyComposition {
                 "\n_250k下tr电阻值=" + _250k下tr电阻值 +
                 "\n_250k下ll电阻值=" + _250k下ll电阻值 +
                 "\n_250k下rl电阻值=" + _250k下rl电阻值 +
-                "\n测试时间='" + 测试时间 + '\'' +
+                "\n测试日期='" + 测试日期 + '\'' +
                 "\n体重2='" + 体重2 + '\'' +
                 "\n体重标准范围='" + 体重标准范围 + '\'' +
                 "\n体重标准值='" + 体重标准值 + '\'' +
