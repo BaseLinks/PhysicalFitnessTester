@@ -43,7 +43,7 @@ public class BodyCompositionAnalyzer {
  	private static final boolean DEBUG = true;
 	private static final String LOG_TAG = "BodyCompositionAnalyzer";
 	/** */
-	private final SerialHelper serialCtrl       = new SerialControl();;
+	private final SerialHelper serialCtrl       = new SerialControl();
 	private final SerialPortFinder serialPortFinder = new SerialPortFinder();
 	private final Context mContext;
 	private String                 serialPort       = null;
@@ -214,7 +214,7 @@ public class BodyCompositionAnalyzer {
 
 	/**
 	 * 将BodayComposition生成PDF
-	 * @bc BodyComposition对象
+	 * @param bc BodyComposition对象
 	 * @return path
 	 */
 	public String toPdf(BodyComposition bc) {
@@ -287,8 +287,7 @@ public class BodyCompositionAnalyzer {
 
 			// 文字画笔
 			TextPaint textPaint = new TextPaint();
-			StaticLayout mTextLayout = null;
-			String tmpStr = null;
+			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
 			Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
@@ -515,35 +514,35 @@ public class BodyCompositionAnalyzer {
 			// 51 右上肢脂肪量 okay
 			tmpStr = bc.右上肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右上肢肌肉含量,
 					mAlignment);
 
 			// 52 右下肢脂肪量 okay
 			tmpStr = bc.右下肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右下肢肌肉含量,
 					mAlignment);
 
 			// 53 左上肢脂肪量 okay
 			tmpStr = bc.左上肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左上肢肌肉含量,
 					mAlignment);
 
 			// 54 左下肢脂肪量 okay
 			tmpStr = bc.左下肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左下肢肌肉含量,
 					mAlignment);
 
 			// 55 躯干肌肉含量 okay
 			tmpStr = bc.躯干肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.躯干肌肉含量,
 					mAlignment);
 
@@ -551,35 +550,35 @@ public class BodyCompositionAnalyzer {
 			// 61 左上肢脂肪量 okay
 			tmpStr = bc.右上肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右上肢脂肪量,
 					mAlignment);
 
 			// 62 左下肢脂肪量 okay
 			tmpStr = bc.右下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右下肢脂肪量,
 					mAlignment);
 
 			// 63 左上肢脂肪量 okay
 			tmpStr = bc.左上肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左上肢脂肪量,
 					mAlignment);
 
 			// 64 左下肢脂肪量 okay
 			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左下肢脂肪量,
 					mAlignment);
 
 			// 65 躯干肢脂肪量 okay
 			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.躯干肢脂肪量,
 					mAlignment);
 
@@ -588,57 +587,57 @@ public class BodyCompositionAnalyzer {
 			// 71 频率 okay
 			tmpStr = "5k";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.频率_5k,
 					mAlignment);
 
 			tmpStr = "50k";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.频率_50k,
 					mAlignment);
 
 			tmpStr = "250k";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.频率_250k,
 					mAlignment);
 
 			// 72 右上肢 okay
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右上肢_5k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右上肢_50k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右上肢_250k,
 					mAlignment);
 
 			// 73 左上肢 okay
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左上肢_5k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左上肢_50k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左上肢_250k,
 					mAlignment);
 
@@ -646,19 +645,19 @@ public class BodyCompositionAnalyzer {
 			// 74 躯干 okay
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.躯干_5k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.躯干_50k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.躯干_250k,
 					mAlignment);
 
@@ -666,19 +665,19 @@ public class BodyCompositionAnalyzer {
 			// 75 右下肢 okay
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右下肢_5k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右下肢_50k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.右下肢_250k,
 					mAlignment);
 
@@ -686,25 +685,26 @@ public class BodyCompositionAnalyzer {
 			// 76 左下肢 okay
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左下肢_5k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左下肢_50k,
 					mAlignment);
 
 			tmpStr = "357.2";
 			drawMutilLineText(bc, tmpStr, textPaint,
-					mTextLayout, canvas,
+					canvas,
 					BodyComposition.Posistion.左下肢_250k,
 					mAlignment);
 
 			// 写「√」
+			paint.setTextSize(50);
 			paint.setColor(Color.BLACK);
-			canvas.drawText("√", 100, 100, paint);
+			canvas.drawText("√", 155 * 2836 / 1000, 223 * 2836 / 1000, paint);
 
 			// finish the page
 			document.finishPage(page);
@@ -728,19 +728,20 @@ public class BodyCompositionAnalyzer {
 
 	/**
 	 *
-	 * @param bc
-	 * @param tmpStr
-	 * @param textPaint
-	 * @param textLayout
-	 * @param canvas
-	 * @param pos
+	 * @param bc BodyComposition对象
+	 * @param tmpStr 文本
+	 * @param textPaint 文字画笔
+	 * @param canvas 画布
+	 * @param pos 位置对象
 	 */
-	private void drawMutilLineText(BodyComposition bc, String tmpStr, TextPaint textPaint,
-								   StaticLayout textLayout, Canvas canvas,
+	private void drawMutilLineText(BodyComposition bc,
+								   String tmpStr,
+								   TextPaint textPaint,
+								   Canvas canvas,
 								   BodyComposition.Posistion pos,
 								   Layout.Alignment la) {
 		textPaint.setTextSize(FONT_SIZE_8);
-		textLayout = new StaticLayout(
+		StaticLayout textLayout = new StaticLayout(
 				tmpStr,
 				textPaint,
 				pos.getWidthMils() / 1000,

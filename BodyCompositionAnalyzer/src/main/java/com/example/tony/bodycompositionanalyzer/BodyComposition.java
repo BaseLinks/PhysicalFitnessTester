@@ -456,6 +456,17 @@ public class BodyComposition {
         public static final Posistion 左下肢_250k =
                 new Posistion((105 + 5*17) * 2836, 272 * 2836, 12 * 2836, 46810);
 
+        /* 8x 肥胖评估 */
+        // 81.频率
+//        public static final Posistion 频率_5k =
+//                new Posistion(105 * 2836, 264 * 2836, 12 * 2836, 46810);
+//
+//        public static final Posistion 频率_50k =
+//                new Posistion(105 * 2836, 268 * 2836, 12 * 2836, 46810);
+//
+//        public static final Posistion 频率_250k =
+//                new Posistion(105 * 2836, 272 * 2836, 12 * 2836, 46810);
+
         /**
          * Creates a new instance.
          * @param widthMils The width in mils (thousands of an inch).
