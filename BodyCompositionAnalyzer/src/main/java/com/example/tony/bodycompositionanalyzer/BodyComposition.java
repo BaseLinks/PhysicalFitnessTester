@@ -395,6 +395,67 @@ public class BodyComposition {
         public static final Posistion 躯干肢脂肪量 =
                 new Posistion(72 * 2836, 262 * 2836, 12 * 2836, 46810);
 
+        /* 7x 节段电阻抗 */
+        // 71.频率
+        public static final Posistion 频率_5k =
+                new Posistion(105 * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 频率_50k =
+                new Posistion(105 * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 频率_250k =
+                new Posistion(105 * 2836, 272 * 2836, 12 * 2836, 46810);
+
+        // 72.右上肢 x+16
+        public static final Posistion 右上肢_5k =
+                new Posistion((105 + 1*17) * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 右上肢_50k =
+                new Posistion((105 + 1*17) * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 右上肢_250k =
+                new Posistion((105 + 1*17) * 2836, 272 * 2836, 12 * 2836, 46810);
+
+        // 73.左上肢 x+16
+        public static final Posistion 左上肢_5k =
+                new Posistion((105 + 2*17) * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 左上肢_50k =
+                new Posistion((105 + 2*17) * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 左上肢_250k =
+                new Posistion((105 + 2*17) * 2836, 272 * 2836, 12 * 2836, 46810);
+
+        // 74.躯干 x+16
+        public static final Posistion 躯干_5k =
+                new Posistion((105 + 3*17) * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 躯干_50k =
+                new Posistion((105 + 3*17) * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 躯干_250k =
+                new Posistion((105 + 3*17) * 2836, 272 * 2836, 12 * 2836, 46810);
+
+        // 75.右下肢 x+16
+        public static final Posistion 右下肢_5k =
+                new Posistion((105 + 4*17) * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 右下肢_50k =
+                new Posistion((105 + 4*17) * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 右下肢_250k =
+                new Posistion((105 + 4*17) * 2836, 272 * 2836, 12 * 2836, 46810);
+
+        // 76.左下肢 x+16
+        public static final Posistion 左下肢_5k =
+                new Posistion((105 + 5*17) * 2836, 264 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 左下肢_50k =
+                new Posistion((105 + 5*17) * 2836, 268 * 2836, 12 * 2836, 46810);
+
+        public static final Posistion 左下肢_250k =
+                new Posistion((105 + 5*17) * 2836, 272 * 2836, 12 * 2836, 46810);
+
         /**
          * Creates a new instance.
          * @param widthMils The width in mils (thousands of an inch).

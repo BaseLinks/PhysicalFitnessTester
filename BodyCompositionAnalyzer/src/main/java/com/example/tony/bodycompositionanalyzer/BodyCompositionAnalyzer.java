@@ -283,6 +283,8 @@ public class BodyCompositionAnalyzer {
 			paint.setTextSize(8);
 			Log.i(LOG_TAG, "size: " + size);
 
+			Layout.Alignment mAlignment;
+
 			// 文字画笔
 			TextPaint textPaint = new TextPaint();
 			StaticLayout mTextLayout = null;
@@ -509,66 +511,196 @@ public class BodyCompositionAnalyzer {
 					paint);
 
 			/* 5x 节段肌肉 */
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			// 51 右上肢脂肪量 okay
 			tmpStr = bc.右上肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.右上肢肌肉含量);
+					BodyComposition.Posistion.右上肢肌肉含量,
+					mAlignment);
 
 			// 52 右下肢脂肪量 okay
 			tmpStr = bc.右下肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.右下肢肌肉含量);
+					BodyComposition.Posistion.右下肢肌肉含量,
+					mAlignment);
 
 			// 53 左上肢脂肪量 okay
 			tmpStr = bc.左上肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.左上肢肌肉含量);
+					BodyComposition.Posistion.左上肢肌肉含量,
+					mAlignment);
 
 			// 54 左下肢脂肪量 okay
 			tmpStr = bc.左下肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.左下肢肌肉含量);
+					BodyComposition.Posistion.左下肢肌肉含量,
+					mAlignment);
 
 			// 55 躯干肌肉含量 okay
 			tmpStr = bc.躯干肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.躯干肌肉含量);
+					BodyComposition.Posistion.躯干肌肉含量,
+					mAlignment);
 
 			/* 6x 节段脂肪 */
 			// 61 左上肢脂肪量 okay
 			tmpStr = bc.右上肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.右上肢脂肪量);
+					BodyComposition.Posistion.右上肢脂肪量,
+					mAlignment);
 
 			// 62 左下肢脂肪量 okay
 			tmpStr = bc.右下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.右下肢脂肪量);
+					BodyComposition.Posistion.右下肢脂肪量,
+					mAlignment);
 
 			// 63 左上肢脂肪量 okay
 			tmpStr = bc.左上肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.左上肢脂肪量);
+					BodyComposition.Posistion.左上肢脂肪量,
+					mAlignment);
 
 			// 64 左下肢脂肪量 okay
 			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.左下肢脂肪量);
+					BodyComposition.Posistion.左下肢脂肪量,
+					mAlignment);
 
 			// 65 躯干肢脂肪量 okay
 			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint,
 					mTextLayout, canvas,
-					BodyComposition.Posistion.躯干肢脂肪量);
+					BodyComposition.Posistion.躯干肢脂肪量,
+					mAlignment);
+
+			/* 7x 节段电阻抗 */
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			// 71 频率 okay
+			tmpStr = "5k";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.频率_5k,
+					mAlignment);
+
+			tmpStr = "50k";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.频率_50k,
+					mAlignment);
+
+			tmpStr = "250k";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.频率_250k,
+					mAlignment);
+
+			// 72 右上肢 okay
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右上肢_5k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右上肢_50k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右上肢_250k,
+					mAlignment);
+
+			// 73 左上肢 okay
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左上肢_5k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左上肢_50k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左上肢_250k,
+					mAlignment);
+
+
+			// 74 躯干 okay
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.躯干_5k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.躯干_50k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.躯干_250k,
+					mAlignment);
+
+
+			// 75 右下肢 okay
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右下肢_5k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右下肢_50k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.右下肢_250k,
+					mAlignment);
+
+
+			// 76 左下肢 okay
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左下肢_5k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左下肢_50k,
+					mAlignment);
+
+			tmpStr = "357.2";
+			drawMutilLineText(bc, tmpStr, textPaint,
+					mTextLayout, canvas,
+					BodyComposition.Posistion.左下肢_250k,
+					mAlignment);
 
 			// 写「√」
 			paint.setColor(Color.BLACK);
@@ -605,13 +737,14 @@ public class BodyCompositionAnalyzer {
 	 */
 	private void drawMutilLineText(BodyComposition bc, String tmpStr, TextPaint textPaint,
 								   StaticLayout textLayout, Canvas canvas,
-								   BodyComposition.Posistion pos) {
+								   BodyComposition.Posistion pos,
+								   Layout.Alignment la) {
 		textPaint.setTextSize(FONT_SIZE_8);
 		textLayout = new StaticLayout(
 				tmpStr,
 				textPaint,
 				pos.getWidthMils() / 1000,
-				Layout.Alignment.ALIGN_CENTER,
+				la, //Layout.Alignment.ALIGN_CENTER,
 				1.0f,
 				0.0f,
 				false);

@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
+        try {
+            mBodyCompositionAnalyzer.doIt(true);
+                    /* 创建PDF */
+            String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
+                    /* 打开PDF */
+            startActivity(getPdfFileIntent(pdf));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClick(View v) {
