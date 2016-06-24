@@ -365,50 +365,37 @@ public class BodyCompositionAnalyzer {
 
 			// 25 细胞内液 okay
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.细胞内液含量 + "kg [" + bc.细胞内液正常范围 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.细胞内液, mAlignment);
 
 			// 26 细胞外液 okay
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.细胞外液含量 + "kg [" + bc.细胞外液正常范围 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint,
-					canvas,
-					BodyComposition.Posistion.细胞外液,
-					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.细胞外液, mAlignment);
 			// 27 蛋白质量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.蛋白质含量 + "kg\n[" + bc.蛋白质正常范围 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint,
-					canvas,
-					BodyComposition.Posistion.蛋白质量,
-					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.蛋白质量, mAlignment);
 			// 28 无机盐量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.无机盐含量 + "kg\n[" + bc.无机盐含量正常范围 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint,
-					canvas,
-					BodyComposition.Posistion.无机盐量,
-					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.无机盐量, mAlignment);
 			// 29 体脂肪量 ok
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint,
-					canvas,
-					BodyComposition.Posistion.体脂肪量,
-					mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.体脂肪量, mAlignment);
 			/* 3. 体成分分析　*/
 
 			/* 4X. 调节建议 */
 			// 41 体重_标准 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			canvas.drawText(
-					bc.体重标准值,
+			canvas.drawText(bc.体重标准值,
 					BodyComposition.Posistion.体重_标准.getXMils() / 1000,
 					BodyComposition.Posistion.体重_标准.getYMils() / 1000,
 					paint);

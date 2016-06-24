@@ -281,39 +281,39 @@ public class BodyComposition {
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Posistion 姓名 =
-                new Posistion(35 * 2836, 49 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 46 * 2836, 20 * 2836, 46810);
         public static final Posistion 身高 =
-                new Posistion(35 * 2836, 56 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 52 * 2836, 20 * 2836, 46810);
         public static final Posistion 体重1 =
-                new Posistion(35 * 2836, 62 * 2836, 33110, 46810);
+                new Posistion(35 * 2836, 58 * 2836, 20 * 2836, 46810);
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Posistion 测试日期 =
-                new Posistion(90 * 2836, 49 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 46 * 2836, 35 * 2836, 46810);
         public static final Posistion 年龄 =
-                new Posistion(90 * 2836, 56 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 52 * 2836, 20 * 2836, 46810);
         public static final Posistion 性别 =
-                new Posistion(90 * 2836, 62 * 2836, 33110, 46810);
+                new Posistion(90 * 2836, 58 * 2836, 20 * 2836, 46810);
 
         /* 2X. 休成分结果 */
         // 21 体重
         public static final Posistion 体重2 =
-                new Posistion(36 * 2836, 83 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 80 * 2836, 85 * 2836, 46810);
         // 22 去脂肪体重
         public static final Posistion 去脂肪体重 =
-                new Posistion(36 * 2836, 89 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 86 * 2836, 85 * 2836, 46810);
         // 23 肌肉量
         public static final Posistion 肌肉量 =
-                new Posistion(36 * 2836, 96 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 93 * 2836, 85 * 2836, 46810);
         // 24 身体总水分
         public static final Posistion 身体总水分 =
-                new Posistion(36 * 2836, 102 * 2836, 33110, 46810);
+                new Posistion(36 * 2836, 99 * 2836, 85 * 2836, 46810);
         // 25 细胞内液
         public static final Posistion 细胞内液 =
-                new Posistion(15 * 2836, 115 * 2836, 33110, 46810);
+                new Posistion(15 * 2836, 111 * 2836, 20 * 2836, 46810);
         // 26 细胞外液
         public static final Posistion 细胞外液 =
-                new Posistion(38 * 2836, 115 * 2836, 33110, 46810);
+                new Posistion(38 * 2836, 111 * 2836, 20 * 2836, 46810);
         // 27 蛋白质量
         public static final Posistion 蛋白质量 =
                 new Posistion(60 * 2836, 104 * 2836, 20 * 2836, 46810);
