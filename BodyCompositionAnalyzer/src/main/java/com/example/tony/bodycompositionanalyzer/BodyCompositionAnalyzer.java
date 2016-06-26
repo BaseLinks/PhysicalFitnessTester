@@ -574,7 +574,7 @@ public class BodyCompositionAnalyzer {
 			tmpStr = bc._250k下ll电阻值;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.左下肢_250k, mAlignment);
 
-			// 8.肥胖评估 写「√」
+			// 8.肥胖评估 写「√」根据上下界判断
 			textPaint.setTextSize(20);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = "√";
@@ -591,19 +591,34 @@ public class BodyCompositionAnalyzer {
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_过量, mAlignment);
 
 			// 9.营养评估 写「√」
+            // 91. 蛋白质
+            BodyComposition.Posistion bcp;
+            tmpStr = getAssessment(bc.蛋白质含量, bc.蛋白质正常范围);
+            if(tmpStr.equals("不足")) {
+                bcp = BodyComposition.Posistion.营养评估_蛋白质_不足;
+            } else if(tmpStr.equals("正常")) {
+                bcp = BodyComposition.Posistion.营养评估_蛋白质_正常;
+            } else {
+                bcp = BodyComposition.Posistion.营养评估_蛋白质_过量;
+            }
+
 			textPaint.setTextSize(20);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			tmpStr = "√";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_蛋白质_不足, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_蛋白质_正常, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_蛋白质_过量, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_无机盐_不足, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_无机盐_正常, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.营养评估_无机盐_过量, mAlignment);
+            // 92. 无机盐
+            tmpStr = getAssessment(bc.无机盐含量, bc.无机盐含量正常范围);
+            if(tmpStr.equals("不足")) {
+                bcp = BodyComposition.Posistion.营养评估_无机盐_不足;
+            } else if(tmpStr.equals("正常")) {
+                bcp = BodyComposition.Posistion.营养评估_无机盐_正常;
+            } else {
+                bcp = BodyComposition.Posistion.营养评估_无机盐_过量;
+            }
+			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
-			textPaint.setTextSize(8);
 			// 93.基础代谢量 okay
+            textPaint.setTextSize(8);
 			tmpStr = bc.基础代谢量;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.基础代谢量, mAlignment);
 
@@ -639,6 +654,37 @@ public class BodyCompositionAnalyzer {
 			}
 		}
 	}
+
+    private static final String SEPARATOR = "-";
+
+    /**
+     * 只处理精度不高于6位小数大小
+     * @param currentVal
+     * @param range
+     * @return
+     */
+    private static String getAssessment(String currentVal, String range) {
+        if(currentVal == null || range == null)
+            throw new NullPointerException();
+
+        String[] rangeArray = range.split(SEPARATOR);
+        if(rangeArray.length != 2)
+            throw new IllegalArgumentException("range must be splite as 2 length array!");
+
+        float curVal = Float.valueOf(currentVal);
+        float minVal = Float.valueOf(rangeArray[0]);
+        float maxVal = Float.valueOf(rangeArray[1]);
+        String ret = "正常";
+
+        if(curVal < minVal)
+            ret = "不足";
+        else if ((curVal >= minVal) && (curVal <= maxVal)) {
+            ret = "正常";
+        } else {
+            ret = "过量";
+        }
+        return ret;
+    }
 
 	/**
 	 *
