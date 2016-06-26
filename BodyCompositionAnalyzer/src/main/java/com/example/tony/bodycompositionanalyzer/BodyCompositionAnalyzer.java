@@ -419,11 +419,11 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Posistion.体重_调节量.getXMils() / 1000,
 					BodyComposition.Posistion.体重_调节量.getYMils() / 1000,
 					paint);
-			// 44 身体脂肪量_标准 okay
+			// 44 身体脂肪量_标准 okay 注：身体脂肪量标准：取体脂肪标准值下界
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.体脂肪量标准,
+					bc.体脂肪量标准.split("-")[0],
 					BodyComposition.Posistion.身体脂肪量_标准.getXMils() / 1000,
 					BodyComposition.Posistion.身体脂肪量_标准.getYMils() / 1000,
 					paint);
@@ -443,11 +443,11 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Posistion.身体脂肪量_调节量.getXMils() / 1000,
 					BodyComposition.Posistion.身体脂肪量_调节量.getYMils() / 1000,
 					paint);
-			// 47 肌肉量_标准 okay
+			// 47 肌肉量_标准 okay 肌肉量标准：取标准值上界
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.肌肉标准,
+					bc.肌肉标准.split("-")[1],
 					BodyComposition.Posistion.肌肉量_标准.getXMils() / 1000,
 					BodyComposition.Posistion.肌肉量_标准.getYMils() / 1000,
 					paint);
