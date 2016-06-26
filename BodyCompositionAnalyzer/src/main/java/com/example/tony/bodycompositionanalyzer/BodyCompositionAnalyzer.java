@@ -342,7 +342,7 @@ public class BodyCompositionAnalyzer {
 			// 21 体重2
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			tmpStr = bc.体重2 + "kg";
+			tmpStr = bc.体重2 + "kg [" + bc.体重标准范围 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.体重2, mAlignment);
 
 			// 22 去脂肪体重
