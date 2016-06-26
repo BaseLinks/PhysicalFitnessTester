@@ -96,7 +96,10 @@ public class BodyComposition {
     public static final int ACK_START = 0;
     public static final int ACK_LENGTH = 6;
     public static final int DATA_START = 6;
-    public static final int DATA_LENGTH = 217;
+    public static final int DATA_LENGTH = 218;
+    public static final int VERIFICATION_START = 223;
+    public static final int VERIFICATION_LENGTH = 4;
+    public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH;
 
     /* 在数据中的位置 注：小端方式 */
     public static final int 姓名_START             = 0;

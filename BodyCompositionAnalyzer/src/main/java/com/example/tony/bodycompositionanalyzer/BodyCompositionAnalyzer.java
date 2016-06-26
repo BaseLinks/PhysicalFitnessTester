@@ -47,7 +47,7 @@ public class BodyCompositionAnalyzer {
 	private final SerialPortFinder serialPortFinder = new SerialPortFinder();
 	private final Context mContext;
 	private String                 serialPort       = null;
-	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS2";
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyUSB0";
 	private static BodyComposition mBodyComposition;
 	/**
 	 * 需要发送的数据
@@ -83,10 +83,16 @@ public class BodyCompositionAnalyzer {
 	}
 
 	private void parseData(byte[] inputData) {
-		Log.i(LOG_TAG, "parseData");
+		Log.i(LOG_TAG, "parseData" + " inputData.length =" + inputData.length);
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         /* 1. 判断回复是否正常 */
+        if(BodyComposition.TOTAL_LENGTH != inputData.length) {
+            Log.e(LOG_TAG, "inputData.length =" + inputData.length + " but TOTAL_LENGTH need " + BodyComposition.TOTAL_LENGTH);
+            return;
+        }
+
+        /* 2. 判断回复是否正常 */
 		byte[] ack = new byte[BodyComposition.ACK_LENGTH];
 		System.arraycopy(inputData, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
 		if(Arrays.equals(ack, BodyComposition.ACK)) {
