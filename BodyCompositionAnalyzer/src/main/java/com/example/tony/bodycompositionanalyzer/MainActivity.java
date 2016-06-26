@@ -82,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.print_button:
-                doPhotoPrint();
+                try {
+                    mBodyCompositionAnalyzer.doIt(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
