@@ -575,24 +575,30 @@ public class BodyCompositionAnalyzer {
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.左下肢_250k, mAlignment);
 
 			// 8.肥胖评估 写「√」根据上下界判断
+            BodyComposition.Posistion bcp;
+            tmpStr = getAssessment(bc.体重2, bc.体重标准范围);
+            if(tmpStr.equals("不足")) {
+                bcp = BodyComposition.Posistion.肥胖评估_体重_不足;
+            } else if(tmpStr.equals("正常")) {
+                bcp = BodyComposition.Posistion.肥胖评估_体重_正常;
+            } else {
+                bcp = BodyComposition.Posistion.肥胖评估_体重_过量;
+            }
+
 			textPaint.setTextSize(20);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			tmpStr = "√";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_体重_不足, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_体重_正常, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_体重_过量, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_不足, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_正常, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_过量, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_不足, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_正常, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_脂肪量_过量, mAlignment);
 
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_不足, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_正常, mAlignment);
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_过量, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_不足, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_正常, mAlignment);
+			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Posistion.肥胖评估_肌肉量_过量, mAlignment);
 
 			// 9.营养评估 写「√」
             // 91. 蛋白质
-            BodyComposition.Posistion bcp;
             tmpStr = getAssessment(bc.蛋白质含量, bc.蛋白质正常范围);
             if(tmpStr.equals("不足")) {
                 bcp = BodyComposition.Posistion.营养评估_蛋白质_不足;
