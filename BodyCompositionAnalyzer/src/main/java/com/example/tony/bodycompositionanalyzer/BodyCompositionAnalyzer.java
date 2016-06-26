@@ -74,13 +74,242 @@ public class BodyCompositionAnalyzer {
 		private void handleRecData(final ComBean ComRecData) {
 			if (DEBUG) Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
 			if (DEBUG) Log.i(LOG_TAG, "handleRecStri:" + new String(ComRecData.bRec));
-			parseData(ComRecData.bRec);
+            parseData2(ComRecData.bRec);
 		}
 	}
 
 	public BodyComposition getBodyComposition() {
 		return this.mBodyComposition;
 	}
+
+    /** 接收串口数据缓存 */
+    private static byte[] cache = null;
+
+    private void parseData2(byte[] in) {
+		/* 将in存于cache中 */
+        if(cache == null) /* 第一次进入 */
+            cache = Arrays.copyOfRange(in, 0, in.length);
+        else {            /* 将in连接到cache后面 */
+            byte[] tmp = Arrays.copyOfRange(cache, 0, cache.length);
+            cache = new byte[tmp.length + in.length];
+            System.arraycopy(tmp, 0, cache,          0, tmp.length);
+            System.arraycopy( in, 0, cache, tmp.length, in.length);
+        }
+
+        // ECC校验
+        Log.i(LOG_TAG, "ecc:" + getBCC(Arrays.copyOfRange(cache, 0, cache.length - 4)));
+
+
+        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
+        byte       length              = 0;
+        byte       dataLength          = 0;
+        final byte LENGTH_START        = 1;
+        final byte MSG_START           = 2;
+        final byte DATA_START          = 3;
+        byte       ETX_START           = 0;
+        byte       CHECKSUM_START      = 0;
+
+		/* loop循环用于迭代处理 */
+        loop: while (cache.length > 0) {
+            try {
+				/* 取出第ACK_LENGTH位ack */
+                ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START, BodyComposition.ACK_LENGTH);
+				/* 1. 锁定STX位置 */
+                if (!Arrays.equals(ack, BodyComposition.ACK)) {
+                    handleError(1, cache, in);
+					/* 找出 STX 前内容删除 */
+                    boolean hasSTX = false;
+                    int i = 0;
+                    for (i = 0; i < cache.length; i++)
+                        ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START + i, BodyComposition.ACK_LENGTH);
+                        if (Arrays.equals(ack, BodyComposition.ACK)) {
+                            cache = Arrays.copyOfRange(cache, 0 + i, cache.length);
+                            handleError(1.1, cache, in);
+                            hasSTX = true;
+                            break;
+                        }
+                    if (hasSTX) {
+						/* 迭代 */
+                        continue loop;
+                    } else {
+						/* 没有查到STX，直接清除全部cache */
+                        handleError(1.2, cache, in);
+                        cache = Arrays.copyOfRange(cache, 0, 0);
+                        return;
+                    }
+                }
+
+//
+//				/* 2. 数据位不够，直接返回，下次接着处理，不需要清除cache (坐标+1是长度) */
+//                if(cache.length < (LENGTH_START + 1)) {
+//                    handleError(2.0, cache, in);
+//                    return;
+//                }
+//				/* 取出第2位 数据长度 */
+//                length = cache[LENGTH_START];
+//                if (length > cache.length) {
+//					/* 2.1是比较常见错误，不再打LOG信息 */
+//                    // handleError(2.1, cache, in);
+//                    return;
+//                }
+//
+//				/* 3.0. 解析 MSG Type & ACK (坐标+1是长度)*/
+//                if(cache.length < (MSG_START + 1)) {
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    handleError(2.5, cache, in);
+//                    continue loop;
+//                }
+//				/* 3.1 判断 MSG Type & ACK */
+//                if (!parseMsgtypeAndACK(cache[MSG_START])) {
+//                    handleError(3.1, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    continue loop;
+//                }
+//
+//				/* 4.0 填充结束符位置 */
+//                ETX_START = (byte) (length - 2);
+//                if (ETX_START < 0) {
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    handleError(4.0, cache, in);
+//                    continue loop;
+//                }
+//
+//				/* 4.1 判断ETX */
+//                if (cache[ETX_START] != ETX) {
+//                    handleError(4.1, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    continue loop;
+//                }
+//
+//				/* 5. 总长度减去 STX MSG LENGTH ETX CHECKSUM 的长度和就是数据长度 */
+//                dataLength = (byte) (length - 5);
+//                if (dataLength < 0) {
+//                    handleError(5, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    continue loop;
+//                }
+//
+//				/* 6. 检验和判断 */
+//                CHECKSUM_START = (byte) (length - 1);
+//                if (CHECKSUM_START < 0) {
+//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(CHECKSUM_START):"
+//                            + CHECKSUM_START);
+//                    handleError(6, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    continue loop;
+//                }
+//
+//				/* 7. 抽取需要进行校验的数据位进行校验 LENGTH MSG DATA */
+//                byte bcc = getBCC(Arrays.copyOfRange(cache, LENGTH_START,
+//                        LENGTH_START + dataLength + 2));
+//                if (bcc != cache[CHECKSUM_START]) {
+//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(检验和)");
+//                    handleError(7, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    continue loop;
+//                }
+//
+//				/* 8. 解析数据段 TODO:对数据段进行深度匹配 */
+//                final byte[] dataArray = Arrays.copyOfRange(cache, DATA_START,
+//                        DATA_START + dataLength);
+//				/*
+//				 * BYTE 0
+//				 * 设置为01h – 无数据上报
+//				 * 设置为10h – 有数据上报
+//				 * （在该数据段中，可以扩充为不同的数据，不同的硬币通道）
+//				 */
+//                final byte BYTE0 = dataArray[0];
+//				/* BYTE1: 设置为10h */
+//                final byte BYTE1 = dataArray[1];
+//				/*
+//				 * BYTE2 说明 TODO:[Bit 3-5 硬币数据段]可以测试成功
+//				 * Bit 0 – 启动位   (= 1 如果WF-700-RELAY有了一次重新启动 ) 
+//				 * Bit 1 – 错误指令 (= 1 如果接收到错误指令) 
+//				 * Bit 2 - Failure (= 1 如果硬币器错误，或者钱箱满等故障) (FAE:脉冲投币器不存在故障位,该位无效)
+//				 * Bit 3-5 硬币数据段
+//				 * 000 = None 
+//				 * 001 = 1st credit channel type 
+//				 * 010 = 2nd credit channel type 
+//				 * 011 = 3rd credit channel type
+//				 * 100 = 4th credit channel type 
+//				 * 101 = 5th credit channel type 
+//				 * 110 = 6th credit channel type, Pulse channel   (WF-700-RELAY 使用该段) 
+//				 * 111 = Reserved 
+//				 * Bit 6- Reserved (set to 0) 
+//				 */
+//                final byte BYTE2 = dataArray[2];
+//				/* BYTE 3, BYTE 4 堆栈中剩余的硬币信息数据 */
+//                @SuppressWarnings("unused")
+//                final byte BYTE3 = dataArray[3];
+//                @SuppressWarnings("unused")
+//                final byte BYTE4 = dataArray[4];
+//				/* BYTE5 设置为 01h */
+//                final byte BYTE5 = dataArray[5];
+//
+//				/* 判断BYTE1和BYTE5是否正确 */
+//                if (BYTE1 != DATA_BYTE1 || BYTE5 != DATA_BYTE5_RECEIVE) {
+//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(BYTE0和BYTE5)");
+//                    handleError(8.1, cache, in);
+//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                    return;
+//                }
+//
+//				/* 判断是否有数据上报 */
+//                if (BYTE0 == HAVE_DATA_REPORT) {
+//					/* 判断　BYTE2　Bit 3-5 硬币数据段 是否为WF700RELAY　 */
+//                    final byte coinDataChannel = (byte) ((BYTE2 & DATA_BYTE2_35_REC_MASK) >> DATA_BYTE2_35_REC_POS);
+//                    if (coinDataChannel != DATA_BYTE2_35_REC_WF700RELAY) {
+//                        if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(BYTE2)");
+//                        handleError(8.2, cache, in);
+//                        cache = Arrays.copyOfRange(cache, 0 + length,
+//                                cache.length);
+//                        return;
+//                    }
+//					/* 解析硬币信息 循环读取，不用判断BYTE3 BYTE4值 不再打印调试信息 */
+//                    // String s1 = String.format("%8s",
+//                    // Integer.toBinaryString(BYTE1 & 0xFF)).replace(' ',
+//                    // '0');
+//                    // Log.i(LOG_TAG, "parseCoin: BYTE3:" + BYTE3 + " BYTE4:"
+//                    // + BYTE4 + " BYTE1:" + s1);
+//                    if (DEBUG) Log.i(LOG_TAG, "parseCoin: 获得一个硬币");
+//					/* 调用获得一个币方法 */
+//                    onGetCoin(getOrder());
+//                } else if (BYTE0 == HAVE_NO_DATA_REPORT) {
+//					/* 无数据上传时不再打印调试信息 */
+//                    // Log.i(LOG_TAG, "parseCoin: 无数据上报");
+//                } else {
+//                    Log.e(LOG_TAG, "parseCoin 未知状态");
+//                }
+//
+//				/* 将处理过数据删除 进行递归 */
+//                cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//                if (cache.length != 0) {
+//					/* 数据未处理完时不再打印调试信息 */
+//                    // handleError(10, cache, in);
+//                    continue loop;
+//                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Log.e(LOG_TAG, "parseCoin: ArrayIndexOutOfBoundsException");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /** 生成BCC(异或)校验码 */
+    public static byte getBCC(byte[] data) {
+        byte crc = 0x00;
+        for (byte b : data)
+            crc ^= b;
+        return crc;
+    }
+
+    /** 处理错误 */
+    private static void handleError(double d, byte[] cache, byte[] in) {
+        if (DEBUG) Log.w(LOG_TAG, "parseCoin    in: " + d + " (" + in.length + ") "
+                + Arrays.toString(in));
+        if (DEBUG) Log.w(LOG_TAG, "parseCoin cache: " + d + " (" + cache.length + ") "
+                + Arrays.toString(cache));
+    }
 
 	private void parseData(byte[] inputData) {
 		Log.i(LOG_TAG, "parseData" + " inputData.length =" + inputData.length);
