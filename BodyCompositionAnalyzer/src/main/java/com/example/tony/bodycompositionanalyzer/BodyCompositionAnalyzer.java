@@ -97,7 +97,7 @@ public class BodyCompositionAnalyzer {
         }
 
         // ECC校验
-        Log.i(LOG_TAG, "ecc:" + getBCC(Arrays.copyOfRange(cache, 0, cache.length - 4)));
+//        Log.i(LOG_TAG, "ecc:" + getBCC(Arrays.copyOfRange(cache, 6, 6 + cache.length - 4)));
 
 
         byte[] ack = new byte[BodyComposition.ACK_LENGTH];
@@ -826,14 +826,26 @@ public class BodyCompositionAnalyzer {
 			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
             // 82.肥胖评估 脂肪量
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_脂肪量_不足, mAlignment);
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_脂肪量_正常, mAlignment);
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_脂肪量_过量, mAlignment);
+			tmpStr = getAssessment(bc.体脂肪量, bc.体脂肪量标准);
+			if(tmpStr.equals("不足")) {
+				bcp = BodyComposition.Position.肥胖评估_脂肪量_不足;
+			} else if(tmpStr.equals("正常")) {
+				bcp = BodyComposition.Position.肥胖评估_脂肪量_正常;
+			} else {
+				bcp = BodyComposition.Position.肥胖评估_脂肪量_过量;
+			}
+			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
-            // 83.肥胖评估 脂肪量
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_肌肉量_不足, mAlignment);
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_肌肉量_正常, mAlignment);
-			drawMutilLineText(bc, "√", textPaint, canvas, BodyComposition.Position.肥胖评估_肌肉量_过量, mAlignment);
+            // 83.肥胖评估 肌肉量
+			tmpStr = getAssessment(bc.肌肉量, bc.肌肉标准);
+			if(tmpStr.equals("不足")) {
+				bcp = BodyComposition.Position.肥胖评估_肌肉量_不足;
+			} else if(tmpStr.equals("正常")) {
+				bcp = BodyComposition.Position.肥胖评估_肌肉量_正常;
+			} else {
+				bcp = BodyComposition.Position.肥胖评估_肌肉量_过量;
+			}
+			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
 			// 9.营养评估 写「√」
             // 91. 蛋白质
