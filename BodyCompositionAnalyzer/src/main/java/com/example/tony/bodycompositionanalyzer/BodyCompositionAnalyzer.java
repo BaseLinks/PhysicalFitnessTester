@@ -705,21 +705,21 @@ public class BodyCompositionAnalyzer {
 
 			/* 5x 节段肌肉　镜像 */
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
-			// 51 左上肢脂肪量 okay
+			// 51 左上肢肌肉含量 okay
 			tmpStr = bc.左上肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量, mAlignment);
 
-			// 52 左下肢脂肪量 okay
+			// 52 左下肢肌肉含量 okay
 			tmpStr = bc.左下肢肌肉含量 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量, mAlignment);
 
-			// 53 左上肢脂肪量 okay
+			// 53 右上肢肌肉含量 okay
 			tmpStr = bc.右上肢肌肉含量 + "kg\n正常";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量, mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢肌肉含量, mAlignment);
 
-			// 54 左下肢脂肪量 okay
+			// 54 右下肢脂肪量 okay
 			tmpStr = bc.右下肢肌肉含量 + "kg\n正常";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量, mAlignment);
+			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢肌肉含量, mAlignment);
 
 			// 55 躯干肌肉含量 okay
 			tmpStr = bc.躯干肌肉含量 + "kg\n正常";
@@ -743,7 +743,7 @@ public class BodyCompositionAnalyzer {
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢脂肪量, mAlignment);
 
 			// 65 躯干肢脂肪量 okay
-			tmpStr = bc.左下肢脂肪量 + "kg\n正常";
+			tmpStr = bc.躯干脂肪 + "kg\n正常";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肢脂肪量, mAlignment);
 
 			/* 7x 节段电阻抗 */
