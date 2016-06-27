@@ -357,20 +357,20 @@ public class BodyComposition {
                 new Position(112 * 2836, 235 * 2836, 33110, 46810);
 
         /* 5x 节段肌肉 */
-        // 51 右上肢肌肉含量
-        public static final Position 右上肢肌肉含量 =
+        // 51 左上肢肌肉含量
+        public static final Position 左上肢肌肉含量 =
                 new Position(13 * 2836, 253 * 2836, 12 * 2836, 46810);
 
-        // 52 右下肢肌肉含量
-        public static final Position 右下肢肌肉含量 =
+        // 52 左下肢肌肉含量
+        public static final Position 左下肢肌肉含量 =
                 new Position(13 * 2836, 275 * 2836, 12 * 2836, 46810);
 
-        // 53 左上肢肌肉含量
-        public static final Position 左上肢肌肉含量 =
+        // 53 右上肢肌肉含量
+        public static final Position 右上肢肌肉含量 =
                 new Position(41 * 2836, 253 * 2836, 12 * 2836, 46810);
 
-        // 54 左下肢肌肉含量
-        public static final Position 左下肢肌肉含量 =
+        // 54 右下肢肌肉含量
+        public static final Position 右下肢肌肉含量 =
                 new Position(41 * 2836, 275 * 2836, 12 * 2836, 46810);
 
         // 55 躯干肌肉含量
@@ -379,19 +379,19 @@ public class BodyComposition {
 
         /* 6x 节段脂肪 */
         // 61 左上肢脂肪量
-        public static final Position 右上肢脂肪量 =
+        public static final Position 左上肢脂肪量 =
                 new Position(58 * 2836, 253 * 2836, 12 * 2836, 46810);
 
-        // 62 右下肢脂肪量
-        public static final Position 右下肢脂肪量 =
+        // 62 左下肢脂肪量
+        public static final Position 左下肢脂肪量 =
                 new Position(58 * 2836, 275 * 2836, 12 * 2836, 46810);
 
-        // 63 左上肢脂肪量
-        public static final Position 左上肢脂肪量 =
+        // 63 右上肢脂肪量
+        public static final Position 右上肢脂肪量 =
                 new Position(87 * 2836, 253 * 2836, 12 * 2836, 46810);
 
-        // 64 左下肢脂肪量
-        public static final Position 左下肢脂肪量 =
+        // 64 右下肢脂肪量
+        public static final Position 右下肢脂肪量 =
                 new Position(87 * 2836, 275 * 2836, 12 * 2836, 46810);
 
         // 65 躯干脂肪量
