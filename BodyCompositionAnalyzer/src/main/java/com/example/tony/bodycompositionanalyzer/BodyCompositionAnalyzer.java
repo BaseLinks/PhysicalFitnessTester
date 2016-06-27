@@ -924,13 +924,13 @@ public class BodyCompositionAnalyzer {
         // bmi结果
         double xPos = 0;
         double yPos = 0;
-        short[] bmi = {0x00f9, 0x00b9, 0x00f0};
+        short[] bmi = bc.BMI结果;
         if (bmi[0] > BodyComposition.BMI_MIN) {
             xPos = (bmi[0] - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
         } else
             xPos = 0;
 
-        short[] bfr = {0x016b, 0x0096, 0x00c8};
+        short[] bfr = bc.脂肪率;
         if (bfr[0] < BodyComposition.BFR_MIN) {
             yPos = 0;
         }
@@ -946,6 +946,8 @@ public class BodyCompositionAnalyzer {
         } else if (bc.性别.equals("女")) { // FEMALE
             yPos = (bfr[0] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
+
+        Log.i(LOG_TAG, "xPos: " + xPos + " yPos: " + yPos);
 
         xPos = BodyComposition.ORIGIN_X + xPos * BodyComposition.SINGLE_RECT_WIDTH + BodyComposition.SINGLE_RECT_WIDTH / 2;
         yPos = BodyComposition.ORIGIN_Y - yPos * BodyComposition.SINGLE_RECT_HEIGHT - BodyComposition.SINGLE_RECT_HEIGHT / 2;

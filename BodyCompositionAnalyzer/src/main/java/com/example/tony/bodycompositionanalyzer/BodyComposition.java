@@ -79,8 +79,8 @@ public class BodyComposition {
     public final String 细胞内液含量;
     public final String 细胞内液正常范围;
     // ...
-    public final String BMI结果;
-    public final String 脂肪率;
+    public short[] BMI结果;
+    public short[] 脂肪率;
 
     // ...
     public final String 身体总评分;
@@ -1012,15 +1012,15 @@ public class BodyComposition {
         tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
 //        去脂肪体重 = String.format("%.1f", tmpFloat);
 
-        // 64. BMI结果
+        // 64. BMI结果 注:将byte[]转化为short[]
         b = Arrays.copyOfRange(data, BMI结果_START, BMI结果_START + BMI结果_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        BMI结果 = String.format("%.1f", tmpFloat);
+        BMI结果 = new short[b.length / 2];
+        ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(BMI结果);
 
-        // 65. 脂肪率
+        // 65. 脂肪率 注:将byte[]转化为short[]
         b = Arrays.copyOfRange(data, 脂肪率_START, 脂肪率_START + 脂肪率_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        脂肪率 = String.format("%.1f", tmpFloat);
+        脂肪率 = new short[b.length / 2];
+        ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(脂肪率);
 
         // 66. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
