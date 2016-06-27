@@ -886,6 +886,9 @@ public class BodyCompositionAnalyzer {
 			tmpStr = bc.身体年龄;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.身体年龄, mAlignment);
 
+            // 10x.体型分析
+            drawShapeAnalysis(bc, textPaint, canvas);
+
 			// 11x.健康评估 okay
 			textPaint.setTextSize(20);
 			tmpStr = bc.身体总评分;
@@ -910,6 +913,48 @@ public class BodyCompositionAnalyzer {
 			}
 		}
 	}
+
+    /**
+     * 10x
+     * 绘制 体型分析
+     */
+    public void drawShapeAnalysis(BodyComposition bc,
+                                  TextPaint textPaint,
+                                  Canvas canvas) {
+        // bmi结果
+        double xPos = 0;
+        double yPos = 0;
+        short[] bmi = {0x00f9, 0x00b9, 0x00f0};
+        if (bmi[0] > BodyComposition.BMI_MIN) {
+            xPos = (bmi[0] - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
+        } else
+            xPos = 0;
+
+        short[] bfr = {0x016b, 0x0096, 0x00c8};
+        if (bfr[0] < BodyComposition.BFR_MIN) {
+            yPos = 0;
+        }
+        // MALE
+        if (bc.性别.equals("男")) {
+            yPos = (bfr[0] - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            if (bfr[0] > bfr[2]) //测试值超过标准
+            {
+                yPos = ((bfr[0] - bfr[2]) / 2 + bfr[2] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            } else {
+                yPos = (bfr[0] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            }
+        } else if (bc.性别.equals("女")) { // FEMALE
+            yPos = (bfr[0] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
+        }
+
+        xPos = BodyComposition.ORIGIN_X + xPos * BodyComposition.SINGLE_RECT_WIDTH + BodyComposition.SINGLE_RECT_WIDTH / 2;
+        yPos = BodyComposition.ORIGIN_Y - yPos * BodyComposition.SINGLE_RECT_HEIGHT - BodyComposition.SINGLE_RECT_HEIGHT / 2;
+
+        /**
+         * 坐标由iso mm转换为英寸point
+         */
+        canvas.drawText("■", (float)xPos * 2836 / 1000, (float)yPos * 2836 / 1000, textPaint);
+    }
 
     private static final String SEPARATOR = "-";
 

@@ -271,6 +271,45 @@ public class BodyComposition {
     /* 男 */
     public static final byte MALE   = 0x01;
 
+    /**  10x.体型分析 */
+    /** BMI下限 */
+    public static final short BMI_MIN = 154;
+    /** BMI上限 */
+    public static final short BMI_MAX = 330;
+    /** BMI范围宽度 */
+    public static final short BMI_RANGE = BMI_MAX - BMI_MIN; // 176
+    /** 方块个数 */
+    public static final short BMI_RECT_NUM = 4;
+    /** 方块宽度 */
+    public static final short BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
+
+
+    /** 脂肪率结果 */
+    /** 脂肪率下限 */
+    public static final short BFR_MIN = 100;
+    /** 男性脂肪率上限 */
+    public static final short BFR_MAX_MALE = 350;
+    /** 女性脂肪率上限 */
+    public static final short BFR_MAX_FEMALE = 600;
+    /** 男性脂肪率范围宽度 */
+    public static final short BFR_RANGE_MALE = BFR_MAX_MALE - BFR_MIN; // 150
+    /** 女性脂肪率范围宽度 */
+    public static final short BFR_RANGE_FEMALE = BFR_MAX_FEMALE - BFR_MIN; // 500
+    /** 方块个数 */
+    public static final short BFR_RECT_NUM = 5;
+    /** 方块宽度 */
+    public static final short BFR_RECT_WIDTH_MALE = BFR_RANGE_MALE / BFR_RECT_NUM; //50
+    /** 方块宽度 */
+    public static final short BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
+
+    /** 在A4纸上方块宽度 */
+    public static final double SINGLE_RECT_WIDTH = 16.8;
+    /** 在A4纸上方块高度 */
+    public static final double SINGLE_RECT_HEIGHT = 13.4;
+    /** 原点坐标 */
+    public static final double ORIGIN_X = 133;
+    public static final double ORIGIN_Y = 146;
+
 
     /* 位置 */
     /**
