@@ -86,6 +86,7 @@ public class BodyCompositionAnalyzer {
     private static byte[] cache = null;
 
     private void parseData2(byte[] in) {
+		Log.i(LOG_TAG, "parseData2");
 		/* 将in存于cache中 */
         if(cache == null) /* 第一次进入 */
             cache = Arrays.copyOfRange(in, 0, in.length);
@@ -100,8 +101,9 @@ public class BodyCompositionAnalyzer {
 //        Log.i(LOG_TAG, "ecc:" + getBCC(Arrays.copyOfRange(cache, 6, 6 + cache.length - 4)));
 
 
-        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
-        byte       length              = 0;
+        byte[]     ack                 = new byte[BodyComposition.ACK_LENGTH];
+		byte[]     checksum            = new byte[BodyComposition.VERIFICATION_LENGTH];
+        int        length              = BodyComposition.TOTAL_LENGTH;
         byte       dataLength          = 0;
         final byte LENGTH_START        = 1;
         final byte MSG_START           = 2;
@@ -113,7 +115,7 @@ public class BodyCompositionAnalyzer {
         loop: while (cache.length > 0) {
             try {
 				/* 取出第ACK_LENGTH位ack */
-                ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START, BodyComposition.ACK_LENGTH);
+                ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START, BodyComposition.ACK_START + BodyComposition.ACK_LENGTH);
 				/* 1. 锁定STX位置 */
                 if (!Arrays.equals(ack, BodyComposition.ACK)) {
                     handleError(1, cache, in);
@@ -139,12 +141,12 @@ public class BodyCompositionAnalyzer {
                     }
                 }
 
-//
-//				/* 2. 数据位不够，直接返回，下次接着处理，不需要清除cache (坐标+1是长度) */
-//                if(cache.length < (LENGTH_START + 1)) {
-//                    handleError(2.0, cache, in);
-//                    return;
-//                }
+
+				/* 2. 这里判断数据的总长度是否符合不需要清除cache (坐标+1是长度) */
+                if(cache.length < BodyComposition.TOTAL_LENGTH) {
+                    handleError(2.0, cache, in);
+                    return;
+                }
 //				/* 取出第2位 数据长度 */
 //                length = cache[LENGTH_START];
 //                if (length > cache.length) {
@@ -199,6 +201,19 @@ public class BodyCompositionAnalyzer {
 //                    continue loop;
 //                }
 //
+//				/* 6. 检验和判断 TODO:添加校验码校验 */
+//				checksum = Arrays.copyOfRange(
+//						cache,
+//						BodyComposition.VERIFICATION_START,
+//						BodyComposition.VERIFICATION_START + BodyComposition.VERIFICATION_LENGTH);
+//				if (checksum[2] != 0xDD) {
+//					if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(CHECKSUM_START):"
+//							+ checksum[3]);
+//					handleError(6, cache, in);
+//					cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+//					continue loop;
+//				}
+//
 //				/* 7. 抽取需要进行校验的数据位进行校验 LENGTH MSG DATA */
 //                byte bcc = getBCC(Arrays.copyOfRange(cache, LENGTH_START,
 //                        LENGTH_START + dataLength + 2));
@@ -209,9 +224,11 @@ public class BodyCompositionAnalyzer {
 //                    continue loop;
 //                }
 //
-//				/* 8. 解析数据段 TODO:对数据段进行深度匹配 */
-//                final byte[] dataArray = Arrays.copyOfRange(cache, DATA_START,
-//                        DATA_START + dataLength);
+				/* 8. 解析数据段 TODO:对数据段进行深度匹配 */
+                final byte[] dataArray = Arrays.copyOfRange(cache, BodyComposition.DATA_START,
+						BodyComposition.DATA_START + BodyComposition.DATA_LENGTH);
+				/* 解析数据 */
+				mBodyComposition = new BodyComposition(dataArray);
 //				/*
 //				 * BYTE 0
 //				 * 设置为01h – 无数据上报
@@ -281,13 +298,13 @@ public class BodyCompositionAnalyzer {
 //                    Log.e(LOG_TAG, "parseCoin 未知状态");
 //                }
 //
-//				/* 将处理过数据删除 进行递归 */
-//                cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                if (cache.length != 0) {
-//					/* 数据未处理完时不再打印调试信息 */
-//                    // handleError(10, cache, in);
-//                    continue loop;
-//                }
+				/* 将处理过数据删除 进行递归 */
+                cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
+                if (cache.length != 0) {
+					/* 数据未处理完时不再打印调试信息 */
+                    // handleError(10, cache, in);
+                    continue loop;
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 Log.e(LOG_TAG, "parseCoin: ArrayIndexOutOfBoundsException");
                 e.printStackTrace();
