@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
 //        try {
 //            mBodyCompositionAnalyzer.doIt(true);
