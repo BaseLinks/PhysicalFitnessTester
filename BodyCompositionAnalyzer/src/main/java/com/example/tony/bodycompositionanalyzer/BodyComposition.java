@@ -99,7 +99,7 @@ public class BodyComposition {
     public static final int DATA_LENGTH = 218;
     public static final int VERIFICATION_START = 223;
     public static final int VERIFICATION_LENGTH = 4;
-    public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH;
+    public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH; // 6+218+4=228
 
     /* 在数据中的位置 注：小端方式 */
     public static final int 姓名_START             = 0;

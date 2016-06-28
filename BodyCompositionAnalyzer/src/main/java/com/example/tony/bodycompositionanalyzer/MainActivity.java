@@ -1,15 +1,11 @@
 package com.example.tony.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.print.PrintAttributes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.print.PrintHelper;
@@ -20,17 +16,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
+import java.security.InvalidParameterException;
+
+import android_serialport_api.ComBean;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String LOG_TAG = "PDFdemo";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +44,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
-//        try {
-//            mBodyCompositionAnalyzer.doIt(true);
-//                    /* 创建PDF */
-//            String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
-//                    /* 打开PDF */
-//            startActivity(getPdfFileIntent(pdf));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        UartHelper mUartHelper = new SerialControl(this);
+
+        try {
+            Log.i(LOG_TAG, "UartHelper onUartHelper");
+            mUartHelper.setBaudRate(9600);
+            mUartHelper.open();
+            mUartHelper.send(new byte[]{'H', 'E', 'L', 'L', 'O'});
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidParameterException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class SerialControl extends UartHelper {
+        /**
+         * 主要是设置context对象
+         * @param context
+         */
+        public SerialControl(Context context) {
+            super.init(context);
+        }
+
+        @Override
+        protected void onDataReceived(final ComBean ComRecData) {
+            handleRecData(ComRecData);
+        }
+        /** 处理接收到串口数据事件 */
+        private void handleRecData(final ComBean ComRecData) {
+            Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
+            Log.i(LOG_TAG, "handleRecStri:" + new String(ComRecData.bRec));
+        }
     }
 
     public void onClick(View v) {
