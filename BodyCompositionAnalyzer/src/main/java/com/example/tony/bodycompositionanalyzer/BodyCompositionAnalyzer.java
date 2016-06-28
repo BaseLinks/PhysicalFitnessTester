@@ -154,7 +154,7 @@ public class BodyCompositionAnalyzer {
 					/* 找出 STX 前内容删除 */
                     boolean hasSTX = false;
                     int i = 0;
-                    for (i = 0; i < cache.length; i++)
+                    for (i = 0; i < cache.length - BodyComposition.ACK_LENGTH; i++)
                         ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START + i, BodyComposition.ACK_START + i + BodyComposition.ACK_LENGTH);
                         if (Arrays.equals(ack, BodyComposition.ACK)) {
                             cache = Arrays.copyOfRange(cache, 0 + i, cache.length);
