@@ -44,38 +44,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
-        UartHelper mUartHelper = new SerialControl(this);
-
-        try {
-            Log.i(LOG_TAG, "UartHelper onUartHelper");
-            mUartHelper.setBaudRate(9600);
-            mUartHelper.open();
-            mUartHelper.send(new byte[]{'H', 'E', 'L', 'L', 'O'});
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidParameterException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class SerialControl extends UartHelper {
-        /**
-         * 主要是设置context对象
-         * @param context
-         */
-        public SerialControl(Context context) {
-            super.init(context);
-        }
-
-        @Override
-        protected void onDataReceived(final ComBean ComRecData) {
-            handleRecData(ComRecData);
-        }
-        /** 处理接收到串口数据事件 */
-        private void handleRecData(final ComBean ComRecData) {
-            Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
-            Log.i(LOG_TAG, "handleRecStri:" + new String(ComRecData.bRec));
-        }
     }
 
     public void onClick(View v) {

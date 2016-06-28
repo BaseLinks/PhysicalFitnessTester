@@ -42,9 +42,11 @@ import android_serialport_api.SerialPortFinder;
 public class BodyCompositionAnalyzer {
  	private static final boolean DEBUG = true;
 	private static final String LOG_TAG = "BodyCompositionAnalyzer";
-	/** */
+	/** 基于传统Linux设备节点实现的串口通信 */
 	private final SerialHelper serialCtrl       = new SerialControl();
 	private final SerialPortFinder serialPortFinder = new SerialPortFinder();
+	/** FTDI基于Android USB Api实现的串口通信，免Root */
+	private UartHelper mUartHelper;
 	private final Context mContext;
 	private String                 serialPort       = null;
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyUSB0";
@@ -62,6 +64,7 @@ public class BodyCompositionAnalyzer {
 
 	public BodyCompositionAnalyzer(Context context) {
 		this.mContext = context;
+		mUartHelper = new UartControl(context);
 	}
 
 	private class SerialControl extends SerialHelper {
@@ -73,8 +76,30 @@ public class BodyCompositionAnalyzer {
 		/** 处理接收到串口数据事件 */
 		private void handleRecData(final ComBean ComRecData) {
 			if (DEBUG) Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
-			if (DEBUG) Log.i(LOG_TAG, "handleRecStri:" + new String(ComRecData.bRec));
             parseData2(ComRecData.bRec);
+		}
+	}
+
+	/**
+	 * FTDI 类
+	 */
+	private class UartControl extends UartHelper {
+		/**
+		 * 主要是设置context对象
+		 * @param context
+		 */
+		public UartControl(Context context) {
+			super.init(context);
+		}
+
+		@Override
+		protected void onDataReceived(final ComBean ComRecData) {
+			handleRecData(ComRecData);
+		}
+		/** 处理接收到串口数据事件 */
+		private void handleRecData(final ComBean ComRecData) {
+			Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
+			parseData2(ComRecData.bRec);
 		}
 	}
 
@@ -114,16 +139,23 @@ public class BodyCompositionAnalyzer {
 		/* loop循环用于迭代处理 */
         loop: while (cache.length > 0) {
             try {
-				/* 取出第ACK_LENGTH位ack */
+
+				/* 1.1 判断数据是否极小，小于ACK的长度值 */
+				if(cache.length < BodyComposition.ACK_LENGTH) {
+					handleError(1.0, cache, in);
+					return;
+				}
+
+				/* 1.2 取出第ACK_LENGTH位ack */
                 ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START, BodyComposition.ACK_START + BodyComposition.ACK_LENGTH);
 				/* 1. 锁定STX位置 */
                 if (!Arrays.equals(ack, BodyComposition.ACK)) {
-                    handleError(1, cache, in);
+                    handleError(1.1, cache, in);
 					/* 找出 STX 前内容删除 */
                     boolean hasSTX = false;
                     int i = 0;
                     for (i = 0; i < cache.length; i++)
-                        ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START + i, BodyComposition.ACK_LENGTH);
+                        ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START + i, BodyComposition.ACK_START + i + BodyComposition.ACK_LENGTH);
                         if (Arrays.equals(ack, BodyComposition.ACK)) {
                             cache = Arrays.copyOfRange(cache, 0 + i, cache.length);
                             handleError(1.1, cache, in);
@@ -135,7 +167,7 @@ public class BodyCompositionAnalyzer {
                         continue loop;
                     } else {
 						/* 没有查到STX，直接清除全部cache */
-                        handleError(1.2, cache, in);
+                        handleError(1.3, cache, in);
                         cache = Arrays.copyOfRange(cache, 0, 0);
                         return;
                     }
@@ -323,9 +355,9 @@ public class BodyCompositionAnalyzer {
     /** 处理错误 */
     private static void handleError(double d, byte[] cache, byte[] in) {
         if (DEBUG) Log.w(LOG_TAG, "parseCoin    in: " + d + " (" + in.length + ") "
-                + Arrays.toString(in));
+                + bytesToHex(in));
         if (DEBUG) Log.w(LOG_TAG, "parseCoin cache: " + d + " (" + cache.length + ") "
-                + Arrays.toString(cache));
+                + bytesToHex(cache));
     }
 
 	private void parseData(byte[] inputData) {
@@ -450,18 +482,40 @@ public class BodyCompositionAnalyzer {
 			return true;
 		}
 
-		/* 1. 打开串口 */
-		if (!initCoinMachine()) {
-			if (DEBUG)
-				Log.w(LOG_TAG, "init Thermal Printer fail!");
-			return false;
+		try {
+			mUartHelper.setBaudRate(9600);
+			mUartHelper.open();
+			mUartHelper.send(getDianjiTest());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidParameterException e) {
+			e.printStackTrace();
 		}
-		/* 2. 发送数据 */
-		serialCtrl.send(getDianjiTest());
+
+//		/* 1. 打开串口 */
+//		if (!initCoinMachine()) {
+//			if (DEBUG)
+//				Log.w(LOG_TAG, "init Thermal Printer fail!");
+//			return false;
+//		}
+//		/* 2. 发送数据 */
+//		serialCtrl.send(getDianjiTest());
 
 		/* 3. 关闭串口 */
 //		serialCtrl.close();
 		return false;
+	}
+
+	void tmp () {
+		try {
+			mUartHelper.setBaudRate(9600);
+			mUartHelper.open();
+			mUartHelper.send(new byte[]{'H', 'E', 'L', 'L', 'O'});
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidParameterException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

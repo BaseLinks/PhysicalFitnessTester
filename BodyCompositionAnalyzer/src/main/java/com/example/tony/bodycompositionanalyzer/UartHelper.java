@@ -315,7 +315,7 @@ public abstract class UartHelper {
                         readcount = USB_DATA_BUFFER;
                     }
                     ftDev.read(usbdata, readcount);
-                    onDataReceived(new ComBean("", usbdata, usbdata.length));
+                    onDataReceived(new ComBean("", usbdata, readcount));
                 }
             }
             Log.e(LOG_TAG, "read thread terminate...");
