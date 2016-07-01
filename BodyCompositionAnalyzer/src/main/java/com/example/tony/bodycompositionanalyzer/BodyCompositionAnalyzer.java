@@ -699,13 +699,15 @@ public class BodyCompositionAnalyzer {
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体脂肪量, mAlignment);
-			/* 3. 体成分分析　*/
+			/* 3x. 体成分分析　*/
 
 			/* 4X. 调节目标 */
 			// 41 体重_标准 okay 注：根据当前值和调节量倒倒推
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			canvas.drawText(String.valueOf(eval(bc.体重2 + bc.体重调节)),
+			/* 体重标准是 脂肪调节量、肌肉调节量 与 体重 之和 */
+			tmpStr = String.valueOf(eval(bc.体重2 + String.valueOf(eval(bc.脂肪调节 + bc.肌肉调节))));
+			canvas.drawText(tmpStr,
 					BodyComposition.Position.体重_标准.getXMils() / 1000,
 					BodyComposition.Position.体重_标准.getYMils() / 1000,
 					paint);
@@ -720,8 +722,10 @@ public class BodyCompositionAnalyzer {
 			// 43 体重_调节量 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
+			/* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
+			tmpStr = String.valueOf(eval(bc.脂肪调节 + bc.肌肉调节));
 			canvas.drawText(
-					bc.体重调节,
+					tmpStr,
 					BodyComposition.Position.体重_调节量.getXMils() / 1000,
 					BodyComposition.Position.体重_调节量.getYMils() / 1000,
 					paint);
@@ -1026,7 +1030,8 @@ public class BodyCompositionAnalyzer {
         /**
          * 坐标由iso mm转换为英寸point
          */
-        canvas.drawText("■", (float)xPos * 2836 / 1000, (float)yPos * 2836 / 1000, textPaint);
+		textPaint.setTextSize(20);
+        canvas.drawText("■", (float)(xPos * 2836 - 10) / 1000, (float)(yPos * 2836 + 10) / 1000, textPaint);
     }
 
     private static final String SEPARATOR = "-";
