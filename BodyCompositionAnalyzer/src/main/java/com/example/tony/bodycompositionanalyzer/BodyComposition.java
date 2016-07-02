@@ -14,6 +14,7 @@ public class BodyComposition {
     public final String 姓名;
     public final String 身高;
     public final String 体重1;
+    public final int    SEX;
     public final String 性别;
     public final String 年龄;
     public final String 身体电阻值;
@@ -35,14 +36,24 @@ public class BodyComposition {
     public final String _250k下rl电阻值;
 
     public final String 测试日期;
+    /** 单位*10 */
+    public final int    体重_CUR;
     public final String 体重2;
+    public final int    体重_MIN;
+    public final int    体重_MAX;
     public final String 体重标准范围;
     public final String 体重标准值;
     public final String 去脂肪体重;
     public final String 去脂肪体重标准;
     public final String 体脂肪量;
     public final String 体脂肪量标准;
+    public final int    体脂肪量_CUR;
+    public final int    体脂肪量_MIN;
+    public final int    体脂肪量_MAX;
     public final String 肌肉量;
+    public final int    肌肉量_CUR;
+    public final int    肌肉量_MIN;
+    public final int    肌肉量_MAX;
     public final String 肌肉标准;
     public final String 躯干脂肪;
     public final String 躯干脂肪标准;
@@ -70,6 +81,9 @@ public class BodyComposition {
 
     public final String 身体总水分;
     public final String 身体总水分正常范围;
+    public final int    身体总水分_CUR;
+    public final int    身体总水分_MIN;
+    public final int    身体总水分_MAX;
     public final String 蛋白质含量;
     public final String 蛋白质正常范围;
     public final String 无机盐含量;
@@ -80,7 +94,13 @@ public class BodyComposition {
     public final String 细胞内液正常范围;
     // ...
     public short[] BMI结果;
+    public final int    身体质量_CUR;
+    public final int    身体质量_MAX;
+    public final int    身体质量_MIN;
     public short[] 脂肪率;
+    public final int    脂肪率_CUR;
+    public final int    脂肪率_MAX;
+    public final int    脂肪率_MIN;
 
     // ...
     public final String 身体总评分;
@@ -171,7 +191,10 @@ public class BodyComposition {
     public static final int 细胞内液正常范围_START        = 168;
     // ...
     public static final int BMI结果_START                = 178;
+    public static final int 身体质量_START                = 178;
+    public static final int 身体质量范围_START           = 180;
     public static final int 脂肪率_START                 = 184;
+    public static final int 脂肪率范围_START             = 186;
 
     // ...
 
@@ -254,7 +277,10 @@ public class BodyComposition {
     public static final int 细胞内液正常范围_LENGTH        = 4;
     // ...
     public static final int BMI结果_LENGTH               = 6;
-    public static final int 脂肪率_LENGTH                = 6;
+    public static final int 身体质量_LENGTH              = 2;
+    public static final int 身体质量范围_LENGTH          = 4;
+    public static final int 脂肪率_LENGTH                = 2;
+    public static final int 脂肪率范围_LENGTH             = 4;
 
     // ...
 
@@ -365,6 +391,29 @@ public class BodyComposition {
         // 29 体脂肪量
         public static final Position 体脂肪量 =
                 new Position(104 * 2836, 104 * 2836, 20 * 2836, 46810);
+
+        /* 3X. 体成分分析 */
+        // 32 体重
+        public static final Position 体成分分析_体重 =
+                new Position(34 * 2836, 142 * 2836, 33110, 46810);
+        // 32 身体质量
+        public static final Position 体成分分析_身体质量 =
+                new Position(85 * 2836, 219 * 2836, 33110, 46810);
+        // 33 体脂肪率
+        public static final Position 体成分分析_体脂肪率 =
+                new Position(112 * 2836, 219 * 2836, 33110, 46810);
+        // 34 体脂肪量
+        public static final Position 体成分分析_体脂肪量 =
+                new Position(58 * 2836, 227 * 2836, 33110, 46810);
+        // 35 肌肉量
+        public static final Position 体成分分析_肌肉量 =
+                new Position(85 * 2836, 227 * 2836, 33110, 46810);
+        // 36 身体水分
+        public static final Position 体成分分析_身体水分 =
+                new Position(112 * 2836, 227 * 2836, 33110, 46810);
+        // 37 内脏脂肪
+        public static final Position 体成分分析_内脏脂肪 =
+                new Position(58 * 2836, 235 * 2836, 33110, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准
@@ -666,7 +715,8 @@ public class BodyComposition {
         体重1 = String.format("%.1f", tmpFloat);
 
         // 3. 性别
-        性别 = data[性别_START] == MALE ? "男" : "女";
+        SEX = data[性别_START];
+        性别 = SEX == MALE ? "男" : "女";
 
         // 4. 年龄
         年龄 = String.valueOf(data[年龄_START]);
@@ -764,15 +814,15 @@ public class BodyComposition {
 
         // 22. 体重 80.8kg
         b = Arrays.copyOfRange(data, 体重2_START, 体重2_START + 体重2_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        体重_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpFloat = (float) 体重_CUR / 10;
         体重2 = String.format("%.1f", tmpFloat);
 
         // 23. 体重标准范围
         b = Arrays.copyOfRange(data, 体重标准范围_START, 体重标准范围_START + 体重标准范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体重标准范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
+        体重_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体重_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体重标准范围 = String.format("%.1f-%.1f", (float) 体重_MIN / 10, (float) 体重_MAX / 10);
 
         // 24. 体重标准值
         b = Arrays.copyOfRange(data, 体重标准值_START, 体重标准值_START + 体重标准值_LENGTH);
@@ -793,27 +843,25 @@ public class BodyComposition {
 
         // 27. 体脂肪量
         b = Arrays.copyOfRange(data, 体脂肪量_START, 体脂肪量_START + 体脂肪量_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体脂肪量 = String.format("%.1f", tmpFloat);
+        体脂肪量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体脂肪量 = String.format("%.1f", (float) 体脂肪量_CUR / 10);
 
         // 28. 体脂肪量标准
         b = Arrays.copyOfRange(data, 体脂肪量标准_START, 体脂肪量标准_START + 体脂肪量标准_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        体脂肪量标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
+        体脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体脂肪量标准 = String.format("%.1f-%.1f", (float) 体脂肪量_MIN / 10, (float) 体脂肪量_MAX / 10);
 
         // 29. 肌肉量
         b = Arrays.copyOfRange(data, 肌肉量_START, 肌肉量_START + 肌肉量_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        肌肉量 = String.format("%.1f", tmpFloat);
+        肌肉量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        肌肉量 = String.format("%.1f", (float) 肌肉量_CUR / 10);
 
         // 30. 肌肉标准
         b = Arrays.copyOfRange(data, 肌肉标准_START, 肌肉标准_START + 肌肉标准_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        肌肉标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
+        肌肉量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        肌肉量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        肌肉标准 = String.format("%.1f-%.1f", (float) 肌肉量_MIN / 10, (float) 肌肉量_MAX / 10);
 
         // 31. 躯干脂肪 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干脂肪_START, 躯干脂肪_START + 躯干脂肪_LENGTH);
@@ -949,15 +997,14 @@ public class BodyComposition {
 
         // 53. 身体总水分
         b = Arrays.copyOfRange(data, 身体总水分_START, 身体总水分_START + 身体总水分_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        身体总水分 = String.format("%.1f", tmpFloat);
+        身体总水分_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体总水分 = String.format("%.1f", (float) 身体总水分_CUR / 10);
 
         // 54. 身体总水分正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 身体总水分正常范围_START, 身体总水分正常范围_START + 身体总水分正常范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        身体总水分正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
+        身体总水分_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体总水分_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体总水分正常范围 = String.format("%.1f-%.1f", (float)身体总水分_MIN / 10, (float)身体总水分_MAX / 10);
 
         // 55. 蛋白质含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质含量_START, 蛋白质含量_START + 蛋白质含量_LENGTH);
@@ -1017,10 +1064,24 @@ public class BodyComposition {
         BMI结果 = new short[b.length / 2];
         ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(BMI结果);
 
-        // 65. 脂肪率 注:将byte[]转化为short[]
+        // 64. 身体质量
+        b = Arrays.copyOfRange(data, 身体质量_START, 身体质量_START + 身体质量_LENGTH);
+        身体质量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+
+        // 64. 身体质量范围
+        b = Arrays.copyOfRange(data, 身体质量范围_START, 身体质量范围_START + 身体质量范围_LENGTH);
+        身体质量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体质量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+
+        // 65. 脂肪率
         b = Arrays.copyOfRange(data, 脂肪率_START, 脂肪率_START + 脂肪率_LENGTH);
         脂肪率 = new short[b.length / 2];
         ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(脂肪率);
+        脂肪率_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+
+        b = Arrays.copyOfRange(data, 脂肪率范围_START, 脂肪率范围_START + 脂肪率范围_LENGTH);
+        脂肪率_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        脂肪率_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
 
         // 66. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);

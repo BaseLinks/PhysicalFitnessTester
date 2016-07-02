@@ -584,9 +584,10 @@ public class BodyCompositionAnalyzer {
 			Canvas canvas = page.getCanvas();
 
 			// 画笔
-			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-			float size = paint.getTextSize();
-			paint.setTextSize(8);
+			Paint defPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+			float size = defPaint.getTextSize();
+			defPaint.setTextSize(8);
+			Paint paint = new Paint(defPaint);
 			Log.i(LOG_TAG, "size: " + size);
 
 			Layout.Alignment mAlignment;
@@ -644,7 +645,7 @@ public class BodyCompositionAnalyzer {
 			tmpStr = bc.性别;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.性别, mAlignment);
 
-			/* 2. 休成分结果 */
+			/* 2x. 休成分结果 */
 			// 21 体重2
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
@@ -699,7 +700,98 @@ public class BodyCompositionAnalyzer {
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体脂肪量, mAlignment);
+
 			/* 3x. 体成分分析　*/
+            /* 31. 体重 */
+			paint.setColor(Color.BLACK);
+			paint.setStrokeWidth(5f);
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_体重.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_体重.getXMils() / 1000 + getProgressLength(项目_体重, bc),
+                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
+                    paint);
+			// 还原
+			paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 32. 身体质量(BMI) */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000 + getProgressLength(项目_身体质量, bc),
+                    BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 33. 体脂肪率 */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000 + getProgressLength(项目_体脂肪率, bc),
+                    BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 34. 体脂肪量 */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000 + getProgressLength(项目_体脂肪量, bc),
+                    BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 35. 肌肉量 */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000 + getProgressLength(项目_肌肉量, bc),
+                    BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 36. 身体水分 */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000 + getProgressLength(项目_身体水分, bc),
+                    BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
+
+            /* 37. 内脏脂肪 */
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(5f);
+            mAlignment = Layout.Alignment.ALIGN_CENTER;
+            canvas.drawLine(
+                    BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000,
+                    BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000,
+                    BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength(项目_内脏脂肪, bc),
+                    BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000,
+                    paint);
+            // 还原
+            paint.setStrokeWidth(defPaint.getStrokeWidth());
 
 			/* 4X. 调节目标 */
 			// 41 体重_标准 okay 注：根据当前值和调节量倒倒推
@@ -999,27 +1091,25 @@ public class BodyCompositionAnalyzer {
         // bmi结果
         double xPos = 0;
         double yPos = 0;
-        short[] bmi = bc.BMI结果;
-        if (bmi[0] > BodyComposition.BMI_MIN) {
-            xPos = (bmi[0] - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
+        if (bc.身体质量_CUR > BodyComposition.BMI_MIN) {
+            xPos = (bc.身体质量_CUR - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
         } else
             xPos = 0;
 
-        short[] bfr = bc.脂肪率;
-        if (bfr[0] < BodyComposition.BFR_MIN) {
+        if (bc.脂肪率_CUR < BodyComposition.BFR_MIN) {
             yPos = 0;
         }
         // MALE
         if (bc.性别.equals("男")) {
-            yPos = (bfr[0] - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
-            if (bfr[0] > bfr[2]) //测试值超过标准
+            yPos = (bc.脂肪率_CUR - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            if (bc.脂肪率_CUR > bc.脂肪率_MAX) //测试值超过标准
             {
-                yPos = ((bfr[0] - bfr[2]) / 2 + bfr[2] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+                yPos = ((bc.脂肪率_CUR - bc.脂肪率_MAX) / 2 + bc.脂肪率_MAX - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             } else {
-                yPos = (bfr[0] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+                yPos = (bc.脂肪率_CUR - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             }
         } else if (bc.性别.equals("女")) { // FEMALE
-            yPos = (bfr[0] - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
+            yPos = (bc.脂肪率_CUR - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
 
         Log.i(LOG_TAG, "xPos: " + xPos + " yPos: " + yPos);
@@ -1214,5 +1304,138 @@ public class BodyCompositionAnalyzer {
 			e.printStackTrace();
 		}
 		return bitmap;
+	}
+
+	/**
+	 * 体成分分析项目表
+	 * 体重
+	 */
+    public static final int 项目_体重      = 1;
+	/**
+	 * BMI 身体质量
+	 */
+    public static final int 项目_身体质量   = 2;
+	/**
+	 * 体脂肪率
+	 */
+    public static final int 项目_体脂肪率   = 3;
+	/**
+	 * 体脂肪量
+	 */
+    public static final int 项目_体脂肪量   = 4;
+	/**
+	 * 肌肉量
+	 */
+    public static final int 项目_肌肉量    = 5;
+	/**
+	 * 身体水分
+	 */
+    public static final int 项目_身体水分  = 6;
+	/**
+	 * 内脏脂肪
+	 */
+	public static final int 项目_内脏脂肪  = 7;
+
+	//Item  项目
+	//返回
+
+    /**
+     *
+     * @param item 项目
+     * @param bc BodyComposition
+     * @return 进度条实际长度，单位Point
+     */
+    public float getProgressLength(int item, BodyComposition bc) {
+		float rate = 1;
+		boolean Flag = false;
+		int[] P_temp = new int[2];
+		int Data_Test = 0, Data_Min = 0, Data_Max = 0;
+		switch (item) {
+			case 项目_体重: // 体重
+				Data_Test = bc.体重_CUR;
+				Data_Min = bc.体重_MIN;
+				Data_Max = bc.体重_MAX;
+				Flag = false;
+				break;
+			case 项目_身体质量: // BMI
+				Data_Test = bc.身体质量_CUR;
+				Data_Min = bc.身体质量_MIN;
+				Data_Max =  bc.身体质量_MAX;
+				Flag = false;
+				break;
+            case 项目_体脂肪率: // 体脂肪率
+                Data_Test = bc.脂肪率_CUR;
+                Data_Min = bc.脂肪率_MIN;
+                Data_Max = bc.脂肪率_MAX;
+                if (bc.SEX == BodyComposition.MALE) //男
+                    Flag = true;
+                else if (bc.SEX == BodyComposition.FEMALE)
+                    Flag = false;
+                break;
+			case 项目_体脂肪量:// 脂肪量
+				int Long_Num = bc.体脂肪量_CUR;
+				Long_Num = Long_Num * 1000;
+
+				// 将标准量设为100%进行比较
+				Long_Num =  Long_Num / ((bc.体脂肪量_MIN + bc.体脂肪量_MAX)/2);
+				Data_Test = Long_Num;
+				Data_Min = 900;
+				Data_Max =  1100;
+				Flag = false;
+				break;
+            case 项目_肌肉量:
+                Long_Num = bc.肌肉量_CUR;
+                Long_Num = Long_Num * 1000;
+                // 将标准量设为100%进行比较
+                Long_Num = Long_Num / ((bc.肌肉量_MIN + bc.肌肉量_MAX) / 2);
+                Data_Test = Long_Num;
+                Data_Min = 900;
+                Data_Max = 1100;
+                Flag = false;
+
+                break;
+            case 项目_身体水分:
+                Long_Num = bc.身体总水分_CUR;
+                Long_Num = Long_Num * 1000;
+
+                // 将标准量设为100%进行比较
+                Long_Num = Long_Num / ((bc.身体总水分_MIN + bc.身体总水分_MAX) / 2);
+                Data_Test = Long_Num;
+                Data_Min = 900;
+                Data_Max = 1100;
+                Flag = false;
+                break;
+            case 项目_内脏脂肪:
+				Data_Test = (int) (Float.valueOf(bc.内脏脂肪指数) - 2);
+				Data_Min = 100; //100; //1位小数点
+				Data_Max = 140;
+				Flag = false;
+				break;
+		}
+
+		/**
+		 * 求出最外边界值
+		 */
+		P_temp[0] = Data_Min - ((Data_Max - Data_Min) * 3 / 2); //坐标最小值, 600
+		P_temp[1] = Data_Max + ((Data_Max - Data_Min) * 2);     //坐标最大值,1500
+		int range = P_temp[1] - P_temp[0];                      //整体坐标代表的最大数值,900
+		int position = 0;
+		// 如果小于最最小值，设定一默认值5
+		if (Data_Test < P_temp[0]) //低于最小值坐标
+			position = 5;
+		else {
+			if (Flag) { // 脂肪量 脂肪率
+				if (Data_Test > Data_Max)
+					position = ((Data_Test - Data_Max) / 2 + Data_Max) - P_temp[0];
+				else
+					position = Data_Test - P_temp[0];
+			} else // 其它
+				position = Data_Test - P_temp[0];
+
+			if (position > range) // 超出最大坐标，以最大为准
+				position = range;
+		}
+		rate = (float) position / range;
+		return rate * 90 * 2836 / 1000;
 	}
 }
