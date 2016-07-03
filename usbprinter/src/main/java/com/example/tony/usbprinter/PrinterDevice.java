@@ -76,7 +76,7 @@ public class PrinterDevice {
 				final int MAX_USBFS_BUFFER_SIZE = 16384; //16KiB.
 				//File pcl3gui = new File("/sdcard/HelloWorld.PCL3GUI");
 				byte[] bytes = new byte[MAX_USBFS_BUFFER_SIZE];
-				bufferInputStream = new BufferedInputStream(mActivity.mInputStream);
+				bufferInputStream = new BufferedInputStream(null);
 				int bytesRead = 0;
 				int bytesWrite = 0;
 				//从文件中按字节读取内容，到文件尾部时read方法将返回-1

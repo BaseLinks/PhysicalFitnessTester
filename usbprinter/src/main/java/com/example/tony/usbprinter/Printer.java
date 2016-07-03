@@ -19,6 +19,7 @@ import android.util.Log;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -47,6 +48,59 @@ public class Printer {
 
     AssetManager mAssetManager = null;
     InputStream mInputStream = null;
+
+    private final static String DEVICE_ID_CANON_IP2700    = "MFG:Canon;CMD:BJL,BJRaster3,BSCCe,IVEC,IVECPLI;SOJ:TXT01;MDL:iP2700 series;CLS:PRINTER;DES:Canon iP2700 series;";
+    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:KODAK;CMD:KODAK305;MDL:305 Photo Printer;CLS:PRINTER;DES:KODAK 305 Photo Printer";
+    private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
+
+    /**
+     * 打印机型号类
+     */
+    public enum PrinterModel {
+        /** Unkown model */
+        UNKOWN_MODEL("Unkonw model Printer", "NULL", "NULL"),
+        /** Canon iP2780 */
+        CANON_IP2780("Canon iP2780 Printer", DEVICE_ID_CANON_IP2700, "HelloWorld.canonip2780"),
+        /** HP Deskjet 1112 */
+        HP_DESKJET_1112_305("HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
+        /** EPSON R330 */
+        EPSON_330("Epson R330 Printer", DEVICE_ID_EPSON_R330, "HelloWorld.epsonr330");
+        private final String des;
+        private final String deviceId;
+        private final String testFileName;
+
+        PrinterModel(String des, String deviceId, String name) {
+            this.des = des;
+            this.deviceId = deviceId;
+            this.testFileName = name;
+        }
+        public String getDes() {
+            return des;
+        }
+        public String getDeviceId() {
+            return deviceId;
+        }
+
+        public String getTestFileName() {
+            return testFileName;
+        }
+    }
+
+    /**
+     * 根据DeviceId匹配打印机型号
+     * @param deviceId
+     * @return
+     */
+    public static PrinterModel matchPrinterModel(String deviceId) {
+        if(deviceId != null) {
+            for (PrinterModel pm : PrinterModel.values()) {
+                if(deviceId.startsWith(pm.deviceId))
+                    return pm;
+            }
+        }
+        return PrinterModel.UNKOWN_MODEL;
+    }
+
     public Printer(Context context) {
         Log.i(LOG_TAG, "Printer");
         mContext = context;
@@ -117,17 +171,53 @@ public class Printer {
                 1024,
                 5000);
 
-        if(b != null) {
-            ret = new String(b);
-        }
-        Log.i(LOG_TAG, " sf length: " + length + " " + b[0] + " " + b[1] + " " + b[2]);
-        Log.i(LOG_TAG, "ret: " + new String(b));
+        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
+        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        /** 解析设备ID */
+        ret = parseDeviceid(deviceIdArray);
         return ret;
     }
 
-    private String parseDeviceid(byte[] in)  {
-        String ret = "";
+    /**
+     * 获取打印机型号
+     */
+    public PrinterModel getModel2() {
+        PrinterModel ret = null;
+        byte[] b = new byte[1024];
+        int length = mDeviceConnection.controlTransfer(
+                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
+                USBLP_REQ_GET_ID,
+                0,
+                0,
+                b,
+                1024,
+                5000);
 
+        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
+        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        /** 解析设备ID */
+        String deviceIdStr = new String(deviceIdArray);
+        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        if (deviceIdArray != null) {
+            PrinterModel pm = matchPrinterModel(deviceIdStr);
+            ret = pm;
+            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
+        }
+        return ret;
+    }
+
+    private String parseDeviceid(byte[] deviceIdArray) {
+        String ret = "未连接打印机";
+        String deviceIdStr = new String(deviceIdArray);
+        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        if (deviceIdArray != null) {
+            PrinterModel pm = matchPrinterModel(deviceIdStr);
+            if (pm.equals(PrinterModel.UNKOWN_MODEL)) {
+                Log.e(LOG_TAG, "未知型号打印机");
+            }
+            ret = pm.getDes();
+            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
+        }
         return ret;
     }
 

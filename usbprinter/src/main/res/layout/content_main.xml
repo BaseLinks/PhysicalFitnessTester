@@ -13,7 +13,26 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:id="@+id/model_label_textview"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="打印机型号:" />
+
+    <TextView
+        android:id="@+id/model_textview"
+        android:layout_toRightOf="@id/model_label_textview"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这里显示打印机型号" />
+
+    <Button
+        android:id="@+id/test_button"
+        android:onClick="onClick"
+        android:layout_below="@id/model_label_textview"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试打印" />
 </RelativeLayout>
