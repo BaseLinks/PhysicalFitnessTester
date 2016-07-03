@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         // 2. 写入打印机
         Printer mPrinter = new Printer(this);
         if(mPrinter.isConnected()) {
-            mPrinter.write(mInputStream);
+//            mPrinter.write(mInputStream);
+            mPrinter.getModel();
         }
     }
 }

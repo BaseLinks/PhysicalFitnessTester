@@ -13,6 +13,7 @@ import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -79,10 +80,55 @@ public class Printer {
     }
 
     /**
+     * USB Printer Requests
+     */
+    public static final int USBLP_REQ_GET_ID = 0x00;
+    public static final int USBLP_REQ_GET_STATUS = 0x01;
+    public static final int USBLP_REQ_RESET = 0x02;
+    public static final int USBLP_REQ_HP_CHANNEL_CHANGE_REQUEST = 0x00;    /* HP Vendor-specific */
+
+    public static final int USBLP_MINORS = 16;
+    public static final int USBLP_MINOR_BASE = 0;
+
+    public static final int USBLP_CTL_TIMEOUT = 5000;                    /* 5 seconds */
+
+    public static final int USBLP_FIRST_PROTOCOL = 1;
+    public static final int USBLP_LAST_PROTOCOL = 3;
+    public static final int USBLP_MAX_PROTOCOLS = (USBLP_LAST_PROTOCOL + 1);
+
+    /**
+     * libusb
+     */
+    public static final int LIBUSB_RECIPIENT_INTERFACE = 0x01;
+    public static final int LIBUSB_REQUEST_TYPE_CLASS = (0x01 << 5);
+
+    /**
      * 获取打印机型号
      */
     public String getModel() {
-        return "HP Deskjet 1112";
+        String ret = "HP Deskjet 1112";
+        byte[] b = new byte[1024];
+        int length = mDeviceConnection.controlTransfer(
+                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
+                USBLP_REQ_GET_ID,
+                0,
+                0,
+                b,
+                1024,
+                5000);
+
+        if(b != null) {
+            ret = new String(b);
+        }
+        Log.i(LOG_TAG, " sf length: " + length + " " + b[0] + " " + b[1] + " " + b[2]);
+        Log.i(LOG_TAG, "ret: " + new String(b));
+        return ret;
+    }
+
+    private String parseDeviceid(byte[] in)  {
+        String ret = "";
+
+        return ret;
     }
 
     BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
