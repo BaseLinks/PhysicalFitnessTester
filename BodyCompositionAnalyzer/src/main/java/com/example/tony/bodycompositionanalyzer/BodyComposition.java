@@ -67,6 +67,9 @@ public class BodyComposition {
     public final String 右下肢脂肪标准;
     public final String 内脏脂肪指数;
     public final String 内脏指数正常范围;
+    public final int    内脏脂肪_CUR;
+    public final int    内脏脂肪_MAX;
+    public final int    内脏脂肪_MIN;
     /* 节段分析， */
     public final String 躯干肌肉含量;
     public final String 躯干肌肉标准;
@@ -97,7 +100,6 @@ public class BodyComposition {
     public final int    身体质量_CUR;
     public final int    身体质量_MAX;
     public final int    身体质量_MIN;
-    public short[] 脂肪率;
     public final int    脂肪率_CUR;
     public final int    脂肪率_MAX;
     public final int    脂肪率_MIN;
@@ -395,25 +397,25 @@ public class BodyComposition {
         /* 3X. 体成分分析 */
         // 32 体重
         public static final Position 体成分分析_体重 =
-                new Position(34 * 2836, 142 * 2836, 33110, 46810);
+                new Position(34 * 2836, 140 * 2836, 33110, 46810);
         // 32 身体质量
         public static final Position 体成分分析_身体质量 =
-                new Position(85 * 2836, 219 * 2836, 33110, 46810);
+                new Position(34 * 2836, 149 * 2836, 33110, 46810);
         // 33 体脂肪率
         public static final Position 体成分分析_体脂肪率 =
-                new Position(112 * 2836, 219 * 2836, 33110, 46810);
+                new Position(34 * 2836, 158 * 2836, 33110, 46810);
         // 34 体脂肪量
         public static final Position 体成分分析_体脂肪量 =
-                new Position(58 * 2836, 227 * 2836, 33110, 46810);
+                new Position(34 * 2836, 168 * 2836, 33110, 46810);
         // 35 肌肉量
         public static final Position 体成分分析_肌肉量 =
-                new Position(85 * 2836, 227 * 2836, 33110, 46810);
+                new Position(34 * 2836, 176 * 2836, 33110, 46810);
         // 36 身体水分
         public static final Position 体成分分析_身体水分 =
-                new Position(112 * 2836, 227 * 2836, 33110, 46810);
+                new Position(34 * 2836, 185 * 2836, 33110, 46810);
         // 37 内脏脂肪
         public static final Position 体成分分析_内脏脂肪 =
-                new Position(58 * 2836, 235 * 2836, 33110, 46810);
+                new Position(34 * 2836, 194 * 2836, 33110, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准
@@ -925,15 +927,15 @@ public class BodyComposition {
 
         // 41. 内脏脂肪指数
         b = Arrays.copyOfRange(data, 内脏脂肪指数_START, 内脏脂肪指数_START + 内脏脂肪指数_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        内脏脂肪指数 = String.format("%.1f", tmpFloat);
+        内脏脂肪_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        内脏脂肪指数 = String.format("%.1f", (float) 内脏脂肪_CUR / 10);
 
         // 42. 内脏指数正常范围
         b = Arrays.copyOfRange(data, 内脏指数正常范围_START, 内脏指数正常范围_START + 内脏指数正常范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
+        内脏脂肪_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
         tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
-        内脏指数正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
+        内脏脂肪_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        内脏指数正常范围 = String.format("%.1f-%.1f", (float) 内脏脂肪_MIN / 10, (float) 内脏脂肪_MAX / 10);
 
         // 43. 躯干肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干肌肉_START, 躯干肌肉_START + 躯干肌肉_LENGTH);
@@ -1075,8 +1077,6 @@ public class BodyComposition {
 
         // 65. 脂肪率
         b = Arrays.copyOfRange(data, 脂肪率_START, 脂肪率_START + 脂肪率_LENGTH);
-        脂肪率 = new short[b.length / 2];
-        ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(脂肪率);
         脂肪率_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
 
         b = Arrays.copyOfRange(data, 脂肪率范围_START, 脂肪率范围_START + 脂肪率范围_LENGTH);
@@ -1210,7 +1210,7 @@ public class BodyComposition {
                 "\n细胞内液含量='" + 细胞内液含量 + '\'' +
                 "\n细胞内液正常范围='" + 细胞内液正常范围 + '\'' +
                 "\nBMI结果='" + BMI结果 + '\'' +
-                "\n脂肪率='" + 脂肪率 + '\'' +
+                "\n脂肪率_CUR='" + 脂肪率_CUR + '\'' +
                 "\n身体总评分='" + 身体总评分 + '\'' +
                 "\n身体年龄='" + 身体年龄 + '\'' +
                 "\n体重调节='" + 体重调节 + '\'' +
