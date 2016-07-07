@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 if(mPrinter.isConnected()) {
                     Toast.makeText(this, mPrinter.getModel2().getDes(), Toast.LENGTH_LONG).show();
                 } else {
-//                    Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
                 }
 //
 //                List<PermissionGroupInfo> list = this.getPackageManager().getAllPermissionGroups(0);
