@@ -18,7 +18,7 @@
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="生成PDF并打开" />
+        android:text="直接生成PDF并打开" />
 
     <Button
         android:layout_below="@id/textview"
@@ -36,7 +36,17 @@
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="打印测试" />
+        android:text="串口交互测试" />
+
+
+    <Button
+        android:layout_below="@id/print_button"
+        android:layout_margin="10dp"
+        android:id="@+id/get_printer_button"
+        android:onClick="onClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取打印机信息" />
 
 
 </RelativeLayout>
