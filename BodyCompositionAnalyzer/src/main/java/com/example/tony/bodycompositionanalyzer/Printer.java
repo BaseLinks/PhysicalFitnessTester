@@ -1,7 +1,481 @@
 package com.example.tony.bodycompositionanalyzer;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.AssetManager;
+import android.hardware.usb.UsbAccessory;
+import android.hardware.usb.UsbConstants;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
+import android.hardware.usb.UsbRequest;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+
 /**
  * Created by tony on 16-7-3.
  */
 public class Printer {
+    private final Context mContext;
+    private UsbManager mManager;
+    private UsbDevice mDevice;
+    private UsbDeviceConnection mDeviceConnection;
+    private UsbInterface mInterface;
+    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+
+    private static final String LOG_TAG = "PrinterDevice";
+
+    private UsbEndpoint mEndpointOut;
+    private UsbEndpoint mEndpointIn;
+    private String mSerial;
+    private UsbInterface mUsbInterface = null;
+
+    // pool of requests for the OUT endpoint
+    private final LinkedList<UsbRequest> mOutRequestPool = new LinkedList<UsbRequest>();
+    // pool of requests for the IN endpoint
+    private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<UsbRequest>();
+
+    AssetManager mAssetManager = null;
+    InputStream mInputStream = null;
+
+    private final static String DEVICE_ID_CANON_IP2700    = "MFG:Canon;CMD:BJL,BJRaster3,BSCCe,IVEC,IVECPLI;SOJ:TXT01;MDL:iP2700 series;CLS:PRINTER;DES:Canon iP2700 series;";
+    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:KODAK;CMD:KODAK305;MDL:305 Photo Printer;CLS:PRINTER;DES:KODAK 305 Photo Printer";
+    private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
+
+    /**
+     * 打印机型号类
+     */
+    public enum PrinterModel {
+        /** Unkown model */
+        UNKOWN_MODEL("Unkonw model Printer", "NULL", "NULL"),
+        /** Canon iP2780 */
+        CANON_IP2780("Canon iP2780 Printer", DEVICE_ID_CANON_IP2700, "HelloWorld.canonip2780"),
+        /** HP Deskjet 1112 */
+        HP_DESKJET_1112_305("HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
+        /** EPSON R330 */
+        EPSON_330("Epson R330 Printer", DEVICE_ID_EPSON_R330, "HelloWorld.epsonr330");
+        private final String des;
+        private final String deviceId;
+        private final String testFileName;
+
+        PrinterModel(String des, String deviceId, String name) {
+            this.des = des;
+            this.deviceId = deviceId;
+            this.testFileName = name;
+        }
+        public String getDes() {
+            return des;
+        }
+        public String getDeviceId() {
+            return deviceId;
+        }
+
+        public String getTestFileName() {
+            return testFileName;
+        }
+    }
+
+    /**
+     * 根据DeviceId匹配打印机型号
+     * @param deviceId
+     * @return
+     */
+    public static PrinterModel matchPrinterModel(String deviceId) {
+        if(deviceId != null) {
+            for (PrinterModel pm : PrinterModel.values()) {
+                if(deviceId.startsWith(pm.deviceId))
+                    return pm;
+            }
+        }
+        return PrinterModel.UNKOWN_MODEL;
+    }
+
+    public Printer(Context context) {
+        Log.i(LOG_TAG, "Printer");
+        mContext = context;
+
+        /* 只处理检测到的第一个打印机，其它不进行处理 */
+        mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
+        for(UsbDevice device : mManager.getDeviceList().values()) {
+            UsbInterface intf = findPrinterInterface(device);
+            if (setPrinterInterface(device, intf)) {
+                initPrinterDevice(mDeviceConnection, intf);
+                mUsbInterface = intf;
+                break;
+            }
+        }
+
+        // listen for new devices
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        filter.addAction(ACTION_USB_PERMISSION);
+        mContext.registerReceiver(mUsbReceiver, filter);
+
+    }
+
+    /**
+     * 判断是否连接上打印机
+     * @return
+     */
+    public boolean isConnected() {
+        return mUsbInterface == null ? false : true;
+    }
+
+    /**
+     * USB Printer Requests
+     */
+    public static final int USBLP_REQ_GET_ID = 0x00;
+    public static final int USBLP_REQ_GET_STATUS = 0x01;
+    public static final int USBLP_REQ_RESET = 0x02;
+    public static final int USBLP_REQ_HP_CHANNEL_CHANGE_REQUEST = 0x00;    /* HP Vendor-specific */
+
+    public static final int USBLP_MINORS = 16;
+    public static final int USBLP_MINOR_BASE = 0;
+
+    public static final int USBLP_CTL_TIMEOUT = 5000;                    /* 5 seconds */
+
+    public static final int USBLP_FIRST_PROTOCOL = 1;
+    public static final int USBLP_LAST_PROTOCOL = 3;
+    public static final int USBLP_MAX_PROTOCOLS = (USBLP_LAST_PROTOCOL + 1);
+
+    /**
+     * libusb
+     */
+    public static final int LIBUSB_RECIPIENT_INTERFACE = 0x01;
+    public static final int LIBUSB_REQUEST_TYPE_CLASS = (0x01 << 5);
+
+    /**
+     * 获取打印机型号
+     */
+    public String getModel() {
+        String ret = "HP Deskjet 1112";
+        byte[] b = new byte[1024];
+        int length = mDeviceConnection.controlTransfer(
+                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
+                USBLP_REQ_GET_ID,
+                0,
+                0,
+                b,
+                1024,
+                5000);
+
+        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
+        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        /** 解析设备ID */
+        ret = parseDeviceid(deviceIdArray);
+        return ret;
+    }
+
+    /**
+     * 获取打印机型号
+     */
+    public PrinterModel getModel2() {
+        PrinterModel ret = null;
+        byte[] b = new byte[1024];
+        int length = mDeviceConnection.controlTransfer(
+                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
+                USBLP_REQ_GET_ID,
+                0,
+                0,
+                b,
+                1024,
+                5000);
+
+        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
+        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        /** 解析设备ID */
+        String deviceIdStr = new String(deviceIdArray);
+        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        if (deviceIdArray != null) {
+            PrinterModel pm = matchPrinterModel(deviceIdStr);
+            ret = pm;
+            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
+        }
+        return ret;
+    }
+
+    private String parseDeviceid(byte[] deviceIdArray) {
+        String ret = "未连接打印机";
+        String deviceIdStr = new String(deviceIdArray);
+        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        if (deviceIdArray != null) {
+            PrinterModel pm = matchPrinterModel(deviceIdStr);
+            if (pm.equals(PrinterModel.UNKOWN_MODEL)) {
+                Log.e(LOG_TAG, "未知型号打印机");
+            }
+            ret = pm.getDes();
+            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
+        }
+        return ret;
+    }
+
+    BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+                UsbDevice device = (UsbDevice) intent
+                        .getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                UsbInterface intf = findPrinterInterface(device);
+                if (intf != null) {
+                    Log.i(LOG_TAG, "Found Printer interface " + intf);
+                    setPrinterInterface(device, intf);
+                }
+            } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+                UsbDevice device = intent
+                        .getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                String deviceName = device.getDeviceName();
+                if (mDevice != null && mDevice.equals(deviceName)) {
+                    Log.i(LOG_TAG, "printer interface removed");
+                    setPrinterInterface(null, null);
+                }
+            } else if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        if(accessory != null){
+                            //call method to set up accessory communication
+                        }
+                    }
+                    else {
+                        Log.d(LOG_TAG, "permission denied for accessory " + accessory);
+                    }
+                }
+            }
+        }
+    };
+
+    // searches for an adb interface on the given USB device
+    static private UsbInterface findPrinterInterface(UsbDevice device) {
+        Log.d(LOG_TAG, "findPrinterInterface " + device);
+        int count = device.getInterfaceCount();
+        for (int i = 0; i < count; i++) {
+            UsbInterface intf = device.getInterface(i);
+            if (intf.getInterfaceClass() == UsbConstants.USB_CLASS_PRINTER) {
+                Log.i(LOG_TAG, "Printer");
+                return intf;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取Usb权限
+     * @param context
+     * @param usbManager
+     */
+    private void tryGetUsbPermission(Context context, UsbManager usbManager){
+        usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
+
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        context.registerReceiver(mUsbPermissionActionReceiver, filter);
+
+        PendingIntent mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
+
+        //here do emulation to ask all connected usb device for permission
+        for (final UsbDevice usbDevice : usbManager.getDeviceList().values()) {
+            //add some conditional check if necessary
+            //if(isWeCaredUsbDevice(usbDevice)){
+            if(usbManager.hasPermission(usbDevice)){
+                //if has already got permission, just goto connect it
+                //that means: user has choose yes for your previously popup window asking for grant perssion for this usb device
+                //and also choose option: not ask again
+                afterGetUsbPermission(context, usbDevice);
+            }else{
+                //this line will let android popup window, ask user whether to allow this app to have permission to operate this usb device
+                usbManager.requestPermission(usbDevice, mPermissionIntent);
+            }
+            //}
+        }
+    }
+
+    private final BroadcastReceiver mUsbPermissionActionReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbDevice usbDevice = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        //user choose YES for your previously popup window asking for grant perssion for this usb device
+                        if(null != usbDevice){
+                            afterGetUsbPermission(context, usbDevice);
+                        }
+                    }
+                    else {
+                        //user choose NO for your previously popup window asking for grant perssion for this usb device
+                        Toast.makeText(context, String.valueOf("Permission denied for device" + usbDevice), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    };
+
+    private void afterGetUsbPermission(Context context, UsbDevice usbDevice){
+        //call method to set up device communication
+        Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
+        Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
+
+        doYourOpenUsbDevice(mManager, usbDevice, mInterface);
+    }
+
+    /**
+     * 成功打开usb端口，并连接上
+     * @param usbManager
+     * @param device
+     * @param intf
+     */
+    private void doYourOpenUsbDevice(UsbManager usbManager, UsbDevice device, UsbInterface intf){
+        //now follow line will NOT show: User has not given permission to device UsbDevice
+        //add your operation code here
+        if (device != null && intf != null) {
+            UsbDeviceConnection connection = usbManager.openDevice(device);
+            if (connection != null) {
+                Log.i(LOG_TAG, "open succeeded");
+                if (connection.claimInterface(intf, false)) {
+                    Log.i(LOG_TAG, "claim interface succeeded");
+                    mDevice = device;
+                    mDeviceConnection = connection;
+                    mInterface = intf;
+                } else {
+                    Log.i(LOG_TAG, "claim interface failed");
+                    connection.close();
+                }
+            } else {
+                Toast.makeText(mContext, "open failed", Toast.LENGTH_LONG).show();
+                Log.i(LOG_TAG, "open failed");
+            }
+        }
+    }
+
+
+    // Sets the current USB device and interface
+    private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
+        if (mDeviceConnection != null) {
+            if (mInterface != null) {
+                mDeviceConnection.releaseInterface(mInterface);
+                mInterface = null;
+            }
+            mDeviceConnection.close();
+            mDevice = null;
+            mDeviceConnection = null;
+        }
+
+        tryGetUsbPermission(mContext, mManager);
+        return false;
+    }
+
+    /**
+     * 获取打印机型号等信息
+     * @param connection UsbDeviceConnection
+     * @param intf UsbInterface
+     */
+    private void initPrinterDevice(UsbDeviceConnection connection,
+                                   UsbInterface intf) {
+        mDeviceConnection = connection;
+        mSerial = connection.getSerial();
+
+        UsbEndpoint epOut = null;
+        UsbEndpoint epIn = null;
+        // look for our bulk endpoints
+        for (int i = 0; i < intf.getEndpointCount(); i++) {
+            UsbEndpoint ep = intf.getEndpoint(i);
+            if (ep.getType() == UsbConstants.USB_ENDPOINT_XFER_BULK) {
+                if (ep.getDirection() == UsbConstants.USB_DIR_OUT) {
+                    epOut = ep;
+                } else {
+                    epIn = ep;
+                }
+            }
+        }
+        if (epOut == null || epIn == null) {
+            throw new IllegalArgumentException("not all endpoints found");
+        }
+        mEndpointOut = epOut;
+        mEndpointIn = epIn;
+    }
+
+    /**
+     * 写数据
+     * @param in
+     */
+    public void write(InputStream in) {
+        Runnable r = new WaiterThread(in);
+        new Thread(r).start();
+    }
+
+    /**
+     * 写线程
+     */
+    private class WaiterThread implements Runnable {
+        final InputStream inputStream;
+        public WaiterThread(InputStream in) {
+            inputStream = in;
+        }
+        @Override
+        public void run() {
+            BufferedInputStream bufferInputStream = null;
+
+            try {
+                final int MAX_USBFS_BUFFER_SIZE = 16384; //16KiB.
+                //File pcl3gui = new File("/sdcard/HelloWorld.PCL3GUI");
+                byte[] bytes = new byte[MAX_USBFS_BUFFER_SIZE];
+                bufferInputStream = new BufferedInputStream(inputStream);
+                int bytesRead = 0;
+                int bytesWrite = 0;
+                //从文件中按字节读取内容，到文件尾部时read方法将返回-1
+                while ((bytesRead = bufferInputStream.read(bytes)) != -1) {
+
+                    //将读取的字节转为字符串对象
+                    //String chunk = new String(bytes, 0, bytesRead);
+                    //Log.i("LOG_TAG", chunk);
+
+                    bytesWrite = mDeviceConnection.bulkTransfer(mEndpointOut, bytes,
+                            bytesRead, 40);
+
+                    Log.i(LOG_TAG, "bytesRead:" + bytesRead + " bytesWrite:" + bytesWrite);
+
+                    if(bytesWrite < 0) {
+                        // 暂停此线程 排除故障 暂时做到这种程度，因为对Java多线程编程不是太熟悉。
+                        // 打印被暂停时会进入到这个里面，可能引起的问题有：缺纸 卡纸等等。这个时候要有另外一个线程去获取Printer状态。
+                        Log.e(LOG_TAG, "暂停此线程 排除故障!");
+                        synchronized (this) {
+                            wait();
+                            notifyAll();
+                        }
+                    }
+
+                    if(bytesWrite != bytesRead) {
+                        Log.e(LOG_TAG, "bultTransfer error!");
+                        break;
+                    }
+
+                    Thread.sleep(1000);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if(bufferInputStream != null)
+                        bufferInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
+
