@@ -2,6 +2,9 @@ package com.example.tony.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PermissionGroupInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,10 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.List;
 
 import android_serialport_api.ComBean;
 
@@ -42,6 +47,27 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        PackageManager pm = getPackageManager();
+        List<ApplicationInfo> installedApps = pm.getInstalledApplications(0);
+
+        boolean isSystemApp = new AppUtil(this).isSystemApp(getPackageName());
+        if (isSystemApp) {
+            // System app - do something here
+            Log.e(LOG_TAG, "System app - do something here");
+        } else {
+            // User installed app?
+            Log.e(LOG_TAG, "User installed app");
+        }
+
+        isSystemApp = new AppUtil(this).isAppPreLoaded(getPackageName());
+        if (isSystemApp) {
+            // System app - do something here
+            Log.e(LOG_TAG, "isAppPreLoaded");
+        } else {
+            // User installed app?
+            Log.e(LOG_TAG, "NOT isAppPreLoaded");
+        }
 
         mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
     }
@@ -72,6 +98,19 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.get_printer_button:
+                Printer mPrinter = new Printer(this);
+                if(mPrinter.isConnected()) {
+                    Toast.makeText(this, mPrinter.getModel2().getDes(), Toast.LENGTH_LONG).show();
+                } else {
+//                    Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
+                }
+//
+//                List<PermissionGroupInfo> list = this.getPackageManager().getAllPermissionGroups(0);
+//                for(PermissionGroupInfo pgi : list) {
+//                    Log.i(LOG_TAG, "pgi: " + pgi.toString());
+//                }
                 break;
         }
     }
