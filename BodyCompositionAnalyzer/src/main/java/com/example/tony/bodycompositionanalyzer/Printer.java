@@ -54,6 +54,20 @@ public class Printer {
     private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
 
     /**
+     * 单例模式: http://coolshell.cn/articles/265.html
+     */
+    private volatile static Printer singleton = null;
+    public static Printer getInstance(Context context)   {
+        if (singleton== null)  {
+            synchronized (Printer.class) {
+                if (singleton== null)  {
+                    singleton= new Printer(context);
+                }
+            }
+        }
+        return singleton;
+    }
+    /**
      * 打印机型号类
      */
     public enum PrinterModel {
@@ -101,7 +115,7 @@ public class Printer {
         return PrinterModel.UNKOWN_MODEL;
     }
 
-    public Printer(Context context) {
+    private Printer(Context context) {
         Log.i(LOG_TAG, "Printer");
         mContext = context;
 

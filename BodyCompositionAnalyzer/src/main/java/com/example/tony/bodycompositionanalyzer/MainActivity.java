@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.get_printer_button:
-                Printer mPrinter = new Printer(this);
+                Printer mPrinter = Printer.getInstance(this);
                 if(mPrinter.isConnected()) {
                     Toast.makeText(this, mPrinter.getModel2().getDes(), Toast.LENGTH_LONG).show();
                 } else {
