@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 
 /**
  * Created by tony on 16-7-4.
+ * https://pankajchunchun.wordpress.com/2014/07/08/how-to-check-if-application-is-system-app-or-not-by-signed-signature/
  */
 public class AppUtil {
 
