@@ -16,6 +16,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -61,6 +62,9 @@ public class BodyCompositionAnalyzer {
 	private static final String BAUDRATE_COIN = "9600";
 	/** 字体大小 */
 	private static final float FONT_SIZE_8 = 8;
+
+	/** 打印机对象 */
+	private Printer mPrinter;
 
 	public BodyCompositionAnalyzer(Context context) {
 		this.mContext = context;
