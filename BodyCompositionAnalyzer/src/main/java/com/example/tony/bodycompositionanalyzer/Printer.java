@@ -109,10 +109,13 @@ public class Printer {
         mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         for(UsbDevice device : mManager.getDeviceList().values()) {
             UsbInterface intf = findPrinterInterface(device);
-            if (setPrinterInterface(device, intf)) {
-                initPrinterDevice(mDeviceConnection, intf);
-                mUsbInterface = intf;
-                break;
+            if (intf != null) {
+                Log.i(LOG_TAG, "Found Printer interface " + intf);
+                if (setPrinterInterface(device, intf)) {
+                    initPrinterDevice(mDeviceConnection, intf);
+                    mUsbInterface = intf;
+                    break;
+                }
             }
         }
 
@@ -265,7 +268,7 @@ public class Printer {
         for (int i = 0; i < count; i++) {
             UsbInterface intf = device.getInterface(i);
             if (intf.getInterfaceClass() == UsbConstants.USB_CLASS_PRINTER) {
-                Log.i(LOG_TAG, "Printer");
+                Log.i(LOG_TAG, "findPrinterInterface true!");
                 return intf;
             }
         }
@@ -338,6 +341,16 @@ public class Printer {
      * @param intf
      */
     private void doYourOpenUsbDevice(UsbManager usbManager, UsbDevice device, UsbInterface intf){
+        if (mDeviceConnection != null) {
+            if (mInterface != null) {
+                mDeviceConnection.releaseInterface(mInterface);
+                mInterface = null;
+            }
+            mDeviceConnection.close();
+            mDevice = null;
+            mDeviceConnection = null;
+        }
+
         //now follow line will NOT show: User has not given permission to device UsbDevice
         //add your operation code here
         if (device != null && intf != null) {
@@ -363,16 +376,6 @@ public class Printer {
 
     // Sets the current USB device and interface
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
-        if (mDeviceConnection != null) {
-            if (mInterface != null) {
-                mDeviceConnection.releaseInterface(mInterface);
-                mInterface = null;
-            }
-            mDeviceConnection.close();
-            mDevice = null;
-            mDeviceConnection = null;
-        }
-
         tryGetUsbPermission(mContext, mManager);
         return false;
     }
