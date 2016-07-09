@@ -470,7 +470,7 @@ public class BodyCompositionAnalyzer {
 		/* 0.调试模式，不使用串口，直接读取已有数据 */
 		if(isDebug) {
 			// 读取样本数据
-			InputStream in = mContext.getResources().getAssets().open("data.bin");
+			InputStream in = mContext.getResources().getAssets().open("data3.bin");
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 			int nRead;
