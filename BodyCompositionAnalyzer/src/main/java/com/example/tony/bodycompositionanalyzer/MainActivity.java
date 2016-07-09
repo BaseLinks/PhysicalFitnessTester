@@ -106,11 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
                 }
-//
-//                List<PermissionGroupInfo> list = this.getPackageManager().getAllPermissionGroups(0);
-//                for(PermissionGroupInfo pgi : list) {
-//                    Log.i(LOG_TAG, "pgi: " + pgi.toString());
-//                }
                 break;
         }
     }
