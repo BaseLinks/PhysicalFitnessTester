@@ -87,6 +87,7 @@ public class BodyCompositionAnalyzer {
 	}
 
 	public void init() {
+        Log.i(LOG_TAG, "init");
 		// 打开串口(初始化结果要告知用户)
         try {
             mUartHelper.setBaudRate(9600);

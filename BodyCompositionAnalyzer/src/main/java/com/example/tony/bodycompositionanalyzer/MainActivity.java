@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
 //
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         startService(new Intent(this, BodyCompositionAnalyzerService.class));
+
+//        Intent service = new Intent(IPrintService.ACTION_PRINT);
+//        service.setPackage("com.kangear.printspooler");
+////		bindService(service, conn, BIND_AUTO_CREATE);
+//        startService(service);
 //
 //        int intArray[] = null;
 //        try {
@@ -148,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //android获取一个用于打开PDF文件的intent
-    public static Intent getPdfFileIntent(String param ) {
+    public static Intent getPdfFileIntent(String param) {
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -32,7 +32,7 @@ import cn.trinea.android.common.util.ShellUtils;
  * Created by tony on 16-7-3.
  */
 public class Printer {
-    private static final String LOG_TAG = "PrinterDevice";
+    private static final String LOG_TAG = "Printer";
     private static final boolean USB_EVENT_DEBUG = false;
     private static PrinterModel mPrinterModel;
     private final Context mContext;
