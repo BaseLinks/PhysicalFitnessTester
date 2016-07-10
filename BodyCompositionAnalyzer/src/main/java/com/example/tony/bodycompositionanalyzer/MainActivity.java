@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 //            Log.e(LOG_TAG, "NOT isAppPreLoaded");
 //        }
 //
-//        mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
-
+        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
+        startService(new Intent(this, BodyCompositionAnalyzerService.class));
 //
 //        int intArray[] = null;
 //        try {

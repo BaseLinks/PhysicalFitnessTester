@@ -66,7 +66,22 @@ public class BodyCompositionAnalyzer {
 	/** 打印机对象 */
 	private Printer mPrinter;
 
-	public BodyCompositionAnalyzer(Context context) {
+    /**
+     * 单例模式: http://coolshell.cn/articles/265.html
+     */
+    private volatile static BodyCompositionAnalyzer singleton = null;
+    public static BodyCompositionAnalyzer getInstance(Context context)   {
+        if (singleton== null)  {
+            synchronized (Printer.class) {
+                if (singleton== null)  {
+                    singleton= new BodyCompositionAnalyzer(context);
+                }
+            }
+        }
+        return singleton;
+    }
+
+	private BodyCompositionAnalyzer(Context context) {
 		this.mContext = context;
 		mUartHelper = new UartControl(context);
 	}
