@@ -331,15 +331,6 @@ public class Printer {
      * @param intf
      */
     private void intPrinterConnect(UsbManager usbManager, UsbDevice device, UsbInterface intf) {
-        if (mDeviceConnection != null) {
-            if (mUsbInterface != null) {
-                mDeviceConnection.releaseInterface(mUsbInterface);
-                mUsbInterface = null;
-            }
-            mDeviceConnection.close();
-            mDevice = null;
-            mDeviceConnection = null;
-        }
         //now follow line will NOT show: User has not given permission to device UsbDevice
         //add your operation code here
         if (device != null && intf != null) {
@@ -363,8 +354,29 @@ public class Printer {
     }
 
     // Sets the current USB device and interface
+
+    /**
+     * 该方法是处理热插拔事件的
+     * @param device
+     * @param intf
+     * @return
+     */
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
-        tryGetUsbPermission(mContext, mManager, device, intf);
+        if (mDeviceConnection != null) {
+            if (mUsbInterface != null) {
+                mDeviceConnection.releaseInterface(mUsbInterface);
+                mUsbInterface = null;
+            }
+            mDeviceConnection.close();
+            mDevice = null;
+            mDeviceConnection = null;
+            mPrinterModel = null;
+        }
+
+        if (device != null && intf != null) {
+            tryGetUsbPermission(mContext, mManager, device, intf);
+        }
+
         return true;
     }
 
