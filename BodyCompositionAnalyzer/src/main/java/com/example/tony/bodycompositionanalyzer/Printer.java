@@ -32,14 +32,14 @@ import cn.trinea.android.common.util.ShellUtils;
  * Created by tony on 16-7-3.
  */
 public class Printer {
+    private static final String LOG_TAG = "PrinterDevice";
+    private static final boolean USB_EVENT_DEBUG = false;
     private static PrinterModel mPrinterModel;
     private final Context mContext;
     private UsbManager mManager;
     private UsbDevice mDevice;
     private UsbDeviceConnection mDeviceConnection;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
-
-    private static final String LOG_TAG = "PrinterDevice";
 
     private UsbEndpoint mEndpointOut;
     private UsbEndpoint mEndpointIn;
@@ -295,9 +295,8 @@ public class Printer {
 
     private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
         //call method to set up device communication
-        Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
-        Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
-
+        if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
+        if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
         doYourOpenUsbDevice(usbManager, usbDevice, intf);
     }
 
