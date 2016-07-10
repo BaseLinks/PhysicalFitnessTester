@@ -566,8 +566,7 @@ public class Printer {
     /**
      * print pdf file
      */
-    public void printPdf(String pdf) throws Exception {
-        String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
+    public void printPdf(String rasterPath, String pdf) throws Exception {
         boolean ret = false;
         if(isConnected()) {
             Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();

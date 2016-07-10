@@ -57,7 +57,9 @@ public class BodyCompositionAnalyzerService extends Service {
             case EVENT_CODE_PDF_TO_PRINTER:
                 // 2. 将PDF进行打印
                 try {
-//                    Printer.getInstance(this).printPdf(mBodyCompositionAnalyzer.getPdfPath());
+                    Printer.getInstance(this).printPdf(
+                            mBodyCompositionAnalyzer.getRasterPath(),
+                            mBodyCompositionAnalyzer.getPdfPath());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -76,7 +78,9 @@ public class BodyCompositionAnalyzerService extends Service {
             case EVENT_CODE_TESTPDF_TO_PRINTER:
                 // n. 将HelloWorld PDF进行打印
                 try {
-                    Printer.getInstance(this).printPdf("/system/usr/share/printer/test/HelloWorld.pdf");
+                    Printer.getInstance(this).printPdf(
+                            mBodyCompositionAnalyzer.getRasterPath(),
+                            "/system/usr/share/printer/test/HelloWorld.pdf");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -69,6 +69,8 @@ public class BodyCompositionAnalyzer {
 
     /* PDF文件存放路径 */
     private final String mPdfPath;
+    /* PDL文件存放路径 */
+    private final String mRasterPath;
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -89,6 +91,8 @@ public class BodyCompositionAnalyzer {
         this.mContext = context;
         mPdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
                 + File.separator + "test.pdf";
+        mRasterPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+                + File.separator + "test.bin";
         mUartHelper = new UartControl(context);
     }
 
@@ -1524,5 +1528,9 @@ public class BodyCompositionAnalyzer {
 
     public String getPdfPath() {
         return mPdfPath;
+    }
+
+    public String getRasterPath() {
+        return mRasterPath;
     }
 }

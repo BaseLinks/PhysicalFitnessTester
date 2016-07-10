@@ -122,19 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.get_printer_button:
-                try {
-                    mBodyCompositionAnalyzer.doIt(true);
-                    /* 创建PDF */
-                    String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
-                    /* 打开PDF */
-//                    startActivity(getPdfFileIntent(pdf));
-                    /* 打印PDF */
-                    Printer.getInstance(this).printPdf(pdf);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 break;
         }
     }
