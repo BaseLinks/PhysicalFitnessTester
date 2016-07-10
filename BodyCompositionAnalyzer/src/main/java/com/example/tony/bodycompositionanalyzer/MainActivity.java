@@ -48,28 +48,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        PackageManager pm = getPackageManager();
-        List<ApplicationInfo> installedApps = pm.getInstalledApplications(0);
+//        PackageManager pm = getPackageManager();
+//        List<ApplicationInfo> installedApps = pm.getInstalledApplications(0);
+//
+//        boolean isSystemApp = new AppUtil(this).isSystemApp(getPackageName());
+//        if (isSystemApp) {
+//            // System app - do something here
+//            Log.e(LOG_TAG, "System app - do something here");
+//        } else {
+//            // User installed app?
+//            Log.e(LOG_TAG, "User installed app");
+//        }
+//
+//        isSystemApp = new AppUtil(this).isAppPreLoaded(getPackageName());
+//        if (isSystemApp) {
+//            // System app - do something here
+//            Log.e(LOG_TAG, "isAppPreLoaded");
+//        } else {
+//            // User installed app?
+//            Log.e(LOG_TAG, "NOT isAppPreLoaded");
+//        }
+//
+//        mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
 
-        boolean isSystemApp = new AppUtil(this).isSystemApp(getPackageName());
-        if (isSystemApp) {
-            // System app - do something here
-            Log.e(LOG_TAG, "System app - do something here");
-        } else {
-            // User installed app?
-            Log.e(LOG_TAG, "User installed app");
-        }
-
-        isSystemApp = new AppUtil(this).isAppPreLoaded(getPackageName());
-        if (isSystemApp) {
-            // System app - do something here
-            Log.e(LOG_TAG, "isAppPreLoaded");
-        } else {
-            // User installed app?
-            Log.e(LOG_TAG, "NOT isAppPreLoaded");
-        }
-
-        mBodyCompositionAnalyzer = new BodyCompositionAnalyzer(this);
+//
+//        int intArray[] = null;
+//        try {
+//            intArray = getPackageManager().getPackageGids(getApplicationContext().getPackageName());
+//        } catch (PackageManager.NameNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        if(intArray != null) {
+//            for (int i : intArray) {
+//                Log.i(LOG_TAG, "i:" + i);
+//            }
+//        }
     }
 
     public void onClick(View v) {
@@ -106,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
                 }
+//                mPrinter.covertPdfToHp1112("");
                 break;
         }
     }

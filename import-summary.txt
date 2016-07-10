@@ -1,29 +1,27 @@
 ECLIPSE ANDROID PROJECT IMPORT SUMMARY
 ======================================
 
-Replaced Jars with Dependencies:
---------------------------------
-The importer recognized the following .jar files as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the .jar file in your project was of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the jar replacement in the import wizard and try again:
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
 
-android-support-v4.jar => com.android.support:support-v4:23.3.0
+* .gitattributes
+* .gitignore
+* README.md
+* pom.xml
+* proguard.cfg
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => j2XXHyperTerm/src/main/AndroidManifest.xml
-* assets/ => j2XXHyperTerm/src/main/assets
-* libs/d2xx.jar => j2XXHyperTerm/libs/d2xx.jar
-* proguard.cfg => j2XXHyperTerm/proguard.cfg
-* res/ => j2XXHyperTerm/src/main/res/
-* src/ => j2XXHyperTerm/src/main/java/
+* AndroidManifest.xml => trineaandroidcommon/src/main/AndroidManifest.xml
+* assets/ => trineaandroidcommon/src/main/assets
+* res/ => trineaandroidcommon/src/main/res/
+* src/ => trineaandroidcommon/src/main/java/
 
 Next Steps:
 -----------

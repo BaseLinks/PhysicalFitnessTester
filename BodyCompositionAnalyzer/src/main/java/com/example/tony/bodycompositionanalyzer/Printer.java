@@ -18,10 +18,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
+
+import cn.trinea.android.common.util.ShellUtils;
 
 /**
  * Created by tony on 16-7-3.
@@ -31,7 +34,6 @@ public class Printer {
     private UsbManager mManager;
     private UsbDevice mDevice;
     private UsbDeviceConnection mDeviceConnection;
-    private UsbInterface mInterface;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
     private static final String LOG_TAG = "PrinterDevice";
@@ -40,17 +42,16 @@ public class Printer {
     private UsbEndpoint mEndpointIn;
     private String mSerial;
     private UsbInterface mUsbInterface = null;
+    /* 相互传递的一个临时变量 */
+    private UsbInterface mUsbInterfaceTmp = null;
 
     // pool of requests for the OUT endpoint
     private final LinkedList<UsbRequest> mOutRequestPool = new LinkedList<UsbRequest>();
     // pool of requests for the IN endpoint
     private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<UsbRequest>();
 
-    AssetManager mAssetManager = null;
-    InputStream mInputStream = null;
-
     private final static String DEVICE_ID_CANON_IP2700    = "MFG:Canon;CMD:BJL,BJRaster3,BSCCe,IVEC,IVECPLI;SOJ:TXT01;MDL:iP2700 series;CLS:PRINTER;DES:Canon iP2700 series;";
-    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:KODAK;CMD:KODAK305;MDL:305 Photo Printer;CLS:PRINTER;DES:KODAK 305 Photo Printer";
+    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:HP;MDL:DeskJet 1110 series;CMD:PCL3GUI,PJL,Automatic,DW-PCL,DESKJET,DYN;CLS:PRINTER;DES:K7B87D;CID:HPDeskjet_P976D;LEDMDIS:USB#07#01#02,USB#FF#04#01;SN:CN59B182PS065W;S:038000C480a00001002c0000000c1400064;Z:05000001000008,12000,17000000000000,181;";
     private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
 
     /**
@@ -72,21 +73,23 @@ public class Printer {
      */
     public enum PrinterModel {
         /** Unkown model */
-        UNKOWN_MODEL("Unkonw model Printer", "NULL", "NULL"),
+        UNKOWN_MODEL("unkown", "Unkonw model Printer", "NULL", "NULL"),
         /** Canon iP2780 */
-        CANON_IP2780("Canon iP2780 Printer", DEVICE_ID_CANON_IP2700, "HelloWorld.canonip2780"),
+        CANON_IP2780("bjc-MULTIPASS-MX420", "Canon iP2780 Printer", DEVICE_ID_CANON_IP2700, "HelloWorld.canonip2780"),
         /** HP Deskjet 1112 */
-        HP_DESKJET_1112_305("HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
+        HP_DESKJET_1112_305("hp-dj_5550", "HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
         /** EPSON R330 */
-        EPSON_330("Epson R330 Printer", DEVICE_ID_EPSON_R330, "HelloWorld.epsonr330");
+        EPSON_330("", "Epson R330 Printer", DEVICE_ID_EPSON_R330, "HelloWorld.epsonr330");
         private final String des;
         private final String deviceId;
         private final String testFileName;
+        private final String DeviceModel;
 
-        PrinterModel(String des, String deviceId, String name) {
+        PrinterModel(String gutenprintModel, String des, String deviceId, String name) {
             this.des = des;
             this.deviceId = deviceId;
             this.testFileName = name;
+            this.DeviceModel = gutenprintModel;
         }
         public String getDes() {
             return des;
@@ -122,12 +125,11 @@ public class Printer {
         /* 只处理检测到的第一个打印机，其它不进行处理 */
         mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         for(UsbDevice device : mManager.getDeviceList().values()) {
-            UsbInterface intf = findPrinterInterface(device);
-            if (intf != null) {
-                Log.i(LOG_TAG, "Found Printer interface " + intf);
-                if (setPrinterInterface(device, intf)) {
-                    initPrinterDevice(mDeviceConnection, intf);
-                    mUsbInterface = intf;
+            mUsbInterfaceTmp = findPrinterInterface(device);
+            if (mUsbInterfaceTmp != null) {
+                Log.i(LOG_TAG, "Found Printer interface " + mUsbInterfaceTmp);
+                if (setPrinterInterface(device, mUsbInterfaceTmp)) {
+//                    initPrinterDevice(mDeviceConnection, mUsbInterfaceTmp);
                     break;
                 }
             }
@@ -294,28 +296,20 @@ public class Printer {
      * @param context
      * @param usbManager
      */
-    private void tryGetUsbPermission(Context context, UsbManager usbManager){
-        usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
-
+    private void tryGetUsbPermission(Context context, UsbManager usbManager, UsbDevice device, UsbInterface intf){
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         context.registerReceiver(mUsbPermissionActionReceiver, filter);
 
         PendingIntent mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
 
-        //here do emulation to ask all connected usb device for permission
-        for (final UsbDevice usbDevice : usbManager.getDeviceList().values()) {
-            //add some conditional check if necessary
-            //if(isWeCaredUsbDevice(usbDevice)){
-            if(usbManager.hasPermission(usbDevice)){
-                //if has already got permission, just goto connect it
-                //that means: user has choose yes for your previously popup window asking for grant perssion for this usb device
-                //and also choose option: not ask again
-                afterGetUsbPermission(context, usbDevice);
-            }else{
-                //this line will let android popup window, ask user whether to allow this app to have permission to operate this usb device
-                usbManager.requestPermission(usbDevice, mPermissionIntent);
-            }
-            //}
+        if(usbManager.hasPermission(device)){
+            //if has already got permission, just goto connect it
+            //that means: user has choose yes for your previously popup window asking for grant perssion for this usb device
+            //and also choose option: not ask again
+            afterGetUsbPermission(context, usbManager, device, intf);
+        }else{
+            //this line will let android popup window, ask user whether to allow this app to have permission to operate this usb device
+            usbManager.requestPermission(device, mPermissionIntent);
         }
     }
 
@@ -328,7 +322,7 @@ public class Printer {
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         //user choose YES for your previously popup window asking for grant perssion for this usb device
                         if(null != usbDevice){
-                            afterGetUsbPermission(context, usbDevice);
+                            afterGetUsbPermission(context, mManager, usbDevice, mUsbInterfaceTmp);
                         }
                     }
                     else {
@@ -340,12 +334,12 @@ public class Printer {
         }
     };
 
-    private void afterGetUsbPermission(Context context, UsbDevice usbDevice){
+    private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
         //call method to set up device communication
         Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
         Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
 
-        doYourOpenUsbDevice(mManager, usbDevice, mInterface);
+        doYourOpenUsbDevice(usbManager, usbDevice, intf);
     }
 
     /**
@@ -353,18 +347,19 @@ public class Printer {
      * @param usbManager
      * @param device
      * @param intf
+     * 1. 打开指定USB端口
+     * 2. 初始化打印机，获取型号等一般信息
      */
     private void doYourOpenUsbDevice(UsbManager usbManager, UsbDevice device, UsbInterface intf){
         if (mDeviceConnection != null) {
-            if (mInterface != null) {
-                mDeviceConnection.releaseInterface(mInterface);
-                mInterface = null;
+            if (mUsbInterface != null) {
+                mDeviceConnection.releaseInterface(mUsbInterface);
+                mUsbInterface = null;
             }
             mDeviceConnection.close();
             mDevice = null;
             mDeviceConnection = null;
         }
-
         //now follow line will NOT show: User has not given permission to device UsbDevice
         //add your operation code here
         if (device != null && intf != null) {
@@ -375,7 +370,7 @@ public class Printer {
                     Log.i(LOG_TAG, "claim interface succeeded");
                     mDevice = device;
                     mDeviceConnection = connection;
-                    mInterface = intf;
+                    mUsbInterface = intf;
                 } else {
                     Log.i(LOG_TAG, "claim interface failed");
                     connection.close();
@@ -387,11 +382,45 @@ public class Printer {
         }
     }
 
+    // Sets the current USB device and interface
+    private boolean setPrinterInterface2(UsbDevice device, UsbInterface intf) {
+        if (mDeviceConnection != null) {
+            if (mUsbInterface != null) {
+                mDeviceConnection.releaseInterface(mUsbInterface);
+                mUsbInterface = null;
+            }
+            mDeviceConnection.close();
+            mDevice = null;
+            mDeviceConnection = null;
+        }
+
+        if (device != null && intf != null) {
+            UsbDeviceConnection connection = mManager.openDevice(device);
+            if (connection != null) {
+                Log.i(LOG_TAG, "open succeeded");
+                if (connection.claimInterface(intf, false)) {
+                    Log.i(LOG_TAG, "claim interface succeeded");
+                    mDevice = device;
+                    mDeviceConnection = connection;
+                    mUsbInterface = intf;
+                    return true;
+                } else {
+                    Log.i(LOG_TAG, "claim interface failed");
+                    connection.close();
+                }
+            } else {
+                Log.i(LOG_TAG, "open failed");
+            }
+        }
+
+        return false;
+    }
+
 
     // Sets the current USB device and interface
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
-        tryGetUsbPermission(mContext, mManager);
-        return false;
+        tryGetUsbPermission(mContext, mManager, device, intf);
+        return true;
     }
 
     /**
@@ -399,7 +428,7 @@ public class Printer {
      * @param connection UsbDeviceConnection
      * @param intf UsbInterface
      */
-    private void initPrinterDevice(UsbDeviceConnection connection,
+    private void initPrinterDevice2(UsbDeviceConnection connection,
                                    UsbInterface intf) {
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
@@ -493,6 +522,47 @@ public class Printer {
                 }
             }
         }
+    }
+
+    /**
+     * 将PDF转换成打印机语言
+     * @param pdf 路径
+     */
+    public void covertPdfToHp1112(String pdf) {
+        temp();
+//        boolean isRoot = ShellUtils.checkRootPermission();
+//        final String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
+//        Toast.makeText(mContext, "isRoot:" + isRoot, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "RootCmd.execRootCmd(): " + RootCmd.execRootCmd("ls -l"), Toast.LENGTH_LONG).show();
+//        ShellUtils.CommandResult cr = ShellUtils.execCommand("ls", true);
+//        Toast.makeText(mContext, "CommandResult: " + cr.errorMsg + " " + cr.successMsg + " " + cr.result, Toast.LENGTH_LONG).show();
+//        ShellUtils.execCommand(cmd, ShellUtils.checkRootPermission());
+        // 如果是已经root的设备，需要运行gs命令并打印
+//        if (isRoot) {
+//            ShellUtils.execCommand("gs " +
+//                    "-sDEVICE=ijs " +
+//                    "-sIjsServer=ijs-ip2780 " +
+//                    "-dIjsUseOutputFD " +
+//                    "-sDeviceManufacturer=Canon " +
+//                    "-sDeviceModel=bjc-MULTIPASS-MX420 " +
+//                    "-dNOPAUSE " +
+//                    "-dSAFER " +
+//                    "-sOutputFile=" +
+//                    "\"" + rasterPath + "\" " +
+//                    pdf + " " +
+//                    "-c quit", isRoot);
+//            ShellUtils.execCommand("chmod 777 " + rasterPath, ShellUtils.checkRootPermission());
+//        }
+    }
+
+    public void temp () {
+        boolean isRoot = ShellUtils.checkRootPermission();
+        String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
+        String pdf = "pdf";
+        String cmd = "gs -dIjsUseOutputFD -sDEVICE=pcl3  -sSubdevice=unspec -sPJLLanguage=PCL3GUI -dOnlyCRD -r600 -sColourModel=CMYK -sPrintQuality=draft -sMedium=plain -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sOutputFile=" + rasterPath + " /system/usr/share/printer/test/HelloWorld.pdf -c quit";
+        Toast.makeText(mContext, "isRoot:" + isRoot, Toast.LENGTH_SHORT).show();
+        ShellUtils.execCommand(cmd, isRoot);
+        ShellUtils.execCommand("chmod 777 " + rasterPath, ShellUtils.checkRootPermission());
     }
 }
 

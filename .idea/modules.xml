@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/itextpdf-5.3.2/itextpdf-5.3.2.iml" filepath="$PROJECT_DIR$/itextpdf-5.3.2/itextpdf-5.3.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/j2XXHyperTerm/j2XXHyperTerm.iml" filepath="$PROJECT_DIR$/j2XXHyperTerm/j2XXHyperTerm.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" filepath="$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon/trineaandroidcommon.iml" filepath="$PROJECT_DIR$/trineaandroidcommon/trineaandroidcommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/usbprinter/usbprinter.iml" filepath="$PROJECT_DIR$/usbprinter/usbprinter.iml" />
     </modules>
   </component>

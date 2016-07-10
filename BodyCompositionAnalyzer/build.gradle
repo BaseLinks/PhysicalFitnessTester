@@ -27,4 +27,5 @@ dependencies {
     compile project(':javaapk.com-comassistant')
     compile project(':itextpdf-5.3.2')
     compile project(':d2xx')
+    compile project(':trineaandroidcommon')
 }
