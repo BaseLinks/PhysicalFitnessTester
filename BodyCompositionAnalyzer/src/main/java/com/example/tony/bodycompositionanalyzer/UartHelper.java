@@ -486,6 +486,9 @@ public abstract class UartHelper {
     public void onUartHelper(Context context) {
     }
 
+    /**
+     * TODO:偶尔识别不到串口设备，使用USB转TTL还好
+     */
     public void createDeviceList() {
         int tempDevCount = ftD2xx.createDeviceInfoList(mContext);
 
