@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -30,6 +32,7 @@ import cn.trinea.android.common.util.ShellUtils;
  * Created by tony on 16-7-3.
  */
 public class Printer {
+    private static PrinterModel mPrinterModel;
     private final Context mContext;
     private UsbManager mManager;
     private UsbDevice mDevice;
@@ -129,7 +132,6 @@ public class Printer {
             if (mUsbInterfaceTmp != null) {
                 Log.i(LOG_TAG, "Found Printer interface " + mUsbInterfaceTmp);
                 if (setPrinterInterface(device, mUsbInterfaceTmp)) {
-//                    initPrinterDevice(mDeviceConnection, mUsbInterfaceTmp);
                     break;
                 }
             }
@@ -178,51 +180,8 @@ public class Printer {
     /**
      * 获取打印机型号
      */
-    public String getModel() {
-        String ret = "HP Deskjet 1112";
-        byte[] b = new byte[1024];
-        int length = mDeviceConnection.controlTransfer(
-                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
-                USBLP_REQ_GET_ID,
-                0,
-                0,
-                b,
-                1024,
-                5000);
-
-        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
-        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
-        /** 解析设备ID */
-        ret = parseDeviceid(deviceIdArray);
-        return ret;
-    }
-
-    /**
-     * 获取打印机型号
-     */
     public PrinterModel getModel2() {
-        PrinterModel ret = null;
-        byte[] b = new byte[1024];
-        int length = mDeviceConnection.controlTransfer(
-                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
-                USBLP_REQ_GET_ID,
-                0,
-                0,
-                b,
-                1024,
-                5000);
-
-        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
-        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
-        /** 解析设备ID */
-        String deviceIdStr = new String(deviceIdArray);
-        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
-        if (deviceIdArray != null) {
-            PrinterModel pm = matchPrinterModel(deviceIdStr);
-            ret = pm;
-            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
-        }
-        return ret;
+        return mPrinterModel;
     }
 
     private String parseDeviceid(byte[] deviceIdArray) {
@@ -351,6 +310,23 @@ public class Printer {
      * 2. 初始化打印机，获取型号等一般信息
      */
     private void doYourOpenUsbDevice(UsbManager usbManager, UsbDevice device, UsbInterface intf){
+        // 1. 打开指定USB端口
+        intPrinterConnect(usbManager, device, intf);
+
+        // 2. 初始化打印机端点等信息
+        initPrinterDeviceEndpoint(mDeviceConnection, mUsbInterface);
+
+        // 3. 更新打印机型号等信息
+        updatePrinterModel(mDeviceConnection);
+    }
+
+    /**
+     * 1. 初始化打印机连接信息
+     * @param usbManager
+     * @param device
+     * @param intf
+     */
+    private void intPrinterConnect(UsbManager usbManager, UsbDevice device, UsbInterface intf) {
         if (mDeviceConnection != null) {
             if (mUsbInterface != null) {
                 mDeviceConnection.releaseInterface(mUsbInterface);
@@ -383,52 +359,17 @@ public class Printer {
     }
 
     // Sets the current USB device and interface
-    private boolean setPrinterInterface2(UsbDevice device, UsbInterface intf) {
-        if (mDeviceConnection != null) {
-            if (mUsbInterface != null) {
-                mDeviceConnection.releaseInterface(mUsbInterface);
-                mUsbInterface = null;
-            }
-            mDeviceConnection.close();
-            mDevice = null;
-            mDeviceConnection = null;
-        }
-
-        if (device != null && intf != null) {
-            UsbDeviceConnection connection = mManager.openDevice(device);
-            if (connection != null) {
-                Log.i(LOG_TAG, "open succeeded");
-                if (connection.claimInterface(intf, false)) {
-                    Log.i(LOG_TAG, "claim interface succeeded");
-                    mDevice = device;
-                    mDeviceConnection = connection;
-                    mUsbInterface = intf;
-                    return true;
-                } else {
-                    Log.i(LOG_TAG, "claim interface failed");
-                    connection.close();
-                }
-            } else {
-                Log.i(LOG_TAG, "open failed");
-            }
-        }
-
-        return false;
-    }
-
-
-    // Sets the current USB device and interface
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
         tryGetUsbPermission(mContext, mManager, device, intf);
         return true;
     }
 
     /**
-     * 获取打印机型号等信息
+     * 2. 初始化端点等信息
      * @param connection UsbDeviceConnection
      * @param intf UsbInterface
      */
-    private void initPrinterDevice2(UsbDeviceConnection connection,
+    private void initPrinterDeviceEndpoint(UsbDeviceConnection connection,
                                    UsbInterface intf) {
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
@@ -452,6 +393,37 @@ public class Printer {
         mEndpointOut = epOut;
         mEndpointIn = epIn;
     }
+
+    /**
+     * 更新打印机型号等信息
+     * @param connection
+     */
+    private static void updatePrinterModel(UsbDeviceConnection connection) {
+        PrinterModel ret = null;
+        byte[] b = new byte[1024];
+        int length = connection.controlTransfer(
+                UsbConstants.USB_DIR_IN | LIBUSB_RECIPIENT_INTERFACE | LIBUSB_REQUEST_TYPE_CLASS,
+                USBLP_REQ_GET_ID,
+                0,
+                0,
+                b,
+                1024,
+                5000);
+
+        /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
+        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        /** 解析设备ID */
+        String deviceIdStr = new String(deviceIdArray);
+        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        if (deviceIdArray != null) {
+            PrinterModel pm = matchPrinterModel(deviceIdStr);
+            ret = pm;
+            Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
+        }
+
+        mPrinterModel = ret;
+    }
+
 
     /**
      * 写数据
@@ -555,7 +527,7 @@ public class Printer {
 //        }
     }
 
-    public void temp () {
+    public void temp() {
         boolean isRoot = ShellUtils.checkRootPermission();
         String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
         String pdf = "pdf";
@@ -563,6 +535,14 @@ public class Printer {
         Toast.makeText(mContext, "isRoot:" + isRoot, Toast.LENGTH_SHORT).show();
         ShellUtils.execCommand(cmd, isRoot);
         ShellUtils.execCommand("chmod 777 " + rasterPath, ShellUtils.checkRootPermission());
+
+//        InputStream is;
+//        try {
+//            is = new FileInputStream(rasterPath);
+//            write(is);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 }
 

@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
                 }
-//                mPrinter.covertPdfToHp1112("");
+                mPrinter.covertPdfToHp1112("");
                 break;
         }
     }
