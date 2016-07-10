@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -115,13 +117,19 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.get_printer_button:
-                Printer mPrinter = Printer.getInstance(this);
-                if(mPrinter.isConnected()) {
-                    Toast.makeText(this, mPrinter.getModel2().getDes(), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
+                try {
+                    mBodyCompositionAnalyzer.doIt(true);
+                    /* 创建PDF */
+                    String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
+                    /* 打开PDF */
+//                    startActivity(getPdfFileIntent(pdf));
+                    /* 打印PDF */
+                    Printer.getInstance(this).printPdf(pdf);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                mPrinter.covertPdfToHp1112("");
                 break;
         }
     }

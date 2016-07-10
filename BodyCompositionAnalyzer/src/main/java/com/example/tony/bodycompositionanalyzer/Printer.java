@@ -151,7 +151,7 @@ public class Printer {
      * @return
      */
     public boolean isConnected() {
-        return mUsbInterface == null ? false : true;
+        return mPrinterModel == null ? false : true;
     }
 
     /**
@@ -180,10 +180,15 @@ public class Printer {
     /**
      * 获取打印机型号
      */
-    public PrinterModel getModel2() {
+    public PrinterModel getModel() {
         return mPrinterModel;
     }
 
+    /**
+     * 解析设备ID
+     * @param deviceIdArray
+     * @return
+     */
     private String parseDeviceid(byte[] deviceIdArray) {
         String ret = "未连接打印机";
         String deviceIdStr = new String(deviceIdArray);
@@ -236,7 +241,7 @@ public class Printer {
         }
     };
 
-    // searches for an adb interface on the given USB device
+    // searches for an printer interface on the given USB device
     static private UsbInterface findPrinterInterface(UsbDevice device) {
         Log.d(LOG_TAG, "findPrinterInterface " + device);
         int count = device.getInterfaceCount();
@@ -428,7 +433,7 @@ public class Printer {
      * 写数据
      * @param in
      */
-    public void write(InputStream in) {
+    private void write(InputStream in) {
         Runnable r = new WaiterThread(in);
         new Thread(r).start();
     }
@@ -497,51 +502,74 @@ public class Printer {
 
     /**
      * 将PDF转换成打印机语言
+     * @param rasterPath 目标文件路径
      * @param pdf 路径
+     * @return 如果转换成功，返回true否则false
      */
-    public void covertPdfToHp1112(String pdf) {
-        temp();
-//        boolean isRoot = ShellUtils.checkRootPermission();
-//        final String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
-//        Toast.makeText(mContext, "isRoot:" + isRoot, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(mContext, "RootCmd.execRootCmd(): " + RootCmd.execRootCmd("ls -l"), Toast.LENGTH_LONG).show();
-//        ShellUtils.CommandResult cr = ShellUtils.execCommand("ls", true);
-//        Toast.makeText(mContext, "CommandResult: " + cr.errorMsg + " " + cr.successMsg + " " + cr.result, Toast.LENGTH_LONG).show();
-//        ShellUtils.execCommand(cmd, ShellUtils.checkRootPermission());
-        // 如果是已经root的设备，需要运行gs命令并打印
-//        if (isRoot) {
-//            ShellUtils.execCommand("gs " +
-//                    "-sDEVICE=ijs " +
-//                    "-sIjsServer=ijs-ip2780 " +
-//                    "-dIjsUseOutputFD " +
-//                    "-sDeviceManufacturer=Canon " +
-//                    "-sDeviceModel=bjc-MULTIPASS-MX420 " +
-//                    "-dNOPAUSE " +
-//                    "-dSAFER " +
-//                    "-sOutputFile=" +
-//                    "\"" + rasterPath + "\" " +
-//                    pdf + " " +
-//                    "-c quit", isRoot);
-//            ShellUtils.execCommand("chmod 777 " + rasterPath, ShellUtils.checkRootPermission());
-//        }
+    private static boolean covertPdfToHp1112(String rasterPath, String pdf) {
+        boolean ret = false;
+        ShellUtils.CommandResult cr;
+        /* 有root权限才做如下事件 */
+        if (ShellUtils.checkRootPermission()) {
+            String cmd = "gs " +
+                    "-dIjsUseOutputFD " +
+                    "-sDEVICE=pcl3  " +
+                    "-sSubdevice=unspec " +
+                    "-sPJLLanguage=PCL3GUI " +
+                    "-dOnlyCRD " +
+                    "-r600 " +
+                    "-sColourModel=CMYK " +
+                    "-sPrintQuality=draft " +
+                    "-sMedium=plain " +
+                    "-sPAPERSIZE=a4 " +
+                    "-dNOPAUSE " +
+                    "-dSAFER " +
+                    "-sOutputFile=" +
+                    rasterPath +
+                    " " +
+                    pdf +
+                    " -c quit";
+            cr = ShellUtils.execCommand(cmd, true);
+            if(cr.result == 0) {
+                cr = ShellUtils.execCommand("chmod 777 " + rasterPath, true);
+                if(cr.result == 0)
+                    ret = true;
+            }
+        } else {
+            Log.e(LOG_TAG, "无ROOT权限");
+        }
+        return ret;
     }
 
-    public void temp() {
-        boolean isRoot = ShellUtils.checkRootPermission();
-        String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
-        String pdf = "pdf";
-        String cmd = "gs -dIjsUseOutputFD -sDEVICE=pcl3  -sSubdevice=unspec -sPJLLanguage=PCL3GUI -dOnlyCRD -r600 -sColourModel=CMYK -sPrintQuality=draft -sMedium=plain -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sOutputFile=" + rasterPath + " /system/usr/share/printer/test/HelloWorld.pdf -c quit";
-        Toast.makeText(mContext, "isRoot:" + isRoot, Toast.LENGTH_SHORT).show();
-        ShellUtils.execCommand(cmd, isRoot);
-        ShellUtils.execCommand("chmod 777 " + rasterPath, ShellUtils.checkRootPermission());
+    /**
+     * 将PDF转换成打印机语言
+     * @param rasterPath 目标文件路径
+     * @param pdf 路径
+     * @return 如果转换成功，返回true否则false
+     */
+    private static boolean covertPdfToPCL(String rasterPath, String pdf) {
+        return covertPdfToHp1112(rasterPath, pdf);
+    }
 
-//        InputStream is;
-//        try {
-//            is = new FileInputStream(rasterPath);
-//            write(is);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+    /**
+     * print pdf file
+     */
+    public void printPdf(String pdf) throws Exception {
+        String rasterPath = mContext.getExternalCacheDir() + File.separator + "raster.bin";
+        boolean ret = false;
+        if(isConnected()) {
+            Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(mContext, "打印机未连接", Toast.LENGTH_LONG).show();
+            throw new Exception("打印机未连接");
+        }
+
+        // 2. cover pdf to PDL(Printer Des Language)
+        ret = covertPdfToPCL(rasterPath, pdf);
+        if(!ret) throw new Exception("转换PDF到打印机数据失败");
+
+        // 3. write hp 1112 data to printer
+        write(new FileInputStream(rasterPath));
     }
 }
 
