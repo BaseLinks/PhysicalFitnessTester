@@ -1,6 +1,7 @@
 package com.example.tony.bodycompositionanalyzer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -66,6 +67,9 @@ public class BodyCompositionAnalyzer {
 	/** 打印机对象 */
 	private Printer mPrinter;
 
+    /* PDF文件存放路径 */
+    private final String mPdfPath;
+
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
      */
@@ -81,10 +85,12 @@ public class BodyCompositionAnalyzer {
         return singleton;
     }
 
-	private BodyCompositionAnalyzer(Context context) {
-		this.mContext = context;
-		mUartHelper = new UartControl(context);
-	}
+    private BodyCompositionAnalyzer(Context context) {
+        this.mContext = context;
+        mPdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+                + File.separator + "test.pdf";
+        mUartHelper = new UartControl(context);
+    }
 
 	public void init() {
         Log.i(LOG_TAG, "init");
@@ -298,6 +304,14 @@ public class BodyCompositionAnalyzer {
 						BodyComposition.DATA_START + BodyComposition.DATA_LENGTH);
 				/* 解析数据 */
 				mBodyComposition = new BodyComposition(dataArray);
+                /* TODO:将BodyComposition对象通过Intent传递出去，以后使用打包的方式 */
+                mContext.startService(
+                        new Intent(
+                                mContext,
+                                BodyCompositionAnalyzerService.class).putExtra(
+                                BodyCompositionAnalyzerService.EVENT_CODE,
+                                BodyCompositionAnalyzerService.EVENT_CODE_DATA_TO_PDF)
+                );
 //				/*
 //				 * BYTE 0
 //				 * 设置为01h – 无数据上报
@@ -569,17 +583,24 @@ public class BodyCompositionAnalyzer {
 //		}
 
 		/* 2. 生成PDF两种方法：Android Api或者iText Api */
-		return createPdf(bc);
+		String pdf = createPdf(mPdfPath, bc);
+        mContext.startService(
+                new Intent(
+                        mContext,
+                        BodyCompositionAnalyzerService.class).putExtra(
+                        BodyCompositionAnalyzerService.EVENT_CODE,
+                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
+        );
+
+        return "";
 	}
 
 	/**
 	 * 当API >= 19 时使用系统自带PDF API，否则使用iText
 	 * @return 返回文件路径
 	 */
-	public String createPdf(BodyComposition bc) {
+	public String createPdf(String pdfPath, BodyComposition bc) {
 		Log.i(LOG_TAG, "createPdf");
-		String pdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
-				+ File.separator + "test.pdf";
 		// TODO: Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 		if (1 + 1 == 2) {
 			// 系统API
@@ -1499,4 +1520,9 @@ public class BodyCompositionAnalyzer {
 		rate = (float) position / range;
 		return rate * 90 * 2836 / 1000;
 	}
+
+
+    public String getPdfPath() {
+        return mPdfPath;
+    }
 }
