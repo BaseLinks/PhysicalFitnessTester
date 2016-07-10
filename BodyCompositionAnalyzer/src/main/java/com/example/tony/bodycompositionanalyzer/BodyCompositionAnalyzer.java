@@ -53,7 +53,7 @@ public class BodyCompositionAnalyzer {
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyUSB0";
 	private static BodyComposition mBodyComposition;
 	/**
-	 * 需要发送的数据
+	 * 发送此数据，从机会将需要的数据进行回传
 	 */
 	public static final byte[] SEND = new byte[]{(byte)0xAA, (byte)0xAB, 0x00, 0x04, (byte)0xDE, 0x00, (byte)0xDD, 0x6A};
 	private static final int BYTE_BUFFER_ALLOCATE = 8192;
@@ -69,6 +69,23 @@ public class BodyCompositionAnalyzer {
 	public BodyCompositionAnalyzer(Context context) {
 		this.mContext = context;
 		mUartHelper = new UartControl(context);
+	}
+
+	public void init() {
+		// 打开串口(初始化结果要告知用户)
+        try {
+            mUartHelper.setBaudRate(9600);
+            mUartHelper.open();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidParameterException e) {
+            e.printStackTrace();
+        }
+
+        // 初始化打印机(初始化结果要告知用户)
+        mPrinter = Printer.getInstance(mContext);
+        if(mPrinter.getModel() == null)
+            ; // 需要告知用户
 	}
 
 	private class SerialControl extends SerialHelper {
