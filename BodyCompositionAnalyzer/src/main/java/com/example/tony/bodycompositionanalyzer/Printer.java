@@ -54,7 +54,7 @@ public class Printer {
     private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<UsbRequest>();
 
     private final static String DEVICE_ID_CANON_IP2700    = "MFG:Canon;CMD:BJL,BJRaster3,BSCCe,IVEC,IVECPLI;SOJ:TXT01;MDL:iP2700 series;CLS:PRINTER;DES:Canon iP2700 series;";
-    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:HP;MDL:DeskJet 1110 series;CMD:PCL3GUI,PJL,Automatic,DW-PCL,DESKJET,DYN;CLS:PRINTER;DES:K7B87D;CID:HPDeskjet_P976D;LEDMDIS:USB#07#01#02,USB#FF#04#01;SN:CN59B182PS065W;S:038000C480a00001002c0000000c1400064;Z:05000001000008,12000,17000000000000,181;";
+    private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:HP;MDL:DeskJet 1110 series;CMD:PCL3GUI,PJL,Automatic,DW-PCL,DESKJET,DYN;CLS:PRINTER;DES:K7B87D;";
     private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
 
     /**
@@ -477,7 +477,7 @@ public class Printer {
                     //Log.i("LOG_TAG", chunk);
 
                     bytesWrite = mDeviceConnection.bulkTransfer(mEndpointOut, bytes,
-                            bytesRead, 40);
+                            bytesRead, 5000);
 
                     Log.i(LOG_TAG, "bytesRead:" + bytesRead + " bytesWrite:" + bytesWrite);
 
@@ -496,7 +496,7 @@ public class Printer {
                         break;
                     }
 
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 }
 
             } catch (Exception e) {
