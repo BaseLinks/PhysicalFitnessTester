@@ -55,14 +55,14 @@ public class BodyCompositionAnalyzerService extends Service {
                 mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
                 break;
             case EVENT_CODE_PDF_TO_PRINTER:
-                // 2. 将PDF进行打印
-                try {
-                    Printer.getInstance(this).printPdf(
-                            mBodyCompositionAnalyzer.getRasterPath(),
-                            mBodyCompositionAnalyzer.getPdfPath());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                // 2. 将PDF进行打印
+//                try {
+//                    Printer.getInstance(this).printPdf(
+//                            mBodyCompositionAnalyzer.getRasterPath(),
+//                            mBodyCompositionAnalyzer.getPdfPath());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 break;
             case EVENT_CODE_DATA_TO_PDF_OPEN:
                 try {
