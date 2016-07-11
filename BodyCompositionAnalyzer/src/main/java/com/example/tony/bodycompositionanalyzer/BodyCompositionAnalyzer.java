@@ -883,9 +883,7 @@ public class BodyCompositionAnalyzer {
 			// 41 体重_标准 okay 注：根据当前值和调节量倒倒推
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			/* 体重标准是 脂肪调节量、肌肉调节量 与 体重 之和 */
-			tmpStr = String.valueOf(eval(bc.体重2 + String.valueOf(eval(bc.脂肪调节 + bc.肌肉调节))));
-			canvas.drawText(tmpStr,
+			canvas.drawText(String.format("%.1f", (float) bc.体重_STD / 10),
 					BodyComposition.Position.体重_标准.getXMils() / 1000,
 					BodyComposition.Position.体重_标准.getYMils() / 1000,
 					paint);
@@ -893,7 +891,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.体重2,
+					String.format("%.1f", (float) bc.体重_CUR / 10),
 					BodyComposition.Position.体重_当前.getXMils() / 1000,
 					BodyComposition.Position.体重_当前.getYMils() / 1000,
 					paint);
@@ -903,7 +901,7 @@ public class BodyCompositionAnalyzer {
 			/* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
 			tmpStr = String.valueOf(eval(bc.脂肪调节 + bc.肌肉调节));
 			canvas.drawText(
-					tmpStr,
+					String.format("%.1f", (float) bc.体重_REG / 10),
 					BodyComposition.Position.体重_调节量.getXMils() / 1000,
 					BodyComposition.Position.体重_调节量.getYMils() / 1000,
 					paint);
@@ -911,7 +909,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.体脂肪量标准.split("-")[0],
+					String.format("%.1f", (float) bc.体脂肪量_STD / 10),
 					BodyComposition.Position.身体脂肪量_标准.getXMils() / 1000,
 					BodyComposition.Position.身体脂肪量_标准.getYMils() / 1000,
 					paint);
@@ -927,7 +925,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.脂肪调节,
+					String.format("%.1f", (float) bc.脂肪量_REG / 10),
 					BodyComposition.Position.身体脂肪量_调节量.getXMils() / 1000,
 					BodyComposition.Position.身体脂肪量_调节量.getYMils() / 1000,
 					paint);
@@ -935,7 +933,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.肌肉标准.split("-")[1],
+					String.format("%.1f", (float) bc.肌肉量_STD / 10),
 					BodyComposition.Position.肌肉量_标准.getXMils() / 1000,
 					BodyComposition.Position.肌肉量_标准.getYMils() / 1000,
 					paint);
@@ -943,7 +941,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.肌肉量,
+					String.format("%.1f", (float) bc.肌肉量_CUR / 10),
 					BodyComposition.Position.肌肉量_当前.getXMils() / 1000,
 					BodyComposition.Position.肌肉量_当前.getYMils() / 1000,
 					paint);
@@ -951,7 +949,7 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
-					bc.肌肉调节,
+					String.format("%.1f", (float) bc.肌肉量_REG / 10),
 					BodyComposition.Position.肌肉量_调节量.getXMils() / 1000,
 					BodyComposition.Position.肌肉量_调节量.getYMils() / 1000,
 					paint);

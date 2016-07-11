@@ -1139,7 +1139,7 @@ public class BodyComposition {
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         脂肪调节 = String.format("%s%.1f", tmpStr, tmpFloat);
         // 注: 脂肪=标准值-当前值（结果为+的，显示0）
-        tmpInt = 体脂肪量_STD + 体脂肪量_CUR;
+        tmpInt = 体脂肪量_STD - 体脂肪量_CUR;
         脂肪量_REG = tmpInt > 0 ? 0 : tmpInt;
 
         // 74. 肌肉调节 okay 保留一位小数 kg 注：根据标准和当前值计算而非直接解析值
@@ -1148,7 +1148,7 @@ public class BodyComposition {
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         肌肉调节 = String.format("%s%.1f", tmpStr, tmpFloat);
         // 注: 肌肉量 = 标准值-当前值（结果为-的，显示0）
-        tmpInt = 肌肉量_STD + 肌肉量_CUR;
+        tmpInt = 肌肉量_STD - 肌肉量_CUR;
         肌肉量_REG = tmpInt < 0 ? 0 : tmpInt;
 
         // 注: 脂肪=标准值-当前值（结果为+的，显示0）
