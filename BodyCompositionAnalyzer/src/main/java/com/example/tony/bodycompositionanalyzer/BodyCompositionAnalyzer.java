@@ -1460,7 +1460,7 @@ public class BodyCompositionAnalyzer {
     public float getProgressLength(int item, BodyComposition bc) {
 		float rate = 1;
 		boolean Flag = false;
-		int[] P_temp = new int[2];
+		float[] P_temp = new float[2];
 		int Data_Test = 0, Data_Min = 0, Data_Max = 0;
 		switch (item) {
 			case 项目_体重: // 体重
@@ -1521,12 +1521,13 @@ public class BodyCompositionAnalyzer {
 
 		/**
 		 * 求出最外边界值
+		 * 根据实测来填写比例值，而不是3/2了
 		 */
-		P_temp[0] = Data_Min - ((Data_Max - Data_Min) * 3 / 2); //坐标最小值, 600
-		P_temp[1] = Data_Max + ((Data_Max - Data_Min) * 2);     //坐标最大值,1500
+		P_temp[0] = Data_Min - ((Data_Max - Data_Min) * 35.5f / 21.5f);     //坐标最小值, 600
+		P_temp[1] = Data_Max + ((Data_Max - Data_Min) * 32.5f / 21.5f);     //坐标最大值,1500
 
-		int range = P_temp[1] - P_temp[0];                      //整体坐标代表的最大数值,900
-		int position = 0;
+		float range = P_temp[1] - P_temp[0];                      //整体坐标代表的最大数值,900
+		float position = 0;
 		// 如果小于最最小值，设定一默认值5
 		if (Data_Test < P_temp[0]) //低于最小值坐标
 			position = 5;
