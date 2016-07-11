@@ -37,6 +37,7 @@ public class BodyComposition {
 
     public final String 测试日期;
     /** 单位*10 */
+    public final int    体重_STD;
     public final int    体重_CUR;
     public final String 体重2;
     public final int    体重_MIN;
@@ -50,10 +51,13 @@ public class BodyComposition {
     public final int    体脂肪量_CUR;
     public final int    体脂肪量_MIN;
     public final int    体脂肪量_MAX;
+    public final int    体脂肪量_STD;
     public final String 肌肉量;
     public final int    肌肉量_CUR;
     public final int    肌肉量_MIN;
     public final int    肌肉量_MAX;
+    /** 肌肉标准值 */
+    public final int    肌肉量_STD;
     public final String 肌肉标准;
     public final String 躯干脂肪;
     public final String 躯干脂肪标准;
@@ -107,8 +111,14 @@ public class BodyComposition {
     // ...
     public final String 身体总评分;
     public final String 身体年龄;
+    /** 体重调节量 */
+    public final int    体重_REG;
     public final String 体重调节;
+    /** 脂肪调节量 */
+    public final int    脂肪量_REG;
     public final String 脂肪调节;
+    /** 肌肉调节量 */
+    public final int    肌肉量_REG;
     public final String 肌肉调节;
     public final String 基础代谢量;
     public final String 总能量消耗;
@@ -343,7 +353,7 @@ public class BodyComposition {
     /**
      * This class specifies a supported media size. Media size is the
      * dimension of the media on which the content is printed. For
-     * example, the {@link #NA_LETTER} media size designates a page
+     * example, the media size designates a page
      * with size 8.5" x 11".
      */
     public static final class Position {
@@ -814,7 +824,7 @@ public class BodyComposition {
                 new String(new byte[]{b[8],b[9]});          /* 分 */
 
 
-        // 22. 体重 80.8kg
+        // 22. 体重 80.8kg 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 体重2_START, 体重2_START + 体重2_LENGTH);
         体重_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         tmpFloat = (float) 体重_CUR / 10;
@@ -843,7 +853,7 @@ public class BodyComposition {
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         去脂肪体重标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
-        // 27. 体脂肪量
+        // 27. 体脂肪量 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 体脂肪量_START, 体脂肪量_START + 体脂肪量_LENGTH);
         体脂肪量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         体脂肪量 = String.format("%.1f", (float) 体脂肪量_CUR / 10);
@@ -853,8 +863,10 @@ public class BodyComposition {
         体脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
         体脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
         体脂肪量标准 = String.format("%.1f-%.1f", (float) 体脂肪量_MIN / 10, (float) 体脂肪量_MAX / 10);
+        // 注：身体脂肪量标准值为标准值下界
+        体脂肪量_STD = 体脂肪量_MIN;
 
-        // 29. 肌肉量
+        // 29. 肌肉量 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 肌肉量_START, 肌肉量_START + 肌肉量_LENGTH);
         肌肉量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         肌肉量 = String.format("%.1f", (float) 肌肉量_CUR / 10);
@@ -864,6 +876,8 @@ public class BodyComposition {
         肌肉量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
         肌肉量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
         肌肉标准 = String.format("%.1f-%.1f", (float) 肌肉量_MIN / 10, (float) 肌肉量_MAX / 10);
+        // 肌肉量标准值为标准值上界
+        肌肉量_STD = 肌肉量_MAX;
 
         // 31. 躯干脂肪 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干脂肪_START, 躯干脂肪_START + 躯干脂肪_LENGTH);
@@ -1113,23 +1127,36 @@ public class BodyComposition {
         tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
         身体年龄 = String.format("%d", tmpInt);
 
-        // 72. 体重调节 okay 保留一位小数 kg
+        // 72. 体重调节 okay 保留一位小数 kg 注：体重=肌肉调节值+脂肪调节值
         b = Arrays.copyOfRange(data, 体重调节_START, 体重调节_START + 体重调节_LENGTH);
         tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         体重调节 = String.format("%s%.1f", tmpStr, tmpFloat);
 
-        // 73. 脂肪调节 okay 保留一位小数 kg
+        // 73. 脂肪调节 okay 保留一位小数 kg　注：脂肪=标准值-当前值（结果为+的，显示0）
         b = Arrays.copyOfRange(data, 脂肪调节_START, 脂肪调节_START + 脂肪调节_LENGTH);
         tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         脂肪调节 = String.format("%s%.1f", tmpStr, tmpFloat);
+        // 注: 脂肪=标准值-当前值（结果为+的，显示0）
+        tmpInt = 体脂肪量_STD + 体脂肪量_CUR;
+        脂肪量_REG = tmpInt > 0 ? 0 : tmpInt;
 
-        // 74. 肌肉调节 okay 保留一位小数 kg
+        // 74. 肌肉调节 okay 保留一位小数 kg 注：根据标准和当前值计算而非直接解析值
         b = Arrays.copyOfRange(data, 肌肉调节_START, 肌肉调节_START + 肌肉调节_LENGTH);
         tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
         tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10;
         肌肉调节 = String.format("%s%.1f", tmpStr, tmpFloat);
+        // 注: 肌肉量 = 标准值-当前值（结果为-的，显示0）
+        tmpInt = 肌肉量_STD + 肌肉量_CUR;
+        肌肉量_REG = tmpInt < 0 ? 0 : tmpInt;
+
+        // 注: 脂肪=标准值-当前值（结果为+的，显示0）
+        tmpInt = 肌肉量_REG + 脂肪量_REG;
+        体重_REG = tmpInt > 0 ? 0 : tmpInt;
+
+        // 注: 体重标准值 = 当前值 + 调节量值
+        体重_STD = 体重_CUR + 体重_REG;
 
         // 75. 基础代谢量 okay
         b = Arrays.copyOfRange(data, 基础代谢量_START, 基础代谢量_START + 基础代谢量_LENGTH);
