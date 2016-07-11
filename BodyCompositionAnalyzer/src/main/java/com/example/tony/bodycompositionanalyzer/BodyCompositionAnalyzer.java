@@ -785,7 +785,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
                     paint);
-			canvas.drawText(bc.体重_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_体重.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+			canvas.drawText(
+					String.format("%.1f", (float) bc.体重_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_体重.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
 			// 还原
 			paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -800,7 +804,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.身体质量_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.身体质量_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -815,7 +823,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.脂肪率_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.脂肪率_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -830,7 +842,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.体脂肪量_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.体脂肪量_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -845,7 +861,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.肌肉量_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.肌肉量_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -860,7 +880,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.脂肪率_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.身体总水分_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -868,14 +892,18 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength(项目_内脏脂肪, bc);
+            xPos = BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength2(bc);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000,
                     xPos,
                     BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000,
                     paint);
-            canvas.drawText(bc.内脏脂肪_CUR / 10 + "", xPos, BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000 + paint.getTextSize() / 2 - 2, paint);
+            canvas.drawText(
+					String.format("%.1f", (float) bc.内脏脂肪_CUR / 10),
+					xPos,
+					BodyComposition.Position.体成分分析_内脏脂肪.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
 
@@ -1489,12 +1517,6 @@ public class BodyCompositionAnalyzer {
                 Data_Max = 1100;
                 Flag = false;
                 break;
-            case 项目_内脏脂肪:
-				Data_Test = (int) (Float.valueOf(bc.内脏脂肪指数) - 2);
-				Data_Min = 100; //100; //1位小数点
-				Data_Max = 140;
-				Flag = false;
-				break;
 		}
 
 		/**
@@ -1502,6 +1524,7 @@ public class BodyCompositionAnalyzer {
 		 */
 		P_temp[0] = Data_Min - ((Data_Max - Data_Min) * 3 / 2); //坐标最小值, 600
 		P_temp[1] = Data_Max + ((Data_Max - Data_Min) * 2);     //坐标最大值,1500
+
 		int range = P_temp[1] - P_temp[0];                      //整体坐标代表的最大数值,900
 		int position = 0;
 		// 如果小于最最小值，设定一默认值5
@@ -1523,6 +1546,53 @@ public class BodyCompositionAnalyzer {
 		return rate * 90 * 2836 / 1000;
 	}
 
+	/**
+	 * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
+	 * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
+	 * @param bc BodyComposition
+	 * @return 进度条实际长度，单位Point
+	 */
+	public float getProgressLength2(BodyComposition bc) {
+		float[] P_temp = new float[2];
+		float cur = 0, min = 0, max = 0;
+		cur = bc.内脏脂肪_CUR / 10; // 10
+		min = bc.内脏脂肪_MIN / 10; // 最小1
+		max = bc.内脏脂肪_MAX / 10; // 最大17
+		final float NORMAL_START = 1;
+		final float TOO_HIGH_START = 10;
+		final float HIGH_START = 14;
+		final float HIGH_END   = 17;
+
+		final float NORMAL_START_MM = 0f;
+		final float TOO_HIGH_START_MM = 38.3f;
+		final float HIGH_START_MM = 53.5f;
+
+		final float NORMAL_LENGTH_MM = 38f;
+		final float TOO_HIGH_LENGTH_MM = 15.5f;
+		final float HIGH_LENGTH_MM = 36f;
+		final float TOTAL_LENGTH_MM = 90f;
+
+		float base = 0;
+		float length = 0;
+		float r = 0; // 相对长度单位mm
+		int start = 0;
+		if(cur >= min && cur <= max) {
+			base = NORMAL_START_MM;
+			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
+		} else if (cur > max && cur <= TOO_HIGH_START) {  // 位于
+			base = TOO_HIGH_START_MM;
+			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
+		} else if (cur >= HIGH_START && cur <= HIGH_END) {
+			base = HIGH_START_MM;
+			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
+		} else if (cur > HIGH_END) {
+			r = TOTAL_LENGTH_MM;
+		}
+
+		Log.i(LOG_TAG, "r: " + r);
+
+		return r * 2836 / 1000;
+	}
 
     public String getPdfPath() {
         return mPdfPath;
