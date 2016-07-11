@@ -1556,13 +1556,13 @@ public class BodyCompositionAnalyzer {
 	public float getProgressLength2(BodyComposition bc) {
 		float[] P_temp = new float[2];
 		float cur = 0, min = 0, max = 0;
-		cur = bc.内脏脂肪_CUR / 10; // 10
-		min = bc.内脏脂肪_MIN / 10; // 最小1
-		max = bc.内脏脂肪_MAX / 10; // 最大17
-		final float NORMAL_START = 1;
-		final float TOO_HIGH_START = 10;
-		final float HIGH_START = 14;
-		final float HIGH_END   = 17;
+		cur = bc.内脏脂肪_CUR / 10f; // 10
+		min = bc.内脏脂肪_MIN / 10f; // 最小1
+		max = bc.内脏脂肪_MAX / 10f; // 最大17
+		final float NORMAL_START = 1f;
+		final float TOO_HIGH_START = 10f;
+		final float HIGH_START = 14f;
+		final float HIGH_END   = 17f;
 
 		final float NORMAL_START_MM = 0f;
 		final float TOO_HIGH_START_MM = 38.3f;
@@ -1573,10 +1573,8 @@ public class BodyCompositionAnalyzer {
 		final float HIGH_LENGTH_MM = 36f;
 		final float TOTAL_LENGTH_MM = 90f;
 
-		float base = 0;
-		float length = 0;
-		float r = 0; // 相对长度单位mm
-		int start = 0;
+		float base = 0f;
+		float r = 0f; // 相对长度单位mm
 		if(cur >= min && cur <= max) {
 			base = NORMAL_START_MM;
 			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
