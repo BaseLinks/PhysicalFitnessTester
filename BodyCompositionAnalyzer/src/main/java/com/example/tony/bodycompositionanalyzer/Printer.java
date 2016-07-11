@@ -477,7 +477,7 @@ public class Printer {
                     //Log.i("LOG_TAG", chunk);
 
                     bytesWrite = mDeviceConnection.bulkTransfer(mEndpointOut, bytes,
-                            bytesRead, 5000);
+                            bytesRead, 30*000);
 
                     Log.i(LOG_TAG, "bytesRead:" + bytesRead + " bytesWrite:" + bytesWrite);
 
