@@ -49,104 +49,23 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-//        PackageManager pm = getPackageManager();
-//        List<ApplicationInfo> installedApps = pm.getInstalledApplications(0);
-//
-//        boolean isSystemApp = new AppUtil(this).isSystemApp(getPackageName());
-//        if (isSystemApp) {
-//            // System app - do something here
-//            Log.e(LOG_TAG, "System app - do something here");
-//        } else {
-//            // User installed app?
-//            Log.e(LOG_TAG, "User installed app");
-//        }
-//
-//        isSystemApp = new AppUtil(this).isAppPreLoaded(getPackageName());
-//        if (isSystemApp) {
-//            // System app - do something here
-//            Log.e(LOG_TAG, "isAppPreLoaded");
-//        } else {
-//            // User installed app?
-//            Log.e(LOG_TAG, "NOT isAppPreLoaded");
-//        }
-//
-        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         startService(new Intent(this, BodyCompositionAnalyzerService.class));
-
-//        Intent service = new Intent(IPrintService.ACTION_PRINT);
-//        service.setPackage("com.kangear.printspooler");
-////		bindService(service, conn, BIND_AUTO_CREATE);
-//        startService(service);
-//
-//        int intArray[] = null;
-//        try {
-//            intArray = getPackageManager().getPackageGids(getApplicationContext().getPackageName());
-//        } catch (PackageManager.NameNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        if(intArray != null) {
-//            for (int i : intArray) {
-//                Log.i(LOG_TAG, "i:" + i);
-//            }
-//        }
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textview: {
-                /* 创建PDF */
-                String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
-                /* 打开PDF */
-                startActivity(getPdfFileIntent(pdf));
+            case R.id.parse_helloworld_button: {
+                MyIntentService.startActionTestData(this, "", "");
                 break;
             }
             case R.id.parse_button:
-                try {
-                    mBodyCompositionAnalyzer.doIt(true);
-                    /* 创建PDF */
-                    String pdf = mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
-                    /* 打开PDF */
-                    startActivity(getPdfFileIntent(pdf));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                MyIntentService.startActionParseData(this, "", "");
                 break;
             case R.id.print_button:
-                try {
-                    mBodyCompositionAnalyzer.doIt(false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 break;
             case R.id.get_printer_button:
                 break;
         }
-    }
-
-    /**
-     * 打印需求规划
-     * 不使用Android打印服务，但是使用Android USB host口
-     * 串口有两种方式实现，一种基于FTDI厂家的实现，一种是传统串口方式
-     */
-    private void doPhotoPrint() {
-        PrintHelper photoPrinter = new PrintHelper(this);
-        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.selection);
-        photoPrinter.printBitmap("droids.jpg - test print", bitmap);
-    }
-
-    //android获取一个用于打开PDF文件的intent
-    public static Intent getPdfFileIntent(String param) {
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri uri = Uri.fromFile(new File(param));
-        intent.setDataAndType(uri, "application/pdf");
-        return intent;
     }
 
     @Override

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tony.usbprinter">
+    package="com.example.tony.usbprinter"
+    android:sharedUserId = "android.uid.system">
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="19"/>

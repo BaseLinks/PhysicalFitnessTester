@@ -4,61 +4,47 @@ import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.tony.bodycompositionanalyzer.BodyCompositionAnalyzer;
+import com.example.tony.bodycompositionanalyzer.BodyCompositionAnalyzerService;
+import com.example.tony.bodycompositionanalyzer.Printer;
+
 import java.io.File;
-import java.io.IOException;
 
 /**
- * Created by tony on 16-7-11.
+ * Created by tony on 16-7-15.
  */
-public class BodyCompositionAnalyzerService extends Service {
+public class TaskService extends IntentService {
     private static final boolean DEBUG = true;
-    private static final String LOG_TAG = "BodyComAnalyzerService";
+    private static final String LOG_TAG = "TaskService";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
-    public static final String EVENT_CODE = "event_code";
-    public static final int EVENT_CODE_DATA_TO_PDF_OPEN   = 1;
-    /* PDF输出到打印机 */
-    public static final int EVENT_CODE_PDF_TO_PRINTER     = 2;
-    /* HelloWorld raster data 直接输出到打印机 */
-    public static final int EVENT_CODE_RASTER_TO_PRINTER  = 3;
-    /* 将数据生成PDF */
-    public static final int EVENT_CODE_DATA_TO_PDF        = 4;
-    /* HelloWorld PDF输出到打印机 */
-    public static final int EVENT_CODE_TESTPDF_TO_PRINTER = 5;
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        init();
-    }
-
-    private void init() {
-        // 创建BodyCompositionAnalyzer类
+    /**
+     * Creates an IntentService.  Invoked by your subclass's constructor.
+     *
+     * @param name Used to name the worker thread, important only for dejava.lang.Stringbugging.
+     */
+    public TaskService(String name) {
+        super(name);
+        Log.i(LOG_TAG, "TaskService");
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
-
-        // 初始化
-        mBodyCompositionAnalyzer.init();
     }
 
+    public TaskService() {
+        this("TaskService");
+    }
+
+    @Override
     protected void onHandleIntent(Intent intent) {
         // 耗时任务代码
-        final int envCode = intent.getIntExtra(EVENT_CODE, -1);
-        if (DEBUG) Log.i(LOG_TAG, "onHandleIntent " + " CODE: " + envCode);
+        final int envCode = intent.getIntExtra(BodyCompositionAnalyzerService.EVENT_CODE, -1);
+        if (DEBUG) Log.i(LOG_TAG, "TaskService onHandleIntent " + " CODE: " + envCode);
         switch (envCode) {
-            case EVENT_CODE_DATA_TO_PDF:
+            case BodyCompositionAnalyzerService.EVENT_CODE_DATA_TO_PDF:
                 // 1. 提取数据，并生成PDF
-//                MyIntentService.startActionBaz(this, "Hello", "World");
+                mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
                 break;
-            case EVENT_CODE_PDF_TO_PRINTER:
+            case BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER:
 //                // 2. 将PDF进行打印
 //                try {
 //                    Printer.getInstance(this).printPdf(
@@ -70,7 +56,7 @@ public class BodyCompositionAnalyzerService extends Service {
                 /* 打开PDF */
                 startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
                 break;
-            case EVENT_CODE_DATA_TO_PDF_OPEN:
+            case BodyCompositionAnalyzerService.EVENT_CODE_DATA_TO_PDF_OPEN:
                 try {
                     /* 打开PDF */
                     startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
@@ -78,7 +64,7 @@ public class BodyCompositionAnalyzerService extends Service {
                     e.printStackTrace();
                 }
                 break;
-            case EVENT_CODE_TESTPDF_TO_PRINTER:
+            case BodyCompositionAnalyzerService.EVENT_CODE_TESTPDF_TO_PRINTER:
                 // n. 将HelloWorld PDF进行打印
                 try {
                     Printer.getInstance(this).printPdf(
@@ -88,16 +74,9 @@ public class BodyCompositionAnalyzerService extends Service {
                     e.printStackTrace();
                 }
                 break;
-            case EVENT_CODE_RASTER_TO_PRINTER:
+            case BodyCompositionAnalyzerService.EVENT_CODE_RASTER_TO_PRINTER:
                 break;
         }
-    }
-
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        onHandleIntent(intent);
-        return START_NOT_STICKY;
     }
 
     //android获取一个用于打开PDF文件的intent
@@ -108,10 +87,5 @@ public class BodyCompositionAnalyzerService extends Service {
         Uri uri = Uri.fromFile(new File(param));
         intent.setDataAndType(uri, "application/pdf");
         return intent;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

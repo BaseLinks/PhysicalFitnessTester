@@ -171,6 +171,8 @@ public class BodyComposition {
     public static final int DATA_LENGTH = 218;
     public static final int VERIFICATION_START = 223;
     public static final int VERIFICATION_LENGTH = 4;
+    public static final int 结束符_START        = 226;
+    public static final int 校验和_START        = 227;
     public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH; // 6+218+4=228
 
     /* 在数据中的位置 注：小端方式 */
@@ -257,7 +259,6 @@ public class BodyComposition {
     public static final int 肌肉调节_START      = 210;
     public static final int 基础代谢量_START    = 214;
     public static final int 总能量消耗_START    = 216;
-
 
     /* 数据长度 */
     public static final int 姓名_LENGTH = 2;
@@ -388,6 +389,8 @@ public class BodyComposition {
     public static final double ORIGIN_X = 133;
     public static final double ORIGIN_Y = 146;
 
+    /** 结束符默认值 */
+    public static final byte 结束符_DEF = (byte) 0xDD;
 
     /* 位置 */
     /**

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 2. 获取打印机型号
         mPrinter = new Printer(this);
-        if(mPrinter.isConnected()) {
+        if (mPrinter.isConnected()) {
             mPrinterModelTextView.setText(mPrinter.getModel2().getDes());
         }
     }

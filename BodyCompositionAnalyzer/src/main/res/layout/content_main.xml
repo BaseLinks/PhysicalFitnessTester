@@ -13,15 +13,15 @@
     tools:showIn="@layout/activity_main">
 
     <Button
-        android:id="@+id/textview"
+        android:id="@+id/parse_helloworld_button"
         android:layout_margin="10dp"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="直接生成PDF并打开" />
+        android:text="解析样例" />
 
     <Button
-        android:layout_below="@id/textview"
+        android:layout_below="@id/parse_helloworld_button"
         android:id="@+id/parse_button"
         android:layout_margin="10dp"
         android:onClick="onClick"

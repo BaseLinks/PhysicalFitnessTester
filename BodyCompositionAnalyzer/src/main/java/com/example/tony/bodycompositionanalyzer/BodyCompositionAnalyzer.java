@@ -11,19 +11,11 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
-import android.os.Environment;
 import android.print.PrintAttributes;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -50,7 +42,7 @@ public class BodyCompositionAnalyzer {
 	private final SerialPortFinder serialPortFinder = new SerialPortFinder();
 	/** FTDI基于Android USB Api实现的串口通信，免Root */
 	private UartHelper mUartHelper;
-	private final Context mContext;
+	private static Context mContext =  null;
 	private String                 serialPort       = null;
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyUSB0";
 	private static BodyComposition mBodyComposition;
@@ -72,6 +64,8 @@ public class BodyCompositionAnalyzer {
     private final String mPdfPath;
     /* PDL文件存放路径 */
     private final String mRasterPath;
+    /** 接收到的完整数据 */
+    private byte[] mFullData;
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -90,9 +84,9 @@ public class BodyCompositionAnalyzer {
 
     private BodyCompositionAnalyzer(Context context) {
         this.mContext = context;
-        mPdfPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+        mPdfPath = mContext.getExternalCacheDir()
                 + File.separator + "test.pdf";
-        mRasterPath = mContext.getExternalFilesDir(Environment.DIRECTORY_DCIM)
+        mRasterPath = mContext.getExternalCacheDir()
                 + File.separator + "test.bin";
         mUartHelper = new UartControl(context);
     }
@@ -115,7 +109,11 @@ public class BodyCompositionAnalyzer {
             ; // 需要告知用户
 	}
 
-	private class SerialControl extends SerialHelper {
+    public byte[] getFullData() {
+        return mFullData;
+    }
+
+    private class SerialControl extends SerialHelper {
 		@Override
 		protected void onDataReceived(final ComBean ComRecData) {
 			handleRecData(ComRecData);
@@ -124,7 +122,7 @@ public class BodyCompositionAnalyzer {
 		/** 处理接收到串口数据事件 */
 		private void handleRecData(final ComBean ComRecData) {
 			if (DEBUG) Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
-            parseData2(ComRecData.bRec);
+            connectSegmentAsFullData(ComRecData.bRec);
 		}
 	}
 
@@ -147,7 +145,7 @@ public class BodyCompositionAnalyzer {
 		/** 处理接收到串口数据事件 */
 		private void handleRecData(final ComBean ComRecData) {
 			Log.i(LOG_TAG, "handleRecData:" + bytesToHex(ComRecData.bRec));
-			parseData2(ComRecData.bRec);
+            connectSegmentAsFullData(ComRecData.bRec);
 		}
 	}
 
@@ -158,8 +156,12 @@ public class BodyCompositionAnalyzer {
     /** 接收串口数据缓存 */
     private static byte[] cache = null;
 
-    private void parseData2(byte[] in) {
-		Log.i(LOG_TAG, "parseData2");
+	/**
+	 * 处理串口接收函数接收到的数据段，并将其拼接成完成数据
+	 * @param in 待拼接的数据片段
+     */
+    public void connectSegmentAsFullData(byte[] in) {
+		Log.i(LOG_TAG, "ConnectSegmentAsFullData");
 		/* 将in存于cache中 */
         if(cache == null) /* 第一次进入 */
             cache = Arrays.copyOfRange(in, 0, in.length);
@@ -170,19 +172,11 @@ public class BodyCompositionAnalyzer {
             System.arraycopy( in, 0, cache, tmp.length, in.length);
         }
 
-        // ECC校验
-//        Log.i(LOG_TAG, "ecc:" + getBCC(Arrays.copyOfRange(cache, 6, 6 + cache.length - 4)));
-
-
-        byte[]     ack                 = new byte[BodyComposition.ACK_LENGTH];
-		byte[]     checksum            = new byte[BodyComposition.VERIFICATION_LENGTH];
+        /**
+         * 这里进行ack校验的使用是为了找到数据头部
+         */
+        byte[]     ack;
         int        length              = BodyComposition.TOTAL_LENGTH;
-        byte       dataLength          = 0;
-        final byte LENGTH_START        = 1;
-        final byte MSG_START           = 2;
-        final byte DATA_START          = 3;
-        byte       ETX_START           = 0;
-        byte       CHECKSUM_START      = 0;
 
 		/* loop循环用于迭代处理 */
         loop: while (cache.length > 0) {
@@ -227,165 +221,11 @@ public class BodyCompositionAnalyzer {
                     handleError(2.0, cache, in);
                     return;
                 }
-//				/* 取出第2位 数据长度 */
-//                length = cache[LENGTH_START];
-//                if (length > cache.length) {
-//					/* 2.1是比较常见错误，不再打LOG信息 */
-//                    // handleError(2.1, cache, in);
-//                    return;
-//                }
-//
-//				/* 3.0. 解析 MSG Type & ACK (坐标+1是长度)*/
-//                if(cache.length < (MSG_START + 1)) {
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    handleError(2.5, cache, in);
-//                    continue loop;
-//                }
-//				/* 3.1 判断 MSG Type & ACK */
-//                if (!parseMsgtypeAndACK(cache[MSG_START])) {
-//                    handleError(3.1, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    continue loop;
-//                }
-//
-//				/* 4.0 填充结束符位置 */
-//                ETX_START = (byte) (length - 2);
-//                if (ETX_START < 0) {
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    handleError(4.0, cache, in);
-//                    continue loop;
-//                }
-//
-//				/* 4.1 判断ETX */
-//                if (cache[ETX_START] != ETX) {
-//                    handleError(4.1, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    continue loop;
-//                }
-//
-//				/* 5. 总长度减去 STX MSG LENGTH ETX CHECKSUM 的长度和就是数据长度 */
-//                dataLength = (byte) (length - 5);
-//                if (dataLength < 0) {
-//                    handleError(5, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    continue loop;
-//                }
-//
-//				/* 6. 检验和判断 */
-//                CHECKSUM_START = (byte) (length - 1);
-//                if (CHECKSUM_START < 0) {
-//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(CHECKSUM_START):"
-//                            + CHECKSUM_START);
-//                    handleError(6, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    continue loop;
-//                }
-//
-//				/* 6. 检验和判断 TODO:添加校验码校验 */
-//				checksum = Arrays.copyOfRange(
-//						cache,
-//						BodyComposition.VERIFICATION_START,
-//						BodyComposition.VERIFICATION_START + BodyComposition.VERIFICATION_LENGTH);
-//				if (checksum[2] != 0xDD) {
-//					if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(CHECKSUM_START):"
-//							+ checksum[3]);
-//					handleError(6, cache, in);
-//					cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//					continue loop;
-//				}
-//
-//				/* 7. 抽取需要进行校验的数据位进行校验 LENGTH MSG DATA */
-//                byte bcc = getBCC(Arrays.copyOfRange(cache, LENGTH_START,
-//                        LENGTH_START + dataLength + 2));
-//                if (bcc != cache[CHECKSUM_START]) {
-//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(检验和)");
-//                    handleError(7, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    continue loop;
-//                }
-//
-				/* 8. 解析数据段 TODO:对数据段进行深度匹配 */
-                final byte[] dataArray = Arrays.copyOfRange(cache, BodyComposition.DATA_START,
-						BodyComposition.DATA_START + BodyComposition.DATA_LENGTH);
-				/* 解析数据 */
-				mBodyComposition = new BodyComposition(dataArray);
-                /* TODO:将BodyComposition对象通过Intent传递出去，以后使用打包的方式 */
-                mContext.startService(
-                        new Intent(
-                                mContext,
-                                BodyCompositionAnalyzerService.class).putExtra(
-                                BodyCompositionAnalyzerService.EVENT_CODE,
-                                BodyCompositionAnalyzerService.EVENT_CODE_DATA_TO_PDF)
-                );
-//				/*
-//				 * BYTE 0
-//				 * 设置为01h – 无数据上报
-//				 * 设置为10h – 有数据上报
-//				 * （在该数据段中，可以扩充为不同的数据，不同的硬币通道）
-//				 */
-//                final byte BYTE0 = dataArray[0];
-//				/* BYTE1: 设置为10h */
-//                final byte BYTE1 = dataArray[1];
-//				/*
-//				 * BYTE2 说明 TODO:[Bit 3-5 硬币数据段]可以测试成功
-//				 * Bit 0 – 启动位   (= 1 如果WF-700-RELAY有了一次重新启动 ) 
-//				 * Bit 1 – 错误指令 (= 1 如果接收到错误指令) 
-//				 * Bit 2 - Failure (= 1 如果硬币器错误，或者钱箱满等故障) (FAE:脉冲投币器不存在故障位,该位无效)
-//				 * Bit 3-5 硬币数据段
-//				 * 000 = None 
-//				 * 001 = 1st credit channel type 
-//				 * 010 = 2nd credit channel type 
-//				 * 011 = 3rd credit channel type
-//				 * 100 = 4th credit channel type 
-//				 * 101 = 5th credit channel type 
-//				 * 110 = 6th credit channel type, Pulse channel   (WF-700-RELAY 使用该段) 
-//				 * 111 = Reserved 
-//				 * Bit 6- Reserved (set to 0) 
-//				 */
-//                final byte BYTE2 = dataArray[2];
-//				/* BYTE 3, BYTE 4 堆栈中剩余的硬币信息数据 */
-//                @SuppressWarnings("unused")
-//                final byte BYTE3 = dataArray[3];
-//                @SuppressWarnings("unused")
-//                final byte BYTE4 = dataArray[4];
-//				/* BYTE5 设置为 01h */
-//                final byte BYTE5 = dataArray[5];
-//
-//				/* 判断BYTE1和BYTE5是否正确 */
-//                if (BYTE1 != DATA_BYTE1 || BYTE5 != DATA_BYTE5_RECEIVE) {
-//                    if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(BYTE0和BYTE5)");
-//                    handleError(8.1, cache, in);
-//                    cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
-//                    return;
-//                }
-//
-//				/* 判断是否有数据上报 */
-//                if (BYTE0 == HAVE_DATA_REPORT) {
-//					/* 判断　BYTE2　Bit 3-5 硬币数据段 是否为WF700RELAY　 */
-//                    final byte coinDataChannel = (byte) ((BYTE2 & DATA_BYTE2_35_REC_MASK) >> DATA_BYTE2_35_REC_POS);
-//                    if (coinDataChannel != DATA_BYTE2_35_REC_WF700RELAY) {
-//                        if (DEBUG) Log.w(LOG_TAG, "parseCoin 无效数据(BYTE2)");
-//                        handleError(8.2, cache, in);
-//                        cache = Arrays.copyOfRange(cache, 0 + length,
-//                                cache.length);
-//                        return;
-//                    }
-//					/* 解析硬币信息 循环读取，不用判断BYTE3 BYTE4值 不再打印调试信息 */
-//                    // String s1 = String.format("%8s",
-//                    // Integer.toBinaryString(BYTE1 & 0xFF)).replace(' ',
-//                    // '0');
-//                    // Log.i(LOG_TAG, "parseCoin: BYTE3:" + BYTE3 + " BYTE4:"
-//                    // + BYTE4 + " BYTE1:" + s1);
-//                    if (DEBUG) Log.i(LOG_TAG, "parseCoin: 获得一个硬币");
-//					/* 调用获得一个币方法 */
-//                    onGetCoin(getOrder());
-//                } else if (BYTE0 == HAVE_NO_DATA_REPORT) {
-//					/* 无数据上传时不再打印调试信息 */
-//                    // Log.i(LOG_TAG, "parseCoin: 无数据上报");
-//                } else {
-//                    Log.e(LOG_TAG, "parseCoin 未知状态");
-//                }
-//
+
+                /** 数据长度够了，进行解析,这样调用这个函数立刻会结束 */
+                mFullData = Arrays.copyOfRange(cache, 0, BodyComposition.TOTAL_LENGTH);
+                MyIntentService.startActionParseData(mContext, "", "");
+
 				/* 将处理过数据删除 进行递归 */
                 cache = Arrays.copyOfRange(cache, 0 + length, cache.length);
                 if (cache.length != 0) {
@@ -416,26 +256,58 @@ public class BodyCompositionAnalyzer {
                 + bytesToHex(cache));
     }
 
-	private void parseData(byte[] inputData) {
+	/**
+	 * Parse single time full data
+     * 进来的数据是已经被完整的数据
+	 * @param inputData
+     */
+	public static synchronized void parseData(byte[] inputData) {
 		Log.i(LOG_TAG, "parseData" + " inputData.length =" + inputData.length);
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-        /* 1. 判断回复是否正常 */
+        /* 1. 判断数据长度是否正常 */
         if(BodyComposition.TOTAL_LENGTH != inputData.length) {
             Log.e(LOG_TAG, "inputData.length =" + inputData.length + " but TOTAL_LENGTH need " + BodyComposition.TOTAL_LENGTH);
             return;
         }
 
-        /* 2. 判断回复是否正常 */
-		byte[] ack = new byte[BodyComposition.ACK_LENGTH];
-		System.arraycopy(inputData, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
-		if(Arrays.equals(ack, BodyComposition.ACK)) {
-            /* 提取各个数据 */
-			byte[] data2 = new byte[BodyComposition.DATA_LENGTH];
-			System.arraycopy(inputData, BodyComposition.DATA_START, data2, 0, BodyComposition.DATA_LENGTH);
-            /* 解析数据 */
-			mBodyComposition = new BodyComposition(data2);
-		}
+        /* 2. 判断回复响应是否正常 */
+        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
+        System.arraycopy(inputData, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
+        if(!Arrays.equals(ack, BodyComposition.ACK)) {
+            Log.e(LOG_TAG, "ACK不匹配！");
+            return;
+        }
+
+        /**
+         * 3. 结束符判断
+         */
+        final byte EOF = inputData[BodyComposition.结束符_START];
+        if(EOF != BodyComposition.结束符_DEF) {
+            Log.e(LOG_TAG, String.format("结束符不匹配：计算校验和为 %02X 但需要的结束符为 %02X。", EOF, BodyComposition.结束符_DEF));
+            return;
+        }
+
+        /**
+         * 4. 检验和判断
+         * 校验方法如下： 从cc_后_开始加，一直加到截止符dd，取低八位。
+         */
+        byte sum = 0;
+        for (int i=1; i<inputData.length - 1; i++) {
+            sum += inputData[i];
+        }
+        final byte CHECKSUM = inputData[BodyComposition.校验和_START];
+        if(sum != CHECKSUM) {
+            Log.e(LOG_TAG, String.format("数据校验失败：计算校验和为 %02X 但数据中提取校验和为 %02X。", sum, CHECKSUM));
+            return;
+        }
+
+        /* 提取各个数据 */
+        byte[] data2 = new byte[BodyComposition.DATA_LENGTH];
+        System.arraycopy(inputData, BodyComposition.DATA_START, data2, 0, BodyComposition.DATA_LENGTH);
+        /* 解析数据 */
+        mBodyComposition = new BodyComposition(data2);
+        MyIntentService.startActionDataToPdf(mContext, "", "");
 	}
 
 	public static String bytesToHex(byte[] in) {
@@ -513,40 +385,28 @@ public class BodyCompositionAnalyzer {
 	}
 
 	/**
-	 * 做一次获取数据处理
+	 * 做一次获取数据处理 调试模式，不使用串口，直接读取已有数据
 	 * @return 成功返回true,否则返回false
 	 */
-	public boolean doIt(boolean isDebug)  throws IOException {
+	public boolean test()  throws IOException {
 		Log.i(LOG_TAG, "doIt");
 
-		/* 0.调试模式，不使用串口，直接读取已有数据 */
-		if(isDebug) {
-			// 读取样本数据
-			InputStream in = mContext.getResources().getAssets().open("data172.bin");
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        // 读取样本数据
+        InputStream in = mContext.getResources().getAssets().open("data172.bin");
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-			int nRead;
-			byte[] data = new byte[16384];
-			while ((nRead = in.read(data, 0, data.length)) != -1) {
-				buffer.write(data, 0, nRead);
-			}
-			buffer.flush();
-			byte[] bufferArray = buffer.toByteArray();
-			// 解析数据
-			parseData(bufferArray);
+        int nRead;
+        byte[] data = new byte[16384];
+        while ((nRead = in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+        byte[] bufferArray = buffer.toByteArray();
 
-			return true;
-		}
-
-		try {
-			mUartHelper.setBaudRate(9600);
-			mUartHelper.open();
-			mUartHelper.send(getDianjiTest());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		}
+        /** 数据长度够了，进行解析,这样调用这个函数立刻会结束 */
+        mFullData = Arrays.copyOfRange(bufferArray, 0, BodyComposition.TOTAL_LENGTH);
+        MyIntentService.startActionParseData(mContext, "", "");
+        return true;
 
 //		/* 1. 打开串口 */
 //		if (!initCoinMachine()) {
@@ -559,7 +419,6 @@ public class BodyCompositionAnalyzer {
 
 		/* 3. 关闭串口 */
 //		serialCtrl.close();
-		return false;
 	}
 
 	void tmp () {
@@ -589,13 +448,14 @@ public class BodyCompositionAnalyzer {
 
 		/* 2. 生成PDF两种方法：Android Api或者iText Api */
 		String pdf = createPdf(mPdfPath, bc);
-        mContext.startService(
-                new Intent(
-                        mContext,
-                        BodyCompositionAnalyzerService.class).putExtra(
-                        BodyCompositionAnalyzerService.EVENT_CODE,
-                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
-        );
+//        mContext.startService(
+//                new Intent(
+//                        mContext,
+//                        BodyCompositionAnalyzerService.class).putExtra(
+//                        BodyCompositionAnalyzerService.EVENT_CODE,
+//                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
+//        );
+		MyIntentService.startActionPdfToOpen(mContext, "", "");
 
         return mPdfPath;
 	}
@@ -612,13 +472,13 @@ public class BodyCompositionAnalyzer {
 			createPdfwithAndroid(pdfPath, bc);
 		} else {
 			// 使用iText
-			try {
-				createPdfwithiText(pdfPath, bc);
-			} catch (DocumentException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				createPdfwithiText(pdfPath, bc);
+//			} catch (DocumentException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 		return pdfPath;
 	}
@@ -1228,7 +1088,7 @@ public class BodyCompositionAnalyzer {
             yPos = (bc.脂肪率_CUR - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
 
-        Log.i(LOG_TAG, "xPos: " + xPos + " yPos: " + yPos);
+        Log.i(LOG_TAG, "xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
 
         xPos = BodyComposition.ORIGIN_X + xPos * BodyComposition.SINGLE_RECT_WIDTH + BodyComposition.SINGLE_RECT_WIDTH / 2;
         yPos = BodyComposition.ORIGIN_Y - yPos * BodyComposition.SINGLE_RECT_HEIGHT - BodyComposition.SINGLE_RECT_HEIGHT / 2;
@@ -1385,26 +1245,26 @@ public class BodyCompositionAnalyzer {
 		canvas.restore();
 	}
 
-	/**
-	 * Creates a PDF document.
-	 * @param pdfPath the path to the new PDF document
-	 * @throws    DocumentException
-	 * @throws    IOException
-	 */
-	public void createPdfwithiText(String pdfPath, BodyComposition bc)
-			throws DocumentException, IOException {
-		Log.i(LOG_TAG, "createPdfwithiText");
-		// step 1
-		Document document = new Document(PageSize.A4);
-		// step 2
-		PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-		// step 3
-		document.open();
-		// step 4
-		document.add(new Paragraph("Hello World!"));
-		// step 5
-		document.close();
-	}
+//	/**
+//	 * Creates a PDF document.
+//	 * @param pdfPath the path to the new PDF document
+//	 * @throws    DocumentException
+//	 * @throws    IOException
+//	 */
+//	public void createPdfwithiText(String pdfPath, BodyComposition bc)
+//			throws DocumentException, IOException {
+//		Log.i(LOG_TAG, "createPdfwithiText");
+//		// step 1
+//		Document document = new Document(PageSize.A4);
+//		// step 2
+//		PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+//		// step 3
+//		document.open();
+//		// step 4
+//		document.add(new Paragraph("Hello World!"));
+//		// step 5
+//		document.close();
+//	}
 
 
 	public static Bitmap getBitmapFromAsset(Context context, String filePath) {

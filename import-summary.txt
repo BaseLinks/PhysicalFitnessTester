@@ -7,21 +7,45 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* .gitattributes
 * .gitignore
-* README.md
-* pom.xml
-* proguard.cfg
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+gson-2.0.jar => com.google.code.gson:gson:2.0
+
+Potentially Missing Dependency:
+-------------------------------
+When we replaced the following .jar files with a Gradle dependency, we
+inferred the dependency version number from the filename. This
+specific version may not actually be available from the repository.
+If you get a build error stating that the dependency is missing, edit
+the version number to for example "+" to pick up the latest version
+instead. (This may require you to update your code if the library APIs
+have changed.)
+
+gson-2.0.jar => version 2.0 in com.google.code.gson:gson:2.0
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => trineaandroidcommon/src/main/AndroidManifest.xml
-* assets/ => trineaandroidcommon/src/main/assets
-* res/ => trineaandroidcommon/src/main/res/
-* src/ => trineaandroidcommon/src/main/java/
+* AndroidManifest.xml => dhroid/src/main/AndroidManifest.xml
+* libs/android-support-v13.jar => dhroid/libs/android-support-v13.jar
+* libs/httpmime-4.1.1.jar => dhroid/libs/httpmime-4.1.1.jar
+* libs/universal-image-loader-1.5.6-with-src.jar => dhroid/libs/universal-image-loader-1.5.6-with-src.jar
+* res/ => dhroid/src/main/res/
+* src/ => dhroid/src/main/java/
 
 Next Steps:
 -----------

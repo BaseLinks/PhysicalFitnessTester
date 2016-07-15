@@ -1,3 +1,4 @@
 include ':app', ':BodyCompositionAnalyzer', ':usbprinter', ':javaapk.com-comassistant', ':itextpdf-5.3.2', ':d2xx'
 include ':j2XXHyperTerm'
 include ':trineaandroidcommon'
+include ':dhroid'
