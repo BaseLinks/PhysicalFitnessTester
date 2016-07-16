@@ -37,7 +37,6 @@ public class MyIntentService extends IntentService {
 
     public MyIntentService() {
         super("MyIntentService");
-        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
     }
 
     /**
@@ -222,20 +221,12 @@ public class MyIntentService extends IntentService {
     }
 
     /**
-     * Handle action DataToPdf in the provided background thread with the provided
+     * Handle action init in the provided background thread with the provided
      * parameters.
      */
     private void handleActionInit(String param1, String param2) {
-        // 控制一进入休眠
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "MyWakelockTag");
-        wakeLock.acquire();
-
-        // 创建BodyCompositionAnalyzer类
-        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
-
         // 初始化
+        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         mBodyCompositionAnalyzer.init();
     }
 
