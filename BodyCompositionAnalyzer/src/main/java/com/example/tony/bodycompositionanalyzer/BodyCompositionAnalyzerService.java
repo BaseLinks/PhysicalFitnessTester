@@ -106,6 +106,9 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        /* 1. xxx */
         mWakeLock.release();
+        /* 2. xxx */
+        MyIntentService.startActionUnInit(this, "", "");
     }
 }

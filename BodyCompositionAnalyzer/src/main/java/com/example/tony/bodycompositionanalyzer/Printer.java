@@ -142,8 +142,16 @@ public class Printer {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         filter.addAction(ACTION_USB_PERMISSION);
-        mContext.registerReceiver(mUsbReceiver, filter);
+//        mContext.registerReceiver(mUsbReceiver, filter);
+    }
 
+    /**
+     * 反初始化
+     */
+    public void uninit() {
+        if(mContext != null) {
+            mContext.unregisterReceiver(mUsbReceiver);
+        }
     }
 
     /**

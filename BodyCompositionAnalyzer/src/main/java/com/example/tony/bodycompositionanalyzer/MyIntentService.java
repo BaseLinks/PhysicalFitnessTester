@@ -23,6 +23,7 @@ public class MyIntentService extends IntentService {
     private static final String ACTION_FOO = "com.example.tony.bodycompositionanalyzer.action.FOO";
     private static final String ACTION_BAZ = "com.example.tony.bodycompositionanalyzer.action.BAZ";
     private static final String ACTION_INIT = "com.example.tony.bodycompositionanalyzer.action.INIT";
+    private static final String ACTION_UNINIT = "com.example.tony.bodycompositionanalyzer.action.UN_INIT";
     private static final String ACTION_TEST_DATA = "com.example.tony.bodycompositionanalyzer.action.TEST_DATA";
     private static final String ACTION_DATA_TO_PDF = "com.example.tony.bodycompositionanalyzer.action.DATA_TO_PDF";
     private static final String ACTION_PDF_TO_PRINTER = "com.example.tony.bodycompositionanalyzer.action.PDF_TO_PRINTER";
@@ -79,6 +80,21 @@ public class MyIntentService extends IntentService {
     public static void startActionInit(Context context, String param1, String param2) {
         Intent intent = new Intent(context, MyIntentService.class);
         intent.setAction(ACTION_INIT);
+        intent.putExtra(EXTRA_PARAM1, param1);
+        intent.putExtra(EXTRA_PARAM2, param2);
+        context.startService(intent);
+    }
+
+    /**
+     * Starts this service to perform action DataToPdf with the given parameters. If
+     * the service is already performing a task this action will be queued.
+     *
+     * @see IntentService
+     */
+    // 这个是一个测试入口，读取现有数据充当数据
+    public static void startActionUnInit(Context context, String param1, String param2) {
+        Intent intent = new Intent(context, MyIntentService.class);
+        intent.setAction(ACTION_UNINIT);
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
@@ -176,6 +192,10 @@ public class MyIntentService extends IntentService {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
                 handleActionInit(param1, param2);
+            } else if (ACTION_UNINIT.equals(action)) {
+                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
+                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
+                handleActionUnInit(param1, param2);
             } else if (ACTION_TEST_DATA.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
@@ -228,6 +248,16 @@ public class MyIntentService extends IntentService {
         // 初始化
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         mBodyCompositionAnalyzer.init();
+    }
+
+    /**
+     * Handle action init in the provided background thread with the provided
+     * parameters.
+     */
+    private void handleActionUnInit(String param1, String param2) {
+        // 初始化
+        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
+        mBodyCompositionAnalyzer.uninit();
     }
 
     /**

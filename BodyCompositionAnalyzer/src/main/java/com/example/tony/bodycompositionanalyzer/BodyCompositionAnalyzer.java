@@ -109,6 +109,12 @@ public class BodyCompositionAnalyzer {
             ; // 需要告知用户
 	}
 
+    /**  */
+    public void uninit() {
+        mPrinter.uninit();
+    }
+
+
     public byte[] getFullData() {
         return mFullData;
     }
