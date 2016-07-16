@@ -167,7 +167,7 @@ public class BodyCompositionAnalyzer {
 	 * @param in 待拼接的数据片段
      */
     public void connectSegmentAsFullData(byte[] in) {
-		Log.i(LOG_TAG, "ConnectSegmentAsFullData");
+		Log.i(LOG_TAG, "connectSegmentAsFullData");
 		/* 将in存于cache中 */
         if(cache == null) /* 第一次进入 */
             cache = Arrays.copyOfRange(in, 0, in.length);
