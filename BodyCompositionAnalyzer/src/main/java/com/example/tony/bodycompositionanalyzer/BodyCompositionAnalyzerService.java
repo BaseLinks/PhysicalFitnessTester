@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -47,6 +48,12 @@ public class BodyCompositionAnalyzerService extends Service {
 
         // 初始化
         mBodyCompositionAnalyzer.init();
+
+        // 控制一进入休眠
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyWakelockTag");
+        wakeLock.acquire();
     }
 
     protected void onHandleIntent(Intent intent) {
@@ -60,15 +67,6 @@ public class BodyCompositionAnalyzerService extends Service {
                 break;
             case EVENT_CODE_PDF_TO_PRINTER:
 //                // 2. 将PDF进行打印
-//                try {
-//                    Printer.getInstance(this).printPdf(
-//                            mBodyCompositionAnalyzer.getRasterPath(),
-//                            mBodyCompositionAnalyzer.getPdfPath());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-                /* 打开PDF */
-                startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
                 break;
             case EVENT_CODE_DATA_TO_PDF_OPEN:
                 try {
@@ -97,7 +95,7 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         onHandleIntent(intent);
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     //android获取一个用于打开PDF文件的intent
