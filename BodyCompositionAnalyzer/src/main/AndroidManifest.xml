@@ -31,22 +31,15 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".BodyCompositionAnalyzerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
+        <service android:name=".BodyCompositionAnalyzerService">
         </service>
         <service
             android:name=".MyIntentService"
             android:exported="false" />
-
         <receiver
-            android:name=".OnBootBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".OnBootBroadcastReceiver">
             <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
     </application>
