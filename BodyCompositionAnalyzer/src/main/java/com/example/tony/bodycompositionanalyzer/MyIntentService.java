@@ -1,11 +1,13 @@
 package com.example.tony.bodycompositionanalyzer;
 
 import android.app.IntentService;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -304,7 +306,15 @@ public class MyIntentService extends IntentService {
      */
     private void handleActionPdftoOpen(String param1, String param2) {
         Log.i(LOG_TAG, "handleActionPdftoOpen");
-        startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
+        try {
+            startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
+        } catch (ActivityNotFoundException activityNotFound) {
+            // Now, You can catch the exception here and do what you want
+            String str = "没有安装PDF阅读器，无法打开。";
+            Log.e(LOG_TAG, str);
+            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        }
+
     }
 
     //android获取一个用于打开PDF文件的intent
