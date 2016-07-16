@@ -303,6 +303,8 @@ public class MyIntentService extends IntentService {
     /**
      * Handle action PdftoPrinter in the provided background thread with the provided
      * parameters.
+     * TODO: 解决这个问题，由Toast造成的
+     *  java.lang.IllegalStateException: Handler (android.os.Handler) {3011806} sending message to a Handler on a dead thread
      */
     private void handleActionPdftoOpen(String param1, String param2) {
         Log.i(LOG_TAG, "handleActionPdftoOpen");
