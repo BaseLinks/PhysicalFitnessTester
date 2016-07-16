@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.util.Log;
 
 import java.io.File;
@@ -21,6 +22,7 @@ public class MyIntentService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "com.example.tony.bodycompositionanalyzer.action.FOO";
     private static final String ACTION_BAZ = "com.example.tony.bodycompositionanalyzer.action.BAZ";
+    private static final String ACTION_INIT = "com.example.tony.bodycompositionanalyzer.action.INIT";
     private static final String ACTION_TEST_DATA = "com.example.tony.bodycompositionanalyzer.action.TEST_DATA";
     private static final String ACTION_DATA_TO_PDF = "com.example.tony.bodycompositionanalyzer.action.DATA_TO_PDF";
     private static final String ACTION_PDF_TO_PRINTER = "com.example.tony.bodycompositionanalyzer.action.PDF_TO_PRINTER";
@@ -63,6 +65,21 @@ public class MyIntentService extends IntentService {
     public static void startActionBaz(Context context, String param1, String param2) {
         Intent intent = new Intent(context, MyIntentService.class);
         intent.setAction(ACTION_BAZ);
+        intent.putExtra(EXTRA_PARAM1, param1);
+        intent.putExtra(EXTRA_PARAM2, param2);
+        context.startService(intent);
+    }
+
+    /**
+     * Starts this service to perform action DataToPdf with the given parameters. If
+     * the service is already performing a task this action will be queued.
+     *
+     * @see IntentService
+     */
+    // 这个是一个测试入口，读取现有数据充当数据
+    public static void startActionInit(Context context, String param1, String param2) {
+        Intent intent = new Intent(context, MyIntentService.class);
+        intent.setAction(ACTION_INIT);
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
@@ -156,6 +173,10 @@ public class MyIntentService extends IntentService {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
                 handleActionBaz(param1, param2);
+            } else if (ACTION_INIT.equals(action)) {
+                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
+                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
+                handleActionInit(param1, param2);
             } else if (ACTION_TEST_DATA.equals(action)) {
                 final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 final String param2 = intent.getStringExtra(EXTRA_PARAM2);
@@ -204,8 +225,25 @@ public class MyIntentService extends IntentService {
      * Handle action DataToPdf in the provided background thread with the provided
      * parameters.
      */
+    private void handleActionInit(String param1, String param2) {
+        // 控制一进入休眠
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyWakelockTag");
+        wakeLock.acquire();
+
+        // 创建BodyCompositionAnalyzer类
+        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
+
+        // 初始化
+        mBodyCompositionAnalyzer.init();
+    }
+
+    /**
+     * Handle action DataToPdf in the provided background thread with the provided
+     * parameters.
+     */
     private void handleActionTestData(String param1, String param2) {
-        // TODO: Handle action DataToPdf
         try {
             mBodyCompositionAnalyzer.test();
         } catch (IOException e) {
@@ -218,8 +256,6 @@ public class MyIntentService extends IntentService {
      * parameters.
      */
     private void handleActionParseData(String param1, String param2) {
-        // TODO: Handle action DataToPdf
-//        mBodyCompositionAnalyzer.parseData2(mBodyCompositionAnalyzer.getBodyComposition());
         BodyCompositionAnalyzer.parseData(mBodyCompositionAnalyzer.getFullData());
     }
 
@@ -228,7 +264,6 @@ public class MyIntentService extends IntentService {
      * parameters.
      */
     private void handleActionDataToPdf(String param1, String param2) {
-        // TODO: Handle action DataToPdf
         Log.i(LOG_TAG, "handleActionDataToPdf");
         mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
     }
@@ -238,7 +273,6 @@ public class MyIntentService extends IntentService {
      * parameters.
      */
     private void handleActionPdftoPrinter(String param1, String param2) {
-        // TODO: Handle action PdftoPrinter
         Log.i(LOG_TAG, "handleActionPdftoPrinter");
         mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
     }
@@ -248,7 +282,6 @@ public class MyIntentService extends IntentService {
      * parameters.
      */
     private void handleActionPdftoOpen(String param1, String param2) {
-        // TODO: Handle action PdftoOpen
         Log.i(LOG_TAG, "handleActionPdftoOpen");
         startActivity(getPdfFileIntent(mBodyCompositionAnalyzer.getPdfPath()));
     }

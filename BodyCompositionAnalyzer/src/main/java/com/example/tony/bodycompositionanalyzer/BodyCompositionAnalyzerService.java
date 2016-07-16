@@ -39,21 +39,9 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        init();
-    }
 
-    private void init() {
-        // 创建BodyCompositionAnalyzer类
-        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
-
-        // 初始化
-        mBodyCompositionAnalyzer.init();
-
-        // 控制一进入休眠
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "MyWakelockTag");
-        wakeLock.acquire();
+        /* 初始化：之前方式时间会比较长，系统已经抱怨了 */
+        MyIntentService.startActionDataToPdf(this, "", "");
     }
 
     protected void onHandleIntent(Intent intent) {
