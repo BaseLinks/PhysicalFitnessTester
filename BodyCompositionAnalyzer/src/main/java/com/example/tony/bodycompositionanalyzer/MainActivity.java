@@ -41,23 +41,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        /** 启动服务 */
         startService(new Intent(this, BodyCompositionAnalyzerService.class));
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
+            /** 读取测试数据 */
             case R.id.parse_helloworld_button: {
                 MyIntentService.startActionTestData(this, "", "");
                 break;
             }
+            /** 解析数据 */
             case R.id.parse_button:
                 MyIntentService.startActionParseData(this, "", "");
                 break;
@@ -66,27 +61,5 @@ public class MainActivity extends AppCompatActivity {
             case R.id.get_printer_button:
                 break;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
