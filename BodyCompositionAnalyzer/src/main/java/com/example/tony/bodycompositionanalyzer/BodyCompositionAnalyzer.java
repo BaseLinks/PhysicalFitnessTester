@@ -474,7 +474,7 @@ public class BodyCompositionAnalyzer {
 //                        BodyCompositionAnalyzerService.EVENT_CODE,
 //                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
 //        );
-		MyIntentService.startActionPdfToPrinter(mContext, "", "");
+		MyIntentService.startActionPdfToOpen(mContext, "", "");
         return mPdfPath;
 	}
 
@@ -548,7 +548,7 @@ public class BodyCompositionAnalyzer {
 			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
-			if(false) {
+			if(true) {
 				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
 				if(bm != null) {
 					// 将图片拉伸至整个页面
@@ -1108,7 +1108,10 @@ public class BodyCompositionAnalyzer {
             yPos = (bc.脂肪率_CUR - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
 
-        Log.i(LOG_TAG, "xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
+		Log.i(LOG_TAG, "before xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
+		xPos = xPos > bc.体型分析_X_MAX ? bc.体型分析_X_MAX : xPos;
+		yPos = yPos > bc.体型分析_Y_MAX ? bc.体型分析_Y_MAX : yPos;
+		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
 
         xPos = BodyComposition.ORIGIN_X + xPos * BodyComposition.SINGLE_RECT_WIDTH + BodyComposition.SINGLE_RECT_WIDTH / 2;
         yPos = BodyComposition.ORIGIN_Y - yPos * BodyComposition.SINGLE_RECT_HEIGHT - BodyComposition.SINGLE_RECT_HEIGHT / 2;
