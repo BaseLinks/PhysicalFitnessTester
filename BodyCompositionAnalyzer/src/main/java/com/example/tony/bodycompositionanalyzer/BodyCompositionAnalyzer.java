@@ -88,13 +88,18 @@ public class BodyCompositionAnalyzer {
                 + File.separator + "test.pdf";
         mRasterPath = mContext.getExternalCacheDir()
                 + File.separator + "test.bin";
-        mUartHelper = new UartControl(context);
     }
 
 	public void init() {
         Log.i(LOG_TAG, "init");
+		// 初始化打印机(初始化结果要告知用户)
+		mPrinter = Printer.getInstance(mContext);
+		if(mPrinter.getModel() == null)
+			; // 需要告知用户
+
 		// 打开串口(初始化结果要告知用户)
         try {
+			mUartHelper = new UartControl(mContext);
             mUartHelper.setBaudRate(9600);
             mUartHelper.open();
         } catch (IOException e) {
@@ -103,14 +108,14 @@ public class BodyCompositionAnalyzer {
             e.printStackTrace();
         }
 
-        // 初始化打印机(初始化结果要告知用户)
-        mPrinter = Printer.getInstance(mContext);
-        if(mPrinter.getModel() == null)
-            ; // 需要告知用户
 	}
 
-    /**  */
+    /** 返初始化 */
     public void uninit() {
+		/* 关闭串口 */
+		mUartHelper.close();
+
+		/* 打印机反初始化 */
         mPrinter.uninit();
     }
 
@@ -206,7 +211,7 @@ public class BodyCompositionAnalyzer {
                         ack = Arrays.copyOfRange(cache, BodyComposition.ACK_START + i, BodyComposition.ACK_START + i + BodyComposition.ACK_LENGTH);
                         if (Arrays.equals(ack, BodyComposition.ACK)) {
                             cache = Arrays.copyOfRange(cache, 0 + i, cache.length);
-                            handleError(1.1, cache, in);
+                            handleError(1.2, cache, in);
                             hasSTX = true;
                             break;
                         }
@@ -290,7 +295,7 @@ public class BodyCompositionAnalyzer {
          */
         final byte EOF = inputData[BodyComposition.结束符_START];
         if(EOF != BodyComposition.结束符_DEF) {
-            Log.e(LOG_TAG, String.format("结束符不匹配：计算校验和为 %02X 但需要的结束符为 %02X。", EOF, BodyComposition.结束符_DEF));
+            Log.e(LOG_TAG, String.format("结束符不匹配：结束符不匹配为 %02X 但需要的结束符为 %02X。", EOF, BodyComposition.结束符_DEF));
             return;
         }
 
@@ -305,7 +310,7 @@ public class BodyCompositionAnalyzer {
         final byte CHECKSUM = inputData[BodyComposition.校验和_START];
         if(sum != CHECKSUM) {
             Log.e(LOG_TAG, String.format("数据校验失败：计算校验和为 %02X 但数据中提取校验和为 %02X。", sum, CHECKSUM));
-            return;
+//            return;
         }
 
         /* 提取各个数据 */
@@ -322,6 +327,14 @@ public class BodyCompositionAnalyzer {
 	        builder.append(String.format("%02x ", b));
 	    }
 	    return builder.toString();
+	}
+
+	public void doPrint() {
+		try {
+			mPrinter.printPdf(mRasterPath, mPdfPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -461,8 +474,7 @@ public class BodyCompositionAnalyzer {
 //                        BodyCompositionAnalyzerService.EVENT_CODE,
 //                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
 //        );
-		MyIntentService.startActionPdfToOpen(mContext, "", "");
-
+		MyIntentService.startActionPdfToPrinter(mContext, "", "");
         return mPdfPath;
 	}
 
@@ -536,14 +548,16 @@ public class BodyCompositionAnalyzer {
 			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
-			Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
-			if(bm != null) {
-				// 将图片拉伸至整个页面
-				canvas.drawBitmap(bm, null, new Rect(
-								0,
-								0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
-								PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
-						null);
+			if(false) {
+				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
+				if(bm != null) {
+					// 将图片拉伸至整个页面
+					canvas.drawBitmap(bm, null, new Rect(
+									0,
+									0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+									PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
+							null);
+				}
 			}
 
 			textPaint.setTextSize(8);

@@ -40,6 +40,7 @@ public class MyIntentService extends IntentService {
 
     public MyIntentService() {
         super("MyIntentService");
+        mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
     }
 
     /**
@@ -248,7 +249,13 @@ public class MyIntentService extends IntentService {
      */
     private void handleActionInit(String param1, String param2) {
         // 初始化
+        Log.i(LOG_TAG, "handleActionInit");
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
+        try {
+            Thread.sleep(3 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mBodyCompositionAnalyzer.init();
     }
 
@@ -297,7 +304,8 @@ public class MyIntentService extends IntentService {
      */
     private void handleActionPdftoPrinter(String param1, String param2) {
         Log.i(LOG_TAG, "handleActionPdftoPrinter");
-        mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
+//        mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
+        mBodyCompositionAnalyzer.doPrint();
     }
 
     /**

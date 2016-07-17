@@ -52,6 +52,7 @@ public abstract class UartHelper {
         if(DevCount <= 0) {
             throw new InvalidParameterException("There is no any serial port can be open!");
         }
+
         // 打开串口
         ret = connectFunction();
         if (!ret) {

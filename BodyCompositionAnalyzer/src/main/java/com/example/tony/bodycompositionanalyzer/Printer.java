@@ -62,7 +62,7 @@ public class Printer {
      */
     private volatile static Printer singleton = null;
     public static Printer getInstance(Context context)   {
-        if (singleton== null)  {
+        if (singleton == null)  {
             synchronized (Printer.class) {
                 if (singleton== null)  {
                     singleton= new Printer(context);
@@ -142,7 +142,7 @@ public class Printer {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         filter.addAction(ACTION_USB_PERMISSION);
-//        mContext.registerReceiver(mUsbReceiver, filter);
+        mContext.registerReceiver(mUsbReceiver, filter);
     }
 
     /**
@@ -251,7 +251,7 @@ public class Printer {
 
     // searches for an printer interface on the given USB device
     static private UsbInterface findPrinterInterface(UsbDevice device) {
-        Log.d(LOG_TAG, "findPrinterInterface " + device);
+//        Log.d(LOG_TAG, "findPrinterInterface " + device);
         int count = device.getInterfaceCount();
         for (int i = 0; i < count; i++) {
             UsbInterface intf = device.getInterface(i);
@@ -270,7 +270,7 @@ public class Printer {
      */
     private void tryGetUsbPermission(Context context, UsbManager usbManager, UsbDevice device, UsbInterface intf){
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        context.registerReceiver(mUsbPermissionActionReceiver, filter);
+//        context.registerReceiver(mUsbPermissionActionReceiver, filter);
 
         PendingIntent mPermissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
 
@@ -308,6 +308,7 @@ public class Printer {
 
     private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
         //call method to set up device communication
+//        context.unregisterReceiver(mUsbPermissionActionReceiver);
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
         doYourOpenUsbDevice(usbManager, usbDevice, intf);
