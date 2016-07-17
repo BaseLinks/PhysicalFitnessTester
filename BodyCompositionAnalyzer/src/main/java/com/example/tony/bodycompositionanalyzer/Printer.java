@@ -24,6 +24,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import cn.trinea.android.common.util.ShellUtils;
@@ -126,16 +128,19 @@ public class Printer {
         mContext = context;
 
         /* 只处理检测到的第一个打印机，其它不进行处理 */
+        boolean hasPrinter = false;
         mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         for(UsbDevice device : mManager.getDeviceList().values()) {
             mUsbInterfaceTmp = findPrinterInterface(device);
             if (mUsbInterfaceTmp != null) {
                 Log.i(LOG_TAG, "Found Printer interface " + mUsbInterfaceTmp);
                 if (setPrinterInterface(device, mUsbInterfaceTmp)) {
+                    hasPrinter = true;
                     break;
                 }
             }
         }
+        Log.e(LOG_TAG, "Has Printer: " + hasPrinter);
 
         // listen for new devices
         IntentFilter filter = new IntentFilter();
@@ -150,6 +155,7 @@ public class Printer {
      */
     public void uninit() {
         if(mContext != null) {
+            setPrinterInterface(null, null);
             mContext.unregisterReceiver(mUsbReceiver);
         }
     }
@@ -251,7 +257,7 @@ public class Printer {
 
     // searches for an printer interface on the given USB device
     static private UsbInterface findPrinterInterface(UsbDevice device) {
-//        Log.d(LOG_TAG, "findPrinterInterface " + device);
+        Log.d(LOG_TAG, "findPrinterInterface " + device);
         int count = device.getInterfaceCount();
         for (int i = 0; i < count; i++) {
             UsbInterface intf = device.getInterface(i);

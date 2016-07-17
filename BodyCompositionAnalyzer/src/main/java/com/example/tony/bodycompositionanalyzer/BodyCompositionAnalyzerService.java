@@ -40,6 +40,7 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.i(LOG_TAG, "onCreate");
         // 控制一进入休眠
 //        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
 //        mWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
@@ -47,7 +48,8 @@ public class BodyCompositionAnalyzerService extends Service {
 //        mWakeLock.acquire();
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         /* 初始化：之前方式时间会比较长，系统已经抱怨了 */
-        MyIntentService.startActionInit(this, "", "");
+//        MyIntentService.startActionInit(this, "", "");
+        mBodyCompositionAnalyzer.init();
     }
 
     protected void onHandleIntent(Intent intent) {
@@ -107,9 +109,11 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i(LOG_TAG, "onDestroy");
         /* 1. xxx */
 //        mWakeLock.release();
         /* 2. xxx */
 //        MyIntentService.startActionUnInit(this, "", "");
+        mBodyCompositionAnalyzer.uninit();
     }
 }

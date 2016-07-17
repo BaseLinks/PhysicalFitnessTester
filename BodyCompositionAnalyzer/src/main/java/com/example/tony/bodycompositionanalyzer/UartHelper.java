@@ -48,10 +48,16 @@ public abstract class UartHelper {
         portIndex = 0;
 
         // j2xx functions 获取当前设备列表
+        boolean hasU4S = false;
         createDeviceList();
         if(DevCount <= 0) {
-            throw new InvalidParameterException("There is no any serial port can be open!");
+            hasU4S = false;
+        } else {
+            hasU4S = true;
         }
+        Log.e(LOG_TAG, "Has hasU4S: " + hasU4S);
+        if(!hasU4S)
+            throw new InvalidParameterException("There is no any serial port can be open!");
 
         // 打开串口
         ret = connectFunction();

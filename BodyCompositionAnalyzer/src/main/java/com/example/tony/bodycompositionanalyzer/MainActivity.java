@@ -32,6 +32,7 @@ import android_serialport_api.ComBean;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "PDFdemo";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
+    private static Intent mIntent;
 
 
     @Override
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         /** 启动服务 */
-        startService(new Intent(this, BodyCompositionAnalyzerService.class));
+        mIntent = new Intent(this, BodyCompositionAnalyzerService.class);
+        startService(mIntent);
     }
 
     public void onClick(View v) {
@@ -61,5 +63,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.get_printer_button:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(mIntent);
     }
 }
