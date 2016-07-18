@@ -304,7 +304,6 @@ public class MyIntentService extends IntentService {
      */
     private void handleActionPdftoPrinter(String param1, String param2) {
         Log.i(LOG_TAG, "handleActionPdftoPrinter");
-//        mBodyCompositionAnalyzer.toPdf(mBodyCompositionAnalyzer.getBodyComposition());
         mBodyCompositionAnalyzer.doPrint();
     }
 
@@ -322,9 +321,8 @@ public class MyIntentService extends IntentService {
             // Now, You can catch the exception here and do what you want
             String str = "没有安装PDF阅读器，无法打开。";
             Log.e(LOG_TAG, str);
-            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
         }
-
     }
 
     //android获取一个用于打开PDF文件的intent

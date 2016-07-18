@@ -35,7 +35,7 @@ import android_serialport_api.SerialPortFinder;
  * Created by tony on 16-6-23.
  */
 public class BodyCompositionAnalyzer {
- 	private static final boolean DEBUG = true;
+ 	private static final boolean DEBUG = false;
 	private static final String LOG_TAG = "BodyCompositionAnalyzer";
 	/** 基于传统Linux设备节点实现的串口通信 */
 	private final SerialHelper serialCtrl       = new SerialControl();
@@ -475,6 +475,7 @@ public class BodyCompositionAnalyzer {
 //                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
 //        );
 		MyIntentService.startActionPdfToOpen(mContext, "", "");
+		MyIntentService.startActionPdfToPrinter(mContext, "", "");
         return mPdfPath;
 	}
 

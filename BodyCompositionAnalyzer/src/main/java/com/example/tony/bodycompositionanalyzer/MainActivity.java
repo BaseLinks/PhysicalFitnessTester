@@ -28,12 +28,12 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 import android_serialport_api.ComBean;
+import cn.trinea.android.common.util.PreferencesUtils;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "PDFdemo";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
     private static Intent mIntent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 
     @Override
     protected void onDestroy() {
