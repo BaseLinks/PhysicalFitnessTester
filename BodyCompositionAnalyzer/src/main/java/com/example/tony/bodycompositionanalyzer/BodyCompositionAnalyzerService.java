@@ -2,15 +2,18 @@ package com.example.tony.bodycompositionanalyzer;
 
 import android.app.IntentService;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PublicKey;
 
 /**
  * Created by tony on 16-7-11.
@@ -18,6 +21,24 @@ import java.io.IOException;
 public class BodyCompositionAnalyzerService extends Service {
     private static final String LOG_TAG = "BodyComAnalyzerService";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
+
+    public static final String ACTION_BROCAST = "com.example.tony.bodycompositionanalyzer.ACTION_BROCAST";
+
+    public static final int EVENT_TYPE_UNKNOW = -1;
+    public static final int EVENT_CODE_UNKOWN = -1;
+
+    public static final String EVENT_TYPE = "EVENT_TYPE";
+    public static final String EVENT_CODE = "EVENT_CODE";
+
+    public static final int EVENT_TYPE_PRINTER = 1;
+    public static final int EVENT_TYPE_SERIAL = 2;
+
+    public static final int EVENT_CODE_PRINTER_OK = 11;
+    public static final int EVENT_CODE_PRINTER_NONE = 12;
+
+    public static final int EVENT_CODE_SERIAL_OK = 21;
+    public static final int EVENT_CODE_SERIAL_NONE = 22;
+
     private PowerManager.WakeLock mWakeLock;
 
     @Nullable
@@ -43,7 +64,62 @@ public class BodyCompositionAnalyzerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(LOG_TAG, "onStartCommand");
+        handleEvent(intent);
         return START_STICKY;
+    }
+
+    private void handleEvent(Intent intent) {
+        Log.i(LOG_TAG, "handleEvent");
+        if(intent != null) {
+            int type = intent.getIntExtra(EVENT_TYPE, EVENT_TYPE_UNKNOW);
+            int code = intent.getIntExtra(EVENT_CODE, EVENT_CODE_UNKOWN);
+
+            Intent i = new Intent(ACTION_BROCAST);
+            i.putExtra(EVENT_TYPE, type);
+            i.putExtra(EVENT_CODE, code);
+
+            if(type != EVENT_TYPE_UNKNOW && code != EVENT_CODE_UNKOWN) {
+                switch (type) {
+                    case EVENT_TYPE_PRINTER:
+                        Log.i(LOG_TAG, "handleEvent Printer: " + code);
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+                        break;
+                    case EVENT_TYPE_SERIAL:
+                        Log.i(LOG_TAG, "handleEvent Serial: " + code);
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+                        break;
+                }
+            }
+        }
+    }
+
+    public static void startActionAddPrinter(Context context) {
+        Intent intent = new Intent(context, BodyCompositionAnalyzerService.class);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_TYPE, BodyCompositionAnalyzerService.EVENT_TYPE_PRINTER);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_CODE, BodyCompositionAnalyzerService.EVENT_CODE_PRINTER_OK);
+        context.startService(intent);
+    }
+
+    public static void startActionNonePrinter(Context context) {
+        Intent intent = new Intent(context, BodyCompositionAnalyzerService.class);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_TYPE, BodyCompositionAnalyzerService.EVENT_TYPE_PRINTER);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_CODE, BodyCompositionAnalyzerService.EVENT_CODE_PRINTER_NONE);
+        context.startService(intent);
+    }
+
+    public static void startActionAddSerial(Context context) {
+        Intent intent = new Intent(context, BodyCompositionAnalyzerService.class);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_TYPE, BodyCompositionAnalyzerService.EVENT_TYPE_SERIAL);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_CODE, BodyCompositionAnalyzerService.EVENT_CODE_SERIAL_OK);
+        context.startService(intent);
+    }
+
+    public static void startActionNoneSerial(Context context) {
+        Intent intent = new Intent(context, BodyCompositionAnalyzerService.class);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_TYPE, BodyCompositionAnalyzerService.EVENT_TYPE_SERIAL);
+        intent.putExtra(BodyCompositionAnalyzerService.EVENT_CODE, BodyCompositionAnalyzerService.EVENT_CODE_SERIAL_NONE);
+        context.startService(intent);
     }
 
     @Override

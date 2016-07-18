@@ -141,7 +141,13 @@ public class Printer {
                 }
             }
         }
+
+        /** 将打印机状态告知服务 */
         Log.e(LOG_TAG, "Has Printer: " + hasPrinter);
+        if(hasPrinter)
+            BodyCompositionAnalyzerService.startActionAddPrinter(mContext);
+        else
+            BodyCompositionAnalyzerService.startActionNonePrinter(mContext);
 
         // listen for new devices
         IntentFilter filter = new IntentFilter();

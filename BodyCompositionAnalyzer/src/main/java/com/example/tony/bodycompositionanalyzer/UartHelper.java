@@ -52,8 +52,10 @@ public abstract class UartHelper {
         createDeviceList();
         if(DevCount <= 0) {
             hasU4S = false;
+            BodyCompositionAnalyzerService.startActionNoneSerial(mContext);
         } else {
             hasU4S = true;
+            BodyCompositionAnalyzerService.startActionAddSerial(mContext);
         }
         Log.e(LOG_TAG, "Has hasU4S: " + hasU4S);
         if(!hasU4S)
