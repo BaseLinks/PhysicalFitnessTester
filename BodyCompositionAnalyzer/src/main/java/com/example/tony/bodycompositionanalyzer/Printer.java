@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import cn.trinea.android.common.util.FileUtils;
 import cn.trinea.android.common.util.ShellUtils;
 
 /**
@@ -37,7 +38,7 @@ public class Printer {
     private static final String LOG_TAG = "Printer";
     private static final boolean USB_EVENT_DEBUG = false;
     private static PrinterModel mPrinterModel;
-    private final Context mContext;
+    private static Context mContext;
     private UsbManager mManager;
     private UsbDevice mDevice;
     private UsbDeviceConnection mDeviceConnection;
@@ -82,7 +83,7 @@ public class Printer {
         /** Canon iP2780 */
         CANON_IP2780("bjc-MULTIPASS-MX420", "Canon iP2780 Printer", DEVICE_ID_CANON_IP2700, "HelloWorld.canonip2780"),
         /** HP Deskjet 1112 */
-        HP_DESKJET_1112_305("hp-dj_5550", "HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
+        HP_DESKJET_1112("hp-dj_5550", "HP Deskjet 1112 Printer", DEVICE_ID_HP_DESKJET_1112, "HelloWorld.hpdeskjet1112"),
         /** EPSON R330 */
         EPSON_330("", "Epson R330 Printer", DEVICE_ID_EPSON_R330, "HelloWorld.epsonr330");
         private final String des;
@@ -194,7 +195,7 @@ public class Printer {
     /**
      * 获取打印机型号
      */
-    public PrinterModel getModel() {
+    public static PrinterModel getModel() {
         return mPrinterModel;
     }
 
@@ -533,6 +534,53 @@ public class Printer {
      * @param pdf 路径
      * @return 如果转换成功，返回true否则false
      */
+    private static boolean covertPdfToEpson330(String rasterPath, String pdf) {
+        Log.i(LOG_TAG, "covertPdfToEpson330");
+        boolean ret = false;
+        ShellUtils.CommandResult cr;
+        if (ShellUtils.checkRootPermission()) {
+            String cmd = "gs " +
+                    "-sDEVICE=ijs " +
+                    "-sIjsServer=ijsgutenprint " +
+                    "-dIjsUseOutputFD " +
+                    "-sDeviceManufacturer=Epson " +
+                    "-sDeviceModel=escp2-r360 " +
+                    "-sPAPERSIZE=a4 " +
+                    "-dNOPAUSE " +
+                    "-dSAFER " +
+                    "-sOutputFile=" +
+                    "\"" + rasterPath + "\" "  +
+                    pdf + " " +
+                    "-c quit";
+            cr = ShellUtils.execCommand(cmd, true);
+            if(cr.result == 0) {
+                cr = ShellUtils.execCommand("chmod 777 " + rasterPath, true);
+                if(cr.result == 0)
+                    ret = true;
+            }
+        } else {
+            Log.e(LOG_TAG, "无ROOT权限，将打印测试数据");
+            if(mContext != null) {
+                InputStream in = null;
+                try {
+                    in = mContext.getResources().getAssets().open("HelloWorld.epsonr330");
+                    if (in != null) {
+                        ret = FileUtils.writeFile(rasterPath, in);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * 将PDF转换成打印机语言
+     * @param rasterPath 目标文件路径
+     * @param pdf 路径
+     * @return 如果转换成功，返回true否则false
+     */
     private static boolean covertPdfToHp1112(String rasterPath, String pdf) {
         boolean ret = false;
         ShellUtils.CommandResult cr;
@@ -563,7 +611,18 @@ public class Printer {
                     ret = true;
             }
         } else {
-            Log.e(LOG_TAG, "无ROOT权限");
+            Log.e(LOG_TAG, "无ROOT权限，将打印测试数据");
+            if(mContext != null) {
+                InputStream in = null;
+                try {
+                    in = mContext.getResources().getAssets().open("HelloWorld.PCL3GUI");
+                    if (in != null) {
+                        ret = FileUtils.writeFile(rasterPath, in);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return ret;
     }
@@ -575,7 +634,14 @@ public class Printer {
      * @return 如果转换成功，返回true否则false
      */
     private static boolean covertPdfToPCL(String rasterPath, String pdf) {
-        return covertPdfToHp1112(rasterPath, pdf);
+        boolean ret = false;
+        PrinterModel pm = getModel();
+        if(pm.equals(PrinterModel.HP_DESKJET_1112)) {
+            ret = covertPdfToHp1112(rasterPath, pdf);
+        } else if (pm.equals(PrinterModel.EPSON_330)) {
+            ret = covertPdfToEpson330(rasterPath, pdf);
+        }
+        return ret;
     }
 
     /**
@@ -584,9 +650,9 @@ public class Printer {
     public void printPdf(String rasterPath, String pdf) throws Exception {
         boolean ret = false;
         if(isConnected()) {
-            Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(mContext, "打印机未连接", Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, "打印机未连接", Toast.LENGTH_LONG).show();
             throw new Exception("打印机未连接");
         }
 
