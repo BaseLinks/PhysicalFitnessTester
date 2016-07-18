@@ -14,11 +14,13 @@
 
     <Button
         android:id="@+id/parse_helloworld_button"
-        android:layout_margin="10dp"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="解析样例" />
+        android:text="解析样例"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/dont_print_checkbox"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:visibility="gone"
@@ -51,5 +53,21 @@
         android:layout_height="wrap_content"
         android:text="获取打印机信息" />
 
+    <CheckBox
+        android:id="@+id/draw_negative_checkbox"
+        android:layout_margin="10dp"
+        android:text="画底版"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false" />
+
+    <CheckBox
+        android:id="@+id/dont_print_checkbox"
+        android:layout_below="@id/draw_negative_checkbox"
+        android:layout_margin="10dp"
+        android:text="不打印"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false" />
 
 </RelativeLayout>

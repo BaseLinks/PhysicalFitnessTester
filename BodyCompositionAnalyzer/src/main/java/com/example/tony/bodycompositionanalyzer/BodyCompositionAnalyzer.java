@@ -30,6 +30,7 @@ import java.util.Arrays;
 import android_serialport_api.ComBean;
 import android_serialport_api.SerialHelper;
 import android_serialport_api.SerialPortFinder;
+import cn.trinea.android.common.util.PreferencesUtils;
 
 /**
  * Created by tony on 16-6-23.
@@ -66,6 +67,9 @@ public class BodyCompositionAnalyzer {
     private final String mRasterPath;
     /** 接收到的完整数据 */
     private byte[] mFullData;
+
+	public static final String KEY_IS_DRAW_NEGATIVE = "IS_DRAW_NEGATIVE";
+	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -467,15 +471,9 @@ public class BodyCompositionAnalyzer {
 
 		/* 2. 生成PDF两种方法：Android Api或者iText Api */
 		String pdf = createPdf(mPdfPath, bc);
-//        mContext.startService(
-//                new Intent(
-//                        mContext,
-//                        BodyCompositionAnalyzerService.class).putExtra(
-//                        BodyCompositionAnalyzerService.EVENT_CODE,
-//                        BodyCompositionAnalyzerService.EVENT_CODE_PDF_TO_PRINTER)
-//        );
 		MyIntentService.startActionPdfToOpen(mContext, "", "");
-		MyIntentService.startActionPdfToPrinter(mContext, "", "");
+		if(!PreferencesUtils.getBoolean(mContext, KEY_DO_NOT_PRINT))
+			MyIntentService.startActionPdfToPrinter(mContext, "", "");
         return mPdfPath;
 	}
 
@@ -549,7 +547,7 @@ public class BodyCompositionAnalyzer {
 			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
-			if(true) {
+			if(PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE)) {
 				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
 				if(bm != null) {
 					// 将图片拉伸至整个页面

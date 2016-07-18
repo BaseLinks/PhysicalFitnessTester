@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "PDFdemo";
     private static BodyCompositionAnalyzer mBodyCompositionAnalyzer = null;
     private static Intent mIntent;
+    private static Context mContext;
+    private CheckBox mDrawNegative;
+    private CheckBox mDotPrintCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mContext = this;
 
         /** 启动服务 */
         mIntent = new Intent(this, BodyCompositionAnalyzerService.class);
         startService(mIntent);
+
+        mDrawNegative = (CheckBox) findViewById(R.id.draw_negative_checkbox);
+        mDotPrintCheckBox = (CheckBox) findViewById(R.id.dont_print_checkbox);
+
+        boolean isDrawNegative = PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE);
+        mDrawNegative.setChecked(isDrawNegative);
+        mDrawNegative.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferencesUtils.putBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE, isChecked);
+            }
+        });
+
+        boolean dontPrint = PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_DO_NOT_PRINT);
+        mDotPrintCheckBox.setChecked(dontPrint);
+        mDotPrintCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                PreferencesUtils.putBoolean(mContext, BodyCompositionAnalyzer.KEY_DO_NOT_PRINT, isChecked);
+            }
+        });
     }
 
     public void onClick(View v) {
