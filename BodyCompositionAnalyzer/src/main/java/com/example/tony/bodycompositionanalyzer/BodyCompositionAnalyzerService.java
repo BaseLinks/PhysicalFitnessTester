@@ -38,8 +38,7 @@ public class BodyCompositionAnalyzerService extends Service {
             mWakeLock.acquire();
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
         /* 初始化：之前方式时间会比较长，系统已经抱怨了 */
-//        MyIntentService.startActionInit(this, "", "");
-        mBodyCompositionAnalyzer.init();
+        MyIntentService.startActionInit(this, "", "");
     }
 
     @Override
@@ -57,7 +56,6 @@ public class BodyCompositionAnalyzerService extends Service {
             mWakeLock = null;
         }
         /* 2. xxx */
-//        MyIntentService.startActionUnInit(this, "", "");
-        mBodyCompositionAnalyzer.uninit();
+        MyIntentService.startActionUnInit(this, "", "");
     }
 }
