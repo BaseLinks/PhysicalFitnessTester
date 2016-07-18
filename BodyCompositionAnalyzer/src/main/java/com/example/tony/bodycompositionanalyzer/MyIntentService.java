@@ -251,11 +251,6 @@ public class MyIntentService extends IntentService {
         // 初始化
         Log.i(LOG_TAG, "handleActionInit");
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
-        try {
-            Thread.sleep(3 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         mBodyCompositionAnalyzer.init();
     }
 
