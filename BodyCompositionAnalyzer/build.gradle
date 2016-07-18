@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile project(':javaapk.com-comassistant')
     compile project(':d2xx')
-    compile project(':trineaandroidcommon')
+    compile project(':trineaandroidcommon-debug')
 }

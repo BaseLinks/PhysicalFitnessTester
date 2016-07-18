@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/d2xx/d2xx.iml" filepath="$PROJECT_DIR$/d2xx/d2xx.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" filepath="$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon/trineaandroidcommon.iml" filepath="$PROJECT_DIR$/trineaandroidcommon/trineaandroidcommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" filepath="$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" />
       <module fileurl="file://$PROJECT_DIR$/usbprinter/usbprinter.iml" filepath="$PROJECT_DIR$/usbprinter/usbprinter.iml" />
     </modules>
   </component>

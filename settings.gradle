@@ -1,2 +1,1 @@
-include ':app', ':BodyCompositionAnalyzer', ':usbprinter', ':javaapk.com-comassistant', ':d2xx'
-include ':trineaandroidcommon'
+include ':app', ':BodyCompositionAnalyzer', ':usbprinter', ':javaapk.com-comassistant', ':d2xx', ':trineaandroidcommon-debug'
