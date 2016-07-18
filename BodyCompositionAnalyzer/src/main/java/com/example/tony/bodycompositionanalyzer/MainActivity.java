@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 String str;
                 switch (type) {
                     case BodyCompositionAnalyzerService.EVENT_TYPE_PRINTER:
-                        str = code == BodyCompositionAnalyzerService.EVENT_CODE_PRINTER_OK ? "已经连接" : "未连接";
+                        str = code == BodyCompositionAnalyzerService.EVENT_CODE_PRINTER_OK ? "已连接" : "未连接";
                         mPrinterTextView.setText(str);
                         Log.i(LOG_TAG, "handleEvent Printer: " + code);
                         break;
                     case BodyCompositionAnalyzerService.EVENT_TYPE_SERIAL:
                         Log.i(LOG_TAG, "handleEvent Serial: " + code);
-                        str = code == BodyCompositionAnalyzerService.EVENT_CODE_SERIAL_OK ? "已经连接" : "未连接";
+                        str = code == BodyCompositionAnalyzerService.EVENT_CODE_SERIAL_OK ? "已连接" : "未连接";
                         mSerialTextView.setText(str);
                         break;
                 }
