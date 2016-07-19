@@ -26,11 +26,13 @@ import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.concurrent.Exchanger;
 
 import android_serialport_api.ComBean;
 import android_serialport_api.SerialHelper;
 import android_serialport_api.SerialPortFinder;
 import cn.trinea.android.common.util.PreferencesUtils;
+import cn.trinea.android.common.util.ShellUtils;
 
 /**
  * Created by tony on 16-6-23.
@@ -47,7 +49,7 @@ public class BodyCompositionAnalyzer {
 	private String                 serialPort       = null;
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA2";
 	private static BodyComposition mBodyComposition;
-	private static final boolean IS_USB_UART = true;
+	private static final boolean IS_USB_UART = false;
 	/**
 	 * 发送此数据，从机会将需要的数据进行回传
 	 */
@@ -118,7 +120,9 @@ public class BodyCompositionAnalyzer {
 				e.printStackTrace();
 			}
 		} else {
-			is = initCoinMachine();
+			/** 有root权限才会打开，没有的情况下不打开，解决在HuaWei P8 ANR的问题 */
+			if(ShellUtils.checkRootPermission())
+				is = initCoinMachine();
 		}
 
 		if(!is) {
@@ -423,6 +427,9 @@ public class BodyCompositionAnalyzer {
 			return false;
 		} catch (InvalidParameterException e) {
 			if (DEBUG) Log.w(LOG_TAG, "打开串口失败:参数错误!");
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 
