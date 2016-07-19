@@ -47,7 +47,7 @@ public class BodyCompositionAnalyzer {
 	private String                 serialPort       = null;
 	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA2";
 	private static BodyComposition mBodyComposition;
-	private static final boolean IS_USB_UART = false;
+	private static final boolean IS_USB_UART = true;
 	/**
 	 * 发送此数据，从机会将需要的数据进行回传
 	 */
@@ -99,8 +99,7 @@ public class BodyCompositionAnalyzer {
         Log.i(LOG_TAG, "init");
 		// 初始化打印机(初始化结果要告知用户)
 		mPrinter = Printer.getInstance(mContext);
-		if(mPrinter.getModel() == null)
-			; // 需要告知用户
+		mPrinter.init();
 		initSerial();
 	}
 

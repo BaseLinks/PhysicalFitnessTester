@@ -127,7 +127,10 @@ public class Printer {
     private Printer(Context context) {
         Log.i(LOG_TAG, "Printer");
         mContext = context;
+    }
 
+    public void init() {
+        Log.i(LOG_TAG, "Printer#init");
         /* 只处理检测到的第一个打印机，其它不进行处理 */
         boolean hasPrinter = false;
         mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
@@ -161,6 +164,7 @@ public class Printer {
      * 反初始化
      */
     public void uninit() {
+        Log.i(LOG_TAG, "Printer#uninit");
         if(mContext != null) {
             setPrinterInterface(null, null);
             mContext.unregisterReceiver(mUsbReceiver);
@@ -211,6 +215,7 @@ public class Printer {
      * @return
      */
     private String parseDeviceid(byte[] deviceIdArray) {
+        Log.i(LOG_TAG, "Printer#parseDeviceid");
         String ret = "未连接打印机";
         String deviceIdStr = new String(deviceIdArray);
         Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
@@ -282,6 +287,7 @@ public class Printer {
      * @param usbManager
      */
     private void tryGetUsbPermission(Context context, UsbManager usbManager, UsbDevice device, UsbInterface intf){
+        Log.i(LOG_TAG, "Printer#tryGetUsbPermission");
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
 //        context.registerReceiver(mUsbPermissionActionReceiver, filter);
 
@@ -320,6 +326,7 @@ public class Printer {
     };
 
     private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
+        Log.i(LOG_TAG, "Printer#afterGetUsbPermission");
         //call method to set up device communication
 //        context.unregisterReceiver(mUsbPermissionActionReceiver);
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
@@ -336,6 +343,7 @@ public class Printer {
      * 2. 初始化打印机，获取型号等一般信息
      */
     private void doYourOpenUsbDevice(UsbManager usbManager, UsbDevice device, UsbInterface intf){
+        Log.i(LOG_TAG, "Printer#doYourOpenUsbDevice");
         // 1. 打开指定USB端口
         intPrinterConnect(usbManager, device, intf);
 
@@ -353,6 +361,7 @@ public class Printer {
      * @param intf
      */
     private void intPrinterConnect(UsbManager usbManager, UsbDevice device, UsbInterface intf) {
+        Log.i(LOG_TAG, "Printer#intPrinterConnect");
         //now follow line will NOT show: User has not given permission to device UsbDevice
         //add your operation code here
         if (device != null && intf != null) {
@@ -384,6 +393,7 @@ public class Printer {
      * @return
      */
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
+        Log.i(LOG_TAG, "Printer#setPrinterInterface");
         if (mDeviceConnection != null) {
             if (mUsbInterface != null) {
                 mDeviceConnection.releaseInterface(mUsbInterface);
@@ -409,6 +419,7 @@ public class Printer {
      */
     private void initPrinterDeviceEndpoint(UsbDeviceConnection connection,
                                    UsbInterface intf) {
+        Log.i(LOG_TAG, "Printer#initPrinterDeviceEndpoint");
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
 
@@ -437,6 +448,7 @@ public class Printer {
      * @param connection
      */
     private static void updatePrinterModel(UsbDeviceConnection connection) {
+        Log.i(LOG_TAG, "Printer#updatePrinterModel");
         PrinterModel ret = null;
         byte[] b = new byte[1024];
         int length = connection.controlTransfer(
@@ -468,6 +480,7 @@ public class Printer {
      * @param in
      */
     private void write(InputStream in) {
+        Log.i(LOG_TAG, "Printer#write");
         Runnable r = new WaiterThread(in);
         new Thread(r).start();
     }
@@ -588,6 +601,7 @@ public class Printer {
      * @return 如果转换成功，返回true否则false
      */
     private static boolean covertPdfToHp1112(String rasterPath, String pdf) {
+        Log.i(LOG_TAG, "Printer # covertPdfToHp1112");
         boolean ret = false;
         ShellUtils.CommandResult cr;
         /* 有root权限才做如下事件 */
@@ -640,6 +654,7 @@ public class Printer {
      * @return 如果转换成功，返回true否则false
      */
     private static boolean covertPdfToPCL(String rasterPath, String pdf) {
+        Log.i(LOG_TAG, "Printer # covertPdfToPCL");
         boolean ret = false;
         PrinterModel pm = getModel();
         if(pm.equals(PrinterModel.HP_DESKJET_1112)) {
@@ -654,6 +669,7 @@ public class Printer {
      * print pdf file
      */
     public void printPdf(String rasterPath, String pdf) throws Exception {
+        Log.i(LOG_TAG, "Printer # printPdf");
         boolean ret = false;
         if(isConnected()) {
 //            Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();

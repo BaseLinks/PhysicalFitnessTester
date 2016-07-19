@@ -43,6 +43,7 @@ public abstract class UartHelper {
      * @throws InvalidParameterException
      */
     public void open() throws SecurityException, IOException, InvalidParameterException {
+        Log.i(LOG_TAG, "UartHelper#open");
         boolean ret = false;
 		/* port: 0 */
         portIndex = 0;
@@ -106,6 +107,7 @@ public abstract class UartHelper {
      * 关闭串口
      */
     public void close() {
+        Log.i(LOG_TAG, "UartHelper#close");
         if (this.mReadThread != null) {
             this.mReadThread.interrupt();
         }
@@ -271,6 +273,7 @@ public abstract class UartHelper {
      * @param context
      */
     public void init(Context context) {
+        Log.i(LOG_TAG, "UartHelper#init");
         this.mContext = context;
 
         try {

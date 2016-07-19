@@ -92,6 +92,7 @@ public class BodyCompositionAnalyzerService extends Service {
                 }
             }
         }
+        Log.i(LOG_TAG, "handleEvent END");
     }
 
     public static void startActionAddPrinter(Context context) {
