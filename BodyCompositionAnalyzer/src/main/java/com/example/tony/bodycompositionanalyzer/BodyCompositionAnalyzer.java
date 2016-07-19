@@ -45,8 +45,9 @@ public class BodyCompositionAnalyzer {
 	private UartHelper mUartHelper;
 	private static Context mContext =  null;
 	private String                 serialPort       = null;
-	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyUSB0";
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA2";
 	private static BodyComposition mBodyComposition;
+	private static final boolean IS_USB_UART = false;
 	/**
 	 * 发送此数据，从机会将需要的数据进行回传
 	 */
@@ -100,31 +101,53 @@ public class BodyCompositionAnalyzer {
 		mPrinter = Printer.getInstance(mContext);
 		if(mPrinter.getModel() == null)
 			; // 需要告知用户
+		initSerial();
+	}
 
-		// 打开串口(初始化结果要告知用户)
-        try {
-			mUartHelper = new UartControl(mContext);
-            mUartHelper.setBaudRate(9600);
-            mUartHelper.open();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidParameterException e) {
-            e.printStackTrace();
-        }
+	public void initSerial() {
+		boolean is =  false;
+		if(IS_USB_UART) {
+			// 打开串口(初始化结果要告知用户)
+			try {
+				mUartHelper = new UartControl(mContext);
+				mUartHelper.setBaudRate(9600);
+				mUartHelper.open();
+				is = true;
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InvalidParameterException e) {
+				e.printStackTrace();
+			}
+		} else {
+			is = initCoinMachine();
+		}
 
+		if(!is) {
+			BodyCompositionAnalyzerService.startActionNoneSerial(mContext);
+		} else {
+			BodyCompositionAnalyzerService.startActionAddSerial(mContext);
+		}
 	}
 
     /** 返初始化 */
     public void uninit() {
-		/* 关闭串口 */
-		mUartHelper.close();
+		/* 反初始化串口 */
+		uninitSerial();
 
 		/* 打印机反初始化 */
         mPrinter.uninit();
     }
 
+	private void uninitSerial() {
+		if(IS_USB_UART) {
+		/* 关闭串口 */
+			mUartHelper.close();
+		} else {
+			serialCtrl.close();
+		}
+	}
 
-    public byte[] getFullData() {
+	public byte[] getFullData() {
         return mFullData;
     }
 
@@ -570,6 +593,7 @@ public class BodyCompositionAnalyzer {
 			// 02 身高
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
+			tmpStr = bc.身高;
 			tmpStr = bc.身高;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.身高, mAlignment);
 
