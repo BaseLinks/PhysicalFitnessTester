@@ -1365,6 +1365,8 @@ public class BodyCompositionAnalyzer {
 	 */
 	public static final int 项目_内脏脂肪  = 7;
 
+	public static final int 体成分分析_TOTAL_LENGTH = 89;
+
 	//Item  项目
 	//返回
 
@@ -1402,36 +1404,21 @@ public class BodyCompositionAnalyzer {
                     Flag = false;
                 break;
 			case 项目_体脂肪量:// 脂肪量
-				int Long_Num = bc.体脂肪量_CUR;
-				Long_Num = Long_Num * 1000;
-
-				// 将标准量设为100%进行比较
-				Long_Num =  Long_Num / ((bc.体脂肪量_MIN + bc.体脂肪量_MAX)/2);
-				Data_Test = Long_Num;
-				Data_Min = 900;
-				Data_Max =  1100;
+				Data_Test = bc.体脂肪量_CUR;
+				Data_Min = bc.体脂肪量_MIN;
+				Data_Max =  bc.体脂肪量_MAX;
 				Flag = false;
 				break;
             case 项目_肌肉量:
-                Long_Num = bc.肌肉量_CUR;
-                Long_Num = Long_Num * 1000;
-                // 将标准量设为100%进行比较
-                Long_Num = Long_Num / ((bc.肌肉量_MIN + bc.肌肉量_MAX) / 2);
-                Data_Test = Long_Num;
-                Data_Min = 900;
-                Data_Max = 1100;
+				Data_Test = bc.肌肉量_CUR;
+                Data_Min = bc.肌肉量_MIN;
+                Data_Max = bc.肌肉量_MAX;
                 Flag = false;
-
                 break;
             case 项目_身体水分:
-                Long_Num = bc.身体总水分_CUR;
-                Long_Num = Long_Num * 1000;
-
-                // 将标准量设为100%进行比较
-                Long_Num = Long_Num / ((bc.身体总水分_MIN + bc.身体总水分_MAX) / 2);
-                Data_Test = Long_Num;
-                Data_Min = 900;
-                Data_Max = 1100;
+				Data_Test = bc.身体总水分_CUR;
+                Data_Min = bc.身体总水分_MIN;
+                Data_Max = bc.身体总水分_MAX;
                 Flag = false;
                 break;
 		}
@@ -1461,7 +1448,7 @@ public class BodyCompositionAnalyzer {
 				position = range;
 		}
 		rate = (float) position / range;
-		return rate * 90 * 2836 / 1000;
+		return rate * 体成分分析_TOTAL_LENGTH * 2836 / 1000;
 	}
 
 	/**
@@ -1488,7 +1475,7 @@ public class BodyCompositionAnalyzer {
 		final float NORMAL_LENGTH_MM = 38f;
 		final float TOO_HIGH_LENGTH_MM = 15.5f;
 		final float HIGH_LENGTH_MM = 36f;
-		final float TOTAL_LENGTH_MM = 90f;
+		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
 
 		float base = 0f;
 		float r = 0f; // 相对长度单位mm
