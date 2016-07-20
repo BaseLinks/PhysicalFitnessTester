@@ -83,6 +83,11 @@ public class BodyCompositionAnalyzerService extends Service {
                 switch (type) {
                     case EVENT_TYPE_PRINTER:
                         Log.i(LOG_TAG, "handleEvent Printer: " + code);
+                        if(code == EVENT_CODE_PRINTER_OK) {
+                            mBodyCompositionAnalyzer.handlePrinterAdd();
+                        } else if(code == EVENT_CODE_PRINTER_NONE) {
+                            mBodyCompositionAnalyzer.handlePrinterRemove();
+                        }
                         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
                         break;
                     case EVENT_TYPE_SERIAL:

@@ -99,6 +99,7 @@ public class BodyCompositionAnalyzer {
 
 	public void init() {
         Log.i(LOG_TAG, "init");
+		initGpio();
 		// 初始化打印机(初始化结果要告知用户)
 		mPrinter = Printer.getInstance(mContext);
 		mPrinter.init();
@@ -132,6 +133,39 @@ public class BodyCompositionAnalyzer {
 		}
 	}
 
+	public void initGpio() {
+		/** 导出、输出、高低电平 */
+		if(GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).activationPin()) {
+			int ret = GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).initPin(GPIO.DIRECTION_OUT);
+			if (ret < 0) {
+				Log.e(LOG_TAG, "initPin " + GPIO.GPIO_PRINTER_STATE + " fail code:" + ret);
+			}
+		} else {
+			Log.e(LOG_TAG, "activationPin Gpio fail");
+		}
+	}
+
+	public void uninitGpio() {
+		/** 导出、输出、高低电平 */
+		if(!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).desactivationPin()) {
+			Log.e(LOG_TAG, "uninit Gpio fail");
+		}
+	}
+
+	public void handlePrinterAdd() {
+		Log.i(LOG_TAG, "handlePrinterAdd");
+		if (!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).setState(GPIO.HIGH)) {
+			Log.e(LOG_TAG, "set gpio fail");
+		}
+	}
+
+	public void handlePrinterRemove() {
+		Log.i(LOG_TAG, "handlePrinterRemove");
+		if (!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).setState(GPIO.LOW)) {
+			Log.e(LOG_TAG, "set gpio fail");
+		}
+	}
+
     /** 返初始化 */
     public void uninit() {
 		/* 反初始化串口 */
@@ -139,6 +173,9 @@ public class BodyCompositionAnalyzer {
 
 		/* 打印机反初始化 */
         mPrinter.uninit();
+
+		/* gpio */
+		uninitGpio();
     }
 
 	private void uninitSerial() {
