@@ -582,7 +582,8 @@ public class BodyCompositionAnalyzer {
 					// 将图片拉伸至整个页面
 					canvas.drawBitmap(bm, null, new Rect(
 									0,
-									0, PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+									0,
+									PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
 									PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
 							null);
 				}
