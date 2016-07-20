@@ -14,6 +14,7 @@ import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -151,8 +152,7 @@ public class Printer {
         IntentFilter filter = new IntentFilter();
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        filter.addAction(ACTION_USB_PERMISSION);
-        mContext.registerReceiver(mUsbReceiver, filter);
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(mUsbReceiver, filter);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Printer {
         Log.i(LOG_TAG, "Printer#uninit");
         if(mContext != null) {
             setPrinterInterface(null, null);
-            mContext.unregisterReceiver(mUsbReceiver);
+            LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mUsbReceiver);
         }
     }
 
