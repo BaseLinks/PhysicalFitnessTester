@@ -261,7 +261,7 @@ public class MyIntentService extends IntentService {
     private void handleActionUnInit(String param1, String param2) {
         // 初始化
         mBodyCompositionAnalyzer = BodyCompositionAnalyzer.getInstance(this);
-        mBodyCompositionAnalyzer.uninit();
+        mBodyCompositionAnalyzer.unInit();
     }
 
     /**

@@ -131,13 +131,13 @@ public class BodyCompositionAnalyzerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(LOG_TAG, "onDestroy");
+        Log.i(LOG_TAG, "BodyCompositionAnalyzerService#onDestroy");
         /* 1. xxx */
         if(mWakeLock.isHeld()) {
             mWakeLock.release();
             mWakeLock = null;
         }
         /* 2. xxx */
-        MyIntentService.startActionUnInit(this, "", "");
+        mBodyCompositionAnalyzer.unInit();
     }
 }

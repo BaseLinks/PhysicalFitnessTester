@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(mIntent);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
     }
 }

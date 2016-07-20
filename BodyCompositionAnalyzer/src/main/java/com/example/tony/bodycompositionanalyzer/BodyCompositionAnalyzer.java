@@ -95,13 +95,13 @@ public class BodyCompositionAnalyzer {
                 + File.separator + "test.pdf";
         mRasterPath = mContext.getExternalCacheDir()
                 + File.separator + "test.bin";
+		// 初始化打印机(初始化结果要告知用户)
+		mPrinter = Printer.getInstance(context);
     }
 
 	public void init() {
         Log.i(LOG_TAG, "init");
 		initGpio();
-		// 初始化打印机(初始化结果要告知用户)
-		mPrinter = Printer.getInstance(mContext);
 		mPrinter.init();
 		initSerial();
 	}
@@ -167,7 +167,7 @@ public class BodyCompositionAnalyzer {
 	}
 
     /** 返初始化 */
-    public void uninit() {
+    public void unInit() {
 		/* 反初始化串口 */
 		uninitSerial();
 

@@ -126,8 +126,14 @@ public class Printer {
     }
 
     private Printer(Context context) {
-        Log.i(LOG_TAG, "Printer");
+        Log.i(LOG_TAG, "Printer#Printer");
         mContext = context;
+
+        // listen for new devices
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        context.registerReceiver(mUsbReceiver, filter);
     }
 
     public void init() {
@@ -145,14 +151,12 @@ public class Printer {
                 }
             }
         }
-
         /** 将打印机状态告知服务 */
         Log.e(LOG_TAG, "Has Printer: " + hasPrinter);
-        // listen for new devices
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        LocalBroadcastManager.getInstance(mContext).registerReceiver(mUsbReceiver, filter);
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 
     /**
@@ -160,9 +164,9 @@ public class Printer {
      */
     public void uninit() {
         Log.i(LOG_TAG, "Printer#uninit");
-        if(mContext != null) {
+        if(getContext() != null) {
             setPrinterInterface(null, null);
-            LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mUsbReceiver);
+            getContext().unregisterReceiver(mUsbReceiver);
         }
     }
 
@@ -244,19 +248,6 @@ public class Printer {
                 if (mDevice != null && mDevice.equals(deviceName)) {
                     Log.i(LOG_TAG, "printer interface removed");
                     setPrinterInterface(null, null);
-                }
-            } else if (ACTION_USB_PERMISSION.equals(action)) {
-                synchronized (this) {
-                    UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
-
-                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-                        if(accessory != null){
-                            //call method to set up accessory communication
-                        }
-                    }
-                    else {
-                        Log.d(LOG_TAG, "permission denied for accessory " + accessory);
-                    }
                 }
             }
         }
