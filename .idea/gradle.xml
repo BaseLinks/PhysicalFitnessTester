@@ -11,9 +11,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BodyCompositionAnalyzer" />
             <option value="$PROJECT_DIR$/d2xx" />
+            <option value="$PROJECT_DIR$/helloroot" />
             <option value="$PROJECT_DIR$/javaapk.com-comassistant" />
             <option value="$PROJECT_DIR$/trineaandroidcommon-debug" />
-            <option value="$PROJECT_DIR$/usbprinter" />
           </set>
         </option>
         <option name="myModules">
@@ -21,9 +21,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BodyCompositionAnalyzer" />
             <option value="$PROJECT_DIR$/d2xx" />
+            <option value="$PROJECT_DIR$/helloroot" />
             <option value="$PROJECT_DIR$/javaapk.com-comassistant" />
             <option value="$PROJECT_DIR$/trineaandroidcommon-debug" />
-            <option value="$PROJECT_DIR$/usbprinter" />
           </set>
         </option>
       </GradleProjectSettings>
