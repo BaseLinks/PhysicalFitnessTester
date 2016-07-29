@@ -61,6 +61,10 @@ public class Printer {
     private final static String DEVICE_ID_HP_DESKJET_1112 = "MFG:HP;MDL:DeskJet 1110 series;CMD:PCL3GUI,PJL,Automatic,DW-PCL,DESKJET,DYN;CLS:PRINTER;DES:K7B87D;";
     private final static String DEVICE_ID_EPSON_R330      = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
 
+    public static final int PRINTER_STATE_GPIO = GPIO.GPIOB30;
+    public static final int PRINTER_CONNECTED = GPIO.LOW;
+    public static final int PRINTER_DISCONNECTED = GPIO.HIGH;
+
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
      */

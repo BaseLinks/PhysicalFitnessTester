@@ -135,10 +135,10 @@ public class BodyCompositionAnalyzer {
 
 	public void initGpio() {
 		/** 导出、输出、高低电平 */
-		if(GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).activationPin()) {
-			int ret = GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).initPin(GPIO.DIRECTION_OUT);
+		if(GPIO.getInstance(Printer.PRINTER_STATE_GPIO).activationPin()) {
+			int ret = GPIO.getInstance(Printer.PRINTER_STATE_GPIO).initPin(GPIO.DIRECTION_OUT);
 			if (ret < 0) {
-				Log.e(LOG_TAG, "initPin " + GPIO.GPIO_PRINTER_STATE + " fail code:" + ret);
+				Log.e(LOG_TAG, "initPin " + Printer.PRINTER_STATE_GPIO + " fail code:" + ret);
 			}
 		} else {
 			Log.e(LOG_TAG, "activationPin Gpio fail");
@@ -147,21 +147,21 @@ public class BodyCompositionAnalyzer {
 
 	public void uninitGpio() {
 		/** 导出、输出、高低电平 */
-		if(!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).desactivationPin()) {
+		if(!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).desactivationPin()) {
 			Log.e(LOG_TAG, "uninit Gpio fail");
 		}
 	}
 
 	public void handlePrinterAdd() {
 		Log.i(LOG_TAG, "handlePrinterAdd");
-		if (!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).setState(GPIO.HIGH)) {
+		if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_CONNECTED)) {
 			Log.e(LOG_TAG, "set gpio fail");
 		}
 	}
 
 	public void handlePrinterRemove() {
 		Log.i(LOG_TAG, "handlePrinterRemove");
-		if (!GPIO.getInstance(GPIO.GPIO_PRINTER_STATE).setState(GPIO.LOW)) {
+		if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_DISCONNECTED)) {
 			Log.e(LOG_TAG, "set gpio fail");
 		}
 	}
