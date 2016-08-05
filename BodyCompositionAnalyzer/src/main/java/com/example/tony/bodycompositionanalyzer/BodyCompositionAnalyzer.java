@@ -481,7 +481,7 @@ public class BodyCompositionAnalyzer {
 		Log.i(LOG_TAG, "doIt");
 
         // 读取样本数据
-        InputStream in = mContext.getResources().getAssets().open("data172.bin");
+        InputStream in = mContext.getResources().getAssets().open("data4.bin");
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         int nRead;
@@ -1515,17 +1515,17 @@ public class BodyCompositionAnalyzer {
 		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
 
 		float base = 0f;
-		float r = 0f; // 相对长度单位mm
-		if(cur >= min && cur <= max) {
+		float r = 0.1f; // 相对长度单位mm
+		if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
 			base = NORMAL_START_MM;
 			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
-		} else if (cur > max && cur <= TOO_HIGH_START) {  // 位于
+		} else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
 			base = TOO_HIGH_START_MM;
 			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
-		} else if (cur >= HIGH_START && cur <= HIGH_END) {
+		} else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
 			base = HIGH_START_MM;
 			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
-		} else if (cur > HIGH_END) {
+		} else if (cur >= HIGH_END) {
 			r = TOTAL_LENGTH_MM;
 		}
 
