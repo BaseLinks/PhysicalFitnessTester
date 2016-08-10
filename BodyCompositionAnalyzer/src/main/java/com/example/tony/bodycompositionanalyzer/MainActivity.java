@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         mPrinterTextView = (TextView) findViewById(R.id.printer_textview);
         mSerialTextView = (TextView) findViewById(R.id.serial_textview);
 
+        mPrinterTextView.setText(Printer.getInstance(mContext).isConnected() ?  "已连接" : "未连接");
+
         boolean isDrawNegative = PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE);
         mDrawNegative.setChecked(isDrawNegative);
         mDrawNegative.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -394,6 +394,8 @@ public class BodyComposition {
 
     /** 对一些参数进行补救 */
     /* 1. 添加 */
+    public static final int 体型分析_X_MIN = 0;
+    public static final int 体型分析_Y_MIN = 0;
     public static final int 体型分析_X_MAX = 3;
     public static final int 体型分析_Y_MAX = 4;
 

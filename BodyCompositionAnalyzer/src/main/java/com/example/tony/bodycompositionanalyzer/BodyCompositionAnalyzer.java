@@ -101,7 +101,7 @@ public class BodyCompositionAnalyzer {
 
 	public void init() {
         Log.i(LOG_TAG, "init");
-		initGpio();
+
 		mPrinter.init();
 		initSerial();
 	}
@@ -133,38 +133,7 @@ public class BodyCompositionAnalyzer {
 		}
 	}
 
-	public void initGpio() {
-		/** 导出、输出、高低电平 */
-		if(GPIO.getInstance(Printer.PRINTER_STATE_GPIO).activationPin()) {
-			int ret = GPIO.getInstance(Printer.PRINTER_STATE_GPIO).initPin(GPIO.DIRECTION_OUT);
-			if (ret < 0) {
-				Log.e(LOG_TAG, "initPin " + Printer.PRINTER_STATE_GPIO + " fail code:" + ret);
-			}
-		} else {
-			Log.e(LOG_TAG, "activationPin Gpio fail");
-		}
-	}
 
-	public void uninitGpio() {
-		/** 导出、输出、高低电平 */
-		if(!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).desactivationPin()) {
-			Log.e(LOG_TAG, "uninit Gpio fail");
-		}
-	}
-
-	public void handlePrinterAdd() {
-		Log.i(LOG_TAG, "handlePrinterAdd");
-		if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_CONNECTED)) {
-			Log.e(LOG_TAG, "set gpio fail");
-		}
-	}
-
-	public void handlePrinterRemove() {
-		Log.i(LOG_TAG, "handlePrinterRemove");
-		if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_DISCONNECTED)) {
-			Log.e(LOG_TAG, "set gpio fail");
-		}
-	}
 
     /** 返初始化 */
     public void unInit() {
@@ -173,9 +142,6 @@ public class BodyCompositionAnalyzer {
 
 		/* 打印机反初始化 */
         mPrinter.uninit();
-
-		/* gpio */
-		uninitGpio();
     }
 
 	private void uninitSerial() {
@@ -727,7 +693,8 @@ public class BodyCompositionAnalyzer {
 			paint.setColor(Color.BLACK);
 			paint.setStrokeWidth(5f);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
-			float xPos = BodyComposition.Position.体成分分析_体重.getXMils() / 1000 + getProgressLength(项目_体重, bc);
+			float xPos = BodyComposition.Position.体成分分析_体重.getXMils() / 1000 +
+					getProgressLength3(bc.体重_CUR, bc.体重_MIN, bc.体重_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_体重.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
@@ -746,7 +713,8 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000 + getProgressLength(项目_身体质量, bc);
+            xPos = BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000 +
+					getProgressLength3(bc.身体质量_CUR, bc.身体质量_MIN, bc.身体质量_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
@@ -765,7 +733,8 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000 + getProgressLength(项目_体脂肪率, bc);
+            xPos = BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000 +
+					getProgressLength3(bc.脂肪率_CUR, bc.脂肪率_MIN, bc.脂肪率_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
@@ -784,7 +753,8 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000 + getProgressLength(项目_体脂肪量, bc);
+            xPos = BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000 +
+					getProgressLength3(bc.体脂肪量_CUR, bc.体脂肪量_MIN, bc.体脂肪量_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
@@ -803,7 +773,8 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000 + getProgressLength(项目_肌肉量, bc);
+            xPos = BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000 +
+					getProgressLength3(bc.肌肉量_CUR, bc.肌肉量_MIN, bc.肌肉量_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
@@ -822,7 +793,8 @@ public class BodyCompositionAnalyzer {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(5f);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
-            xPos = BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000 + getProgressLength(项目_身体水分, bc);
+            xPos = BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000 +
+					getProgressLength3(bc.身体总水分_CUR, bc.身体总水分_MIN, bc.身体总水分_MAX);
             canvas.drawLine(
                     BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000,
                     BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
@@ -1176,6 +1148,11 @@ public class BodyCompositionAnalyzer {
         }
 
 		Log.i(LOG_TAG, "before xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
+		// 设置最小值
+		xPos = xPos < bc.体型分析_X_MIN ? bc.体型分析_X_MIN : xPos;
+		yPos = yPos < bc.体型分析_Y_MIN ? bc.体型分析_Y_MIN : yPos;
+
+		// 设置最大值
 		xPos = xPos > bc.体型分析_X_MAX ? bc.体型分析_X_MAX : xPos;
 		yPos = yPos > bc.体型分析_Y_MAX ? bc.体型分析_Y_MAX : yPos;
 		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
@@ -1412,6 +1389,7 @@ public class BodyCompositionAnalyzer {
      * @param item 项目
      * @param bc BodyComposition
      * @return 进度条实际长度，单位Point
+	 * 暂时不再使用
      */
     public float getProgressLength(int item, BodyComposition bc) {
 		float rate = 1;
@@ -1488,6 +1466,7 @@ public class BodyCompositionAnalyzer {
 		return rate * 体成分分析_TOTAL_LENGTH * 2836 / 1000;
 	}
 
+
 	/**
 	 * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
 	 * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
@@ -1528,6 +1507,52 @@ public class BodyCompositionAnalyzer {
 		} else if (cur >= HIGH_END) {
 			r = TOTAL_LENGTH_MM;
 		}
+
+		Log.i(LOG_TAG, "r: " + r);
+
+		return r * 2836 / 1000;
+	}
+
+	/**
+	 * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
+	 * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
+	 * @return 进度条实际长度，单位Point
+	 */
+	public float getProgressLength3(final float inCur, final float inMin, final float inMax) {
+		float[] P_temp = new float[2];
+		float cur = inCur, min = inMin, max = inMax;
+		final float FIRST_START = 0f;
+		final float SECOND_START = min;
+		final float THIRD_START = max + 0.1f;
+		final float HIGH_END   = THIRD_START + max;
+
+		final float FIRST_START_MM = 0f;
+		final float SECOND_START_MM = 35.8f;
+		final float THIRD_START_MM = 56.8f;
+		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
+
+		final float FIRST_LENGTH_MM = SECOND_START_MM - FIRST_START_MM;
+		final float SECOND_LENGTH_MM = THIRD_START_MM - SECOND_START_MM;
+		final float THIRD_LENGTH_MM = TOTAL_LENGTH_MM - THIRD_START_MM;
+
+		float base = 0f;
+		float r = 0.1f; // 第一格
+		if(cur >= FIRST_START && cur < SECOND_START) {
+			// 第一格
+			base = FIRST_START_MM;
+			r = FIRST_LENGTH_MM / (SECOND_START - FIRST_START) * (cur - FIRST_START) + base;
+		} else if (cur >= min && cur < THIRD_START) {
+			// 第二格
+			base = SECOND_START_MM;
+			r = SECOND_LENGTH_MM / (THIRD_START - SECOND_START)  * (cur - SECOND_START) + base;
+		} else if (cur >= THIRD_START) {
+			// 第三格
+			base = THIRD_START_MM;
+			r = THIRD_LENGTH_MM / (HIGH_END - THIRD_START) *  (cur - THIRD_START) + base;
+		}
+
+		/* 如果计算出来的大于最大值，刚按照最大值计算 */
+		r = (r > TOTAL_LENGTH_MM) ? TOTAL_LENGTH_MM : r;
 
 		Log.i(LOG_TAG, "r: " + r);
 

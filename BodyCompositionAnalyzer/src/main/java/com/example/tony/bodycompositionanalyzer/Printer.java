@@ -140,8 +140,29 @@ public class Printer {
         context.registerReceiver(mUsbReceiver, filter);
     }
 
+    public void initGpio() {
+        /** 导出、输出、高低电平 */
+        if(GPIO.getInstance(Printer.PRINTER_STATE_GPIO).activationPin()) {
+            int ret = GPIO.getInstance(Printer.PRINTER_STATE_GPIO).initPin(GPIO.DIRECTION_OUT);
+            if (ret < 0) {
+                Log.e(LOG_TAG, "initPin " + Printer.PRINTER_STATE_GPIO + " fail code:" + ret);
+            }
+        } else {
+            Log.e(LOG_TAG, "activationPin Gpio fail");
+        }
+    }
+
+    public void uninitGpio() {
+        /** 导出、输出、高低电平 */
+        if(!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).desactivationPin()) {
+            Log.e(LOG_TAG, "uninit Gpio fail");
+        }
+    }
+
     public void init() {
         Log.i(LOG_TAG, "Printer#init");
+        initGpio();
+
         /* 只处理检测到的第一个打印机，其它不进行处理 */
         boolean hasPrinter = false;
         mManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
@@ -155,6 +176,12 @@ public class Printer {
                 }
             }
         }
+
+        if(hasPrinter == false) {
+            // 没有连接打印机
+            setPrinterInterface(null, null);
+        }
+
         /** 将打印机状态告知服务 */
         Log.e(LOG_TAG, "Has Printer: " + hasPrinter);
     }
@@ -172,6 +199,9 @@ public class Printer {
             setPrinterInterface(null, null);
             getContext().unregisterReceiver(mUsbReceiver);
         }
+
+		/* gpio */
+        uninitGpio();
     }
 
     /**
@@ -321,6 +351,7 @@ public class Printer {
 //        context.unregisterReceiver(mUsbPermissionActionReceiver);
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
+        if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()), Toast.LENGTH_LONG).show();
         doYourOpenUsbDevice(usbManager, usbDevice, intf);
     }
 
@@ -384,6 +415,7 @@ public class Printer {
      */
     private boolean setPrinterInterface(UsbDevice device, UsbInterface intf) {
         Log.i(LOG_TAG, "Printer#setPrinterInterface");
+        boolean ret = false;
         if (mDeviceConnection != null) {
             if (mUsbInterface != null) {
                 mDeviceConnection.releaseInterface(mUsbInterface);
@@ -393,15 +425,32 @@ public class Printer {
             mDevice = null;
             mDeviceConnection = null;
             mPrinterModel = null;
-
-            BodyCompositionAnalyzerService.startActionNonePrinter(mContext);
         }
 
         if (device != null && intf != null) {
             tryGetUsbPermission(mContext, mManager, device, intf);
+            ret = true;
+        } else {
+            // 处理未连接打印机情况
+            handlePrinterRemove();
+            ret = false;
         }
+        return ret;
+    }
 
-        return true;
+
+    public static void handlePrinterAdd() {
+        Log.i(LOG_TAG, "handlePrinterAdd");
+        if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_CONNECTED)) {
+            Log.e(LOG_TAG, "set gpio fail");
+        }
+    }
+
+    public static void handlePrinterRemove() {
+        Log.i(LOG_TAG, "handlePrinterRemove");
+        if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_DISCONNECTED)) {
+            Log.e(LOG_TAG, "set gpio fail");
+        }
     }
 
     /**
@@ -462,9 +511,9 @@ public class Printer {
             ret = pm;
             Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
 
-            BodyCompositionAnalyzerService.startActionAddPrinter(mContext);
+            handlePrinterAdd();
         } else {
-            BodyCompositionAnalyzerService.startActionNonePrinter(mContext);
+            handlePrinterRemove();
         }
 
         mPrinterModel = ret;
