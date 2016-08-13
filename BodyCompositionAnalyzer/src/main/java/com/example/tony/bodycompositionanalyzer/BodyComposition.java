@@ -1208,11 +1208,10 @@ public class BodyComposition {
         tmpInt = 肌肉量_STD - 肌肉量_CUR;
         肌肉量_REG = tmpInt < 0 ? 0 : tmpInt;
 
-        // 注: 脂肪=标准值-当前值（结果为+的，显示0）
-        tmpInt = 肌肉量_REG + 脂肪量_REG;
-        体重_REG = tmpInt > 0 ? 0 : tmpInt;
+        // 注: 体重标准值=当前值+调节量值
+        体重_REG = 肌肉量_REG + 脂肪量_REG;
 
-        // 注: 体重标准值 = 当前值 + 调节量值
+        // 注: 体重标准值=当前值+调节量值
         体重_STD = 体重_CUR + 体重_REG;
 
         // 75. 基础代谢量 okay
