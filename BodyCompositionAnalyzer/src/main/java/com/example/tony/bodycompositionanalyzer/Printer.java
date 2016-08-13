@@ -599,7 +599,7 @@ public class Printer {
      * @return 如果转换成功，返回true否则false
      */
     private static boolean covertPdfToEpson330(String rasterPath, String pdf) {
-        Log.i(LOG_TAG, "covertPdfToEpson330");
+        Log.i(LOG_TAG, "covertPdfToEpson330 dsfdasdads");
         boolean ret = false;
         ShellUtils.CommandResult cr;
         if (ShellUtils.checkRootPermission()) {
@@ -616,6 +616,7 @@ public class Printer {
                     "\"" + rasterPath + "\" "  +
                     pdf + " " +
                     "-c quit";
+            Log.e(LOG_TAG, "covertPdfToEpson330: str:" + cmd);
             cr = ShellUtils.execCommand(cmd, true);
             if(cr.result == 0) {
                 cr = ShellUtils.execCommand("chmod 777 " + rasterPath, true);
