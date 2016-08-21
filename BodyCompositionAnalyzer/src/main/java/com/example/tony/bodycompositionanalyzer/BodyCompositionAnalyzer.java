@@ -447,7 +447,7 @@ public class BodyCompositionAnalyzer {
 		Log.i(LOG_TAG, "doIt");
 
         // 读取样本数据
-        InputStream in = mContext.getResources().getAssets().open("data4.bin");
+        InputStream in = mContext.getResources().getAssets().open("data6.bin");
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         int nRead;
