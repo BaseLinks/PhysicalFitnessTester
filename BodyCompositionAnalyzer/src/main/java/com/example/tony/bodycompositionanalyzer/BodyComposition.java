@@ -164,16 +164,28 @@ public class BodyComposition {
     public final String 总能量消耗;
 
     /* 从机回复语句 */
-    public static final byte[] ACK = {(byte)0xCC, 0x00, 0x00, (byte)0xE0, (byte)0xDE, 0x00};
+    public static final byte[] ACK = {(byte)0xCC, 0x00, 0x00, (byte)0xE1, (byte)0xDE, 0x00, (byte)0xFE};
     public static final int ACK_START = 0;
-    public static final int ACK_LENGTH = 6;
-    public static final int DATA_START = 6;
+    /** 只有前3位是固定的数值 */
+    public static final int ACK_PIPEI_LENGTH = 3;
+    public static final byte[] ACK_PIPEI = {(byte)0xCC, 0x00, 0x00};
+    /* ACK坐标3处是数据长度:包含ACK和DATA的长度 */
+    public static final int LENGTH_START = 3;
+    public static final int ACK_LENGTH = ACK.length;
+    public static final int DATA_START = ACK.length;
     public static final int DATA_LENGTH = 218;
     public static final int VERIFICATION_START = 223;
     public static final int VERIFICATION_LENGTH = 4;
-    public static final int 结束符_START        = 226;
-    public static final int 校验和_START        = 227;
-    public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH; // 6+218+4=228
+    public static int 结束符_START; //        = ACK_LENGTH + DATA_LENGTH;
+    public static int 校验和_START; //        = 结束符_START + 1;
+    public static final int TOTAL_LENGTH = ACK_LENGTH + DATA_LENGTH + VERIFICATION_LENGTH; // 7+218+4=229
+    /** 新的数据长度，从数据中提取+检验位的总的数据长度 */
+    public static int TOTAL_LENGTH_NEW = 0; // 7+218+4=229
+
+    /** 需要校验数据起始坐标 */
+    public static int NEED_CHECKSUM_DATA_START = 1; // 7+218+4=229
+    /** 需要校验数据长度 */
+    public static int NEED_CHECKSUM_DATA_LENGTH; // TOTAL_LENGTH_NEW - 2;
 
     /* 在数据中的位置 注：小端方式 */
     public static final int 姓名_START             = 0;

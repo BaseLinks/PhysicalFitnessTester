@@ -38,7 +38,7 @@ import cn.trinea.android.common.util.ShellUtils;
  * Created by tony on 16-6-23.
  */
 public class BodyCompositionAnalyzer {
- 	private static final boolean DEBUG = false;
+ 	private static final boolean DEBUG = true;
 	private static final String LOG_TAG = "BodyCompositionAnalyzer";
 	/** 基于传统Linux设备节点实现的串口通信 */
 	private final SerialHelper serialCtrl       = new SerialControl();
@@ -70,6 +70,7 @@ public class BodyCompositionAnalyzer {
     private final String mRasterPath;
     /** 接收到的完整数据 */
     private byte[] mFullData;
+	private static final String DEFAULT_DATA_BIN_NAME = "fe2.bin";
 
 	public static final String KEY_IS_DRAW_NEGATIVE = "IS_DRAW_NEGATIVE";
 	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
@@ -78,9 +79,10 @@ public class BodyCompositionAnalyzer {
      * 单例模式: http://coolshell.cn/articles/265.html
      */
     private volatile static BodyCompositionAnalyzer singleton = null;
-    public static BodyCompositionAnalyzer getInstance(Context context)   {
+
+	public static BodyCompositionAnalyzer getInstance(Context context)   {
         if (singleton== null)  {
-            synchronized (Printer.class) {
+            synchronized (BodyCompositionAnalyzer.class) {
                 if (singleton== null)  {
                     singleton= new BodyCompositionAnalyzer(context);
                 }
@@ -309,16 +311,23 @@ public class BodyCompositionAnalyzer {
 		Log.i(LOG_TAG, "parseData" + " inputData.length =" + inputData.length);
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
+        /* 0. 从数据中获取数据总长度 */
+        BodyComposition.TOTAL_LENGTH_NEW = (inputData[BodyComposition.LENGTH_START] & 0xFF) + BodyComposition.VERIFICATION_LENGTH;
+        /* 需要检验的数据长度:总长度减去开头CC以及结尾检验位共2位 */
+        BodyComposition.NEED_CHECKSUM_DATA_LENGTH = BodyComposition.TOTAL_LENGTH_NEW - 2;
+
+
         /* 1. 判断数据长度是否正常 */
-        if(BodyComposition.TOTAL_LENGTH != inputData.length) {
-            Log.e(LOG_TAG, "inputData.length =" + inputData.length + " but TOTAL_LENGTH need " + BodyComposition.TOTAL_LENGTH);
+        if(BodyComposition.TOTAL_LENGTH_NEW != inputData.length) {
+            Log.e(LOG_TAG, "inputData.length =" + inputData.length +
+                    " but TOTAL_LENGTH_NEW need " + BodyComposition.TOTAL_LENGTH_NEW);
             return;
         }
 
         /* 2. 判断回复响应是否正常 */
-        byte[] ack = new byte[BodyComposition.ACK_LENGTH];
-        System.arraycopy(inputData, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_LENGTH);
-        if(!Arrays.equals(ack, BodyComposition.ACK)) {
+        byte[] ack = new byte[BodyComposition.ACK_PIPEI_LENGTH];
+        System.arraycopy(inputData, BodyComposition.ACK_START, ack, 0, BodyComposition.ACK_PIPEI_LENGTH);
+        if(!Arrays.equals(ack, BodyComposition.ACK_PIPEI)) {
             Log.e(LOG_TAG, "ACK不匹配！");
             return;
         }
@@ -326,9 +335,11 @@ public class BodyCompositionAnalyzer {
         /**
          * 3. 结束符判断
          */
+        /* 总长度-2 */
+        BodyComposition.结束符_START = BodyComposition.TOTAL_LENGTH_NEW - 2;
         final byte EOF = inputData[BodyComposition.结束符_START];
         if(EOF != BodyComposition.结束符_DEF) {
-            Log.e(LOG_TAG, String.format("结束符不匹配：结束符不匹配为 %02X 但需要的结束符为 %02X。", EOF, BodyComposition.结束符_DEF));
+            Log.e(LOG_TAG, String.format("结束符不匹配：结束符不匹配为 %02X，但需要的结束符为 %02X。", EOF, BodyComposition.结束符_DEF));
             return;
         }
 
@@ -336,14 +347,15 @@ public class BodyCompositionAnalyzer {
          * 4. 检验和判断
          * 校验方法如下： 从cc_后_开始加，一直加到截止符dd，取低八位。
          */
-        byte sum = 0;
-        for (int i=1; i<inputData.length - 1; i++) {
-            sum += inputData[i];
-        }
+        BodyComposition.校验和_START = BodyComposition.TOTAL_LENGTH_NEW - 1;
+        /* 2. 判断回复响应是否正常 */
+        byte[] checksumCache = new byte[BodyComposition.NEED_CHECKSUM_DATA_LENGTH];
+        System.arraycopy(inputData, BodyComposition.NEED_CHECKSUM_DATA_START, checksumCache, 0, BodyComposition.NEED_CHECKSUM_DATA_LENGTH);
+        byte sum = checkSum(checksumCache);
         final byte CHECKSUM = inputData[BodyComposition.校验和_START];
         if(sum != CHECKSUM) {
-            Log.e(LOG_TAG, String.format("数据校验失败：计算校验和为 %02X 但数据中提取校验和为 %02X。", sum, CHECKSUM));
-//            return;
+            Log.e(LOG_TAG, String.format("数据校验失败：计算校验和为 %04X 但数据中提取校验和为 %02X。", sum, CHECKSUM));
+            return;
         }
 
         /* 提取各个数据 */
@@ -353,6 +365,14 @@ public class BodyCompositionAnalyzer {
         mBodyComposition = new BodyComposition(data2);
         MyIntentService.startActionDataToPdf(mContext, "", "");
 	}
+
+    public static final byte checkSum(byte[] bytes) {
+        byte sum = 0;
+        for (byte b : bytes) {
+            sum += b;
+        }
+        return sum;
+    }
 
 	public static String bytesToHex(byte[] in) {
 	    final StringBuilder builder = new StringBuilder();
@@ -447,7 +467,7 @@ public class BodyCompositionAnalyzer {
 		Log.i(LOG_TAG, "doIt");
 
         // 读取样本数据
-        InputStream in = mContext.getResources().getAssets().open("data6.bin");
+        InputStream in = mContext.getResources().getAssets().open(DEFAULT_DATA_BIN_NAME);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         int nRead;
