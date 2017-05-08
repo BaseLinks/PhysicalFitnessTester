@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.print.PrintAttributes;
@@ -75,6 +76,9 @@ public class BodyCompositionAnalyzer {
 	public static final String KEY_IS_DRAW_NEGATIVE = "IS_DRAW_NEGATIVE";
 	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
 
+    /** 使用自定义字体：宋体 */
+    private static Typeface mFontTypeface;
+
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
      */
@@ -93,6 +97,7 @@ public class BodyCompositionAnalyzer {
 
     private BodyCompositionAnalyzer(Context context) {
         this.mContext = context;
+        mFontTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/simsun.ttf");
         mPdfPath = mContext.getExternalCacheDir()
                 + File.separator + "test.pdf";
         mRasterPath = mContext.getExternalCacheDir()
@@ -586,6 +591,7 @@ public class BodyCompositionAnalyzer {
 			Paint defPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			float size = defPaint.getTextSize();
 			defPaint.setTextSize(8);
+            defPaint.setTypeface(mFontTypeface);
             Rect rect = null;
             int high = getTextHeight("HelloWorld", defPaint);
             Log.i(LOG_TAG, "text high: " + high);
@@ -596,11 +602,12 @@ public class BodyCompositionAnalyzer {
 
 			// 文字画笔
 			TextPaint textPaint = new TextPaint();
+            textPaint.setTypeface(mFontTypeface);
 			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
 			if(PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE)) {
-				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative.jpg");
+				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative_20170504.jpg");
 				if(bm != null) {
 					// 将图片拉伸至整个页面
 					canvas.drawBitmap(bm, null, new Rect(
@@ -708,7 +715,6 @@ public class BodyCompositionAnalyzer {
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体脂肪量, mAlignment);
 
 			/* 3x. 体成分分析　*/
-			DecimalFormat fmt = new DecimalFormat("+.0;-.0");
             /* 31. 体重 */
 			paint.setColor(Color.BLACK);
 			paint.setStrokeWidth(5f);
@@ -721,6 +727,11 @@ public class BodyCompositionAnalyzer {
                     xPos,
                     BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
                     paint);
+//            canvas.drawText(
+//                    "♡❤ with keyboard)",
+//                    xPos,
+//                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
+//                    paint);
 			canvas.drawText(
 					String.format("%.1f", (float) bc.体重_CUR / 10),
 					xPos,
@@ -925,48 +936,48 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Position.肌肉量_调节量.getYMils() / 1000,
 					paint);
 
-			/* 5x 节段肌肉　镜像 */
-			mAlignment = Layout.Alignment.ALIGN_CENTER;
-			// 51 左上肢肌肉含量 okay
-			tmpStr = bc.左上肢肌肉含量 + "kg\n" + bc.左上肢肌肉含量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量, mAlignment);
-
-			// 52 左下肢肌肉含量 okay
-			tmpStr = bc.左下肢肌肉含量 + "kg\n" + bc.左下肢肌肉含量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量, mAlignment);
-
-			// 53 右上肢肌肉含量 okay
-			tmpStr = bc.右上肢肌肉含量 + "kg\n" + bc.右上肢肌肉含量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢肌肉含量, mAlignment);
-
-			// 54 右下肢脂肪量 okay
-			tmpStr = bc.右下肢肌肉含量 + "kg\n" + bc.右下肢肌肉含量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢肌肉含量, mAlignment);
-
-			// 55 躯干肌肉含量 okay
-			tmpStr = bc.躯干肌肉含量 + "kg\n" + bc.躯干肌肉含量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肌肉含量, mAlignment);
-
-			/* 6x 节段脂肪 */
-			// 61 左上肢脂肪量 okay
-			tmpStr = bc.左上肢脂肪量 + "kg\n" + bc.左上肢脂肪量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢脂肪量, mAlignment);
-
-			// 62 左下肢脂肪量 okay
-			tmpStr = bc.左下肢脂肪量 + "kg\n" + bc.左下肢脂肪量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢脂肪量, mAlignment);
-
-			// 63 右上肢脂肪量 okay
-			tmpStr = bc.右上肢脂肪量 + "kg\n" + bc.右上肢脂肪量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢脂肪量, mAlignment);
-
-			// 64 右下肢脂肪量 okay
-			tmpStr = bc.右下肢脂肪量 + "kg\n" + bc.右下肢脂肪量_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢脂肪量, mAlignment);
-
-			// 65 躯干肢脂肪量 okay
-			tmpStr = bc.躯干脂肪 + "kg\n" + bc.躯干脂肪_RESULT;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肢脂肪量, mAlignment);
+//			/* 5x 节段肌肉　镜像 */
+//			mAlignment = Layout.Alignment.ALIGN_CENTER;
+//			// 51 左上肢肌肉含量 okay
+//			tmpStr = bc.左上肢肌肉含量 + "kg\n" + bc.左上肢肌肉含量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量, mAlignment);
+//
+//			// 52 左下肢肌肉含量 okay
+//			tmpStr = bc.左下肢肌肉含量 + "kg\n" + bc.左下肢肌肉含量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量, mAlignment);
+//
+//			// 53 右上肢肌肉含量 okay
+//			tmpStr = bc.右上肢肌肉含量 + "kg\n" + bc.右上肢肌肉含量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢肌肉含量, mAlignment);
+//
+//			// 54 右下肢脂肪量 okay
+//			tmpStr = bc.右下肢肌肉含量 + "kg\n" + bc.右下肢肌肉含量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢肌肉含量, mAlignment);
+//
+//			// 55 躯干肌肉含量 okay
+//			tmpStr = bc.躯干肌肉含量 + "kg\n" + bc.躯干肌肉含量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肌肉含量, mAlignment);
+//
+//			/* 6x 节段脂肪 */
+//			// 61 左上肢脂肪量 okay
+//			tmpStr = bc.左上肢脂肪量 + "kg\n" + bc.左上肢脂肪量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢脂肪量, mAlignment);
+//
+//			// 62 左下肢脂肪量 okay
+//			tmpStr = bc.左下肢脂肪量 + "kg\n" + bc.左下肢脂肪量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢脂肪量, mAlignment);
+//
+//			// 63 右上肢脂肪量 okay
+//			tmpStr = bc.右上肢脂肪量 + "kg\n" + bc.右上肢脂肪量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢脂肪量, mAlignment);
+//
+//			// 64 右下肢脂肪量 okay
+//			tmpStr = bc.右下肢脂肪量 + "kg\n" + bc.右下肢脂肪量_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢脂肪量, mAlignment);
+//
+//			// 65 躯干肢脂肪量 okay
+//			tmpStr = bc.躯干脂肪 + "kg\n" + bc.躯干脂肪_RESULT;
+//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肢脂肪量, mAlignment);
 
 			/* 7x 节段电阻抗 */
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
@@ -1043,7 +1054,7 @@ public class BodyCompositionAnalyzer {
                 bcp = BodyComposition.Position.肥胖评估_体重_过量;
             }
 
-			textPaint.setTextSize(20);
+//			textPaint.setTextSize(20); 不再加大字体了
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
@@ -1080,7 +1091,7 @@ public class BodyCompositionAnalyzer {
                 bcp = BodyComposition.Position.营养评估_蛋白质_过量;
             }
 
-			textPaint.setTextSize(20);
+//			textPaint.setTextSize(20); 不再增大字体
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
 
@@ -1113,7 +1124,7 @@ public class BodyCompositionAnalyzer {
 
 			// 11x.健康评估 okay
             if (mContext.getResources().getBoolean(R.bool.is_print_total_score)) {
-                textPaint.setTextSize(20);
+                textPaint.setTextSize(16);
                 tmpStr = bc.身体总评分;
                 drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.健康评估, mAlignment);
             }
@@ -1402,6 +1413,7 @@ public class BodyCompositionAnalyzer {
 	public static final int 项目_内脏脂肪  = 7;
 
 	public static final int 体成分分析_TOTAL_LENGTH = 89;
+	public static final int 内脏指数_TOTAL_LENGTH = 66; //89;
 
 	//Item  项目
 	//返回
@@ -1496,24 +1508,26 @@ public class BodyCompositionAnalyzer {
 	 * @return 进度条实际长度，单位Point
 	 */
 	public float getProgressLength2(BodyComposition bc) {
+        if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
+            return (float) (65.5 / 17 * bc.内脏脂肪_CUR / 10 * 2836 / 1000);
 		float[] P_temp = new float[2];
 		float cur = 0, min = 0, max = 0;
 		cur = bc.内脏脂肪_CUR / 10f; // 10
 		min = bc.内脏脂肪_MIN / 10f; // 最小1
 		max = bc.内脏脂肪_MAX / 10f; // 最大17
-		final float NORMAL_START = 1f;
+		final float NORMAL_START = 0f;
 		final float TOO_HIGH_START = 10f;
 		final float HIGH_START = 14f;
 		final float HIGH_END   = 17f;
 
 		final float NORMAL_START_MM = 0f;
-		final float TOO_HIGH_START_MM = 38.3f;
-		final float HIGH_START_MM = 53.5f;
+		final float TOO_HIGH_START_MM = 39.5f; //38.3f;
+		final float HIGH_START_MM = 34.5f; // 53.5f;
 
-		final float NORMAL_LENGTH_MM = 38f;
-		final float TOO_HIGH_LENGTH_MM = 15.5f;
-		final float HIGH_LENGTH_MM = 36f;
-		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
+		final float NORMAL_LENGTH_MM = 39.5f;
+		final float TOO_HIGH_LENGTH_MM = 15.8f;
+		final float HIGH_LENGTH_MM = 7; //36f;
+		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
 
 		float base = 0f;
 		float r = 0.1f; // 相对长度单位mm
@@ -1549,8 +1563,8 @@ public class BodyCompositionAnalyzer {
 		final float HIGH_END   = THIRD_START + max;
 
 		final float FIRST_START_MM = 0f;
-		final float SECOND_START_MM = 35.8f;
-		final float THIRD_START_MM = 56.8f;
+		final float SECOND_START_MM = 28.5f;// 35.8f;
+		final float THIRD_START_MM = 51f; // 56.8f;
 		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
 
 		final float FIRST_LENGTH_MM = SECOND_START_MM - FIRST_START_MM;

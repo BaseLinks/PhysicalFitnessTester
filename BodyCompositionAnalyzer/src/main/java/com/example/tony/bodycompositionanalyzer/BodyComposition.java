@@ -376,7 +376,7 @@ public class BodyComposition {
 
 
     /** 脂肪率结果 */
-    /** 脂肪率下限 */
+    /** 脂肪率下限 数据哪里来的呢？ */
     public static final short BFR_MIN = 100;
     /** 男性脂肪率上限 */
     public static final short BFR_MAX_MALE = 350;
@@ -393,13 +393,18 @@ public class BodyComposition {
     /** 方块宽度 */
     public static final short BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
 
-    /** 在A4纸上方块宽度 */
-    public static final double SINGLE_RECT_WIDTH = 16.8;
+    /** 在A4纸上方块宽度 重新排版时要改这里 */
+    public static final double SINGLE_RECT_WIDTH = 66/4; //16.8;
     /** 在A4纸上方块高度 */
-    public static final double SINGLE_RECT_HEIGHT = 13.4;
-    /** 原点坐标 */
-    public static final double ORIGIN_X = 133;
-    public static final double ORIGIN_Y = 146;
+    public static final double SINGLE_RECT_HEIGHT = 70/5; //13.4;
+    /** 原点坐标 下面的交叉点为「体型分析」原点 */
+    /**
+     * |
+     * |
+     * |_________
+     */
+    public static final double ORIGIN_X = 132 - 3; //133;
+    public static final double ORIGIN_Y = 138.5 + 2; //146;
 
     /** 结束符默认值 */
     public static final byte 结束符_DEF = (byte) 0xDD;
@@ -420,56 +425,57 @@ public class BodyComposition {
      */
     public static final class Position {
         private static final String LOG_TAG = "Posistion";
+        static int VALUE_72_X_1MM = 2835;
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Position 姓名 =
-                new Position(35 * 2836, 44 * 2836, 20 * 2836, 46810);
+                new Position(39 * 2836, 40 * 2836, 20 * 2836, 46810);
         public static final Position 身高 =
-                new Position(35 * 2836, 50 * 2836, 20 * 2836, 46810);
+                new Position(76 * 2836, 40 * 2836, 20 * 2836, 46810);
         public static final Position 体重1 =
-                new Position(35 * 2836, 56 * 2836, 20 * 2836, 46810);
+                new Position(76 * 2836, 49 * 2836, 20 * 2836, 46810);
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Position 测试日期 =
-                new Position(90 * 2836, 44 * 2836, 35 * 2836, 46810);
+                new Position(110 * 2836, 49 * 2836, 35 * 2836, 46810);
         public static final Position 年龄 =
-                new Position(90 * 2836, 50 * 2836, 20 * 2836, 46810);
+                new Position(110 * 2836, 40 * 2836, 20 * 2836, 46810);
         public static final Position 性别 =
-                new Position(90 * 2836, 56 * 2836, 20 * 2836, 46810);
+                new Position(39 * 2836, 49 * 2836, 20 * 2836, 46810);
 
         /* 2X. 休成分结果 */
         // 21 体重
         public static final Position 体重2 =
-                new Position(36 * 2836, 78 * 2836, 85 * 2836, 46810);
+                new Position(52 * 2836, 74 * 2836, 85 * 2836, 46810);
         // 22 去脂肪体重
         public static final Position 去脂肪体重 =
-                new Position(36 * 2836, 84 * 2836, 85 * 2836, 46810);
+                new Position(52 * 2836, 79 * 2836, 85 * 2836, 46810);
         // 23 肌肉量
         public static final Position 肌肉量 =
-                new Position(36 * 2836, 91 * 2836, 85 * 2836, 46810);
+                new Position(52 * 2836, 86 * 2836, 85 * 2836, 46810);
         // 24 身体总水分
         public static final Position 身体总水分 =
-                new Position(36 * 2836, 97 * 2836, 85 * 2836, 46810);
+                new Position(52 * 2836, 92 * 2836, 85 * 2836, 46810);
         // 25 细胞内液
         public static final Position 细胞内液 =
-                new Position(15 * 2836, 109 * 2836, 20 * 2836, 46810);
+                new Position(32 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 26 细胞外液
         public static final Position 细胞外液 =
-                new Position(38 * 2836, 108 * 2836, 20 * 2836, 46810);
+                new Position(53 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 27 蛋白质量
         public static final Position 蛋白质量 =
-                new Position(60 * 2836, 102 * 2836, 20 * 2836, 46810);
+                new Position(70 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 28 无机盐量
         public static final Position 无机盐量 =
-                new Position(82 * 2836, 102 * 2836, 20 * 2836, 46810);
+                new Position(88 * 2836, 104 * 2836, 20 * 2836, 46810);
         // 29 体脂肪量
         public static final Position 体脂肪量 =
-                new Position(104 * 2836, 102 * 2836, 20 * 2836, 46810);
+                new Position(105 * 2836, 104 * 2836, 20 * 2836, 46810);
 
         /* 3X. 体成分分析 */
         public static final int 体成分分析_X = 35 * 2836;
         public static final int 体成分分析_Y_BASE = 138 * 2836;
-        public static final int 体成分分析_Y_RANGE = 9 * 2836;
+        public static final int 体成分分析_Y_RANGE = (int)(9.5 * 2836);
         // 32 体重
         public static final Position 体成分分析_体重 =
                 new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 0, 33110, 46810);
@@ -490,38 +496,69 @@ public class BodyComposition {
                 new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 5, 33110, 46810);
         // 37 内脏脂肪
         public static final Position 体成分分析_内脏脂肪 =
-                new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 6, 33110, 46810);
+                new Position((132 - 1)* VALUE_72_X_1MM, 270 * 2836, 33110, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准
+        static int 调节建议_X_POS_BASE = 151 * VALUE_72_X_1MM;
+        static int 调节建议_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
+        static int 调节建议_Y_POS_BASE = 218 * VALUE_72_X_1MM;
+        static int 调节建议_Y_POS_RANGE = (int) (9.5 * VALUE_72_X_1MM);
         public static final Position 体重_标准 =
-                new Position(58 * 2836, 218 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 0 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 0 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 42 体重_当前
         public static final Position 体重_当前 =
-                new Position(85 * 2836, 218 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 1 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 0 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 43 体重_调试量
         public static final Position 体重_调节量 =
-                new Position(112 * 2836, 218 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 2 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 0 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 44 身体脂肪量_标准
         public static final Position 身体脂肪量_标准 =
-                new Position(58 * 2836, 226 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 0 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 1 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 45 身体脂肪量_当前
         public static final Position 身体脂肪量_当前 =
-                new Position(85 * 2836, 226 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 1 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 1 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 46 身体脂肪量_调试量
         public static final Position 身体脂肪量_调节量 =
-                new Position(112 * 2836, 226 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 2 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 1 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 47 肌肉量_标准
         public static final Position 肌肉量_标准 =
-                new Position(58 * 2836, 233 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 0 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 2 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 48 肌肉量_当前
         public static final Position 肌肉量_当前 =
-                new Position(85 * 2836, 233 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 1 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 2 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
         // 49 肌肉量_调节量
         public static final Position 肌肉量_调节量 =
-                new Position(112 * 2836, 233 * 2836, 33110, 46810);
+                new Position(
+                        调节建议_X_POS_BASE + 2 * 调节建议_X_POS_RANGE,
+                        调节建议_Y_POS_BASE + 2 * 调节建议_Y_POS_RANGE,
+                        33110, 46810);
 
-        /* 5x 节段肌肉 */
+        /* 5x 节段肌肉(深度科研) */
         // 51 左上肢肌肉含量
         public static final Position 左上肢肌肉含量 =
                 new Position(13 * 2836, 251 * 2836, 12 * 2836, 46810);
@@ -563,136 +600,247 @@ public class BodyComposition {
         public static final Position 躯干肢脂肪量 =
                 new Position(72 * 2836, 260 * 2836, 12 * 2836, 46810);
 
-        public static final int 节段电阻抗_LINE1_Y = 260 * 2836;
-        public static final int 节段电阻抗_LINE2_Y = 264 * 2836;
-        public static final int 节段电阻抗_LINE3_Y = 268 * 2836;
-
-        /* 7x 节段电阻抗 */
+        /* 7x 节段电阻抗（深度科研） */
+        static int 节段电阻抗_X_POS_BASE = 18 * VALUE_72_X_1MM;
+        static int 节段电阻抗_X_POS_RANGE = (int) (18 * VALUE_72_X_1MM);
+        static int 节段电阻抗_Y_POS_BASE = 260 * VALUE_72_X_1MM;
+        static int 节段电阻抗_Y_POS_RANGE = (int) (5.5 * VALUE_72_X_1MM);
         // 71.频率
         public static final Position 频率_5k =
-                new Position(105 * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 0 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 频率_50k =
-                new Position(105 * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 0 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 频率_250k =
-                new Position(105 * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 0 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         // 72.右上肢 x+16
         public static final Position 右上肢_5k =
-                new Position((105 + 1*17) * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 1 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 右上肢_50k =
-                new Position((105 + 1*17) * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 1 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 右上肢_250k =
-                new Position((105 + 1*17) * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 1 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         // 73.左上肢 x+16
         public static final Position 左上肢_5k =
-                new Position((105 + 2*17) * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 2 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 左上肢_50k =
-                new Position((105 + 2*17) * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 2 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 左上肢_250k =
-                new Position((105 + 2*17) * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 2 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         // 74.躯干 x+16
         public static final Position 躯干_5k =
-                new Position((105 + 3*17) * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 3 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 躯干_50k =
-                new Position((105 + 3*17) * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 3 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 躯干_250k =
-                new Position((105 + 3*17) * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 3 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         // 75.右下肢 x+16
         public static final Position 右下肢_5k =
-                new Position((105 + 4*17) * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 4 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 右下肢_50k =
-                new Position((105 + 4*17) * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 4 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 右下肢_250k =
-                new Position((105 + 4*17) * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 4 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         // 76.左下肢 x+16
         public static final Position 左下肢_5k =
-                new Position((105 + 5*17) * 2836, 节段电阻抗_LINE1_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 5 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 0 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 左下肢_50k =
-                new Position((105 + 5*17) * 2836, 节段电阻抗_LINE2_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 5 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 1 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
         public static final Position 左下肢_250k =
-                new Position((105 + 5*17) * 2836, 节段电阻抗_LINE3_Y, 12 * 2836, 46810);
+                new Position(
+                        节段电阻抗_X_POS_BASE + 5 * 节段电阻抗_X_POS_RANGE,
+                        节段电阻抗_Y_POS_BASE + 2 * 节段电阻抗_Y_POS_RANGE,
+                        12 * 2836, 46810);
 
-        /* 8x 肥胖评估 */
+        /* 8x 肥胖评估(身体情况评估) */
         // 81.体重
+        static int 肥胖评估_X_POS_BASE = 48 * VALUE_72_X_1MM;
+        static int 肥胖评估_X_POS_RANGE = (int) (27 * VALUE_72_X_1MM);
+        static int 肥胖评估_Y_POS_BASE = 210 * VALUE_72_X_1MM;
+        static int 肥胖评估_Y_POS_RANGE = (int) (10 * VALUE_72_X_1MM);
+        // 71.频率
         public static final Position 肥胖评估_体重_不足 =
-                new Position(153 * 2836, 216 * 2836, 4 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 0 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 0 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_体重_正常 =
-                new Position((153 + 17) * 2836, 216 * 2836, 4 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 1 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 0 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_体重_过量 =
-                new Position((153 + 35) * 2836, 216 * 2836, 4 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 2 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 0 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         // 82.脂肪量
         public static final Position 肥胖评估_脂肪量_不足 =
-                new Position(153 * 2836, 224 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 0 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 1 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_脂肪量_正常 =
-                new Position((153 + 17) * 2836, 224 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 1 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 1 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_脂肪量_过量 =
-                new Position((153 + 35) * 2836, 224 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 2 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 1 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         // 83.肌肉量
         public static final Position 肥胖评估_肌肉量_不足 =
-                new Position(153 * 2836, 232 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 0 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 2 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_肌肉量_正常 =
-                new Position((153 + 17) * 2836, 232 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 1 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 2 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         public static final Position 肥胖评估_肌肉量_过量 =
-                new Position((153 + 35) * 2836, 232 * 2836, 12 * 2836, 46810);
+                new Position(
+                        肥胖评估_X_POS_BASE + 2 * 肥胖评估_X_POS_RANGE,
+                        肥胖评估_Y_POS_BASE + 2 * 肥胖评估_Y_POS_RANGE,
+                        4 * 2836, 46810);
 
         /* 9x 营养评估 */
         // 91.蛋白质
+        static int 营养评估_X_POS_BASE = 148 * VALUE_72_X_1MM;
+        static int 营养评估_X_POS_RANGE = (int) (17.3 * VALUE_72_X_1MM);
+        static int 营养评估_Y_POS_BASE = 158 * VALUE_72_X_1MM;
+        static int 营养评估_Y_POS_RANGE = (int) (9 * VALUE_72_X_1MM);
         public static final Position 营养评估_蛋白质_不足 =
-                new Position(155 * 2836, 159 * 2836, 4 * 2836, 46810);
+                new Position(
+                        营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 0 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
 
         public static final Position 营养评估_蛋白质_正常 =
-                new Position((155 + 17) * 2836, 159 * 2836, 4 * 2836, 46810);
-
+                new Position(
+                        营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 0 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
         public static final Position 营养评估_蛋白质_过量 =
-                new Position((155 + 35) * 2836, 159 * 2836, 4 * 2836, 46810);
-
+                new Position(
+                        营养评估_X_POS_BASE + 2 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 0 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
         // 92.无机盐
         public static final Position 营养评估_无机盐_不足 =
-                new Position(155 * 2836, 167 * 2836, 12 * 2836, 46810);
-
+                new Position(
+                        营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 1 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
         public static final Position 营养评估_无机盐_正常 =
-                new Position((155 + 17) * 2836, 167 * 2836, 12 * 2836, 46810);
-
+                new Position(
+                        营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 1 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
         public static final Position 营养评估_无机盐_过量 =
-                new Position((155 + 35) * 2836, 167 * 2836, 12 * 2836, 46810);
-
+                new Position(
+                        营养评估_X_POS_BASE + 2 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 1 * 营养评估_Y_POS_RANGE,
+                        4 * VALUE_72_X_1MM, 46810);
         // 93.基础代谢量
         public static final Position 基础代谢量 =
-                new Position(171 * 2836, 180 * 2836, 12 * 2836, 46810);
+                new Position(
+                        营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 2 * 营养评估_Y_POS_RANGE,
+                        12 * VALUE_72_X_1MM, 46810);
         // 94.总能量消耗
         public static final Position 总能量消耗 =
-                new Position(171 * 2836, 188 * 2836, 12 * 2836, 46810);
+                new Position(
+                        营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
+                        营养评估_Y_POS_BASE + 3 * 营养评估_Y_POS_RANGE,
+                        12 * VALUE_72_X_1MM, 46810);
         // 95.身体年龄
         public static final Position 身体年龄 =
-                new Position(171 * 2836, 196 * 2836, 12 * 2836, 46810);
-
+                new Position(174 * 2836, 49 * 2836, 12 * 2836, 46810);
         // 10x.健康评估
         public static final Position 健康评估 =
-                new Position(135 * 2836, 272 * 2836, 18 * 2836, 46810);
+                new Position((int)(174 * VALUE_72_X_1MM), 40 * 2836, 18 * 2836, 46810);
+
+
+
         /**
          * Creates a new instance.
          * @param widthMils The width in mils (thousands of an inch).

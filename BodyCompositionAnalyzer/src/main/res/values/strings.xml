@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Body Composition Analyzer</string>
     <string name="action_settings">Settings</string>
-    <bool name="is_print_total_score">false</bool>
+    <bool name="is_print_total_score">true</bool>
 </resources>
