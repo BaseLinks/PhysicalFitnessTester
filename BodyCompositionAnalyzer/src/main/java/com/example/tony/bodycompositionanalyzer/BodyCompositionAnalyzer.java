@@ -1112,9 +1112,11 @@ public class BodyCompositionAnalyzer {
             drawShapeAnalysis(bc, textPaint, canvas);
 
 			// 11x.健康评估 okay
-			textPaint.setTextSize(20);
-			tmpStr = bc.身体总评分;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.健康评估, mAlignment);
+            if (mContext.getResources().getBoolean(R.bool.is_print_total_score)) {
+                textPaint.setTextSize(20);
+                tmpStr = bc.身体总评分;
+                drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.健康评估, mAlignment);
+            }
 
 			// finish the page
 			document.finishPage(page);

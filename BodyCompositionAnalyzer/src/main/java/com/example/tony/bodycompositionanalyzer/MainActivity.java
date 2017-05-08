@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
 import android.graphics.Bitmap;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox mDotPrintCheckBox;
     private TextView mPrinterTextView;
     private TextView mSerialTextView;
+    private TextView mDescriptTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
         mDotPrintCheckBox = (CheckBox) findViewById(R.id.dont_print_checkbox);
         mPrinterTextView = (TextView) findViewById(R.id.printer_textview);
         mSerialTextView = (TextView) findViewById(R.id.serial_textview);
+        mDescriptTextView = (TextView) findViewById(R.id.des_textview);
 
         mPrinterTextView.setText(Printer.getInstance(mContext).isConnected() ?  "已连接" : "未连接");
+        mDescriptTextView.setText("版本号: " + getVersionName() + "\n" + "打印总分：" + getResources().getBoolean(R.bool.is_print_total_score));
 
         boolean isDrawNegative = PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE);
         mDrawNegative.setChecked(isDrawNegative);
@@ -94,6 +98,26 @@ public class MainActivity extends AppCompatActivity {
             handleEvent(intent);
         }
     };
+
+
+    /**
+     * 获取版本号
+     * @return
+     */
+    public String getVersionName() {
+        String version = "unkown";
+        try {
+            // 获取packagemanager的实例
+            PackageManager packageManager = getPackageManager();
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = null;
+            packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            version = packInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
+    }
 
     private void handleEvent(Intent intent) {
         Log.i(LOG_TAG, "handleEvent");

@@ -104,4 +104,12 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:text="版本说明：0.6添加FE，打印总分"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/parse_helloworld_button"
+        android:layout_marginTop="28dp"
+        android:id="@+id/des_textview" />
+
 </RelativeLayout>
