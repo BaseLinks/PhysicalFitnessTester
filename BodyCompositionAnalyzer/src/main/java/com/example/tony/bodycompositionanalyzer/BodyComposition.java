@@ -425,7 +425,7 @@ public class BodyComposition {
      */
     public static final class Position {
         private static final String LOG_TAG = "Posistion";
-        static int VALUE_72_X_1MM = 2835;
+        static int VALUE_72_X_1MM = 2836;
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Position 姓名 =
@@ -445,32 +445,37 @@ public class BodyComposition {
 
         /* 2X. 休成分结果 */
         // 21 体重
+        public static final int 休成分结果_X = 52 * VALUE_72_X_1MM;
+        public static final int 休成分结果_X_2 = 32 * VALUE_72_X_1MM;
+        public static final int 休成分结果_Y_BASE = 72 * VALUE_72_X_1MM;
+        public static final int 休成分结果_X_RANGE = (int)(17.5 * VALUE_72_X_1MM);
+        public static final int 休成分结果_Y_RANGE = (int)(5.9 * VALUE_72_X_1MM);
         public static final Position 体重2 =
-                new Position(52 * 2836, 74 * 2836, 85 * 2836, 46810);
+                new Position(休成分结果_X, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 0, 85 * VALUE_72_X_1MM, 46810);
         // 22 去脂肪体重
         public static final Position 去脂肪体重 =
-                new Position(52 * 2836, 79 * 2836, 85 * 2836, 46810);
+                new Position(休成分结果_X, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 1, 85 * VALUE_72_X_1MM, 46810);
         // 23 肌肉量
         public static final Position 肌肉量 =
-                new Position(52 * 2836, 86 * 2836, 85 * 2836, 46810);
+                new Position(休成分结果_X, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 2, 85 * VALUE_72_X_1MM, 46810);
         // 24 身体总水分
         public static final Position 身体总水分 =
-                new Position(52 * 2836, 92 * 2836, 85 * 2836, 46810);
+                new Position(休成分结果_X - 8 * VALUE_72_X_1MM, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 3, 85 * VALUE_72_X_1MM, 46810);
         // 25 细胞内液
         public static final Position 细胞内液 =
-                new Position(32 * 2836, 104 * 2836, 20 * 2836, 46810);
+                new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 0, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 5, 20 * 2836, 46810);
         // 26 细胞外液
         public static final Position 细胞外液 =
-                new Position(53 * 2836, 104 * 2836, 20 * 2836, 46810);
+                new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 1, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 5, 20 * 2836, 46810);
         // 27 蛋白质量
         public static final Position 蛋白质量 =
-                new Position(70 * 2836, 104 * 2836, 20 * 2836, 46810);
+                new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 2, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 4, 20 * 2836, 46810);
         // 28 无机盐量
         public static final Position 无机盐量 =
-                new Position(88 * 2836, 104 * 2836, 20 * 2836, 46810);
+                new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 3, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 3, 20 * 2836, 46810);
         // 29 体脂肪量
         public static final Position 体脂肪量 =
-                new Position(105 * 2836, 104 * 2836, 20 * 2836, 46810);
+                new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 4, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 2, 20 * 2836, 46810);
 
         /* 3X. 体成分分析 */
         public static final int 体成分分析_X = 35 * 2836;

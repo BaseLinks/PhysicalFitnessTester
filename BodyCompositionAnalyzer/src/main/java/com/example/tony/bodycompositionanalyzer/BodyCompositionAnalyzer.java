@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
@@ -59,8 +61,6 @@ public class BodyCompositionAnalyzer {
 
 	/** 串口相关 */
 	private static final String BAUDRATE_COIN = "9600";
-	/** 字体大小 */
-	private static final float FONT_SIZE_8 = 8;
 
 	/** 打印机对象 */
 	private Printer mPrinter;
@@ -75,6 +75,13 @@ public class BodyCompositionAnalyzer {
 
 	public static final String KEY_IS_DRAW_NEGATIVE = "IS_DRAW_NEGATIVE";
 	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
+
+	private static final int TEXT_SIZE_DEF     = 9;
+    private static final int TEXT_SIZE_休成分结果 = 8;
+	private static final int TEXT_SIZE_健康评估 = 16;
+	private static final int TEXT_SIZE_体型分析 = 20;
+	private static final String TEXT_TICK    = "√";
+	private static final String TEXT_体型分析 = "✔";
 
     /** 使用自定义字体：宋体 */
     private static Typeface mFontTypeface;
@@ -590,7 +597,7 @@ public class BodyCompositionAnalyzer {
 			// 画笔
 			Paint defPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			float size = defPaint.getTextSize();
-			defPaint.setTextSize(8);
+			defPaint.setTextSize(TEXT_SIZE_DEF);
             defPaint.setTypeface(mFontTypeface);
             Rect rect = null;
             int high = getTextHeight("HelloWorld", defPaint);
@@ -619,7 +626,7 @@ public class BodyCompositionAnalyzer {
 				}
 			}
 
-			textPaint.setTextSize(8);
+			textPaint.setTextSize(TEXT_SIZE_DEF);
 
 			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
@@ -660,6 +667,7 @@ public class BodyCompositionAnalyzer {
 
 			/* 2x. 休成分结果 */
 			// 21 体重2
+            textPaint.setTextSize(TEXT_SIZE_休成分结果);
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.体重2 + "kg [" + bc.体重标准范围 + "]";
@@ -716,29 +724,21 @@ public class BodyCompositionAnalyzer {
 
 			/* 3x. 体成分分析　*/
             /* 31. 体重 */
+            textPaint.setTextSize(TEXT_SIZE_DEF); // 还原字体大小
 			paint.setColor(Color.BLACK);
 			paint.setStrokeWidth(5f);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			float xPos = BodyComposition.Position.体成分分析_体重.getXMils() / 1000 +
 					getProgressLength3(bc.体重_CUR, bc.体重_MIN, bc.体重_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_体重.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
-                    paint);
-//            canvas.drawText(
-//                    "♡❤ with keyboard)",
-//                    xPos,
-//                    BodyComposition.Position.体成分分析_体重.getYMils() / 1000,
-//                    paint);
-			canvas.drawText(
+            drawProgress(canvas, BodyComposition.Position.体成分分析_体重, xPos, paint);
+            canvas.drawText(
 					String.format("%.1f", (float) bc.体重_CUR / 10),
 					xPos,
 					BodyComposition.Position.体成分分析_体重.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
-					paint);
+					textPaint);
 			// 还原
 			paint.setStrokeWidth(defPaint.getStrokeWidth());
+            paint.setShader(defPaint.getShader());
 
             /* 32. 身体质量(BMI) */
             paint.setColor(Color.BLACK);
@@ -746,12 +746,7 @@ public class BodyCompositionAnalyzer {
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000 +
 					getProgressLength3(bc.身体质量_CUR, bc.身体质量_MIN, bc.身体质量_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_身体质量.getYMils() / 1000,
-                    paint);
+            drawProgress(canvas, BodyComposition.Position.体成分分析_身体质量, xPos, paint);
             canvas.drawText(
 					String.format("%.1f", (float) bc.身体质量_CUR / 10),
 					xPos,
@@ -766,12 +761,7 @@ public class BodyCompositionAnalyzer {
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000 +
 					getProgressLength3(bc.脂肪率_CUR, bc.脂肪率_MIN, bc.脂肪率_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_体脂肪率.getYMils() / 1000,
-                    paint);
+            drawProgress(canvas, BodyComposition.Position.体成分分析_体脂肪率, xPos, paint);
             canvas.drawText(
 					String.format("%.1f", (float) bc.脂肪率_CUR / 10),
 					xPos,
@@ -786,12 +776,7 @@ public class BodyCompositionAnalyzer {
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000 +
 					getProgressLength3(bc.体脂肪量_CUR, bc.体脂肪量_MIN, bc.体脂肪量_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_体脂肪量.getYMils() / 1000,
-                    paint);
+            drawProgress(canvas, BodyComposition.Position.体成分分析_体脂肪量, xPos, paint);
             canvas.drawText(
 					String.format("%.1f", (float) bc.体脂肪量_CUR / 10),
 					xPos,
@@ -806,12 +791,7 @@ public class BodyCompositionAnalyzer {
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000 +
 					getProgressLength3(bc.肌肉量_CUR, bc.肌肉量_MIN, bc.肌肉量_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_肌肉量.getYMils() / 1000,
-                    paint);
+            drawProgress(canvas, BodyComposition.Position.体成分分析_肌肉量, xPos, paint);
             canvas.drawText(
 					String.format("%.1f", (float) bc.肌肉量_CUR / 10),
 					xPos,
@@ -826,12 +806,7 @@ public class BodyCompositionAnalyzer {
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000 +
 					getProgressLength3(bc.身体总水分_CUR, bc.身体总水分_MIN, bc.身体总水分_MAX);
-            canvas.drawLine(
-                    BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000,
-                    BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
-                    xPos,
-                    BodyComposition.Position.体成分分析_身体水分.getYMils() / 1000,
-                    paint);
+            drawProgress(canvas, BodyComposition.Position.体成分分析_身体水分, xPos, paint);
             canvas.drawText(
 					String.format("%.1f", (float) bc.身体总水分_CUR / 10),
 					xPos,
@@ -881,7 +856,7 @@ public class BodyCompositionAnalyzer {
 			/* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
 			float tmpFloat = bc.体重_REG / 10f;
 			canvas.drawText(
-					((tmpFloat < 0) ? "-" : "+") + tmpFloat,
+					((tmpFloat < 0) ? "" : "+") + tmpFloat,
 					BodyComposition.Position.体重_调节量.getXMils() / 1000,
 					BodyComposition.Position.体重_调节量.getYMils() / 1000,
 					paint);
@@ -906,7 +881,7 @@ public class BodyCompositionAnalyzer {
 			paint.setTextAlign(Paint.Align.CENTER);
 			tmpFloat = (float) bc.脂肪量_REG / 10;
 			canvas.drawText(
-					((tmpFloat < 0) ? "-" : "+") + tmpFloat,
+					((tmpFloat < 0) ? "" : "+") + tmpFloat,
 					BodyComposition.Position.身体脂肪量_调节量.getXMils() / 1000,
 					BodyComposition.Position.身体脂肪量_调节量.getYMils() / 1000,
 					paint);
@@ -931,7 +906,7 @@ public class BodyCompositionAnalyzer {
 			paint.setTextAlign(Paint.Align.CENTER);
 			tmpFloat = bc.肌肉量_REG / 10f;
 			canvas.drawText(
-					((tmpFloat < 0) ? "-" : "+") + tmpFloat,
+					((tmpFloat < 0) ? "" : "+") + tmpFloat,
 					BodyComposition.Position.肌肉量_调节量.getXMils() / 1000,
 					BodyComposition.Position.肌肉量_调节量.getYMils() / 1000,
 					paint);
@@ -1056,7 +1031,7 @@ public class BodyCompositionAnalyzer {
 
 //			textPaint.setTextSize(20); 不再加大字体了
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
+			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
 
             // 82.肥胖评估 脂肪量
 			tmpStr = getAssessment(bc.体脂肪量, bc.体脂肪量标准);
@@ -1067,7 +1042,7 @@ public class BodyCompositionAnalyzer {
 			} else {
 				bcp = BodyComposition.Position.肥胖评估_脂肪量_过量;
 			}
-			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
+			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
 
             // 83.肥胖评估 肌肉量
 			tmpStr = getAssessment(bc.肌肉量, bc.肌肉标准);
@@ -1078,7 +1053,7 @@ public class BodyCompositionAnalyzer {
 			} else {
 				bcp = BodyComposition.Position.肥胖评估_肌肉量_过量;
 			}
-			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
+			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
 
 			// 9.营养评估 写「√」
             // 91. 蛋白质
@@ -1093,7 +1068,7 @@ public class BodyCompositionAnalyzer {
 
 //			textPaint.setTextSize(20); 不再增大字体
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
+			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
 
             // 92. 无机盐
             tmpStr = getAssessment(bc.无机盐含量, bc.无机盐含量正常范围);
@@ -1104,10 +1079,10 @@ public class BodyCompositionAnalyzer {
             } else {
                 bcp = BodyComposition.Position.营养评估_无机盐_过量;
             }
-			drawMutilLineText(bc, "√", textPaint, canvas, bcp, mAlignment);
+			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
 
 			// 93.基础代谢量 okay
-            textPaint.setTextSize(8);
+            textPaint.setTextSize(TEXT_SIZE_DEF);
 			tmpStr = bc.基础代谢量;
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.基础代谢量, mAlignment);
 
@@ -1124,7 +1099,7 @@ public class BodyCompositionAnalyzer {
 
 			// 11x.健康评估 okay
             if (mContext.getResources().getBoolean(R.bool.is_print_total_score)) {
-                textPaint.setTextSize(16);
+                textPaint.setTextSize(TEXT_SIZE_健康评估);
                 tmpStr = bc.身体总评分;
                 drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.健康评估, mAlignment);
             }
@@ -1148,6 +1123,62 @@ public class BodyCompositionAnalyzer {
 			}
 		}
 	}
+
+    /**
+     * 绘制[体成分分析]
+     * 需要分三段，第一段和第三段一种颜色，第二段另外一种颜色
+     */
+	public void drawProgress(Canvas canvas, BodyComposition.Position bp, float xPos, Paint paint) {
+        int oldApla = paint.getAlpha();
+        // 得出每一段长度
+        final float RANGE_1_START = bp.getXMils() / 1000;
+        final float RANGE_2_START = bp.getXMils() / 1000 + 体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_3_START = bp.getXMils() / 1000 + 体成分分析_THIRD_START_PX / 1000;
+
+        // 死值
+        final float RANGE_1_LENGTH = 体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_2_LENGTH = 体成分分析_THIRD_START_PX / 1000;
+        final float RANGE_3_LENGTH = 体成分分析_TOTAL_LENGTH_PX / 1000;
+
+        float RANGE_1 = xPos - RANGE_1_START;
+        float RANGE_2 = xPos - RANGE_2_START;
+        float RANGE_3 = xPos - RANGE_3_START;
+        if (RANGE_1 > RANGE_1_LENGTH) RANGE_1 = RANGE_1_LENGTH;
+        if (RANGE_2 > RANGE_2_LENGTH) RANGE_2 = RANGE_2_LENGTH;
+        if (RANGE_3 > RANGE_3_LENGTH) RANGE_3 = RANGE_3_LENGTH;
+
+        Log.i(LOG_TAG, "RANGE_1: " + RANGE_1 + " RANGE_2: " + RANGE_2 + " RANGE_3: " + RANGE_3);
+
+        // 深色
+        if (RANGE_1 > 0) {
+            canvas.drawLine(
+                    RANGE_1_START,
+                    bp.getYMils() / 1000,
+                    RANGE_1_START + RANGE_1,
+                    bp.getYMils() / 1000,
+                    paint);
+        }
+        // 浅色
+        paint.setAlpha(50);
+        if (RANGE_2 > 0) {
+            canvas.drawLine(
+                    RANGE_2_START,
+                    bp.getYMils() / 1000,
+                    RANGE_2_START + RANGE_2,
+                    bp.getYMils() / 1000,
+                    paint);
+        }
+        // 深色
+        paint.setAlpha(oldApla);
+        if (RANGE_3 > 0) {
+            canvas.drawLine(
+                    RANGE_3_START,
+                    bp.getYMils() / 1000,
+                    RANGE_3_START + RANGE_3,
+                    bp.getYMils() / 1000,
+                    paint);
+        }
+    }
 
     /**
      * 10x
@@ -1196,8 +1227,8 @@ public class BodyCompositionAnalyzer {
         /**
          * 坐标由iso mm转换为英寸point
          */
-		textPaint.setTextSize(20);
-        canvas.drawText("■", (float)(xPos * 2836 - 10) / 1000, (float)(yPos * 2836 + 10) / 1000, textPaint);
+		textPaint.setTextSize(TEXT_SIZE_体型分析);
+        canvas.drawText(TEXT_体型分析, (float)(xPos * 2836 - 10) / 1000, (float)(yPos * 2836 + 10) / 1000, textPaint);
     }
 
     private static final String SEPARATOR = "-";
@@ -1414,6 +1445,11 @@ public class BodyCompositionAnalyzer {
 
 	public static final int 体成分分析_TOTAL_LENGTH = 89;
 	public static final int 内脏指数_TOTAL_LENGTH = 66; //89;
+    public static final float 体成分分析_SECOND_START_MM = 27f;
+    public static final float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * BodyComposition.Position.VALUE_72_X_1MM;
+    public static final float 体成分分析_THIRD_START_MM = 49f;
+    public static final float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * BodyComposition.Position.VALUE_72_X_1MM;
+    public static final float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * BodyComposition.Position.VALUE_72_X_1MM;
 
 	//Item  项目
 	//返回
@@ -1563,8 +1599,8 @@ public class BodyCompositionAnalyzer {
 		final float HIGH_END   = THIRD_START + max;
 
 		final float FIRST_START_MM = 0f;
-		final float SECOND_START_MM = 28.5f;// 35.8f;
-		final float THIRD_START_MM = 51f; // 56.8f;
+		final float SECOND_START_MM = 体成分分析_SECOND_START_MM;// 35.8f;
+		final float THIRD_START_MM = 体成分分析_THIRD_START_MM; // 56.8f;
 		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
 
 		final float FIRST_LENGTH_MM = SECOND_START_MM - FIRST_START_MM;
@@ -1592,7 +1628,7 @@ public class BodyCompositionAnalyzer {
 
 		Log.i(LOG_TAG, "r: " + r);
 
-		return r * 2836 / 1000;
+		return r * BodyComposition.Position.VALUE_72_X_1MM / 1000;
 	}
 
     public String getPdfPath() {
