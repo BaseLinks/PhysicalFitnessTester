@@ -483,8 +483,8 @@ public class BodyComposition {
                 new Position(休成分结果_X_2 + 休成分结果_X_RANGE * 4, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
 
         /* 3X. 体成分分析 */
-        public static final int 体成分分析_X = (35-2) * VALUE_72_X_1MM;
-        public static final int 体成分分析_Y_BASE = (138 - 5) * VALUE_72_X_1MM;
+        public static final int 体成分分析_X = 34 * VALUE_72_X_1MM;
+        public static final int 体成分分析_Y_BASE = 135 * VALUE_72_X_1MM;
         public static final int 体成分分析_Y_RANGE = (int)(9.5 * VALUE_72_X_1MM);
         // 32 体重
         public static final Position 体成分分析_体重 =
@@ -506,13 +506,13 @@ public class BodyComposition {
                 new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 5, 33110, 46810);
         // 37 内脏脂肪
         public static final Position 体成分分析_内脏脂肪 =
-                new Position((132 - 1)* VALUE_72_X_1MM, 270 * VALUE_72_X_1MM, 33110, 46810);
+                new Position(132* VALUE_72_X_1MM, 270 * VALUE_72_X_1MM, 33110, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准
-        static int 调节建议_X_POS_BASE = 151 * VALUE_72_X_1MM;
+        static int 调节建议_X_POS_BASE = 153 * VALUE_72_X_1MM;
         static int 调节建议_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
-        static int 调节建议_Y_POS_BASE = 218 * VALUE_72_X_1MM;
+        static int 调节建议_Y_POS_BASE = 215 * VALUE_72_X_1MM;
         static int 调节建议_Y_POS_RANGE = (int) (9.5 * VALUE_72_X_1MM);
         public static final Position 体重_标准 =
                 new Position(
@@ -732,7 +732,7 @@ public class BodyComposition {
         /* 8x 肥胖评估(身体情况评估) */
         // 81.体重
         static int 肥胖评估_X_POS_BASE = 46 * VALUE_72_X_1MM;
-        static int 肥胖评估_X_POS_RANGE = (int) (27 * VALUE_72_X_1MM);
+        static int 肥胖评估_X_POS_RANGE = (int) (27.2 * VALUE_72_X_1MM);
         static int 肥胖评估_Y_POS_BASE = 208 * VALUE_72_X_1MM;
         static int 肥胖评估_Y_POS_RANGE = (int) (10 * VALUE_72_X_1MM);
         // 71.频率
@@ -796,7 +796,7 @@ public class BodyComposition {
         // 91.蛋白质
         static int 营养评估_X_POS_BASE = 148 * VALUE_72_X_1MM;
         static int 营养评估_X_POS_RANGE = (int) (17.3 * VALUE_72_X_1MM);
-        static int 营养评估_Y_POS_BASE = 153 * VALUE_72_X_1MM;
+        static int 营养评估_Y_POS_BASE = 155 * VALUE_72_X_1MM;
         static int 营养评估_Y_POS_RANGE = (int) (9 * VALUE_72_X_1MM);
         public static final Position 营养评估_蛋白质_不足 =
                 new Position(
