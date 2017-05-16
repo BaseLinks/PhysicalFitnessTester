@@ -105,9 +105,9 @@ public class BodyCompositionAnalyzer {
     private BodyCompositionAnalyzer(Context context) {
         this.mContext = context;
         mFontTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/simsun.ttf");
-        mPdfPath = mContext.getExternalCacheDir()
+        mPdfPath = mContext.getCacheDir()
                 + File.separator + "test.pdf";
-        mRasterPath = mContext.getExternalCacheDir()
+        mRasterPath = mContext.getCacheDir()
                 + File.separator + "test.bin";
 		// 初始化打印机(初始化结果要告知用户)
 		mPrinter = Printer.getInstance(context);

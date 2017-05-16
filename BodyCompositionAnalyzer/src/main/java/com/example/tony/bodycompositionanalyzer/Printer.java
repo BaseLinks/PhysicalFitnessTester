@@ -658,7 +658,7 @@ public class Printer {
                     "-sSubdevice=unspec " +
                     "-sPJLLanguage=PCL3GUI " +
                     "-dOnlyCRD " +
-                    "-r600 " +
+                    "-r300 " +
                     "-sColourModel=CMYK " +
                     "-sPrintQuality=draft " +
                     "-sMedium=plain " +
@@ -670,6 +670,7 @@ public class Printer {
                     " " +
                     pdf +
                     " -c quit";
+            Log.i(LOG_TAG, "cmd: " + cmd);
             cr = ShellUtils.execCommand(cmd, true);
             if(cr.result == 0) {
                 cr = ShellUtils.execCommand("chmod 777 " + rasterPath, true);
