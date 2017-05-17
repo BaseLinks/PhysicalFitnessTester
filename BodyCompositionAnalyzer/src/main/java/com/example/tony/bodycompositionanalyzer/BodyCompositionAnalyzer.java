@@ -1129,7 +1129,7 @@ public class BodyCompositionAnalyzer {
      * 需要分三段，第一段和第三段一种颜色，第二段另外一种颜色
      */
 	public void drawProgress(Canvas canvas, BodyComposition.Position bp, float xPos, Paint paint) {
-        int oldApla = paint.getAlpha();
+        int oldColor = paint.getColor();
         // 得出每一段长度
         final float RANGE_1_START = bp.getXMils() / 1000;
         final float RANGE_2_START = bp.getXMils() / 1000 + 体成分分析_SECOND_START_PX / 1000;
@@ -1159,7 +1159,7 @@ public class BodyCompositionAnalyzer {
                     paint);
         }
         // 浅色
-        paint.setAlpha(50);
+        paint.setColor(Color.GRAY);
         if (RANGE_2 > 0) {
             canvas.drawLine(
                     RANGE_2_START,
@@ -1169,7 +1169,7 @@ public class BodyCompositionAnalyzer {
                     paint);
         }
         // 深色
-        paint.setAlpha(oldApla);
+        paint.setColor(oldColor);
         if (RANGE_3 > 0) {
             canvas.drawLine(
                     RANGE_3_START,
