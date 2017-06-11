@@ -403,8 +403,8 @@ public class BodyComposition {
      * |
      * |_________
      */
-    public static final double ORIGIN_X = 132 - 3; //133;
-    public static final double ORIGIN_Y = 138.5 + 2; //146;
+    public static final double ORIGIN_X = 133 ;// 132 - 3; //133;
+    public static final double ORIGIN_Y = 246 ;//138.5 + 2; //146;
 
     /** 结束符默认值 */
     public static final byte 结束符_DEF = (byte) 0xDD;
@@ -429,8 +429,8 @@ public class BodyComposition {
         static int LINE1_Y = 35;
         static int LINE2_Y = 45;
         static int COW1_X = 39;
-        static int COW2_X = 70;
-        static int COW3_X = 110;
+        static int COW2_X = 60; //70;
+        static int COW3_X = 103; // 110;
 
         /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
         public static final Position 姓名 =
@@ -450,11 +450,11 @@ public class BodyComposition {
 
         /* 2X. 休成分结果 */
         // 21 体重
-        public static final int 休成分结果_X = 52 * VALUE_72_X_1MM;
-        public static final int 休成分结果_X_2 = 32 * VALUE_72_X_1MM;
-        public static final int 休成分结果_Y_BASE = (72-5) * VALUE_72_X_1MM;
-        public static final int 休成分结果_X_RANGE = (int)(17.5 * VALUE_72_X_1MM);
-        public static final int 休成分结果_Y_RANGE = (int)(5.9 * VALUE_72_X_1MM);
+        public static final int 休成分结果_X = 30 * VALUE_72_X_1MM;
+        public static final int 休成分结果_X_2 = 14 * VALUE_72_X_1MM;
+        public static final int 休成分结果_Y_BASE = 62 * VALUE_72_X_1MM;
+        public static final int 休成分结果_X_RANGE = (int)(22 * VALUE_72_X_1MM);
+        public static final int 休成分结果_Y_RANGE = (int)(6.8 * VALUE_72_X_1MM);
         public static final Position 体重2 =
                 new Position(休成分结果_X, 休成分结果_Y_BASE + 休成分结果_Y_RANGE * 0, 85 * VALUE_72_X_1MM, 46810);
         // 22 去脂肪体重
@@ -484,8 +484,8 @@ public class BodyComposition {
 
         /* 3X. 体成分分析 */
         public static final int 体成分分析_X = 34 * VALUE_72_X_1MM;
-        public static final int 体成分分析_Y_BASE = 135 * VALUE_72_X_1MM;
-        public static final int 体成分分析_Y_RANGE = (int)(9.5 * VALUE_72_X_1MM);
+        public static final int 体成分分析_Y_BASE = 217 * VALUE_72_X_1MM;
+        public static final int 体成分分析_Y_RANGE = (int)(5.4 * VALUE_72_X_1MM);
         // 32 体重
         public static final Position 体成分分析_体重 =
                 new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 0, 33110, 46810);
@@ -506,13 +506,13 @@ public class BodyComposition {
                 new Position(体成分分析_X, 体成分分析_Y_BASE + 体成分分析_Y_RANGE * 5, 33110, 46810);
         // 37 内脏脂肪
         public static final Position 体成分分析_内脏脂肪 =
-                new Position(132* VALUE_72_X_1MM, 270 * VALUE_72_X_1MM, 33110, 46810);
+                new Position(132* VALUE_72_X_1MM, 152 * VALUE_72_X_1MM, 33110, 46810);
 
         /* 4X. 调节建议 */
         // 41 体重_标准
         static int 调节建议_X_POS_BASE = 153 * VALUE_72_X_1MM;
         static int 调节建议_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
-        static int 调节建议_Y_POS_BASE = 215 * VALUE_72_X_1MM;
+        static int 调节建议_Y_POS_BASE = 95 * VALUE_72_X_1MM;
         static int 调节建议_Y_POS_RANGE = (int) (9.5 * VALUE_72_X_1MM);
         public static final Position 体重_标准 =
                 new Position(
@@ -570,50 +570,83 @@ public class BodyComposition {
 
         /* 5x 节段肌肉(深度科研) */
         // 51 左上肢肌肉含量
+        static int 节段肌肉_X_POS_BASE = 30 * VALUE_72_X_1MM;
+        static int 节段肌肉_X_POS_RANGE = (int) (70 * VALUE_72_X_1MM);
+        static int 节段肌肉_Y_POS_BASE = 160 * VALUE_72_X_1MM;
+        static int 节段肌肉_Y_POS_RANGE_LITTLE = (int) (4.5 * VALUE_72_X_1MM);
+        static int 节段肌肉_Y_POS_RANGE_LARGE  = (int) (13 * VALUE_72_X_1MM);
         public static final Position 左上肢肌肉含量 =
-                new Position(13 * VALUE_72_X_1MM, 251 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
-
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE + 0 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
         // 52 左下肢肌肉含量
         public static final Position 左下肢肌肉含量 =
-                new Position(13 * VALUE_72_X_1MM, 273 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE + 0 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 53 右上肢肌肉含量
         public static final Position 右上肢肌肉含量 =
-                new Position(41 * VALUE_72_X_1MM, 251 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE + 0 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 54 右下肢肌肉含量
         public static final Position 右下肢肌肉含量 =
-                new Position(41 * VALUE_72_X_1MM, 273 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE + 0 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 55 躯干肌肉含量
         public static final Position 躯干肌肉含量 =
-                new Position(28 * VALUE_72_X_1MM, 260 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 1 * 节段肌肉_Y_POS_RANGE_LARGE + 0 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         /* 6x 节段脂肪 */
         // 61 左上肢脂肪量
         public static final Position 左上肢脂肪量 =
-                new Position(58 * VALUE_72_X_1MM, 251 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE + 1 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 62 左下肢脂肪量
         public static final Position 左下肢脂肪量 =
-                new Position(58 * VALUE_72_X_1MM, 273 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
-
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE + 1 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
         // 63 右上肢脂肪量
         public static final Position 右上肢脂肪量 =
-                new Position(87 * VALUE_72_X_1MM, 251 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE + 1 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 64 右下肢脂肪量
         public static final Position 右下肢脂肪量 =
-                new Position(87 * VALUE_72_X_1MM, 273 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE + 1 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
         // 65 躯干脂肪量
         public static final Position 躯干肢脂肪量 =
-                new Position(72 * VALUE_72_X_1MM, 260 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(
+                        节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                        节段肌肉_Y_POS_BASE + 1 * 节段肌肉_Y_POS_RANGE_LARGE + 1 * 节段肌肉_Y_POS_RANGE_LITTLE,
+                        33110, 46810);
 
-        /* 7x 节段电阻抗（深度科研） */
+        /* 7x 节段电阻抗（深度科研、科研数据） */
         static int 节段电阻抗_X_POS_BASE = 18 * VALUE_72_X_1MM;
         static int 节段电阻抗_X_POS_RANGE = (int) (18 * VALUE_72_X_1MM);
-        static int 节段电阻抗_Y_POS_BASE = 260 * VALUE_72_X_1MM;
+        static int 节段电阻抗_Y_POS_BASE = 267 * VALUE_72_X_1MM;
         static int 节段电阻抗_Y_POS_RANGE = (int) (5.5 * VALUE_72_X_1MM);
         // 71.频率
         public static final Position 频率_5k =
@@ -731,10 +764,10 @@ public class BodyComposition {
 
         /* 8x 肥胖评估(身体情况评估) */
         // 81.体重
-        static int 肥胖评估_X_POS_BASE = 46 * VALUE_72_X_1MM;
-        static int 肥胖评估_X_POS_RANGE = (int) (27.2 * VALUE_72_X_1MM);
-        static int 肥胖评估_Y_POS_BASE = 208 * VALUE_72_X_1MM;
-        static int 肥胖评估_Y_POS_RANGE = (int) (10 * VALUE_72_X_1MM);
+        static int 肥胖评估_X_POS_BASE = 33 * VALUE_72_X_1MM;
+        static int 肥胖评估_X_POS_RANGE = (int) (12 * VALUE_72_X_1MM);
+        static int 肥胖评估_Y_POS_BASE = 120 * VALUE_72_X_1MM;
+        static int 肥胖评估_Y_POS_RANGE = (int) (11.5 * VALUE_72_X_1MM);
         // 71.频率
         public static final Position 肥胖评估_体重_不足 =
                 new Position(
@@ -794,10 +827,10 @@ public class BodyComposition {
 
         /* 9x 营养评估 */
         // 91.蛋白质
-        static int 营养评估_X_POS_BASE = 148 * VALUE_72_X_1MM;
-        static int 营养评估_X_POS_RANGE = (int) (17.3 * VALUE_72_X_1MM);
-        static int 营养评估_Y_POS_BASE = 155 * VALUE_72_X_1MM;
-        static int 营养评估_Y_POS_RANGE = (int) (9 * VALUE_72_X_1MM);
+        static int 营养评估_X_POS_BASE = 152 * VALUE_72_X_1MM;
+        static int 营养评估_X_POS_RANGE = (int) (20 * VALUE_72_X_1MM);
+        static int 营养评估_Y_POS_BASE = 38 * VALUE_72_X_1MM;
+        static int 营养评估_Y_POS_RANGE = (int) (9.5 * VALUE_72_X_1MM);
         public static final Position 营养评估_蛋白质_不足 =
                 new Position(
                         营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
@@ -844,10 +877,10 @@ public class BodyComposition {
                         12 * VALUE_72_X_1MM, 46810);
         // 95.身体年龄
         public static final Position 身体年龄 =
-                new Position(174 * VALUE_72_X_1MM, LINE2_Y * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+                new Position(157 * VALUE_72_X_1MM, 275 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
         // 10x.健康评估
         public static final Position 健康评估 =
-                new Position((int)(174 * VALUE_72_X_1MM), LINE1_Y * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
+                new Position(157 * VALUE_72_X_1MM, 269 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
 
 
 
