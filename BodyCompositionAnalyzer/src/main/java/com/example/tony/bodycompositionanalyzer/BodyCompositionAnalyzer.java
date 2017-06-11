@@ -77,7 +77,7 @@ public class BodyCompositionAnalyzer {
 	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
 
 	private static final int TEXT_SIZE_DEF     = 9;
-    private static final int TEXT_SIZE_休成分结果 = 8;
+    private static final int TEXT_SIZE_体成分结果 = 8;
 	private static final int TEXT_SIZE_健康评估 = 16;
 	private static final int TEXT_SIZE_体型分析 = 20;
 	private static final String TEXT_TICK    = "√";
@@ -630,78 +630,69 @@ public class BodyCompositionAnalyzer {
 
 			// 01 写姓名/编号
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.姓名;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.姓名, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.姓名);
 
 			// 02 身高
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.身高;
-			tmpStr = bc.身高;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.身高, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.身高);
 
 			// 03 体重
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.体重1;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体重1, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.体重1);
 
 			// 04 测试日期
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.测试日期;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.测试日期, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.测试日期);
 
 			// 05 年龄
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.年龄;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.年龄, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.年龄);
 
 			// 06 性别
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.性别;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.性别, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.性别);
 
-			/* 2x. 休成分结果 */
+			/* 2x. 体成分结果 */
 			// 21 体重2
-            textPaint.setTextSize(TEXT_SIZE_休成分结果);
+            textPaint.setTextSize(TEXT_SIZE_体成分结果);
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.体重2 + "kg [" + bc.体重标准范围 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体重2, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.体重2);
 
 			// 22 去脂肪体重
 			paint.setColor(Color.BLACK);
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.去脂肪体重 + "kg [" + bc.去脂肪体重标准 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.去脂肪体重, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.去脂肪体重);
 
 			// 23 肌肉量
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.肌肉量 + "kg [" + bc.肌肉标准 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.肌肉量, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.肌肉量);
 
 			// 24 身体总水分
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			tmpStr = bc.身体总水分 + "kg [" + bc.身体总水分正常范围 + "]";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.身体总水分, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.身体总水分);
 
 			// 25 细胞内液 okay
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
-			tmpStr = bc.细胞内液含量 + "kg [" + bc.细胞内液正常范围 + "]";
+			tmpStr = bc.细胞内液含量 + "kg\n[" + bc.细胞内液正常范围 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.细胞内液, mAlignment);
-
 
 			// 26 细胞外液 okay
 			paint.setColor(Color.BLACK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
-			tmpStr = bc.细胞外液含量 + "kg [" + bc.细胞外液正常范围 + "]";
+			tmpStr = bc.细胞外液含量 + "kg\n[" + bc.细胞外液正常范围 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.细胞外液, mAlignment);
 
 			// 27 蛋白质量 ok
@@ -721,12 +712,14 @@ public class BodyCompositionAnalyzer {
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			tmpStr = bc.体脂肪量 + "kg\n[" + bc.体脂肪量标准 + "]";
 			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.体脂肪量, mAlignment);
+			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 
 			/* 3x. 体成分分析　*/
             /* 31. 体重 */
+            float STROCK = 3f;
             textPaint.setTextSize(TEXT_SIZE_DEF); // 还原字体大小
 			paint.setColor(Color.BLACK);
-			paint.setStrokeWidth(5f);
+			paint.setStrokeWidth(STROCK);
 			mAlignment = Layout.Alignment.ALIGN_CENTER;
 			float xPos = BodyComposition.Position.体成分分析_体重.getXMils() / 1000 +
 					getProgressLength3(bc.体重_CUR, bc.体重_MIN, bc.体重_MAX);
@@ -742,7 +735,7 @@ public class BodyCompositionAnalyzer {
 
             /* 32. 身体质量(BMI) */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_身体质量.getXMils() / 1000 +
 					getProgressLength3(bc.身体质量_CUR, bc.身体质量_MIN, bc.身体质量_MAX);
@@ -757,7 +750,7 @@ public class BodyCompositionAnalyzer {
 
             /* 33. 体脂肪率 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_体脂肪率.getXMils() / 1000 +
 					getProgressLength3(bc.脂肪率_CUR, bc.脂肪率_MIN, bc.脂肪率_MAX);
@@ -772,7 +765,7 @@ public class BodyCompositionAnalyzer {
 
             /* 34. 体脂肪量 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_体脂肪量.getXMils() / 1000 +
 					getProgressLength3(bc.体脂肪量_CUR, bc.体脂肪量_MIN, bc.体脂肪量_MAX);
@@ -787,7 +780,7 @@ public class BodyCompositionAnalyzer {
 
             /* 35. 肌肉量 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_肌肉量.getXMils() / 1000 +
 					getProgressLength3(bc.肌肉量_CUR, bc.肌肉量_MIN, bc.肌肉量_MAX);
@@ -802,7 +795,7 @@ public class BodyCompositionAnalyzer {
 
             /* 36. 身体水分 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_身体水分.getXMils() / 1000 +
 					getProgressLength3(bc.身体总水分_CUR, bc.身体总水分_MIN, bc.身体总水分_MAX);
@@ -817,7 +810,7 @@ public class BodyCompositionAnalyzer {
 
             /* 37. 内脏脂肪 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(STROCK);
             mAlignment = Layout.Alignment.ALIGN_CENTER;
             xPos = BodyComposition.Position.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength2(bc);
             canvas.drawLine(
@@ -911,111 +904,111 @@ public class BodyCompositionAnalyzer {
 					BodyComposition.Position.肌肉量_调节量.getYMils() / 1000,
 					paint);
 
-//			/* 5x 节段肌肉　镜像 */
-//			mAlignment = Layout.Alignment.ALIGN_CENTER;
-//			// 51 左上肢肌肉含量 okay
-//			tmpStr = bc.左上肢肌肉含量 + "kg\n" + bc.左上肢肌肉含量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量, mAlignment);
-//
-//			// 52 左下肢肌肉含量 okay
-//			tmpStr = bc.左下肢肌肉含量 + "kg\n" + bc.左下肢肌肉含量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量, mAlignment);
-//
-//			// 53 右上肢肌肉含量 okay
-//			tmpStr = bc.右上肢肌肉含量 + "kg\n" + bc.右上肢肌肉含量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢肌肉含量, mAlignment);
-//
-//			// 54 右下肢脂肪量 okay
-//			tmpStr = bc.右下肢肌肉含量 + "kg\n" + bc.右下肢肌肉含量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢肌肉含量, mAlignment);
-//
-//			// 55 躯干肌肉含量 okay
-//			tmpStr = bc.躯干肌肉含量 + "kg\n" + bc.躯干肌肉含量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肌肉含量, mAlignment);
-//
-//			/* 6x 节段脂肪 */
-//			// 61 左上肢脂肪量 okay
-//			tmpStr = bc.左上肢脂肪量 + "kg\n" + bc.左上肢脂肪量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢脂肪量, mAlignment);
-//
-//			// 62 左下肢脂肪量 okay
-//			tmpStr = bc.左下肢脂肪量 + "kg\n" + bc.左下肢脂肪量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢脂肪量, mAlignment);
-//
-//			// 63 右上肢脂肪量 okay
-//			tmpStr = bc.右上肢脂肪量 + "kg\n" + bc.右上肢脂肪量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢脂肪量, mAlignment);
-//
-//			// 64 右下肢脂肪量 okay
-//			tmpStr = bc.右下肢脂肪量 + "kg\n" + bc.右下肢脂肪量_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢脂肪量, mAlignment);
-//
-//			// 65 躯干肢脂肪量 okay
-//			tmpStr = bc.躯干脂肪 + "kg\n" + bc.躯干脂肪_RESULT;
-//			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干肢脂肪量, mAlignment);
+			/* 5x 节段肌肉　镜像 */
+			mAlignment = Layout.Alignment.ALIGN_CENTER;
+			// 51 左上肢肌肉含量 okay
+			tmpStr = bc.左上肢肌肉含量; //  + "kg\n" + bc.左上肢肌肉含量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左上肢肌肉含量);
+
+			// 52 左下肢肌肉含量 okay
+			tmpStr = bc.左下肢肌肉含量;// + "kg\n" + bc.左下肢肌肉含量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左下肢肌肉含量);
+
+			// 53 右上肢肌肉含量 okay
+			tmpStr = bc.右上肢肌肉含量;// + "kg\n" + bc.右上肢肌肉含量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右上肢肌肉含量);
+
+			// 54 右下肢脂肪量 okay
+			tmpStr = bc.右下肢肌肉含量;// + "kg\n" + bc.右下肢肌肉含量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右下肢肌肉含量);
+
+			// 55 躯干肌肉含量 okay
+			tmpStr = bc.躯干肌肉含量;// + "kg\n" + bc.躯干肌肉含量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.躯干肌肉含量);
+
+			/* 6x 节段脂肪 */
+			// 61 左上肢脂肪量 okay
+			tmpStr = bc.左上肢脂肪量;// + "kg\n" + bc.左上肢脂肪量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左上肢脂肪量);
+
+			// 62 左下肢脂肪量 okay
+			tmpStr = bc.左下肢脂肪量;// + "kg\n" + bc.左下肢脂肪量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左下肢脂肪量);
+
+			// 63 右上肢脂肪量 okay
+			tmpStr = bc.右上肢脂肪量;// + "kg\n" + bc.右上肢脂肪量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右上肢脂肪量);
+
+			// 64 右下肢脂肪量 okay
+			tmpStr = bc.右下肢脂肪量;// + "kg\n" + bc.右下肢脂肪量_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右下肢脂肪量);
+
+			// 65 躯干肢脂肪量 okay
+			tmpStr = bc.躯干脂肪;// + "kg\n" + bc.躯干脂肪_RESULT;
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.躯干肢脂肪量);
 
 			/* 7x 节段电阻抗 */
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			// 71 频率 okay
 			tmpStr = "5k";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.频率_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.频率_5k);
 
 			tmpStr = "50k";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.频率_50k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.频率_50k);
 
 			tmpStr = "250k";
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.频率_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.频率_250k);
 
 			// 72 右上肢 okay
 			tmpStr = bc._5k下ra电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_5k);
 
 			tmpStr = bc._50k下ra电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_50k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_50k);
 
 			tmpStr = bc._250k下ra电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右上肢_250k);
 
 			// 73 左上肢 okay
 			tmpStr = bc._5k下la电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_5k);
 
 			tmpStr = bc._50k下la电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_50k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_50k);
 
 			tmpStr = bc._250k下la电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左上肢_250k);
 
 
 			// 74 躯干 okay
 			tmpStr = bc._5k下tr电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.躯干_5k);
 
 			tmpStr = bc._50k下tr电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干_50k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.躯干_50k);
 
 			tmpStr = bc._250k下tr电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.躯干_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.躯干_250k);
 
 			// 75 右下肢 okay
 			tmpStr = bc._5k下rl电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_5k);
 
 			tmpStr = bc._50k下rl电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_50k, mAlignment);
+			drawLineText( tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_50k);
 
 			tmpStr = bc._250k下rl电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.右下肢_250k);
 
 			// 76 左下肢 okay
 			tmpStr = bc._5k下ll电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_5k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_5k);
 
 			tmpStr = bc._50k下ll电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_50k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_50k);
 
 			tmpStr = bc._250k下ll电阻值;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_250k, mAlignment);
+			drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.左下肢_250k);
 
 			// 8x 肥胖评估 体重 写「√」根据上下界判断
             // 81 体重
@@ -1031,7 +1024,7 @@ public class BodyCompositionAnalyzer {
 
 //			textPaint.setTextSize(20); 不再加大字体了
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
+			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
 
             // 82.肥胖评估 脂肪量
 			tmpStr = getAssessment(bc.体脂肪量, bc.体脂肪量标准);
@@ -1042,7 +1035,7 @@ public class BodyCompositionAnalyzer {
 			} else {
 				bcp = BodyComposition.Position.肥胖评估_脂肪量_过量;
 			}
-			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
+			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
 
             // 83.肥胖评估 肌肉量
 			tmpStr = getAssessment(bc.肌肉量, bc.肌肉标准);
@@ -1053,7 +1046,7 @@ public class BodyCompositionAnalyzer {
 			} else {
 				bcp = BodyComposition.Position.肥胖评估_肌肉量_过量;
 			}
-			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
+			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
 
 			// 9.营养评估 写「√」
             // 91. 蛋白质
@@ -1065,11 +1058,7 @@ public class BodyCompositionAnalyzer {
             } else {
                 bcp = BodyComposition.Position.营养评估_蛋白质_过量;
             }
-
-//			textPaint.setTextSize(20); 不再增大字体
-			mAlignment = Layout.Alignment.ALIGN_NORMAL;
-			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
-
+			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
             // 92. 无机盐
             tmpStr = getAssessment(bc.无机盐含量, bc.无机盐含量正常范围);
             if(tmpStr.equals("不足")) {
@@ -1079,20 +1068,23 @@ public class BodyCompositionAnalyzer {
             } else {
                 bcp = BodyComposition.Position.营养评估_无机盐_过量;
             }
-			drawMutilLineText(bc, TEXT_TICK, textPaint, canvas, bcp, mAlignment);
+			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
 
 			// 93.基础代谢量 okay
             textPaint.setTextSize(TEXT_SIZE_DEF);
 			tmpStr = bc.基础代谢量;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.基础代谢量, mAlignment);
+			bcp = BodyComposition.Position.基础代谢量;
+			drawLineText(tmpStr, textPaint, canvas, bcp);
 
 			// 94.总能量消耗　okay
 			tmpStr = bc.总能量消耗;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.总能量消耗, mAlignment);
+			bcp = BodyComposition.Position.总能量消耗;
+			drawLineText(tmpStr, textPaint, canvas, bcp);
 
 			// 95.身体年龄 okay
 			tmpStr = bc.身体年龄;
-			drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.身体年龄, mAlignment);
+			bcp = BodyComposition.Position.身体年龄;
+			drawLineText(tmpStr, textPaint, canvas, bcp);
 
             // 10x.体型分析
             drawShapeAnalysis(bc, textPaint, canvas);
@@ -1101,8 +1093,11 @@ public class BodyCompositionAnalyzer {
             if (mContext.getResources().getBoolean(R.bool.is_print_total_score)) {
                 textPaint.setTextSize(TEXT_SIZE_健康评估);
                 tmpStr = bc.身体总评分;
-                drawMutilLineText(bc, tmpStr, textPaint, canvas, BodyComposition.Position.健康评估, mAlignment);
+				drawLineText(tmpStr, textPaint, canvas, BodyComposition.Position.健康评估);
             }
+
+            // 水肿分析
+			drawEdema(bc, textPaint, canvas);
 
 			// finish the page
 			document.finishPage(page);
@@ -1124,12 +1119,54 @@ public class BodyCompositionAnalyzer {
 		}
 	}
 
-    /**
+
+	private void drawEdema(BodyComposition bc, TextPaint textPaint, Canvas canvas) {
+        String tmpStr = bc.细胞外液结果;
+		Layout.Alignment mAlignment = Layout.Alignment.ALIGN_NORMAL;
+        BodyComposition.Position bcp;
+        if(tmpStr.equals("干燥")) {
+            bcp = BodyComposition.Position.水肿分析_细胞外液_干燥;
+        } else if(tmpStr.equals("正常")) {
+            bcp = BodyComposition.Position.水肿分析_细胞外液_正常;
+        } else {
+            bcp = BodyComposition.Position.水肿分析_细胞外液_浮肿;
+        }
+		textPaint.setTextSize(TEXT_SIZE_DEF);
+		drawLineText(TEXT_TICK, textPaint, canvas, bcp);
+
+		textPaint.setColor(Color.BLACK);
+		textPaint.setTextAlign(Paint.Align.LEFT);
+		canvas.drawText(
+				bc.水肿系数,
+				BodyComposition.Position.水肿分析_水肿系数.getXMils() / 1000,
+				BodyComposition.Position.水肿分析_水肿系数.getYMils() / 1000,
+				textPaint);
+
+		canvas.drawText(
+				bc.身体水分率,
+				BodyComposition.Position.水肿分析_身体水分率.getXMils() / 1000,
+				BodyComposition.Position.水肿分析_身体水分率.getYMils() / 1000,
+				textPaint);
+
+		canvas.drawText(
+				bc.细胞内液含量,
+				BodyComposition.Position.水肿分析_细胞内液.getXMils() / 1000,
+				BodyComposition.Position.水肿分析_细胞内液.getYMils() / 1000,
+				textPaint);
+
+		canvas.drawText(
+				bc.细胞外液含量,
+				BodyComposition.Position.水肿分析_细胞外液.getXMils() / 1000,
+				BodyComposition.Position.水肿分析_细胞外液.getYMils() / 1000,
+				textPaint);
+	}
+
+	/**
      * 绘制[体成分分析]
      * 需要分三段，第一段和第三段一种颜色，第二段另外一种颜色
      */
 	public void drawProgress(Canvas canvas, BodyComposition.Position bp, float xPos, Paint paint) {
-        int oldColor = paint.getColor();
+        int oldColor = Color.BLACK;
         // 得出每一段长度
         final float RANGE_1_START = bp.getXMils() / 1000;
         final float RANGE_2_START = bp.getXMils() / 1000 + 体成分分析_SECOND_START_PX / 1000;
@@ -1347,6 +1384,24 @@ public class BodyCompositionAnalyzer {
         }
         return ret;
     }
+
+	/**
+	 *
+	 * @param tmpStr 文本
+	 * @param textPaint 文字画笔
+	 * @param canvas 画布
+	 * @param pos 位置对象
+	 */
+	private void drawLineText(String tmpStr,
+								   TextPaint textPaint,
+								   Canvas canvas,
+								   BodyComposition.Position pos) {
+		canvas.drawText(
+				tmpStr,
+				pos.getXMils() / 1000,
+				pos.getYMils() / 1000,
+				textPaint);
+	}
 
 	/**
 	 *
