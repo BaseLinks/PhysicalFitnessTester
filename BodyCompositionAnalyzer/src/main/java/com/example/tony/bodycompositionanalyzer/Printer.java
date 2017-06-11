@@ -658,7 +658,7 @@ public class Printer {
                     "-sSubdevice=unspec " +
                     "-sPJLLanguage=PCL3GUI " +
                     "-dOnlyCRD " +
-                    "-r300 " +
+                    "-r600 " +
                     "-sColourModel=CMYK " +
                     "-sPrintQuality=draft " +
                     "-sMedium=plain " +
