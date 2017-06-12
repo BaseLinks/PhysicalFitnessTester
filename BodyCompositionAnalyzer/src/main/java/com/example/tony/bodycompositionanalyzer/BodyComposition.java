@@ -1000,19 +1000,19 @@ public class BodyComposition {
         String tmpStr = "";
 
         // 0. 姓名 编号 3号 注：十进制数不显示无意义的0，除非0号，“0002”改为“2”
-        byte[] b = null;
+        byte[] b;
         b = Arrays.copyOfRange(data, 姓名_START, 姓名_START + 姓名_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         姓名 = String.valueOf(tmpInt);
 
         // 1. 身高 180.0cm 保留一位小数
         b = Arrays.copyOfRange(data, 身高_START, 身高_START + 身高_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         身高 = String.format("%.1f", tmpFloat);
 
         // 2. 体重 80.8kg
         b = Arrays.copyOfRange(data, 体重1_START, 体重1_START + 体重1_LENGTH);
-        体重 = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体重 = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF);
         体重1 = String.format("%.1f", 体重 / 10);
 
         // 3. 性别
@@ -1024,83 +1024,83 @@ public class BodyComposition {
 
         // 5. 身体电阻值
         b = Arrays.copyOfRange(data, 身体电阻值_START, 身体电阻值_START + 身体电阻值_LENGTH);
-        tmpFloat = (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f);
+        tmpFloat = ((ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f);
         身体电阻值 = String.format("%.1f", tmpFloat);
 
         // 6. _50k下la电阻值
         b = Arrays.copyOfRange(data, _50k下la电阻值_START, _50k下la电阻值_START + _50k下la电阻值_LENGTH);
-        tmpFloat = (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f);
+        tmpFloat = ((ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f);
         _50k下la电阻值 = String.format("%.1f", tmpFloat);
 
         // 7. _50k下ra电阻值
         b = Arrays.copyOfRange(data, _50k下ra电阻值_START, _50k下ra电阻值_START + _50k下ra电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _50k下ra电阻值 = String.format("%.1f", tmpFloat);
 
         // 8. _50k下tr电阻值
         b = Arrays.copyOfRange(data, _50k下tr电阻值_START, _50k下tr电阻值_START + _50k下tr电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _50k下tr电阻值 = String.format("%.1f", tmpFloat);
 
         // 9. _50k下ll电阻值
         b = Arrays.copyOfRange(data, _50k下ll电阻值_START, _50k下ll电阻值_START + _50k下ll电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _50k下ll电阻值 = String.format("%.1f", tmpFloat);
 
         // 10. _50k下rl电阻值
         b = Arrays.copyOfRange(data, _50k下rl电阻值_START, _50k下rl电阻值_START + _50k下rl电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _50k下rl电阻值 = String.format("%.1f", tmpFloat);
 
         // 11. _5k下la电阻值
         b = Arrays.copyOfRange(data, _5k下la电阻值_START, _5k下la电阻值_START + _5k下la电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _5k下la电阻值 = String.format("%.1f", tmpFloat);
 
         // 12. _5k下ra电阻值
         b = Arrays.copyOfRange(data, _5k下ra电阻值_START, _5k下ra电阻值_START + _5k下ra电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _5k下ra电阻值 = String.format("%.1f", tmpFloat);
 
         // 13. _5k下tr电阻值
         b = Arrays.copyOfRange(data, _5k下tr电阻值_START, _5k下tr电阻值_START + _5k下tr电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _5k下tr电阻值 = String.format("%.1f", tmpFloat);
 
         // 14. _5k下ll电阻值
         b = Arrays.copyOfRange(data, _5k下ll电阻值_START, _5k下ll电阻值_START + _5k下ll电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _5k下ll电阻值 = String.format("%.1f", tmpFloat);
 
         // 15. _5k下rl电阻值
         b = Arrays.copyOfRange(data, _5k下rl电阻值_START, _5k下rl电阻值_START + _5k下rl电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _5k下rl电阻值 = String.format("%.1f", tmpFloat);
 
         // 16. _250k下la电阻值
         b = Arrays.copyOfRange(data, _250k下la电阻值_START, _250k下la电阻值_START + _250k下la电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _250k下la电阻值 = String.format("%.1f", tmpFloat);
 
         // 17. _250k下ra电阻值
         b = Arrays.copyOfRange(data, _250k下ra电阻值_START, _250k下ra电阻值_START + _250k下ra电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _250k下ra电阻值 = String.format("%.1f", tmpFloat);
 
         // 18. _250k下tr电阻值
         b = Arrays.copyOfRange(data, _250k下tr电阻值_START, _250k下tr电阻值_START + _250k下tr电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _250k下tr电阻值 = String.format("%.1f", tmpFloat);
 
         // 19. _250k下ll电阻值
         b = Arrays.copyOfRange(data, _250k下ll电阻值_START, _250k下ll电阻值_START + _250k下ll电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _250k下ll电阻值 = String.format("%.1f", tmpFloat);
 
 
         // 20. _250k下rl电阻值
         b = Arrays.copyOfRange(data, _250k下rl电阻值_START, _250k下rl电阻值_START + _250k下rl电阻值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         _250k下rl电阻值 = String.format("%.1f", tmpFloat);
 
 
@@ -1115,235 +1115,235 @@ public class BodyComposition {
 
         // 22. 体重 80.8kg 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 体重2_START, 体重2_START + 体重2_LENGTH);
-        体重_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体重_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         tmpFloat = (float) 体重_CUR / 10f;
         体重2 = String.format("%.1f", tmpFloat);
 
         // 23. 体重标准范围
         b = Arrays.copyOfRange(data, 体重标准范围_START, 体重标准范围_START + 体重标准范围_LENGTH);
-        体重_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        体重_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体重_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        体重_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         体重标准范围 = String.format("%.1f-%.1f", (float) 体重_MIN / 10f, (float) 体重_MAX / 10f);
 
         // 24. 体重标准值
         b = Arrays.copyOfRange(data, 体重标准值_START, 体重标准值_START + 体重标准值_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         体重标准值 = String.format("%.1f", tmpFloat);
 
         // 25. 去脂肪体重
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 26. 去脂肪体重标准
         b = Arrays.copyOfRange(data, 去脂肪体重标准_START, 去脂肪体重标准_START + 去脂肪体重标准_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         去脂肪体重标准 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 27. 体脂肪量 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 体脂肪量_START, 体脂肪量_START + 体脂肪量_LENGTH);
-        体脂肪量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体脂肪量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         体脂肪量 = String.format("%.1f", (float) 体脂肪量_CUR / 10f);
 
         // 28. 体脂肪量标准
         b = Arrays.copyOfRange(data, 体脂肪量标准_START, 体脂肪量标准_START + 体脂肪量标准_LENGTH);
-        体脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        体脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        体脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        体脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         体脂肪量标准 = String.format("%.1f-%.1f", (float) 体脂肪量_MIN / 10f, (float) 体脂肪量_MAX / 10f);
         // 注：身体脂肪量标准值为标准值下界
         体脂肪量_STD = 体脂肪量_MIN;
 
         // 29. 肌肉量 注:当前值为串口发出的实际值
         b = Arrays.copyOfRange(data, 肌肉量_START, 肌肉量_START + 肌肉量_LENGTH);
-        肌肉量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        肌肉量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         肌肉量 = String.format("%.1f", (float) 肌肉量_CUR / 10f);
 
         // 30. 肌肉标准
         b = Arrays.copyOfRange(data, 肌肉标准_START, 肌肉标准_START + 肌肉标准_LENGTH);
-        肌肉量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        肌肉量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        肌肉量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        肌肉量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         肌肉标准 = String.format("%.1f-%.1f", (float) 肌肉量_MIN / 10f, (float) 肌肉量_MAX / 10f);
         // 肌肉量标准值为标准值上界
         肌肉量_STD = 肌肉量_MAX;
 
         // 31. 躯干脂肪 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干脂肪_START, 躯干脂肪_START + 躯干脂肪_LENGTH);
-        躯干脂肪_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        躯干脂肪_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         躯干脂肪 = String.format("%.2f", 躯干脂肪_CUR);
 
         // 32. 躯干脂肪标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干脂肪标准_START, 躯干脂肪标准_START + 躯干脂肪标准_LENGTH);
-        躯干脂肪_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        躯干脂肪_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        躯干脂肪_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        躯干脂肪_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         躯干脂肪_RESULT = getResultFromRange(躯干脂肪_CUR, 躯干脂肪_MIN, 躯干脂肪_MAX);
         躯干脂肪标准 = String.format("%.2f-%.2f", 躯干脂肪_MIN, 躯干脂肪_MAX);
 
         // 33. 左上肢脂肪量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左上肢脂肪量_START, 左上肢脂肪量_START + 左上肢脂肪量_LENGTH);
-        左上肢脂肪量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左上肢脂肪量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左上肢脂肪量 = String.format("%.2f", 左上肢脂肪量_CUR);
 
         // 34. 左上肢脂肪标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左上肢脂肪标准_START, 左上肢脂肪标准_START + 左上肢脂肪标准_LENGTH);
-        左上肢脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        左上肢脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左上肢脂肪量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        左上肢脂肪量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左上肢脂肪量_RESULT = getResultFromRange(左上肢脂肪量_CUR, 左上肢脂肪量_MIN, 左上肢脂肪量_MAX);
         左上肢脂肪标准 = String.format("%.2f-%.2f", 左上肢脂肪量_MIN, 左上肢脂肪量_MAX);
 
         // 35. 右上肢脂肪量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右上肢脂肪量_START, 右上肢脂肪量_START + 右上肢脂肪量_LENGTH);
-        右上肢脂肪量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右上肢脂肪量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右上肢脂肪量 = String.format("%.2f", 右上肢脂肪量_CUR);
 
         // 36. 右上肢脂肪标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右上肢脂肪标准_START, 右上肢脂肪标准_START + 右上肢脂肪标准_LENGTH);
-        右上肢脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        右上肢脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右上肢脂肪量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        右上肢脂肪量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右上肢脂肪标准 = String.format("%.2f-%.2f", 右上肢脂肪量_MIN, 右上肢脂肪量_MAX);
         右上肢脂肪量_RESULT = getResultFromRange(右上肢脂肪量_CUR, 右上肢脂肪量_MIN, 右上肢脂肪量_MAX);
 
         // 37. 左下肢脂肪量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左下肢脂肪量_START, 左下肢脂肪量_START + 左下肢脂肪量_LENGTH);
-        左下肢脂肪量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左下肢脂肪量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左下肢脂肪量 = String.format("%.2f", 左下肢脂肪量_CUR);
 
         // 38. 左下肢脂肪标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左下肢脂肪标准_START, 左下肢脂肪标准_START + 左下肢脂肪标准_LENGTH);
-        左下肢脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        左下肢脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左下肢脂肪量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        左下肢脂肪量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左下肢脂肪标准 = String.format("%.2f-%.2f", 左下肢脂肪量_MIN, 左下肢脂肪量_MAX);
         左下肢脂肪量_RESULT = getResultFromRange(左下肢脂肪量_CUR, 左下肢脂肪量_MIN, 左下肢脂肪量_MAX);
 
         // 39. 右下肢脂肪量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右下肢脂肪量_START, 右下肢脂肪量_START + 右下肢脂肪量_LENGTH);
-        右下肢脂肪量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右下肢脂肪量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右下肢脂肪量 = String.format("%.2f", 右下肢脂肪量_CUR);
 
         // 40. 右下肢脂肪标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右下肢脂肪标准_START, 右下肢脂肪标准_START + 右下肢脂肪标准_LENGTH);
-        右下肢脂肪量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        右下肢脂肪量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右下肢脂肪量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        右下肢脂肪量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右下肢脂肪标准 = String.format("%.2f-%.2f", 右下肢脂肪量_MIN, 右下肢脂肪量_MAX);
         右下肢脂肪量_RESULT = getResultFromRange(右下肢脂肪量_CUR, 右下肢脂肪量_MIN, 右下肢脂肪量_MAX);
 
         // 41. 内脏脂肪指数
         b = Arrays.copyOfRange(data, 内脏脂肪指数_START, 内脏脂肪指数_START + 内脏脂肪指数_LENGTH);
-        内脏脂肪_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        内脏脂肪_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         内脏脂肪指数 = String.format("%.1f", (float) 内脏脂肪_CUR / 10f);
 
         // 42. 内脏指数正常范围
         b = Arrays.copyOfRange(data, 内脏指数正常范围_START, 内脏指数正常范围_START + 内脏指数正常范围_LENGTH);
-        内脏脂肪_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        内脏脂肪_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        内脏脂肪_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        内脏脂肪_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         内脏指数正常范围 = String.format("%.1f-%.1f", (float) 内脏脂肪_MIN / 10f, (float) 内脏脂肪_MAX / 10f);
 
         // 43. 躯干肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干肌肉_START, 躯干肌肉_START + 躯干肌肉_LENGTH);
-        躯干肌肉含量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        躯干肌肉含量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         躯干肌肉含量 = String.format("%.2f", 躯干肌肉含量_CUR);
 
         // 44. 躯干肌肉标准 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 躯干肌肉标准_START, 躯干肌肉标准_START + 躯干肌肉标准_LENGTH);
-        躯干肌肉含量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        躯干肌肉含量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        躯干肌肉含量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        躯干肌肉含量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         躯干肌肉含量_RESULT = getResultFromRange(躯干肌肉含量_CUR, 躯干肌肉含量_MIN, 躯干肌肉含量_MAX);
         躯干肌肉含量正常范围 = String.format("%.2f-%.2f", 躯干肌肉含量_MIN, 躯干肌肉含量_MAX);
 
         // 45. 左上肢肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左上肢肌肉含量_START, 左上肢肌肉含量_START + 左上肢肌肉含量_LENGTH);
-        左上肢肌肉含量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左上肢肌肉含量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左上肢肌肉含量 = String.format("%.2f", 左上肢肌肉含量_CUR);
 
         // 46. 左上肢肌肉正常范围 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左上肢肌肉正常范围_START, 左上肢肌肉正常范围_START + 左上肢肌肉正常范围_LENGTH);
-        左上肢肌肉含量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        左上肢肌肉含量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左上肢肌肉含量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        左上肢肌肉含量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左上肢肌肉含量_RESULT = getResultFromRange(左上肢肌肉含量_CUR, 左上肢肌肉含量_MIN, 左上肢肌肉含量_MAX);
         左上肢肌肉含量正常范围 = String.format("%.2f-%.2f", 左上肢肌肉含量_MIN, 左上肢肌肉含量_MAX);
 
         // 47. 右上肢肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右上肢肌肉含量_START, 右上肢肌肉含量_START + 右上肢肌肉含量_LENGTH);
-        右上肢肌肉含量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右上肢肌肉含量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右上肢肌肉含量 = String.format("%.2f", 右上肢肌肉含量_CUR);
 
         // 48. 右上肢肌肉含量正常范围 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右上肢肌肉含量正常范围_START, 右上肢肌肉含量正常范围_START + 右上肢肌肉含量正常范围_LENGTH);
-        右上肢肌肉含量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        右上肢肌肉含量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右上肢肌肉含量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        右上肢肌肉含量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右上肢肌肉含量_RESULT = getResultFromRange(右上肢肌肉含量_CUR, 右上肢肌肉含量_MIN, 右上肢肌肉含量_MAX);
         右上肢肌肉含量正常范围 = String.format("%.2f-%.2f", 右上肢肌肉含量_MIN, 右上肢肌肉含量_MAX);
 
         // 49. 左下肢肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左下肢肌肉含量_START, 左下肢肌肉含量_START +  左下肢肌肉含量_LENGTH);
-        左下肢肌肉含量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左下肢肌肉含量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左下肢肌肉含量 = String.format("%.2f", 左下肢肌肉含量_CUR);
 
         // 50. 左下肢肌肉正常范围 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 左下肢肌肉正常范围_START, 左下肢肌肉正常范围_START + 左下肢肌肉正常范围_LENGTH);
-        左下肢肌肉含量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        左下肢肌肉含量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        左下肢肌肉含量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        左下肢肌肉含量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         左下肢肌肉含量_RESULT = getResultFromRange(左下肢肌肉含量_CUR, 左下肢肌肉含量_MIN, 左下肢肌肉含量_MAX);
         左下肢肌肉含量正常范围 = String.format("%.2f-%.2f", 左下肢肌肉含量_MIN, 左下肢肌肉含量_MAX);
 
         // 51. 右下肢肌肉含量 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右下肢肌肉含量_START, 右下肢肌肉含量_START + 右下肢肌肉含量_LENGTH);
-        右下肢肌肉含量_CUR = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右下肢肌肉含量_CUR = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右下肢肌肉含量 = String.format("%.2f", 右下肢肌肉含量_CUR);
 
 
         // 52. 右下肢肌肉含量正常范围 单位 kg 两位小数
         b = Arrays.copyOfRange(data, 右下肢肌肉含量正常范围_START, 右下肢肌肉含量正常范围_START + 右下肢肌肉含量正常范围_LENGTH);
-        右下肢肌肉含量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
-        右下肢肌肉含量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 100f;
+        右下肢肌肉含量_MIN = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
+        右下肢肌肉含量_MAX = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 100f;
         右下肢肌肉含量_RESULT = getResultFromRange(右下肢肌肉含量_CUR, 右下肢肌肉含量_MIN, 右下肢肌肉含量_MAX);
         右下肢肌肉含量正常范围 = String.format("%.2f-%.2f", 右下肢肌肉含量_MIN, 右下肢肌肉含量_MAX);
 
         // 53. 身体总水分
         b = Arrays.copyOfRange(data, 身体总水分_START, 身体总水分_START + 身体总水分_LENGTH);
-        身体总水分_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体总水分_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         身体总水分 = String.format("%.1f", (float) 身体总水分_CUR / 10f);
 
         // 54. 身体总水分正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 身体总水分正常范围_START, 身体总水分正常范围_START + 身体总水分正常范围_LENGTH);
-        身体总水分_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        身体总水分_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体总水分_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        身体总水分_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         身体总水分正常范围 = String.format("%.1f-%.1f", (float)身体总水分_MIN / 10, (float)身体总水分_MAX / 10f);
 
         // 55. 蛋白质含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质含量_START, 蛋白质含量_START + 蛋白质含量_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         蛋白质含量 = String.format("%.1f", tmpFloat);
 
         // 56. 蛋白质正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 蛋白质正常范围_START, 蛋白质正常范围_START + 蛋白质正常范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         蛋白质正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 57. 无机盐量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量_START, 无机盐含量_START + 无机盐含量_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         无机盐含量 = String.format("%.1f", tmpFloat);
 
         // 58. 无机盐含量正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 无机盐含量正常范围_START, 无机盐含量正常范围_START + 无机盐含量正常范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         无机盐含量正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 59. 细胞外液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液含量_START, 细胞外液含量_START + 细胞外液含量_LENGTH);
-        细胞外液_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        细胞外液_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         细胞外液含量 = String.format("%.1f", 细胞外液_CUR / 10f);
 
         // 60. 细胞外液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞外液正常范围_START, 细胞外液正常范围_START + 细胞外液正常范围_LENGTH);
-        细胞外液_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        细胞外液_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        细胞外液_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        细胞外液_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         细胞外液正常范围 = String.format("%.1f-%.1f", 细胞外液_MIN / 10f, 细胞外液_MAX / 10f);
 
         // 细胞外液结果
@@ -1357,19 +1357,19 @@ public class BodyComposition {
 
         // 61. 细胞内液含量 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液含量_START, 细胞内液含量_START + 细胞内液含量_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         细胞内液含量 = String.format("%.1f", tmpFloat);
 
         // 62. 细胞内液正常范围 okay 保留一位小数 kg
         b = Arrays.copyOfRange(data, 细胞内液正常范围_START, 细胞内液正常范围_START + 细胞内液正常范围_LENGTH);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         tmpStr = String.format("%.1f", tmpFloat);
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         细胞内液正常范围 = String.format("%s-%.1f", tmpStr, tmpFloat);
 
         // 63. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
 //        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 64. BMI结果 注:将byte[]转化为short[]
@@ -1379,61 +1379,61 @@ public class BodyComposition {
 
         // 64. 身体质量
         b = Arrays.copyOfRange(data, 身体质量_START, 身体质量_START + 身体质量_LENGTH);
-        身体质量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体质量_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 
         // 64. 身体质量范围
         b = Arrays.copyOfRange(data, 身体质量范围_START, 身体质量范围_START + 身体质量范围_LENGTH);
-        身体质量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        身体质量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        身体质量_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        身体质量_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 
         // 65. 脂肪率
         b = Arrays.copyOfRange(data, 脂肪率_START, 脂肪率_START + 脂肪率_LENGTH);
-        脂肪率_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        脂肪率_CUR = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 
         b = Arrays.copyOfRange(data, 脂肪率范围_START, 脂肪率范围_START + 脂肪率范围_LENGTH);
-        脂肪率_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort();
-        脂肪率_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        脂肪率_MIN = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        脂肪率_MAX = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 
         // 66. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
 //        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 67. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpFloat = (float) ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (float) (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
 //        去脂肪体重 = String.format("%.1f", tmpFloat);
 
         // 68. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 //        去脂肪体重 = String.format("%d", tmpInt);
 
         // 69. 无解释
         b = Arrays.copyOfRange(data, 去脂肪体重_START, 去脂肪体重_START + 去脂肪体重_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
 //        去脂肪体重 = String.format("%d", tmpInt);
 
         // 70. 身体总评分 okay 保留一位小数
         b = Arrays.copyOfRange(data, 身体总评分_START, 身体总评分_START + 身体总评分_LENGTH);
-        tmpFloat = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         身体总评分 = String.format("%.1f", tmpFloat);
 
         // 71. 身体年龄 okay 整数
         b = Arrays.copyOfRange(data, 身体年龄_START, 身体年龄_START + 身体年龄_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         身体年龄 = String.format("%d", tmpInt);
 
         // 72. 体重调节 okay 保留一位小数 kg 注：体重=肌肉调节值+脂肪调节值
         b = Arrays.copyOfRange(data, 体重调节_START, 体重调节_START + 体重调节_LENGTH);
-        tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpStr = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) == 0x00 ? "-" : "+";
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         体重调节 = String.format("%s%.1f", tmpStr, tmpFloat);
 
         // 73. 脂肪调节 okay 保留一位小数 kg　注：脂肪=标准值-当前值（结果为+的，显示0）
         b = Arrays.copyOfRange(data, 脂肪调节_START, 脂肪调节_START + 脂肪调节_LENGTH);
-        tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpStr = (ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) == 0x00 ? "-" : "+";
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         脂肪调节 = String.format("%s%.1f", tmpStr, tmpFloat);
         // 注: 脂肪=标准值-当前值（结果为+的，显示0）
         tmpInt = 体脂肪量_STD - 体脂肪量_CUR;
@@ -1442,7 +1442,7 @@ public class BodyComposition {
         // 74. 肌肉调节 okay 保留一位小数 kg 注：根据标准和当前值计算而非直接解析值
         b = Arrays.copyOfRange(data, 肌肉调节_START, 肌肉调节_START + 肌肉调节_LENGTH);
         tmpStr = ByteBuffer.wrap(Arrays.copyOfRange(b, 0, 2)).order(ByteOrder.LITTLE_ENDIAN).getShort() == 0x00 ? "-" : "+";
-        tmpFloat = ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() / 10f;
+        tmpFloat = (ByteBuffer.wrap(Arrays.copyOfRange(b, 2, 4)).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF) / 10f;
         肌肉调节 = String.format("%s%.1f", tmpStr, tmpFloat);
         // 注: 肌肉量 = 标准值-当前值（结果为-的，显示0）
         tmpInt = 肌肉量_STD - 肌肉量_CUR;
@@ -1456,12 +1456,12 @@ public class BodyComposition {
 
         // 75. 基础代谢量 okay
         b = Arrays.copyOfRange(data, 基础代谢量_START, 基础代谢量_START + 基础代谢量_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         基础代谢量 = String.format("%d", tmpInt);
 
         // 76. 总能量消耗
         b = Arrays.copyOfRange(data, 总能量消耗_START, 总能量消耗_START + 总能量消耗_LENGTH);
-        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort();
+        tmpInt = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         总能量消耗 = String.format("%d", tmpInt);
 
         // 77. 水肿分析
