@@ -24,10 +24,6 @@ public class Com2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.com2_background);
-        hideSystemUI(getWindow().getDecorView());
-        mNextButton = findViewById(R.id.kb_next_button);
-        setEnable(false);
     }
 
     // This snippet hides the system bars.
@@ -94,9 +90,15 @@ public class Com2Activity extends AppCompatActivity {
                 break;
             case R.id.kb_next_button:
 //                handleSureOnClick();
+                break;
             case R.id.kb_back_button:
 //                handleSureOnClick();
-                return;
+                break;
+            case R.id.kb_softboard_button:
+                // 启动软键盘
+                mEditText.setEnabled(true);
+                mEditText.requestFocus();
+                break;
         }
 //
         if (tmp.length() <= 4)
@@ -116,9 +118,11 @@ public class Com2Activity extends AppCompatActivity {
      * @param isEnable 是否使能
      */
     public void setEnable(boolean isEnable) {
-        mNextButton.setEnabled(isEnable);
-        mNextButton.setClickable(isEnable);
-        mNextButton.setFocusable(isEnable);
+        if (mNextButton != null) {
+            mNextButton.setEnabled(isEnable);
+            mNextButton.setClickable(isEnable);
+            mNextButton.setFocusable(isEnable);
+        }
     }
 
     /**

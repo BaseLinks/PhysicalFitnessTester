@@ -179,6 +179,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/kb_softboard_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="840dp"
+        android:background="@drawable/_50_kb"
+        android:text="KB"
+        android:onClick="onClick"
+        android:textSize="70sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/kb_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

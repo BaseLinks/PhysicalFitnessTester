@@ -10,7 +10,9 @@
     <include
         layout="@layout/logo_background"
         tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 中间黑块 -->
     <View
@@ -18,6 +20,7 @@
         android:layout_height="648px"
         android:layout_marginTop="124dp"
         android:background="@drawable/background"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
