@@ -16,4 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:background="#DCDCDC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="123px"/>
+
 </android.support.constraint.ConstraintLayout>
