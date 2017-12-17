@@ -3,13 +3,24 @@ package com.kangear.bodycompositionanalyzer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.kangear.utils.TimeUtils;
+
+/**
+ * An example full-screen activity that shows and hides the system UI (i.e.
+ * status bar and navigation/system bar) with user interaction.
+ */
+public class WelcomeActivity extends AppCompatActivity {
+    TimeUtils mTimeUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fullscreen);
         hideSystemUI(getWindow().getDecorView());
+        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
+                (TextView)findViewById(R.id.date_textview));
     }
 
     // This snippet hides the system bars.
@@ -24,5 +35,21 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTimeUtils.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mTimeUtils.stop();
     }
 }
