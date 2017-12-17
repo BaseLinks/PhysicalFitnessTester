@@ -9,7 +9,9 @@
     <include
         layout="@layout/com2_background"
         tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/test_textview"
@@ -53,13 +55,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.kangear.bodycompositionanalyzer.NoImeEditText
+        android:id="@+id/edittext"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="168dp"
         android:layout_marginTop="325dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
+        android:hint="@string/height_hint"
+        android:gravity="right|center_vertical"
         android:text="175"
         android:textColor="#F39801"
         android:textSize="200sp"

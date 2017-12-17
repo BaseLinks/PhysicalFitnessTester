@@ -11,7 +11,7 @@ import com.kangear.utils.TimeUtils;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends Com2Activity {
     TimeUtils mTimeUtils;
 
     @Override
@@ -35,10 +35,6 @@ public class WelcomeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
-
-    public void onClick(View view) {
-
     }
 
     @Override
