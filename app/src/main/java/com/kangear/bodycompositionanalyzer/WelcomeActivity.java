@@ -17,10 +17,10 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_height);
         hideSystemUI(getWindow().getDecorView());
-        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
-                (TextView)findViewById(R.id.date_textview));
+//        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
+//                (TextView)findViewById(R.id.date_textview));
     }
 
     // This snippet hides the system bars.
@@ -44,12 +44,12 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mTimeUtils.start();
+//        mTimeUtils.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mTimeUtils.stop();
+//        mTimeUtils.stop();
     }
 }
