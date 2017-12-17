@@ -26,7 +26,7 @@ public class InputFilterUtils {
                 //****Add this line (below) to allow Negative values***//
                 if (newVal.equalsIgnoreCase("-") && min < 0) return null;
                 int input = Integer.parseInt(newVal);
-                Log.i(TAG, "InputFilterUtils: oldVal: " + source.toString() + " newVal: " + newVal);
+                // Log.i(TAG, "InputFilterUtils: oldVal: " + source.toString() + " newVal: " + newVal);
                 if (isInRange(min, max, input))
                     return null;
                 else {
