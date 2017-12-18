@@ -8,4 +8,5 @@
     <string name="weight_zh">体重</string>
     <string name="weight_en">WEIGHT</string>
     <string name="height_hint"><font size="30">可输入范围1-250</font></string>
+    <string name="id_hint"><font size="30" color="yellow">可输入数字或者汉字</font></string>
 </resources>

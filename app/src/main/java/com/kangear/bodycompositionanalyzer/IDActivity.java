@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,29 +20,16 @@ import com.kangear.utils.InputFilterUtils;
  * status bar and navigation/system bar) with user interaction.
  */
 public class IDActivity extends Com2Activity {
-    private EditText mEditText;
     private Button mDotButton;
     private Button mSoftwareBoardButton;
+    private String TAG = "IDActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_id);
         hideSystemUI(getWindow().getDecorView());
-        mEditText = findViewById(R.id.edittext);
-        setEditText(mEditText);
-        mEditText.setClickable(false);
-        mEditText.setEnabled(false);;
-        mEditText.setText("");
-        mNextButton = findViewById(R.id.kb_next_button);
-
-        mSoftwareBoardButton = findViewById(R.id.kb_softboard_button);
-        mDotButton = findViewById(R.id.kb_dot_button);
-
-        mSoftwareBoardButton.setVisibility(View.VISIBLE);
-        mDotButton.setVisibility(View.GONE);
-
-        setEnable(false);
+        setView(false, getWindow().getDecorView());
     }
 
     /**
@@ -48,15 +37,25 @@ public class IDActivity extends Com2Activity {
      * @return
      */
     @Override
-    public boolean canNext() {
-        return mEditText.getText().toString().length() > 0;
+    public boolean canNext(String str) {
+        return str.length() > 0;
     }
 
-    public void setEnable(boolean isEnable) {
-        if (mNextButton != null) {
-            mNextButton.setEnabled(isEnable);
-            mNextButton.setClickable(isEnable);
-            mNextButton.setFocusable(isEnable);
-        }
+    @Override
+    public void onNextButtonClick() {
+        super.onNextButtonClick();
+        Log.i(TAG, "onNextButtonClick");
+    }
+
+    @Override
+    public void onBackButtonClick() {
+        super.onBackButtonClick();
+        Log.i(TAG, "onBackButtonClick");
+    }
+
+    @Override
+    public void onKeyBoardButtonClick() {
+        super.onKeyBoardButtonClick();
+        Log.i(TAG, "onKeyBoardButtonClick");
     }
 }

@@ -1,9 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,15 +17,28 @@ import com.kangear.utils.TimeUtils;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Com2Activity extends AppCompatActivity {
+public class Com2Activity extends AppCompatActivity implements iCom2 {
     private boolean hasDot = true;
     private EditText mEditText;
     Button mNextButton;
     private String TAG = "Com2Activity";
+    private Button mDotButton;
+    private Button mSoftwareBoardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void setView(boolean hasDot, View v) {
+        this.hasDot = hasDot;
+        this.mEditText = v.findViewById(R.id.edittext);
+        this.mNextButton = v.findViewById(R.id.kb_next_button);
+        mSoftwareBoardButton = v.findViewById(R.id.kb_softboard_button);
+        mDotButton = v.findViewById(R.id.kb_dot_button);
+
+        mDotButton.setVisibility(hasDot ? View.VISIBLE : View.GONE);
+        mSoftwareBoardButton.setVisibility(!hasDot ? View.VISIBLE : View.GONE);
     }
 
     // This snippet hides the system bars.
@@ -89,27 +104,31 @@ public class Com2Activity extends AppCompatActivity {
                     tmp = tmp.substring(0, tmp.length() - 1);
                 break;
             case R.id.kb_next_button:
-//                handleSureOnClick();
+                onNextButtonClick();
                 break;
             case R.id.kb_back_button:
-//                handleSureOnClick();
+                onBackButtonClick();
                 break;
             case R.id.kb_softboard_button:
                 // 启动软键盘
-                mEditText.setEnabled(true);
-                mEditText.requestFocus();
-                break;
+//                onKeyBoardButtonClick();
+                if (mEditText.requestFocus()) {
+                    mEditText.setText("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+                }
+                return;
         }
 //
         if (tmp.length() <= 4)
             mEditText.setText(tmp);
 
         // 有输入，则将使能
-        setEnable(false);
+        setEnable(canNext(mEditText.getText().toString()));
         // Log.d(TAG, "tmp: " + tmp);
     }
 
-    public boolean canNext() {
+    public boolean canNext(String str) {
         return true;
     }
 
@@ -125,12 +144,16 @@ public class Com2Activity extends AppCompatActivity {
         }
     }
 
-    /**
-     * @param editText
-     */
-    public void setEditText(EditText editText) {
-        mEditText = editText;
-    }
+//    /**
+//     * @param editText
+//     */
+//    public void setEditText(EditText editText) {
+//        mEditText = editText;
+//    }
+//
+//    public void setNextButton(Button nextButton) {
+//        mNextButton = nextButton;
+//    }
 
     @Override
     protected void onResume() {
@@ -140,5 +163,17 @@ public class Com2Activity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onNextButtonClick() {
+    }
+
+    @Override
+    public void onBackButtonClick() {
+    }
+
+    @Override
+    public void onKeyBoardButtonClick() {
     }
 }

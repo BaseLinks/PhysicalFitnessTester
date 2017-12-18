@@ -39,8 +39,14 @@
         android:lineSpacingExtra="0dp"
         android:text="175"
         android:textColor="#F39801"
-        android:textSize="200sp"
+        android:textSize="100sp"
+        android:hint="@string/id_hint"
+        android:maxLength="8"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@null"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"/>
 
 </android.support.constraint.ConstraintLayout>

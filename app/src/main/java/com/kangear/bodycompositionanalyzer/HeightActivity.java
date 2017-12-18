@@ -21,7 +21,6 @@ public class HeightActivity extends Com2Activity {
         setContentView(R.layout.activity_height);
         hideSystemUI(getWindow().getDecorView());
         mEditText = findViewById(R.id.edittext);
-        setEditText((EditText) findViewById(R.id.edittext));
         mEditText.setClickable(false);
         mEditText.setEnabled(false);;
 
@@ -34,7 +33,7 @@ public class HeightActivity extends Com2Activity {
      * @return
      */
     @Override
-    public boolean canNext() {
-        return mEditText.getText().toString().length() > 0;
+    public boolean canNext(String str) {
+        return str.length() > 0;
     }
 }
