@@ -20,13 +20,11 @@ public class InputFilterUtils {
             try {
                 String oldVal = "";
                 // Remove the string out of destination that is to be replaced
-                String newVal = dest.toString().substring(0, dstart) + dest.toString().substring(dend, dest.toString().length());
-                // Add the new string in
-                newVal = newVal.substring(0, dstart) + source.toString() + newVal.substring(dstart, newVal.length());
-                //****Add this line (below) to allow Negative values***//
-                if (newVal.equalsIgnoreCase("-") && min < 0) return null;
+                String newVal = dest.toString() + source.toString();
                 int input = Integer.parseInt(newVal);
-                // Log.i(TAG, "InputFilterUtils: oldVal: " + source.toString() + " newVal: " + newVal);
+                // Add the new string in
+                //****Add this line (below) to allow Negative values***//
+                Log.i(TAG, "InputFilterUtils: oldVal: " + source.toString() + " newVal: " + newVal);
                 if (isInRange(min, max, input))
                     return null;
                 else {

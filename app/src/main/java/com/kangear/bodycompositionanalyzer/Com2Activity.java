@@ -26,16 +26,18 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
     private String TAG = "Com2Activity";
     private Button mDotButton;
     private Button mSoftwareBoardButton;
+    private String regular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public void setView(boolean hasDot, View v) {
+    public void setView(boolean hasDot, View v, final String regular) {
         this.hasDot = hasDot;
         this.mEditText = v.findViewById(R.id.edittext);
         this.mNextButton = v.findViewById(R.id.kb_next_button);
+        this.regular = regular;
         mSoftwareBoardButton = v.findViewById(R.id.kb_softboard_button);
         mDotButton = v.findViewById(R.id.kb_dot_button);
 
@@ -43,6 +45,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
         mSoftwareBoardButton.setVisibility(!hasDot ? View.VISIBLE : View.GONE);
 
         mEditText.addTextChangedListener(new TextWatcher() {
+            CharSequence before = "";
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -53,6 +56,10 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if (regular != null && !editable.toString().matches(regular) && !"".equals(editable.toString())) {
+                    mEditText.setSelection(mEditText.getText().toString().length());
+                }
+
                 // 有输入，则将使能
                 setEnable(canNext(mEditText.getText().toString()));
             }
