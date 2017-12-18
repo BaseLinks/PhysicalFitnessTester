@@ -44,26 +44,28 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
         mDotButton.setVisibility(hasDot ? View.VISIBLE : View.GONE);
         mSoftwareBoardButton.setVisibility(!hasDot ? View.VISIBLE : View.GONE);
 
-        mEditText.addTextChangedListener(new TextWatcher() {
-            CharSequence before = "";
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (regular != null && !editable.toString().matches(regular) && !"".equals(editable.toString())) {
-                    mEditText.setSelection(mEditText.getText().toString().length());
+        if (mEditText != null) {
+            mEditText.addTextChangedListener(new TextWatcher() {
+                CharSequence before = "";
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
 
-                // 有输入，则将使能
-                setEnable(canNext(mEditText.getText().toString()));
-            }
-        });
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (regular != null && !editable.toString().matches(regular) && !"".equals(editable.toString())) {
+                        mEditText.setSelection(mEditText.getText().toString().length());
+                    }
+
+                    // 有输入，则将使能
+                    setEnable(canNext(mEditText.getText().toString()));
+                }
+            });
+        }
     }
 
     // This snippet hides the system bars.
