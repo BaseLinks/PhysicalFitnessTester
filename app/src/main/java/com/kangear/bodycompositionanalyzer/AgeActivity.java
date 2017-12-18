@@ -21,8 +21,9 @@ public class AgeActivity extends Com2Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_age);
         hideSystemUI(getWindow().getDecorView());
-        setView(true, getWindow().getDecorView(), "/^[1-9][0-9]?$/");
+        setView(true, getWindow().getDecorView(), null);
         mEditText = findViewById(R.id.edittext);
+        mEditText.setFilters(new InputFilter[]{ new InputFilterUtils.MinMax(7, 99)});
         Button dot = findViewById(R.id.kb_dot_button);
         dot.setEnabled(false);
     }

@@ -19,21 +19,17 @@ public class InputFilterUtils {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             try {
                 String oldVal = "";
-                // Remove the string out of destination that is to be replaced
                 String newVal = dest.toString() + source.toString();
                 int input = Integer.parseInt(newVal);
-                // Add the new string in
-                //****Add this line (below) to allow Negative values***//
-                Log.i(TAG, "InputFilterUtils: oldVal: " + source.toString() + " newVal: " + newVal);
                 if (isInRange(min, max, input))
                     return null;
-                else {
-                    // Buzzer
-                    if (newVal.length() > 0) {
-                        oldVal = newVal.substring(0, newVal.length() - 1);
-                    }
-                    return oldVal;
-                }
+//                else {
+//                    // Buzzer
+//                    if (newVal.length() > 0) {
+//                        oldVal = newVal.substring(0, newVal.length() - 1);
+//                    }
+//                    return oldVal;
+//                }
             } catch (NumberFormatException nfe) {
                 // nfe.printStackTrace();
             }
