@@ -3,6 +3,8 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -39,6 +41,22 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
         mDotButton.setVisibility(hasDot ? View.VISIBLE : View.GONE);
         mSoftwareBoardButton.setVisibility(!hasDot ? View.VISIBLE : View.GONE);
+
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // 有输入，则将使能
+                setEnable(canNext(mEditText.getText().toString()));
+            }
+        });
     }
 
     // This snippet hides the system bars.
@@ -111,22 +129,20 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 break;
             case R.id.kb_softboard_button:
                 // 启动软键盘
-//                onKeyBoardButtonClick();
                 if (mEditText.requestFocus()) {
                     mEditText.setText("");
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+                    isFocus = true;
                 }
-                return;
+                break;
         }
-//
-        if (tmp.length() <= 4)
-            mEditText.setText(tmp);
 
-        // 有输入，则将使能
-        setEnable(canNext(mEditText.getText().toString()));
-        // Log.d(TAG, "tmp: " + tmp);
+        if (tmp.length() <= 4 && !isFocus)
+            mEditText.setText(tmp);
     }
+
+    boolean isFocus = false;
 
     public boolean canNext(String str) {
         return true;
