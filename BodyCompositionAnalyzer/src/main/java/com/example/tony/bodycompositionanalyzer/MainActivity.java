@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mSerialTextView = (TextView) findViewById(R.id.serial_textview);
         mDescriptTextView = (TextView) findViewById(R.id.des_textview);
 
-        mPrinterTextView.setText(Printer.getInstance(mContext).isConnected() ?  "已连接" : "未连接");
+        mPrinterTextView.setText(Printer.getInstance(mContext).isConnected() ? "已连接" : "未连接");
         mDescriptTextView.setText("版本号: " + getVersionName() + "\n" + "打印总分：" + getResources().getBoolean(R.bool.is_print_total_score));
 
         boolean isDrawNegative = PreferencesUtils.getBoolean(mContext, BodyCompositionAnalyzer.KEY_IS_DRAW_NEGATIVE);
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 获取版本号
+     *
      * @return
      */
     public String getVersionName() {
@@ -121,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleEvent(Intent intent) {
         Log.i(LOG_TAG, "handleEvent");
-        if(intent != null) {
+        if (intent != null) {
             int type = intent.getIntExtra(BodyCompositionAnalyzerService.EVENT_TYPE, BodyCompositionAnalyzerService.EVENT_TYPE_UNKNOW);
             int code = intent.getIntExtra(BodyCompositionAnalyzerService.EVENT_CODE, BodyCompositionAnalyzerService.EVENT_CODE_UNKOWN);
-            if(type != BodyCompositionAnalyzerService.EVENT_TYPE_UNKNOW && code != BodyCompositionAnalyzerService.EVENT_CODE_UNKOWN) {
+            if (type != BodyCompositionAnalyzerService.EVENT_TYPE_UNKNOW && code != BodyCompositionAnalyzerService.EVENT_CODE_UNKOWN) {
                 String str;
                 switch (type) {
                     case BodyCompositionAnalyzerService.EVENT_TYPE_PRINTER:

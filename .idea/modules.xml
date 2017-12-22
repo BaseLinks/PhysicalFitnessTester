@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/100_PDFdemo.iml" filepath="$PROJECT_DIR$/100_PDFdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bodyCompostionMirror/bodyCompostionMirror.iml" filepath="$PROJECT_DIR$/bodyCompostionMirror/bodyCompostionMirror.iml" />
       <module fileurl="file://$PROJECT_DIR$/d2xx/d2xx.iml" filepath="$PROJECT_DIR$/d2xx/d2xx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/helloroot/helloroot.iml" filepath="$PROJECT_DIR$/helloroot/helloroot.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" filepath="$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" filepath="$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" />
     </modules>

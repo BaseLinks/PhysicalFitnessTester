@@ -157,6 +157,10 @@ public class Printer {
         if(!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).desactivationPin()) {
             Log.e(LOG_TAG, "uninit Gpio fail");
         }
+        if (mContext != null) {
+            mContext.unregisterReceiver(mUsbReceiver);
+        }
+
     }
 
     public void init() {
@@ -463,6 +467,9 @@ public class Printer {
         Log.i(LOG_TAG, "Printer#initPrinterDeviceEndpoint");
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
+        if (mDeviceConnection == null || mSerial == null) {
+            return;
+        }
 
         UsbEndpoint epOut = null;
         UsbEndpoint epIn = null;

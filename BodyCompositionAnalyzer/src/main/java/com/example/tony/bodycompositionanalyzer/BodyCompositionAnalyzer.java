@@ -50,7 +50,7 @@ public class BodyCompositionAnalyzer {
 	private UartHelper mUartHelper;
 	private static Context mContext =  null;
 	private String                 serialPort       = null;
-	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA2";
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA3";
 	private static BodyComposition mBodyComposition;
 	private static final boolean IS_USB_UART = false;
 	/**
@@ -493,19 +493,23 @@ public class BodyCompositionAnalyzer {
         /** 数据长度够了，进行解析,这样调用这个函数立刻会结束 */
         mFullData = Arrays.copyOfRange(bufferArray, 0, BodyComposition.TOTAL_LENGTH);
         MyIntentService.startActionParseData(mContext, "", "");
-        return true;
 
-//		/* 1. 打开串口 */
-//		if (!initCoinMachine()) {
-//			if (DEBUG)
-//				Log.w(LOG_TAG, "init Thermal Printer fail!");
-//			return false;
-//		}
-//		/* 2. 发送数据 */
-//		serialCtrl.send(getDianjiTest());
+        if (false)
+            return true;
+
+		/* 1. 打开串口 */
+		if (!initCoinMachine()) {
+			if (DEBUG)
+				Log.w(LOG_TAG, "init Thermal Printer fail!");
+			return false;
+		}
+		/* 2. 发送数据 */
+		serialCtrl.send(new byte[]{'H', 'E', 'L', 'L', 'O'});
+        Log.i(LOG_TAG, "serialCtrl.send hello world");
 
 		/* 3. 关闭串口 */
-//		serialCtrl.close();
+		serialCtrl.close();
+        return true;
 	}
 
 	void tmp () {
