@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,16 +12,16 @@ import com.kangear.utils.TimeUtils;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WelcomeActivity extends Com2Activity {
+public class WelcomeActivity extends AppCompatActivity {
     TimeUtils mTimeUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_height);
+        setContentView(R.layout.activity_welcome);
         hideSystemUI(getWindow().getDecorView());
-//        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
-//                (TextView)findViewById(R.id.date_textview));
+        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
+                (TextView)findViewById(R.id.date_textview));
     }
 
     // This snippet hides the system bars.
@@ -40,12 +41,34 @@ public class WelcomeActivity extends Com2Activity {
     @Override
     protected void onResume() {
         super.onResume();
-//        mTimeUtils.start();
+        mTimeUtils.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        mTimeUtils.stop();
+        mTimeUtils.stop();
+    }
+
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.vip_register_imageview:
+                intent = new Intent(this, MemRegActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.vip_test_imageview:
+                intent = new Intent(this, WeightActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.start_new_test_imageview:
+                intent = new Intent(this, WeightActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.history_imageview:
+                break;
+            case R.id.settings_imageview:
+                break;
+        }
     }
 }

@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+    android:background="#EEEEEE">
 
-    <ImageView
-        android:id="@+id/logo_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="41dp"
-        android:background="@drawable/_01_logo_color"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
+        layout="@layout/logo_background"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 中间黑块 -->
     <View
-        android:background="#DCDCDC"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="123px"/>
-
+        android:layout_marginTop="124dp"
+        android:background="@drawable/background"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -52,7 +52,7 @@ public class TimeUtils {
             switch (msg.what) {
                 case 1:
                     long sysTime = System.currentTimeMillis();
-                    CharSequence sysTimeStr = DateFormat.format("hh:mm:ss", sysTime);
+                    CharSequence sysTimeStr = DateFormat.format("HH:mm:ss", sysTime);
                     CharSequence sysDateStr = DateFormat.format("yyyy-MM-dd", sysTime);
                     mTvTime.setText(sysTimeStr); //更新时间
                     mTvDate.setText(sysDateStr);

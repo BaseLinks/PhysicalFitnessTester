@@ -9,26 +9,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * 本页面不显示logo
  */
-public class WeightActivity extends AppCompatActivity {
-    private View startView;
-    private View stopView;
+public class MemRegActivity extends AppCompatActivity {
     private TextView mTextView;
     private static final int WEIGHT_ACTIVITY = 1;
     private static final int WEIGHT_STOP = 2;
+    private View logoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weight);
+        setContentView(R.layout.activity_memreg);
         hideSystemUI(getWindow().getDecorView());
-        startView = findViewById(R.id.weight_start);
-        stopView = findViewById(R.id.weight_stop);
         mTextView = findViewById(R.id.weight_textview);
-
-        startTest();
+        logoView = findViewById(R.id.logo_imageview);
+        logoView.setVisibility(View.GONE);
     }
 
     // This snippet hides the system bars.
@@ -49,8 +45,6 @@ public class WeightActivity extends AppCompatActivity {
      * 开始
      */
     private void startTest() {
-        startView.setVisibility(View.VISIBLE);
-        stopView.setVisibility(View.GONE);
         mTextView.setText("");
 
         // star phread
@@ -108,8 +102,6 @@ public class WeightActivity extends AppCompatActivity {
      * 开始
      */
     private void stopTest() {
-        startView.setVisibility(View.GONE);
-        stopView.setVisibility(View.VISIBLE);
     }
 
     public void onClick(View v) {
