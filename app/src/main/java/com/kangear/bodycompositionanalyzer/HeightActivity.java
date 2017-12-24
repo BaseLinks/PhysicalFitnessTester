@@ -17,6 +17,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -30,7 +31,7 @@ public class HeightActivity extends Com2Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_height);
-        setView(false, getWindow().getDecorView(), null);
+        setView(true, getWindow().getDecorView(), null);
         hideSystemUI(getWindow().getDecorView());
         mEditText = findViewById(R.id.edittext);
         mEditText.setClickable(false);
@@ -85,5 +86,11 @@ public class HeightActivity extends Com2Activity {
         intent.putExtra(WelcomeActivity.CONST_HEIGHT, height);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onBackButtonClick() {
+        super.onBackButtonClick();
+        exitAsFail(this);
     }
 }
