@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +12,7 @@ import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kangear.common.utils.ByteArrayUtils;
 
@@ -112,6 +114,27 @@ public class FingerUSB {
         return length > 0;
     }
 
+    private final BroadcastReceiver mUsbPermissionActionReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbDevice usbDevice = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        //user choose YES for your previously popup window asking for grant perssion for this usb device
+                        if(null != usbDevice){
+                            open(context.getApplicationContext());
+                        }
+                    }
+                    else {
+                        //user choose NO for your previously popup window asking for grant perssion for this usb device
+                        Toast.makeText(context, String.valueOf("Permission denied for device" + usbDevice), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    };
+
 
     /**
      * 获取Usb权限
@@ -181,6 +204,8 @@ public class FingerUSB {
             return false;
         }
 
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        context.registerReceiver(mUsbPermissionActionReceiver, filter);
         tryGetUsbPermission(context, mManager, device, intf);
         return true;
     }
