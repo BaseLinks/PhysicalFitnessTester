@@ -2,6 +2,7 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
@@ -51,9 +56,9 @@ public class MemRegActivity extends Com2Activity {
         mFeMaleRadio = findViewById(R.id.female_radiobutton);
 
         dissAllwithoutBackNext();
-        mIdEditText.addTextChangedListener(mTextWatcher);
-        mAgeEditText.addTextChangedListener(mTextWatcher);
-        mHeightEditText.addTextChangedListener(mTextWatcher);
+        mIdEditText.addTextChangedListener(mIdTextWatcher);
+        mAgeEditText.addTextChangedListener(mAgeTextWatcher);
+        mHeightEditText.addTextChangedListener(mHeightTextWatcher);
 
         mIdEditText.setText("");
         mAgeEditText.setText("");
@@ -73,7 +78,7 @@ public class MemRegActivity extends Com2Activity {
         }
     }
 
-    private TextWatcher mTextWatcher = new TextWatcher() {
+    private TextWatcher mIdTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
@@ -83,7 +88,57 @@ public class MemRegActivity extends Com2Activity {
         }
 
         @Override
-        public void afterTextChanged(Editable editable) {
+        public void afterTextChanged(Editable s) {
+            onContentChanged();
+        }
+    };
+
+    private TextWatcher mAgeTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            try {
+                int val = Integer.parseInt(s.toString());
+                if(val >= MIN_AGE && val <= MAX_AGE) {
+                    mAgeEditText.setTextColor(Color.BLACK);
+                } else {
+                    mAgeEditText.setTextColor(Color.RED);
+                }
+            } catch (NumberFormatException ex) {
+                // Do something
+            }
+            onContentChanged();
+        }
+    };
+
+    private TextWatcher mHeightTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            try {
+                int val = Integer.parseInt(s.toString());
+                if(val >= MIN_HEIGHT && val <= MAX_HEIGHT) {
+                    mHeightEditText.setTextColor(Color.BLACK);
+                } else {
+                    mHeightEditText.setTextColor(Color.RED);
+                }
+            } catch (NumberFormatException ex) {
+                // Do something
+            }
             onContentChanged();
         }
     };
@@ -189,6 +244,7 @@ public class MemRegActivity extends Com2Activity {
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
         intent.putExtra(WelcomeActivity.CONST_PERSON, mPerson.toJson());
         setResult(RESULT_OK, intent);
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -224,13 +280,20 @@ public class MemRegActivity extends Com2Activity {
         if (mHeightEditText.getText().toString().equals("")) {
             Log.e(TAG, "请输入身高");
             hefa = false;
+        } else {
+            int height = Integer.valueOf(mHeightEditText.getText().toString());
+            if (height < MIN_HEIGHT || height > MAX_HEIGHT)
+                hefa = false;
         }
 
         if (mAgeEditText.getText().toString().equals("")) {
             Log.e(TAG, "请输入年龄");
             hefa = false;
+        } else {
+            int age = Integer.valueOf(mAgeEditText.getText().toString());
+            if (age < MIN_AGE || age > MAX_AGE)
+                hefa = false;
         }
-
         mNextButton.setEnabled(hefa);
     }
 }

@@ -11,11 +11,18 @@ import android.widget.Toast;
 
 import com.kangear.common.utils.TimeUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class WelcomeActivity extends AppCompatActivity {
+    public static final int MIN_HEIGHT = 1;
+    public static final int MAX_HEIGHT = 250;
+    public static final int MIN_AGE = 7;
+    public static final int MAX_AGE = 99;
     public static final int INVALID_FINGER_ID = -1;
     public static final String CONST_FINGER_ID = "CONST_FINGER_ID";
     public static final String CONST_PERSON = "PERSON";
@@ -25,6 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_NEW_TEST    = 3;
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
+    private List<Person> mPersons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +110,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Person p = Person.fromJson(data.getStringExtra(CONST_PERSON));
                 Log.d(TAG, "onActivityResult: person " + p.toString());
                 // 将Person写入数据库中
+                mPersons.add(p);
                 break;
             case REQUEST_CODE_VIP_TEST:
                 weight = data.getIntExtra(CONST_WEIGHT, 0);
