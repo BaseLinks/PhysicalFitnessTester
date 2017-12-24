@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.kangear.common.utils.InputFilterUtils;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -23,6 +26,7 @@ public class IDActivity extends Com2Activity {
     private Button mDotButton;
     private Button mSoftwareBoardButton;
     private String TAG = "IDActivity";
+    private EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class IDActivity extends Com2Activity {
         setContentView(R.layout.activity_id);
         hideSystemUI(getWindow().getDecorView());
         setView(false, getWindow().getDecorView(), null);
+        mEditText = findViewById(R.id.edittext);
+        mEditText.setText("");
     }
 
     /**
@@ -45,12 +51,18 @@ public class IDActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        String id = mEditText.getText().toString();
+        intent.putExtra(WelcomeActivity.CONST_ID, id);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
     public void onBackButtonClick() {
         super.onBackButtonClick();
         Log.i(TAG, "onBackButtonClick");
+        exitAsFail(this);
     }
 
     @Override

@@ -86,11 +86,10 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
      * @param v
      */
     public void onClick(View v) {
-        //Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
         String tmp = "";
         if (mEditText != null) {
             tmp = mEditText.getText().toString();
-            return;
         }
         switch (v.getId()) {
             case R.id.kb_0_button:
@@ -139,6 +138,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 break;
             case R.id.kb_softboard_button:
                 // 启动软键盘
+                Log.d(TAG, "启动软键盘");
                 if (mEditText.requestFocus()) {
                     mEditText.setText("");
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

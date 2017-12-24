@@ -27,9 +27,15 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final String CONST_FINGER_ID = "CONST_FINGER_ID";
     public static final String CONST_PERSON = "PERSON";
     public static final String CONST_WEIGHT = "WEIGHT";
+    public static final String CONST_ID     = "ID";
+    public static final String CONST_HEIGHT = "HEIGHT";
+    public static final String CONST_AGE    = "AGE";
     private static final int REQUEST_CODE_VIP_REGISTE = 1;
     private static final int REQUEST_CODE_VIP_TEST    = 2;
     private static final int REQUEST_CODE_NEW_TEST    = 3;
+    private static final int REQUEST_CODE_ID          = 4;
+    private static final int REQUEST_CODE_AGE         = 5;
+    private static final int REQUEST_CODE_HEIGHT      = 6;
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
@@ -114,7 +120,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     mPersons.add(mCurPersion);
                 }
                 break;
-            case REQUEST_CODE_VIP_TEST:
+            case REQUEST_CODE_VIP_TEST: // 2.1. WEIGHT
                 if (resultCode == RESULT_OK) {
                     weight = data.getIntExtra(CONST_WEIGHT, 0);
                     Log.d(TAG, "onActivityResult: weight " + weight);
@@ -122,12 +128,45 @@ public class WelcomeActivity extends AppCompatActivity {
                     mCurPersion.setWeight(weight);
                 }
                 break;
-            case REQUEST_CODE_NEW_TEST: {
+            case REQUEST_CODE_NEW_TEST: { // 1.1 WEIGHT
                 if (resultCode == RESULT_OK) {
                     weight = data.getIntExtra(CONST_WEIGHT, 0);
                     Log.d(TAG, "onActivityResult: weight " + weight);
                     mCurPersion = new Person();
                     mCurPersion.setWeight(weight);
+                    startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_ID);
+                }
+                break;
+            }
+
+            case REQUEST_CODE_ID: { // 1.2 ID
+                if (resultCode == RESULT_OK) {
+                    String id = data.getStringExtra(CONST_ID);
+                    Log.d(TAG, "onActivityResult: id " + id);
+                    mCurPersion.setId(id);
+                    // 2. ID
+                    startActivityForResult(new Intent(this, AgeActivity.class), REQUEST_CODE_AGE);
+                }
+                break;
+            }
+
+            case REQUEST_CODE_AGE: { // 1.3. 年龄
+                if (resultCode == RESULT_OK) {
+                    int age = data.getIntExtra(CONST_AGE, MIN_AGE);
+                    Log.d(TAG, "onActivityResult: age " + age);
+                    mCurPersion.setAge(age);
+
+                    startActivityForResult(new Intent(this, HeightActivity.class), REQUEST_CODE_HEIGHT);
+                }
+                break;
+            }
+
+            case REQUEST_CODE_HEIGHT: { // 1.4. 身高
+                if (resultCode == RESULT_OK) {
+                    int height = data.getIntExtra(CONST_HEIGHT, MIN_HEIGHT);
+                    Log.d(TAG, "onActivityResult: height " + height);
+                    mCurPersion.setHeight(height);
+                    // startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_HEIGHT);
                 }
                 break;
             }
