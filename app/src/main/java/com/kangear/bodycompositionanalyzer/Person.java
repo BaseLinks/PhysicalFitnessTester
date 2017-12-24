@@ -1,5 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
+import com.google.gson.Gson;
+
 /**
  * Created by tony on 17-12-24.
  */
@@ -9,6 +11,10 @@ public class Person {
     String id;
     int age;
     int height;
+    // 性别
+    int gender;
+    public static final int GENDER_MALE   = 1;
+    public static final int GENDER_FEMALE = 2;
 
     public int getFingerId() {
         return fingerId;
@@ -40,5 +46,36 @@ public class Person {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+
+    // You can add those functions as LiveTemplate !
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static Person fromJson(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, Person.class);
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "fingerId=" + fingerId +
+                ", id='" + id + '\'' +
+                ", age=" + age +
+                ", height=" + height +
+                ", gender=" + gender +
+                '}';
     }
 }

@@ -12,30 +12,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
 /**
  * 本页面不显示logo
  */
 public class MemRegActivity extends Com2Activity {
     private static final String TAG = "MemRegActivity";
-    private TextView mTextView;
-    private static final int WEIGHT_ACTIVITY = 1;
-    private static final int WEIGHT_STOP = 2;
     private View logoView;
     private Button mFingerButton;
     private EditText mIdEditText;
     private EditText mHeightEditText;
     private EditText mAgeEditText;
     private Button mNextButton;
+    private Person mPerson;
+    private RadioButton mMaleRadio;
+    private RadioButton mFeMaleRadio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memreg);
         hideSystemUI(getWindow().getDecorView());
-        mTextView = findViewById(R.id.weight_textview);
         logoView = findViewById(R.id.logo_imageview);
         logoView.setVisibility(View.GONE);
         mFingerButton = findViewById(R.id.finger_button);
@@ -43,6 +47,8 @@ public class MemRegActivity extends Com2Activity {
         mHeightEditText = findViewById(R.id.height_edittext);
         mAgeEditText = findViewById(R.id.age_edittext);
         mNextButton = findViewById(R.id.kb_next_button);
+        mMaleRadio = findViewById(R.id.male_radiobutton);
+        mFeMaleRadio = findViewById(R.id.female_radiobutton);
 
         dissAllwithoutBackNext();
         mIdEditText.addTextChangedListener(mTextWatcher);
@@ -52,6 +58,19 @@ public class MemRegActivity extends Com2Activity {
         mIdEditText.setText("");
         mAgeEditText.setText("");
         mHeightEditText.setText("");
+
+        Intent intent = getIntent();
+        String pStr =  intent.getStringExtra(WelcomeActivity.CONST_PERSON);
+        if (pStr == null) {
+            unkownError(this);
+            exitAsFail(this);
+        }
+
+        mPerson = Person.fromJson(pStr);
+        if (mPerson == null) {
+            unkownError(this);
+            exitAsFail(this);
+        }
     }
 
     private TextWatcher mTextWatcher = new TextWatcher() {
@@ -105,69 +124,6 @@ public class MemRegActivity extends Com2Activity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
-    /**
-     * 开始
-     */
-    private void startTest() {
-        mTextView.setText("");
-
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        sleep(800);
-                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        int weight = 1;
-                        if (mTextView.getText() != null) {
-                            String str = mTextView.getText().toString();
-                            try {
-                                weight += Integer.valueOf(str);
-                            } catch (Exception e) {
-                            }
-                        }
-
-                        if (weight > 10) {
-                            mHandler.sendEmptyMessage(WEIGHT_STOP);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case WEIGHT_ACTIVITY:
-                    int weight = 1;
-                    if (mTextView.getText() != null) {
-                        String str = mTextView.getText().toString();
-                        try {
-                            weight += Integer.valueOf(str);
-                        } catch (Exception e) {
-                        }
-                    }
-                    mTextView.setText("" + weight);
-                    break;
-                case WEIGHT_STOP:
-                    stopTest();
-                    break;
-            }
-        }
-    };
-
-    /**
-     * 开始
-     */
-    private void stopTest() {
-    }
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -180,6 +136,7 @@ public class MemRegActivity extends Com2Activity {
                 break;
             case R.id.finger_button:
                 Intent intent = new Intent(this, GetFingerActivity.class);
+                intent.putExtra(CONST_FINGER_ID, mPerson.getFingerId());
                 startActivityForResult(intent, 0);
                 break;
         }
@@ -213,15 +170,26 @@ public class MemRegActivity extends Com2Activity {
         }
     }
 
+
+
     @Override
     public void onBackButtonClick() {
         super.onBackButtonClick();
-        finish();
+        exitAsFail(this);
     }
 
     @Override
     public void onNextButtonClick() {
         super.onNextButtonClick();
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        int gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
+        mPerson.setGender(gender);
+        mPerson.setId(mIdEditText.getText().toString());
+        mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
+        mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
+        intent.putExtra(WelcomeActivity.CONST_PERSON, mPerson.toJson());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

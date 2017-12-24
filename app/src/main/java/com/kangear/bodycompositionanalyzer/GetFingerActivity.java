@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
+
 /**
  * 本页面不显示logo
  */
@@ -38,6 +43,12 @@ public class GetFingerActivity extends Com2Activity {
         dissAllwithoutBackNext();
         mContext = getApplicationContext();
         mNextButton.setEnabled(false);
+
+        int fingerId = getIntent().getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
+        if (fingerId == INVALID_FINGER_ID) {
+            unkownError(this);
+            exitAsFail(this);
+        }
     }
 
     /**

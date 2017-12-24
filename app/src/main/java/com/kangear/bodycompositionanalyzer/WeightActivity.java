@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -70,7 +71,7 @@ public class WeightActivity extends AppCompatActivity {
                             }
                         }
 
-                        if (weight > 10) {
+                        if (weight > 4) {
                             mHandler.sendEmptyMessage(WEIGHT_STOP);
                             break;
                         }
@@ -113,12 +114,17 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
+        Intent intent = new Intent(this, WelcomeActivity.class);
         switch (v.getId()) {
             case R.id.back_button:
-                Toast.makeText(this, "返回按钮按下", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_CANCELED, intent);
+                finish();
                 break;
             case R.id.next_button:
-                Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
+                int weight = Integer.valueOf(mTextView.getText().toString());
+                intent.putExtra(WelcomeActivity.CONST_WEIGHT, weight);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
