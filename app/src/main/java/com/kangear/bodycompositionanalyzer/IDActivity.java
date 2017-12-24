@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kangear.utils.InputFilterUtils;
+import com.kangear.common.utils.InputFilterUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

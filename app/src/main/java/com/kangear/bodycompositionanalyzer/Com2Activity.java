@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.kangear.utils.TimeUtils;
+import com.kangear.common.utils.TimeUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

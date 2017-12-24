@@ -1,11 +1,15 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,21 +17,51 @@ import android.widget.Toast;
  * 本页面不显示logo
  */
 public class GetFingerActivity extends Com2Activity {
+    private static final String TAG = "GetFingerActivity";
     private TextView mTextView;
-    private static final int WEIGHT_ACTIVITY = 1;
-    private static final int WEIGHT_STOP = 2;
     private View logoView;
+    private Context mContext;
+    private static final int GET_FINGER_OK = 1;
+    private ImageView mFingerImageView;
+    private Button mNextButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getfinger);
         hideSystemUI(getWindow().getDecorView());
-        mTextView = findViewById(R.id.weight_textview);
         logoView = findViewById(R.id.logo_imageview);
         logoView.setVisibility(View.GONE);
+        mFingerImageView = findViewById(R.id.finger_imageview);
+        mNextButton = findViewById(R.id.kb_next_button);
         dissAllwithoutBackNext();
+        mContext = getApplicationContext();
+        mNextButton.setEnabled(false);
     }
+
+    /**
+     * 线程
+     */
+    private Thread mThread = new Thread () {
+        @Override
+        public void run() {
+            boolean ret;
+            while(!isInterrupted()) {
+                ret = TouchID.getInstance(mContext).register(0);
+                if (ret) {
+                    mHandler.sendEmptyMessage(GET_FINGER_OK);
+                    break;
+                }
+
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 
     private void dissAllwithoutBackNext() {
         int[] reses = {
@@ -64,68 +98,17 @@ public class GetFingerActivity extends Com2Activity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
-    /**
-     * 开始
-     */
-    private void startTest() {
-        mTextView.setText("");
-
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        sleep(800);
-                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        int weight = 1;
-                        if (mTextView.getText() != null) {
-                            String str = mTextView.getText().toString();
-                            try {
-                                weight += Integer.valueOf(str);
-                            } catch (Exception e) {
-                            }
-                        }
-
-                        if (weight > 10) {
-                            mHandler.sendEmptyMessage(WEIGHT_STOP);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-                case WEIGHT_ACTIVITY:
-                    int weight = 1;
-                    if (mTextView.getText() != null) {
-                        String str = mTextView.getText().toString();
-                        try {
-                            weight += Integer.valueOf(str);
-                        } catch (Exception e) {
-                        }
-                    }
-                    mTextView.setText("" + weight);
-                    break;
-                case WEIGHT_STOP:
-                    stopTest();
+                case GET_FINGER_OK:
+                    mFingerImageView.setBackgroundResource(R.drawable._20_finger_ok);
+                    mNextButton.setEnabled(true);
                     break;
             }
         }
     };
-
-    /**
-     * 开始
-     */
-    private void stopTest() {
-    }
 
     @Override
     public void onBackButtonClick() {
@@ -164,5 +147,18 @@ public class GetFingerActivity extends Com2Activity {
             Toast.makeText(this, "keyboard hidden", Toast.LENGTH_SHORT).show();
             hideSystemUI(getWindow().getDecorView());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mThread != null)
+            mThread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mThread.interrupt();
     }
 }

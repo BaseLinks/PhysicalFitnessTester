@@ -6,7 +6,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 
-import com.kangear.utils.InputFilterUtils;
+import com.kangear.common.utils.InputFilterUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

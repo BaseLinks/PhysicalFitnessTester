@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.kangear.utils.TimeUtils;
+import com.kangear.common.utils.TimeUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -22,6 +22,9 @@ public class WelcomeActivity extends AppCompatActivity {
         hideSystemUI(getWindow().getDecorView());
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
                 (TextView)findViewById(R.id.date_textview));
+
+        // 启动指纹
+        TouchID.getInstance(this.getApplicationContext());
     }
 
     // This snippet hides the system bars.
