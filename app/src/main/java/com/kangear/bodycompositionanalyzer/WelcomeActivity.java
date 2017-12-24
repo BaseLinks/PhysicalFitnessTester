@@ -33,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
+    private Person mCurPersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,6 @@ public class WelcomeActivity extends AppCompatActivity {
             case R.id.start_new_test_imageview:
                 intent = new Intent(this, WeightActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_NEW_TEST);
-                startActivity(intent);
                 break;
             case R.id.history_imageview:
                 break;
@@ -107,18 +107,28 @@ public class WelcomeActivity extends AppCompatActivity {
         int weight;
         switch (requestCode) {
             case REQUEST_CODE_VIP_REGISTE:
-                Person p = Person.fromJson(data.getStringExtra(CONST_PERSON));
-                Log.d(TAG, "onActivityResult: person " + p.toString());
-                // 将Person写入数据库中
-                mPersons.add(p);
+                if (resultCode == RESULT_OK) {
+                    mCurPersion = Person.fromJson(data.getStringExtra(CONST_PERSON));
+                    Log.d(TAG, "onActivityResult: person " + mCurPersion.toString());
+                    // 将Person写入数据库中
+                    mPersons.add(mCurPersion);
+                }
                 break;
             case REQUEST_CODE_VIP_TEST:
-                weight = data.getIntExtra(CONST_WEIGHT, 0);
-                Log.d(TAG, "onActivityResult: weight " + weight);
+                if (resultCode == RESULT_OK) {
+                    weight = data.getIntExtra(CONST_WEIGHT, 0);
+                    Log.d(TAG, "onActivityResult: weight " + weight);
+                    mCurPersion = new Person();
+                    mCurPersion.setWeight(weight);
+                }
                 break;
             case REQUEST_CODE_NEW_TEST: {
-                weight = data.getIntExtra(CONST_WEIGHT, 0);
-                Log.d(TAG, "onActivityResult: weight " + weight);
+                if (resultCode == RESULT_OK) {
+                    weight = data.getIntExtra(CONST_WEIGHT, 0);
+                    Log.d(TAG, "onActivityResult: weight " + weight);
+                    mCurPersion = new Person();
+                    mCurPersion.setWeight(weight);
+                }
                 break;
             }
         }

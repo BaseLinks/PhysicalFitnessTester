@@ -13,6 +13,7 @@ public class Person {
     int height;
     // 性别
     int gender;
+    int weight;
     public static final int GENDER_MALE   = 1;
     public static final int GENDER_FEMALE = 2;
 
@@ -68,6 +69,14 @@ public class Person {
         this.gender = gender;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -76,6 +85,7 @@ public class Person {
                 ", age=" + age +
                 ", height=" + height +
                 ", gender=" + gender +
+                ", weight=" + weight +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
  * status bar and navigation/system bar) with user interaction.
  */
 public class WeightActivity extends AppCompatActivity {
+    private static final String TAG = "WeightActivity";
     private View startView;
     private View stopView;
     private TextView mTextView;
@@ -30,6 +32,7 @@ public class WeightActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.weight_textview);
 
         startTest();
+        Log.i(TAG, "onCreate");
     }
 
     // This snippet hides the system bars.
