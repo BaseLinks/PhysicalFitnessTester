@@ -22,4 +22,10 @@
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/keyboard"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>

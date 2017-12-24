@@ -86,12 +86,12 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
      * @param v
      */
     public void onClick(View v) {
-        // Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
-        if (mEditText == null) {
+        //Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
+        String tmp = "";
+        if (mEditText != null) {
+            tmp = mEditText.getText().toString();
             return;
         }
-
-        String tmp = mEditText.getText().toString();
         switch (v.getId()) {
             case R.id.kb_0_button:
                 tmp += "0";
@@ -127,6 +127,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 tmp += ".";
                 break;
             case R.id.kb_delete_button:
+                onDeleteClick();
                 if (tmp.length() > 0)
                     tmp = tmp.substring(0, tmp.length() - 1);
                 break;
@@ -147,8 +148,13 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 break;
         }
 
-        if (tmp.length() <= 4 && !isFocus)
+        if (mEditText != null && tmp.length() <= 4 && !isFocus)
             mEditText.setText(tmp);
+    }
+
+    @Override
+    public void onDeleteClick() {
+
     }
 
     boolean isFocus = false;
@@ -192,6 +198,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
     @Override
     public void onNextButtonClick() {
+
     }
 
     @Override
