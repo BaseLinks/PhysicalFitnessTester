@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 /**
@@ -341,6 +342,7 @@ public class TouchID {
 
 
     public boolean register(int fingerId) {
+        // TODO: 这里等待DeviceConnection被打开
         return insert((short) fingerId);
     }
 
@@ -351,17 +353,19 @@ public class TouchID {
 
     /**
      * 验证Touch ID
+     * TODO: 返回fingerid 如果不存在就返回INVALID_FINGER_ID
      * @return
      */
-    public boolean mache() {
+    public int mache() {
         FingerUSB fu = mFingerUsb;
         byte[] b;
+        int fingerId = INVALID_FINGER_ID;
         boolean ret;
         // 1. GR_GetImage
         do {
             ret = fu.send(TouchID.cmdPackage(TouchID.GR_GetImage, ARGE_NONE));
             if (!ret) {
-                return false;
+                return fingerId;
             }
 
             b = TouchID.parsePackage(fu.read());
@@ -378,28 +382,34 @@ public class TouchID {
         // 2. GR_GenChar
         ret = fu.send(TouchID.cmdPackage(TouchID.GR_GenChar, new byte[]{CharBuffer1}));
         if (!ret) {
-            return false;
+            return fingerId;
         }
         b = TouchID.parsePackage(fu.read());
         if (b == null) {
-            return false;
+            return fingerId;
         }
         Log.e(TAG, "Finger: " + bytesToHex(b));
 
         // 3. 搜索指纹 GR_Search
         ret = fu.send(TouchID.cmdPackage(TouchID.GR_Search, new byte[]{CharBuffer1, 0x00, 0x00, 0x00, 0x64}));
         if (!ret) {
-            return false;
+            return fingerId;
         }
         b = TouchID.parsePackage(fu.read());
+        int code = 0;
+        int PageID = 0;
+        int MatchScore = 0;
         if (b!=null) Log.e(TAG, "Finger: GR_Search " + bytesToHex(b));
         if (b == null || !Arrays.equals(Arrays.copyOfRange(b, 0, 1), RESULT_OK)) {
             Log.e(TAG, "TouchID.parsePackage(fu.read()) == null or mach fail");
-            return false;
+            return fingerId;
         }
-        Log.e(TAG, "Finger: " + bytesToHex(b));
 
-        return true;
+        code = b[0];
+        PageID = ByteBuffer.wrap(Arrays.copyOfRange(b, 1, 3)).order(ByteOrder.BIG_ENDIAN).getShort() & 0xFFFF;
+        MatchScore = ByteBuffer.wrap(Arrays.copyOfRange(b, 3, 5)).order(ByteOrder.BIG_ENDIAN).getShort() & 0xFFFF;
+        Log.e(TAG, "Finger: " + bytesToHex(b) + " code: " + code + " PageID: " + PageID + " MatchScore: " + MatchScore);
+        return PageID;
     }
 
 

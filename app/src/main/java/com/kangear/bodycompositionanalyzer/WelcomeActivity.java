@@ -36,6 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ID          = 4;
     private static final int REQUEST_CODE_AGE         = 5;
     private static final int REQUEST_CODE_HEIGHT      = 6;
+    private static final int REQUEST_CODE_TOUCHID     = 7;
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
@@ -126,6 +127,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     Log.d(TAG, "onActivityResult: weight " + weight);
                     mCurPersion = new Person();
                     mCurPersion.setWeight(weight);
+
+                    Intent intent = new Intent(this, TouchIdActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE_TOUCHID);
                 }
                 break;
             case REQUEST_CODE_NEW_TEST: { // 1.1 WEIGHT
@@ -166,6 +170,16 @@ public class WelcomeActivity extends AppCompatActivity {
                     int height = data.getIntExtra(CONST_HEIGHT, MIN_HEIGHT);
                     Log.d(TAG, "onActivityResult: height " + height);
                     mCurPersion.setHeight(height);
+                    // startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_HEIGHT);
+                }
+                break;
+            }
+
+            case REQUEST_CODE_TOUCHID: {
+                if (resultCode == RESULT_OK) {
+                    int fingerid = data.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
+                    Log.d(TAG, "onActivityResult: fingerid " + fingerid);
+                    mCurPersion.setHeight(fingerid);
                     // startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_HEIGHT);
                 }
                 break;
