@@ -222,62 +222,38 @@
         app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="382dp"
-        android:layout_marginTop="8dp"
-        android:text="营养评估"
-        android:textColor="#EA961D"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
-
-    <TextView
         android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="382dp"
         android:layout_marginTop="8dp"
         android:text="营养评估"
-        android:textColor="#EA961D"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
         android:id="@+id/zhifangtiaozheng_textview"
+        style="@style/resultItemLabel"
         android:layout_width="120px"
         android:layout_height="wrap_content"
         android:layout_marginStart="377dp"
-        android:layout_marginTop="148dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="蛋白质"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/bmi_textiview" />
 
     <TextView
         android:id="@+id/bmi_textiview"
+        style="@style/resultItemLabel"
         android:layout_width="120px"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="B.M.I"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
@@ -287,11 +263,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="基础代谢"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultItemLabel"
         app:layout_constraintEnd_toEndOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -304,11 +277,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="体脂比"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultItemLabel"
         app:layout_constraintEnd_toEndOf="@+id/bmi_textiview"
         app:layout_constraintStart_toStartOf="@+id/bmi_textiview"
         app:layout_constraintTop_toBottomOf="@+id/bmi_textiview" />
@@ -321,11 +291,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="腰臀比"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultItemLabel"
         app:layout_constraintEnd_toEndOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -338,11 +305,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
         android:text="总能耗"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultItemLabel"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -355,53 +319,38 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/_70_result_small_black"
-        android:gravity="center"
+        style="@style/resultItemLabel"
         android:text="无机盐"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
         app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
         app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
 
     <TextView
         android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="420dp"
         android:layout_marginTop="8dp"
         android:text="阶段肌肉"
-        android:textColor="#EA961D"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultYelloItemLabel"
         app:layout_constraintBottom_toBottomOf="@+id/textView27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView27" />
 
     <TextView
         android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="443dp"
         android:text="阶段脂肪"
-        android:textColor="#EA961D"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/resultYelloItemLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="112dp"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
         android:text="肥胖分析"
-        android:textColor="#EA961D"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -429,7 +378,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        app:backgroundTint="#777777"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
         style="@style/resultEditText"
         app:layout_constraintBottom_toBottomOf="@+id/bmi_textiview"
         app:layout_constraintStart_toEndOf="@+id/bmi_textiview"
@@ -442,10 +391,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:background="#E7E7E7"
-        android:gravity="center"
         android:text="正常值"
-        android:textColor="@android:color/black"
+        style="@style/resultLabel"
         app:layout_constraintBottom_toBottomOf="@+id/textView10"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
@@ -458,10 +405,8 @@
         android:layout_marginEnd="50dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:background="#E7E7E7"
-        android:gravity="center"
+        style="@style/resultLabel"
         android:text="过量"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15"
@@ -474,41 +419,32 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:background="#E7E7E7"
-        android:gravity="center"
+        style="@style/resultLabel"
         android:text="正常"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView14"
         app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 
     <TextView
         android:id="@+id/textView14"
+        style="@style/resultLabel"
         android:layout_width="74px"
         android:layout_height="30px"
         android:layout_marginStart="497dp"
-        android:layout_marginTop="8dp"
-        android:background="#E7E7E7"
-        android:gravity="center"
         android:text="不足"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView26" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="95px"
         android:layout_height="30px"
+        style="@style/resultLabel"
+        android:layout_marginBottom="2dp"
         android:layout_marginStart="169dp"
-        android:layout_marginTop="8dp"
-        android:background="#E7E7E7"
-        android:gravity="center"
         android:text="测试值"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
+        app:layout_constraintBottom_toTopOf="@+id/bmi_textiview"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
