@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/test_textview" />
 
     <com.kangear.bodycompositionanalyzer.NoImeEditText
-        android:id="@+id/edittext"
+        android:id="@+id/tizhibi_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="180dp"

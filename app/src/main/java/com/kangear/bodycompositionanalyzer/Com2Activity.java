@@ -10,10 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
-import com.kangear.common.utils.TimeUtils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -35,7 +31,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
     public void setView(boolean hasDot, View v, final String regular) {
         this.hasDot = hasDot;
-        this.mEditText = v.findViewById(R.id.edittext);
+        this.mEditText = v.findViewById(R.id.tizhibi_edittext);
         this.mNextButton = v.findViewById(R.id.kb_next_button);
         this.regular = regular;
         mSoftwareBoardButton = v.findViewById(R.id.kb_softboard_button);

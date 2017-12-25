@@ -7,7 +7,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -15,12 +17,43 @@ import android.widget.TextView;
  */
 public class ResultActivity extends AppCompatActivity {
     private static final String TAG = "ResultActivity";
+    private static final int FIRST_PAGE_NUMBER = 1;
+    private static final int LAST_PAGE_NUMBER  = 2;
+    private Button mBackButton;
+    private Button mPreButton;
+    private Button mNextButton;
+    private Button mPrintButton;
+    private View mFirstPage;
+    private View mLastPage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result_background);
+        setContentView(R.layout.activity_result);
         hideSystemUI(getWindow().getDecorView());
-        Log.i(TAG, "onCreate");
+        mPreButton = findViewById(R.id.previous_page_button);
+        mNextButton = findViewById(R.id.next_page_button);
+        mFirstPage = findViewById(R.id.result_first_page);
+        mLastPage = findViewById(R.id.result_last_page);
+
+        page(FIRST_PAGE_NUMBER);
+    }
+
+    private void page(int page) {
+        switch (page) {
+            case FIRST_PAGE_NUMBER:
+                mLastPage.setVisibility(View.INVISIBLE);
+                mPreButton.setVisibility(View.INVISIBLE);
+                mNextButton.setVisibility(View.VISIBLE);
+                mFirstPage.setVisibility(View.VISIBLE);
+                break;
+            case LAST_PAGE_NUMBER:
+                mLastPage.setVisibility(View.VISIBLE);
+                mPreButton.setVisibility(View.VISIBLE);
+                mNextButton.setVisibility(View.INVISIBLE);
+                mFirstPage.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 
     // This snippet hides the system bars.
@@ -44,7 +77,14 @@ public class ResultActivity extends AppCompatActivity {
                 setResult(RESULT_CANCELED, intent);
                 finish();
                 break;
-            case R.id.next_button:
+            case R.id.next_page_button:
+                page(LAST_PAGE_NUMBER);
+                break;
+            case R.id.previous_page_button:
+                page(FIRST_PAGE_NUMBER);
+                break;
+            case R.id.print_button:
+                Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
                 break;
         }
     }

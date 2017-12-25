@@ -11,8 +11,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.kangear.common.utils.InputFilterUtils;
-
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
@@ -32,7 +30,7 @@ public class AgeActivity extends Com2Activity {
         setContentView(R.layout.activity_age);
         hideSystemUI(getWindow().getDecorView());
         setView(true, getWindow().getDecorView(), null);
-        mEditText = findViewById(R.id.edittext);
+        mEditText = findViewById(R.id.tizhibi_edittext);
         mNextButton = findViewById(R.id.kb_next_button);
         Button dot = findViewById(R.id.kb_dot_button);
         dot.setEnabled(false);

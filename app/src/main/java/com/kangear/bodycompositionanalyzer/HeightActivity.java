@@ -3,19 +3,13 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
-import com.kangear.common.utils.InputFilterUtils;
-
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
@@ -33,7 +27,7 @@ public class HeightActivity extends Com2Activity {
         setContentView(R.layout.activity_height);
         setView(true, getWindow().getDecorView(), null);
         hideSystemUI(getWindow().getDecorView());
-        mEditText = findViewById(R.id.edittext);
+        mEditText = findViewById(R.id.tizhibi_edittext);
         mEditText.setClickable(false);
         mEditText.setEnabled(false);;
         mEditText.setText("");

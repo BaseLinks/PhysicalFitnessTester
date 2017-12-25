@@ -2,19 +2,9 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.text.InputFilter;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.kangear.common.utils.InputFilterUtils;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
@@ -34,7 +24,7 @@ public class IDActivity extends Com2Activity {
         setContentView(R.layout.activity_id);
         hideSystemUI(getWindow().getDecorView());
         setView(false, getWindow().getDecorView(), null);
-        mEditText = findViewById(R.id.edittext);
+        mEditText = findViewById(R.id.tizhibi_edittext);
         mEditText.setText("");
     }
 

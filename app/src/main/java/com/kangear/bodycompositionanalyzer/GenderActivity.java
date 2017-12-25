@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -24,7 +22,7 @@ public class GenderActivity extends Com2Activity {
         setContentView(R.layout.activity_gender);
         hideSystemUI(getWindow().getDecorView());
         setView(true, getWindow().getDecorView(), null);
-        mEditText = findViewById(R.id.edittext);
+        mEditText = findViewById(R.id.tizhibi_edittext);
         mSexRadioGroup = findViewById(R.id.sex_radiogroup);
         dissAllwithoutBackNext();
         mSexRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
