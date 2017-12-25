@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,13 @@ public class ResultActivity extends AppCompatActivity {
     private Button mPrintButton;
     private View mFirstPage;
     private View mLastPage;
+    private int WEIGHT_PROGRESS = 70;
+    private int TIZHIFANG_PROGRESS = 35;
+    private int GUGEJI_PROGRESS = 90;
+    private ProgressBar mWeightProgressBar;
+    private ProgressBar mGugejiProgressBar;
+    private ProgressBar mTizhifangProgressBar;
+    private int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +44,43 @@ public class ResultActivity extends AppCompatActivity {
         mFirstPage = findViewById(R.id.result_first_page);
         mLastPage = findViewById(R.id.result_last_page);
 
+        mWeightProgressBar = findViewById(R.id.weight_progressbar);
+        mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
+        mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
+
         page(FIRST_PAGE_NUMBER);
     }
+
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+//            switch (msg.what){
+//                case WEIGHT_ACTIVITY:
+//                    progress ++;
+//                    break;
+//                case WEIGHT_STOP:
+//                    stopTest();
+//                    break;
+//            }
+
+
+            mWeightProgressBar.setProgress(progress < WEIGHT_PROGRESS ? progress : WEIGHT_PROGRESS);
+            mGugejiProgressBar.setProgress(progress < GUGEJI_PROGRESS ? progress : GUGEJI_PROGRESS);
+            mTizhifangProgressBar.setProgress(progress < TIZHIFANG_PROGRESS ? progress : TIZHIFANG_PROGRESS);
+            progress ++;
+            if (progress <= 100) {
+                sendEmptyMessageDelayed(0, 20);
+            } else {
+                progress = 0;
+            }
+        }
+    };
 
     private void page(int page) {
         switch (page) {
             case FIRST_PAGE_NUMBER:
+                mHandler.sendEmptyMessage(0);
                 mLastPage.setVisibility(View.INVISIBLE);
                 mPreButton.setVisibility(View.INVISIBLE);
                 mNextButton.setVisibility(View.VISIBLE);

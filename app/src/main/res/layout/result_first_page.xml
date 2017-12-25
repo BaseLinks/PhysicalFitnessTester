@@ -363,4 +363,30 @@
         app:layout_constraintTop_toTopOf="@+id/textView20"
         app:srcCompat="@drawable/_70_result_biaochi" />
 
+    <ProgressBar
+        android:id="@+id/weight_progressbar"
+        style="@style/CustomProgressBar"
+        app:layout_constraintBottom_toBottomOf="@+id/textView19"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+    <ProgressBar
+        android:id="@+id/gugeji_progressbar"
+        style="@style/CustomProgressBar"
+        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+    <ProgressBar
+        android:id="@+id/tizhifang_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView20"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/textView20" />
+
 </android.support.constraint.ConstraintLayout>

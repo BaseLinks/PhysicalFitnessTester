@@ -10,4 +10,6 @@
 
     <color name="colorResultTextbackgroundTint">#E7E7E7</color>
     <color name="colorResultEditTextbackgroundTint">#777777</color>
+    <color name="colorProgress">#EA961D</color>
+    <color name="colorProgressBackground">#00000000</color>
 </resources>
