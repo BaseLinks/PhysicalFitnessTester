@@ -3,14 +3,18 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.net.URL;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
@@ -43,12 +47,12 @@ public class TouchIdActivity extends Com2Activity {
         page(PAGE_NORMAL);
     }
 
-//    private int tryTime = 3;
+    private int tryTime = 3;
     private void page(int page) {
         switch (page) {
             case PAGE_NORMAL:
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_white);
-                mThread.start();
+                new DownloadFilesTask().execute(null, null, null);
                 // 开始
                 break;
             case PAGE_SUCCESS:
@@ -58,20 +62,18 @@ public class TouchIdActivity extends Com2Activity {
                 mHandler.sendEmptyMessageDelayed(PAGE_SUCCESS_EXIT, 1 * 1000);
                 break;
             case PAGE_FAIL:
-//                if (tryTime <= 0) {
-                    mThread.interrupt();
-                    mFingerImageView.setBackgroundResource(R.drawable._80_finger_red);
-                    // 停止
-                    // TODO: send 1 miao finish
+                mFingerImageView.setBackgroundResource(R.drawable._80_finger_red);
+                if (tryTime <= 0) {
+                    Toast.makeText(this, "识别失败", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 1 * 1000);
-//                } else {
-//                    Toast.makeText(this, "识别失败，请再试", Toast.LENGTH_LONG).show();
-//                    mThread.interrupt();
-//                    mHandler.sendEmptyMessageDelayed(PAGE_NORMAL, 2000);
-//                    tryTime--;
-//                }
+                } else {
+                    Toast.makeText(this, "识别失败，请再试", Toast.LENGTH_LONG).show();
+                    mHandler.sendEmptyMessageDelayed(PAGE_NORMAL, 2000);
+                    tryTime--;
+                }
                 break;
             case PAGE_SUCCESS_EXIT:
+                Toast.makeText(this, "识别成功", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, WelcomeActivity.class);
                 int fingerId = 0;
                 intent.putExtra(WelcomeActivity.CONST_FINGER_ID, fingerId);
@@ -84,28 +86,24 @@ public class TouchIdActivity extends Com2Activity {
         }
     }
 
-    /**
-     * 线程
-     */
-    private Thread mThread = new Thread () {
-        @Override
-        public void run() {
-            while(!isInterrupted()) {
-                mFingerId = TouchID.getInstance(mContext).mache();
-                if (mFingerId != INVALID_FINGER_ID) {
-                    mHandler.sendEmptyMessage(PAGE_SUCCESS);
-                    break;
-                } else {
-                    mHandler.sendEmptyMessage(PAGE_FAIL);
-                }
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    private class DownloadFilesTask extends AsyncTask<URL, Integer, Integer> {
+        protected Integer doInBackground(URL... urls) {
+            mFingerId = TouchID.getInstance(mContext).mache();
+            Log.e(TAG, "mFingerId: " + mFingerId);
+            if (mFingerId != INVALID_FINGER_ID) {
+                mHandler.sendEmptyMessage(PAGE_SUCCESS);
+            } else {
+                mHandler.sendEmptyMessage(PAGE_FAIL);
             }
+            return mFingerId;
         }
-    };
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(int result) {
+        }
+    }
 
     // This snippet hides the system bars.
     public static void hideSystemUI(View v) {

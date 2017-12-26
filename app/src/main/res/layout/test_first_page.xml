@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/_02_constrainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_20_bannar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/_03_constrainlayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="24dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="03"
+            android:textColor="#F8B551"
+            android:textSize="89sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/id_hint_gray"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="测试时请保持静止，还要移动身体或讲话"
+            android:textColor="#282828"
+            android:textSize="29sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.036"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/_01_constrainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="316dp"
+        android:background="@drawable/_20_bannar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/id_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="01"
+            android:textColor="#F8B551"
+            android:textSize="89sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="68dp"
+            android:hint="@string/id_hint_gray"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="注意：如体内穿戴有电子设备，请勿使用本产品。"
+            android:textColor="#AD3636"
+            android:textSize="29sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.036"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/id_hint_gray"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="请脱去鞋袜，用湿巾擦拭手脚，确保清洁。"
+            android:textColor="#282828"
+            android:textSize="29sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/_03_constrainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/_20_bannar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.869"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/_01_constrainlayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="02"
+            android:textColor="#F8B551"
+            android:textSize="89sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/id_hint_gray"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:padding="0dp"
+            android:text="请站上测试仪，将双脚放在金属传感器上，并用双手握住检测手柄。"
+            android:textColor="#282828"
+            android:textSize="29sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.036"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="200dp"
+        android:text="测试准备"
+        android:textColor="@color/colorProgress"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="194px"
+        android:background="#12B5B2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="即将开始测试"
+            android:textColor="@android:color/white"
+            android:textSize="67sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
