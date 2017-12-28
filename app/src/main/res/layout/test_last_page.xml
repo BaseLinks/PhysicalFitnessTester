@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="221px"
@@ -165,11 +166,11 @@
             <TextView
                 android:layout_width="194px"
                 android:layout_height="match_parent"
-                android:background="#434343"
+                android:alpha="100"
+                android:textColor="#F8B551"
                 android:gravity="center"
                 android:text="体脂百分比"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
                 android:textSize="27sp" />
 
             <android.support.constraint.ConstraintLayout
@@ -241,8 +242,8 @@
 
             <TextView
                 android:layout_width="194px"
-                android:layout_height="match_parent"
-                android:background="#434343"
+                android:layout_height="72px"
+                android:alpha="100"
                 android:gravity="center"
                 android:text="基础代谢量"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -306,7 +307,7 @@
                 android:id="@+id/textView42"
                 android:layout_width="108px"
                 android:layout_height="47px"
-                android:layout_marginStart="2px"
+                android:layout_marginStart="4px"
                 android:background="#434343"
                 android:gravity="center"
                 android:text="正常"
@@ -366,7 +367,7 @@
             <TextView
                 android:layout_width="108px"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2px"
+                android:layout_marginStart="4px"
                 android:background="#434343"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -425,7 +426,7 @@
             <TextView
                 android:layout_width="108px"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2px"
+                android:layout_marginStart="4px"
                 android:background="#434343"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -480,7 +481,7 @@
             <TextView
                 android:layout_width="108px"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2px"
+                android:layout_marginStart="4px"
                 android:background="#434343"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
