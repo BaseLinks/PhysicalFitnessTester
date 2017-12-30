@@ -41,10 +41,8 @@ public class IDActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        String id = mEditText.getText().toString();
-        intent.putExtra(WelcomeActivity.CONST_ID, id);
-        setResult(RESULT_OK, intent);
+        WelcomeActivity.getPerson().setId(mEditText.getText().toString());
+        WelcomeActivity.startAge(this);
         finish();
     }
 

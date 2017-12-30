@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -21,6 +24,7 @@ public class WeightActivity extends AppCompatActivity {
     private TextView mTextView;
     private static final int WEIGHT_ACTIVITY = 1;
     private static final int WEIGHT_STOP = 2;
+    private static int bootTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class WeightActivity extends AppCompatActivity {
         stopView = findViewById(R.id.weight_stop);
         mTextView = findViewById(R.id.weight_textview);
 
+        bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
         startTest();
         Log.i(TAG, "onCreate");
     }
@@ -117,17 +122,21 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Intent intent = new Intent(this, WelcomeActivity.class);
         switch (v.getId()) {
             case R.id.back_button:
-                setResult(RESULT_CANCELED, intent);
                 finish();
                 break;
             case R.id.next_button:
-                int weight = Integer.valueOf(mTextView.getText().toString());
-                intent.putExtra(WelcomeActivity.CONST_WEIGHT, weight);
-                setResult(RESULT_OK, intent);
-                finish();
+                WelcomeActivity.getPerson().setWeight(Integer.valueOf(mTextView.getText().toString()));
+                switch (bootTag) {
+                    case WEIGHT_VIP_TEST:
+                        WelcomeActivity.doVipTest(this);
+                        break;
+                    case WEIGHT_NEW_TEST:
+                        WelcomeActivity.doTmpTest(this);
+                        break;
+                }
+//                finish();
                 break;
         }
     }

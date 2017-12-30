@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +41,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
-    private Person mCurPersion;
+    private static Person mCurPersion;
+    public static final int WEIGHT_INVALIDE          = -1;
+    public static final int WEIGHT_NEW_TEST          = 1;
+    public static final int WEIGHT_VIP_TEST          = 2;
+    public static final String CONST_WEIGHT_TAG      = "CONST_WEIGHT_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +98,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:
-                intent = new Intent(this, WeightActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_VIP_TEST);
+                startVipTest(this);
                 break;
             case R.id.start_new_test_imageview:
-                intent = new Intent(this, WeightActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_NEW_TEST);
+                startTmpTest(this);
                 break;
             case R.id.history_imageview:
                 break;
@@ -110,81 +113,105 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e(TAG, "onActivityResult requestCode: " + requestCode + " resultCode: " + resultCode);
-        int weight;
-        switch (requestCode) {
-            case REQUEST_CODE_VIP_REGISTE:
-                if (resultCode == RESULT_OK) {
-                    mCurPersion = Person.fromJson(data.getStringExtra(CONST_PERSON));
-                    Log.d(TAG, "onActivityResult: person " + mCurPersion.toString());
-                    // 将Person写入数据库中
-                    mPersons.add(mCurPersion);
-                }
-                break;
-            case REQUEST_CODE_VIP_TEST: // 2.1. WEIGHT
-                if (resultCode == RESULT_OK) {
-                    weight = data.getIntExtra(CONST_WEIGHT, 0);
-                    Log.d(TAG, "onActivityResult: weight " + weight);
-                    mCurPersion = new Person();
-                    mCurPersion.setWeight(weight);
+//        Log.e(TAG, "onActivityResult requestCode: " + requestCode + " resultCode: " + resultCode);
+//        int weight;
+//        switch (requestCode) {
+//            case REQUEST_CODE_VIP_REGISTE:
+//                if (resultCode == RESULT_OK) {
+//                    mCurPersion = Person.fromJson(data.getStringExtra(CONST_PERSON));
+//                    Log.d(TAG, "onActivityResult: person " + mCurPersion.toString());
+//                    // 将Person写入数据库中
+//                    mPersons.add(mCurPersion);
+//                }
+//                break;
+//            case REQUEST_CODE_VIP_TEST: // 2.1. WEIGHT
+//                if (resultCode == RESULT_OK) {
+//                    weight = data.getIntExtra(CONST_WEIGHT, 0);
+//                    Log.d(TAG, "onActivityResult: weight " + weight);
+//                    mCurPersion = new Person();
+//                    mCurPersion.setWeight(weight);
+//
+//                    Intent intent = new Intent(this, TouchIdActivity.class);
+//                    startActivityForResult(intent, REQUEST_CODE_TOUCHID);
+//                }
+//                break;
+//            case REQUEST_CODE_NEW_TEST: { // 1.1 WEIGHT
+//                if (resultCode == RESULT_OK) {
+//                    weight = data.getIntExtra(CONST_WEIGHT, 0);
+//                    Log.d(TAG, "onActivityResult: weight " + weight);
+//                    startId(this);
+//                }
+//                break;
+//            }
+//        }
+    }
 
-                    Intent intent = new Intent(this, TouchIdActivity.class);
-                    startActivityForResult(intent, REQUEST_CODE_TOUCHID);
-                }
-                break;
-            case REQUEST_CODE_NEW_TEST: { // 1.1 WEIGHT
-                if (resultCode == RESULT_OK) {
-                    weight = data.getIntExtra(CONST_WEIGHT, 0);
-                    Log.d(TAG, "onActivityResult: weight " + weight);
-                    mCurPersion = new Person();
-                    mCurPersion.setWeight(weight);
-                    startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_ID);
-                }
-                break;
-            }
-
-            case REQUEST_CODE_ID: { // 1.2 ID
-                if (resultCode == RESULT_OK) {
-                    String id = data.getStringExtra(CONST_ID);
-                    Log.d(TAG, "onActivityResult: id " + id);
-                    mCurPersion.setId(id);
-                    // 2. ID
-                    startActivityForResult(new Intent(this, AgeActivity.class), REQUEST_CODE_AGE);
-                }
-                break;
-            }
-
-            case REQUEST_CODE_AGE: { // 1.3. 年龄
-                if (resultCode == RESULT_OK) {
-                    int age = data.getIntExtra(CONST_AGE, MIN_AGE);
-                    Log.d(TAG, "onActivityResult: age " + age);
-                    mCurPersion.setAge(age);
-
-                    startActivityForResult(new Intent(this, HeightActivity.class), REQUEST_CODE_HEIGHT);
-                }
-                break;
-            }
-
-            case REQUEST_CODE_HEIGHT: { // 1.4. 身高
-                if (resultCode == RESULT_OK) {
-                    int height = data.getIntExtra(CONST_HEIGHT, MIN_HEIGHT);
-                    Log.d(TAG, "onActivityResult: height " + height);
-                    mCurPersion.setHeight(height);
-                    // startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_HEIGHT);
-                }
-                break;
-            }
-
-            case REQUEST_CODE_TOUCHID: {
-                if (resultCode == RESULT_OK) {
-                    int fingerid = data.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
-                    Log.d(TAG, "onActivityResult: fingerid " + fingerid);
-                    mCurPersion.setHeight(fingerid);
-                    // startActivityForResult(new Intent(this, IDActivity.class), REQUEST_CODE_HEIGHT);
-                }
-                break;
-            }
+    public static Person getPerson() {
+        if (mCurPersion == null) {
+            mCurPersion = new Person();
         }
+        return mCurPersion;
+    }
+
+
+    private static void startTmpTest(Context context) {
+        Intent intent = new Intent(context, WeightActivity.class);
+        intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
+        context.startActivity(intent);
+    }
+
+    private static void startVipTest(Context context) {
+        Intent intent = new Intent(context, WeightActivity.class);
+        intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_VIP_TEST);
+        context.startActivity(intent);
+    }
+
+    public static void doTmpTest(Context context) {
+        startId(context);
+    }
+
+    public static void doVipTest(Context context) {
+        startTouchId(context);
+    }
+
+    /**
+     * 1. ID
+     * @param context
+     */
+    private static void startId(Context context) {
+        context.startActivity(new Intent(context, IDActivity.class));
+    }
+
+    /**
+     * 1. AGE
+     * @param context
+     */
+    public static void startAge(Context context) {
+        context.startActivity(new Intent(context, AgeActivity.class));
+    }
+
+    /**
+     * 1. HEIGHT
+     * @param context
+     */
+    public static void startHeight(Context context) {
+        context.startActivity(new Intent(context, HeightActivity.class));
+    }
+
+    /**
+     * 1. HEIGHT
+     * @param context
+     */
+    public static void startTouchId(Context context) {
+        context.startActivity(new Intent(context, TouchIdActivity.class));
+    }
+
+    /**
+     * 1. TEST
+     * @param context
+     */
+    public static void doTest(Context context) {
+        context.startActivity(new Intent(context, TestActivity.class));
     }
 
     public static void exitAsFail(Activity activity) {

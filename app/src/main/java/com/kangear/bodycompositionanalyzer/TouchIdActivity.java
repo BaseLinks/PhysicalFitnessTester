@@ -77,12 +77,8 @@ public class TouchIdActivity extends Com2Activity {
                 }
                 break;
             case PAGE_SUCCESS_EXIT:
-                Toast.makeText(this, "识别成功", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, WelcomeActivity.class);
-                int fingerId = 0;
-                intent.putExtra(WelcomeActivity.CONST_FINGER_ID, fingerId);
-                setResult(RESULT_OK, intent);
-                finish();
+                WelcomeActivity.getPerson().setFingerId(mFingerId);
+                WelcomeActivity.doTest(this);
                 break;
             case PAGE_FAIL_EXIT:
                 exitAsFail(this);

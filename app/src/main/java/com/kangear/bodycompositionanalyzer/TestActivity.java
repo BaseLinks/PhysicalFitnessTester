@@ -131,6 +131,8 @@ public class TestActivity extends AppCompatActivity {
 
 //        page(FIRST_PAGE_NUMBER);
         mHandler.sendEmptyMessage(SHOW_CLEAN);
+
+        Log.e(TAG, "" + WelcomeActivity.getPerson().toString());
     }
 
     private void setProgress2(int progress) {

@@ -81,10 +81,8 @@ public class AgeActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        int age = Integer.valueOf(mEditText.getText().toString());
-        intent.putExtra(WelcomeActivity.CONST_AGE, age);
-        setResult(RESULT_OK, intent);
+        WelcomeActivity.getPerson().setAge(Integer.valueOf(mEditText.getText().toString()));
+        WelcomeActivity.startHeight(this);
         finish();
     }
 
