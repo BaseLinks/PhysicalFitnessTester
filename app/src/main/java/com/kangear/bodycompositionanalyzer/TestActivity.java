@@ -20,7 +20,8 @@ import android.widget.Toast;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
- * DEFAULT_TEST_COST_TIME(32)秒进度条走到DEFAULT_TEST_PROGRESS(95)，收到数据并解析完毕，
+ * 1. 显示「测试准备」界面，发送测试指令，收到从机回复的标识后，等待(N_SEC)后显示界面
+ * 2. DEFAULT_TEST_COST_TIME(32)秒进度条走到DEFAULT_TEST_PROGRESS(95)，收到数据并解析完毕，
  * 进度条DEFAULT_TEST_PROGRESS_MAX(100)，显示[返回，详情，打印]等按钮，2秒体重等依次进度条走到对应位置。
  */
 public class TestActivity extends AppCompatActivity {
@@ -66,7 +67,9 @@ public class TestActivity extends AppCompatActivity {
     private double tizhibaifenbi            = 32.7;
     private double jichudaixieliang         = 1787;
 
-    private static final int SHOW_CLEAN                     =  9;
+    private static final int SHOW_CLEAN                     =  7;
+    private static final int SHOW_WAIT                      =  8;
+    private static final int SHOW_TEST                      =  9;
     private static final int SHOW_TEST_DONE                 = 10;
     private static final int SHOW_WEIGHT_DONE               = 11;
     private static final int SHOW_GUGEJI_DONE               = 12;
@@ -89,6 +92,8 @@ public class TestActivity extends AppCompatActivity {
     private RadioButton mTizhibaifenbiHighRadioButton;
     private RadioGroup mTizhibaifenbiRadioGroup;
     private RadioGroup mShentizhiliangzhishuRadioGroup;
+    private View mWaitView;
+    private View mTestView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +126,11 @@ public class TestActivity extends AppCompatActivity {
         mTizhibaifenbiNormalRadioButton        = findViewById(R.id.tizhibaifenbi_normal_radiobutton);
         mTizhibaifenbiHighRadioButton          = findViewById(R.id.tizhibaifenbi_high_radiobutton);
 
+        mWaitView = findViewById(R.id.test_first_page);
+        mTestView = findViewById(R.id.test_last_page);
+
 //        page(FIRST_PAGE_NUMBER);
         mHandler.sendEmptyMessage(SHOW_CLEAN);
-        mHandler.sendEmptyMessageDelayed(0, 1 * 1000);
     }
 
     private void setProgress2(int progress) {
@@ -141,16 +148,6 @@ public class TestActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 0:
-                    setProgress2(progress);
-                    progress ++;
-                    if (progress <= DEFAULT_TEST_PROGRESS_MAX) {
-                        sendEmptyMessageDelayed(0, PROGRESS_STEP_TIME);
-                    } else {
-                        progress = 0;
-                        sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
-                    }
-                    break;
                 case SHOW_CLEAN: // show weight
                     mWeightProgressBar.setProgress(0);
                     mGugejiProgressBar.setProgress(0);
@@ -171,9 +168,25 @@ public class TestActivity extends AppCompatActivity {
 //                    mTizhibaifenbiHighRadioButton.setChecked(false);
 //                    mTizhibaifenbiNormalRadioButton.setChecked(false);
 //                    mTizhibaifenbiLowRadioButton.setChecked(false);
-
+                    mHandler.sendEmptyMessageDelayed(SHOW_WAIT, 1 * 1000);
                     // test
-
+                    break;
+                case SHOW_WAIT:
+                    mWaitView.setVisibility(View.VISIBLE);
+                    mTestView.setVisibility(View.GONE);
+                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
+                    break;
+                case SHOW_TEST:
+                    mWaitView.setVisibility(View.GONE);
+                    mTestView.setVisibility(View.VISIBLE);
+                    setProgress2(progress);
+                    progress ++;
+                    if (progress <= DEFAULT_TEST_PROGRESS_MAX) {
+                        sendEmptyMessageDelayed(msg.what, PROGRESS_STEP_TIME);
+                    } else {
+                        progress = 0;
+                        sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
+                    }
                     break;
                 case SHOW_TEST_DONE: // show weight
                     update(weightProgress, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);

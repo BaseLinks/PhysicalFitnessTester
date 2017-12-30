@@ -13,13 +13,13 @@
     <include
         android:id="@+id/test_first_page"
         layout="@layout/test_first_page"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <include
         android:id="@+id/test_last_page"
         layout="@layout/test_last_page"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
