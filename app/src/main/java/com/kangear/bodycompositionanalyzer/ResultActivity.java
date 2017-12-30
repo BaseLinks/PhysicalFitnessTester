@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         hideSystemUI(getWindow().getDecorView());
+        getWindow().setSoftInputMode(WindowManager.
+                LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mPreButton = findViewById(R.id.previous_page_button);
         mNextButton = findViewById(R.id.next_page_button);
         mFirstPage = findViewById(R.id.result_first_page);

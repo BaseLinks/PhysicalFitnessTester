@@ -26,8 +26,8 @@ import android.widget.Toast;
 public class TestActivity extends AppCompatActivity {
     private static final String TAG = "TestActivity";
     private static final int DEFAULT_TEST_COST_TIME         = 1 * 1000;
-    private static final int DEFAULT_TEST_PROGRESS          = 95;
-    private static final int DEFAULT_TEST_PROGRESS_MAX      = 95;
+    private static final int DEFAULT_TEST_PROGRESS_MAX      = 100;
+    private static final int DEFAULT_TEST_PROGRESS          = DEFAULT_TEST_PROGRESS_MAX; //95;
     private static final int DEFAULT_TEST_SEC_PROGRESS_TIME = 2 * 1000;
     private static final int PROGRESS_STEP_TIME             = DEFAULT_TEST_COST_TIME / DEFAULT_TEST_PROGRESS;
     private static final String TEXT_EMPTY = "";
