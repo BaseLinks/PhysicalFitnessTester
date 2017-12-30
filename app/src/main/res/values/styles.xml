@@ -87,4 +87,17 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
     </style>
+
+    <style name="HumanProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/_90_human_progress_bar</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:progress">50</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/_90_human_progressbar</item>
+    </style>
 </resources>

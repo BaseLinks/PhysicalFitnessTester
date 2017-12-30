@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -31,12 +34,19 @@ public class TestActivity extends AppCompatActivity {
     private ProgressBar mGugejiProgressBar;
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
+    private ImageView mHumanProgress;
+    private static final int PECENT_MAX = 100;
+    private static final int HUMAN_HIGH = 360; // 360px
+    private static final float BILI = HUMAN_HIGH / PECENT_MAX;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         hideSystemUI(getWindow().getDecorView());
+        mTextView = findViewById(R.id.progress_textview);
+        mHumanProgress = findViewById(R.id.human_frontgound_imageview);
 //        mPreButton = findViewById(R.id.previous_page_button);
 //        mNextButton = findViewById(R.id.next_page_button);
 //        mFirstPage = findViewById(R.id.result_first_page);
@@ -47,30 +57,27 @@ public class TestActivity extends AppCompatActivity {
 //        mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 //
 //        page(FIRST_PAGE_NUMBER);
+        mHandler.sendEmptyMessage(0);
     }
 
+    private void setProgress2(int progress) {
+        if (progress == 100) {
+            mHumanProgress.setVisibility(View.INVISIBLE);
+        } else {
+            mHumanProgress.setVisibility(View.VISIBLE);
+            mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
+            mHumanProgress.requestLayout();
+        }
+        mTextView.setText("分析中..." + progress + "%");
+    }
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-//            switch (msg.what){
-//                case WEIGHT_ACTIVITY:
-//                    progress ++;
-//                    break;
-//                case WEIGHT_STOP:
-//                    stopTest();
-//                    break;
-//            }
-
-
-            mWeightProgressBar.setProgress(progress < WEIGHT_PROGRESS ? progress : WEIGHT_PROGRESS);
-            mGugejiProgressBar.setProgress(progress < GUGEJI_PROGRESS ? progress : GUGEJI_PROGRESS);
-            mTizhifangProgressBar.setProgress(progress < TIZHIFANG_PROGRESS ? progress : TIZHIFANG_PROGRESS);
+            setProgress2(progress);
             progress ++;
             if (progress <= 100) {
                 sendEmptyMessageDelayed(0, 20);
-            } else {
-                progress = 0;
             }
         }
     };

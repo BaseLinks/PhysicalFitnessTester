@@ -14,19 +14,30 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/human_background_imageview"
+            android:layout_width="113px"
+            android:layout_height="360px"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/_90_human" />
+            android:background="@drawable/_90_human_frontgound" />
+
+        <ImageView
+            android:id="@+id/human_frontgound_imageview"
+            android:layout_width="113px"
+            android:layout_height="72px"
+            android:layout_marginTop="0dp"
+            android:scaleType="matrix"
+            android:src="@drawable/_90_human_background"
+            app:layout_constraintEnd_toEndOf="@+id/human_background_imageview"
+            app:layout_constraintStart_toStartOf="@+id/human_background_imageview"
+            app:layout_constraintTop_toTopOf="@+id/human_background_imageview" />
 
         <TextView
-            android:id="@+id/textView40"
+            android:id="@+id/progress_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
