@@ -171,12 +171,12 @@ public class TestActivity extends AppCompatActivity {
                     mHandler.sendEmptyMessageDelayed(SHOW_WAIT, 1 * 1000);
                     // test
                     break;
-                case SHOW_WAIT:
+                case SHOW_WAIT: // 等待测试 界面
                     mWaitView.setVisibility(View.VISIBLE);
                     mTestView.setVisibility(View.GONE);
                     mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
                     break;
-                case SHOW_TEST:
+                case SHOW_TEST: // 测试中界面 界面
                     mWaitView.setVisibility(View.GONE);
                     mTestView.setVisibility(View.VISIBLE);
                     setProgress2(progress);
