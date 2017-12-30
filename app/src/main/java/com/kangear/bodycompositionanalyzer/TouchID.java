@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
@@ -341,7 +342,7 @@ public class TouchID {
     }
 
 
-    public boolean register(int fingerId) {
+    public boolean register(int fingerId) throws IOException {
         // TODO: 这里等待DeviceConnection被打开
         return insert((short) fingerId);
     }
@@ -356,7 +357,7 @@ public class TouchID {
      * TODO: 返回fingerid 如果不存在就返回INVALID_FINGER_ID
      * @return
      */
-    public int mache() {
+    public int mache() throws IOException {
         FingerUSB fu = mFingerUsb;
         byte[] b;
         int fingerId = INVALID_FINGER_ID;
@@ -439,7 +440,7 @@ public class TouchID {
      * TODO: 判断本地是否已经有该指纹了，目前版本暂不添加此功能了
      * TODO: 返回主键FingerId
      */
-    private boolean insert(short pageId) {
+    private boolean insert(short pageId) throws IOException {
         FingerUSB fu = mFingerUsb;
         byte[] b;
         boolean ret;

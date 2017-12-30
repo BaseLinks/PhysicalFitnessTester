@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.kangear.common.utils.ByteArrayUtils;
 
+import java.io.IOException;
+
 /**
  * Created by tony on 16-7-3.
  */
@@ -331,7 +333,7 @@ public class FingerUSB {
         Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
     }
 
-    public boolean send(byte[] arr) {
+    public boolean send(byte[] arr) throws IOException {
         if (arr.length <=0 ) {
             return false;
         }
@@ -348,6 +350,9 @@ public class FingerUSB {
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00
         };
+        if (mDeviceConnection == null) {
+            throw new IOException();
+        }
         int result = mDeviceConnection.bulkTransfer(mEndpointOut, cmd, cmd.length, 1000);
         if(result < 0) {
             Log.d(TAG,  "Send command failed!");

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.URL;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -29,11 +30,12 @@ public class TouchIdActivity extends Com2Activity {
     private Context mContext;
     private static final int GET_FINGER_OK = 1;
     private ImageView mFingerImageView;
-    private static final int PAGE_NORMAL       = 1;
-    private static final int PAGE_SUCCESS      = 2;
-    private static final int PAGE_FAIL         = 3;
-    private static final int PAGE_SUCCESS_EXIT = 4;
-    private static final int PAGE_FAIL_EXIT    = 5;
+    private static final int PAGE_NORMAL           = 1;
+    private static final int PAGE_SUCCESS          = 2;
+    private static final int PAGE_FAIL             = 3;
+    private static final int PAGE_SUCCESS_EXIT     = 4;
+    private static final int PAGE_FAIL_EXIT        = 5;
+    private static final int PAGE_DEVICE_UNCONNECT = 6;
     private int mFingerId = INVALID_FINGER_ID;
 
     @Override
@@ -48,11 +50,13 @@ public class TouchIdActivity extends Com2Activity {
     }
 
     private int tryTime = 3;
+    private DownloadFilesTask mTask;
     private void page(int page) {
         switch (page) {
             case PAGE_NORMAL:
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_white);
-                new DownloadFilesTask().execute(null, null, null);
+                mTask = new DownloadFilesTask();
+                mTask.execute(null, null, null);
                 // 开始
                 break;
             case PAGE_SUCCESS:
@@ -83,18 +87,28 @@ public class TouchIdActivity extends Com2Activity {
             case PAGE_FAIL_EXIT:
                 exitAsFail(this);
                 break;
+            case PAGE_DEVICE_UNCONNECT:
+                Toast.makeText(this, "指纹模块异常，请联系工作人员", Toast.LENGTH_LONG).show();
+                mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 2 * 1000);
+                break;
         }
     }
 
     private class DownloadFilesTask extends AsyncTask<URL, Integer, Integer> {
         protected Integer doInBackground(URL... urls) {
-            mFingerId = TouchID.getInstance(mContext).mache();
-            Log.e(TAG, "mFingerId: " + mFingerId);
-            if (mFingerId != INVALID_FINGER_ID) {
-                mHandler.sendEmptyMessage(PAGE_SUCCESS);
-            } else {
-                mHandler.sendEmptyMessage(PAGE_FAIL);
+            try {
+                mFingerId = TouchID.getInstance(mContext).mache();
+                if (mFingerId != INVALID_FINGER_ID) {
+                    mHandler.sendEmptyMessage(PAGE_SUCCESS);
+                } else {
+                    mHandler.sendEmptyMessage(PAGE_FAIL);
+                }
+            } catch (IOException e) {
+                // e.printStackTrace();
+                // 未连接
+                mHandler.sendEmptyMessage(PAGE_DEVICE_UNCONNECT);
             }
+            Log.e(TAG, "mFingerId: " + mFingerId);
             return mFingerId;
         }
 

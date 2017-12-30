@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
@@ -26,7 +28,9 @@ public class GetFingerActivity extends Com2Activity {
     private TextView mTextView;
     private View logoView;
     private Context mContext;
-    private static final int GET_FINGER_OK = 1;
+    private static final int GET_FINGER_OK         = 1;
+    private static final int PAGE_FAIL_EXIT        = 5;
+    private static final int PAGE_DEVICE_UNCONNECT = 6;
     private ImageView mFingerImageView;
     private Button mNextButton;
 
@@ -59,16 +63,22 @@ public class GetFingerActivity extends Com2Activity {
         public void run() {
             boolean ret;
             while(!isInterrupted()) {
-                ret = TouchID.getInstance(mContext).register(0);
-                if (ret) {
-                    mHandler.sendEmptyMessage(GET_FINGER_OK);
-                    break;
-                }
-
                 try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
+                    ret = TouchID.getInstance(mContext).register(0);
+                    if (ret) {
+                        mHandler.sendEmptyMessage(GET_FINGER_OK);
+                        break;
+                    }
+
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } catch (IOException e) {
                     e.printStackTrace();
+                    mHandler.sendEmptyMessage(PAGE_DEVICE_UNCONNECT);
+                    break;
                 }
             }
         }
@@ -116,6 +126,13 @@ public class GetFingerActivity extends Com2Activity {
                 case GET_FINGER_OK:
                     mFingerImageView.setBackgroundResource(R.drawable._20_finger_ok);
                     mNextButton.setEnabled(true);
+                    break;
+                case PAGE_FAIL_EXIT:
+                    exitAsFail(GetFingerActivity.this);
+                    break;
+                case PAGE_DEVICE_UNCONNECT:
+                    Toast.makeText(GetFingerActivity.this, "指纹模块异常，请联系工作人员", Toast.LENGTH_LONG).show();
+                    mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 2 * 1000);
                     break;
             }
         }
