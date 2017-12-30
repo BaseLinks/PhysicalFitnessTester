@@ -6,10 +6,12 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/progress_constrainlayout"
         android:layout_width="221px"
         android:layout_height="421px"
         android:layout_marginBottom="78dp"
         android:layout_marginEnd="40dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -49,6 +51,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/buttons_constrainlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="421px"
+        android:layout_marginBottom="78dp"
+        android:layout_marginEnd="21dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/print_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_50_kb_print"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/_90_kb_detail"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toTopOf="@+id/print_button" />
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/_90_kb_back"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toTopOf="@+id/detail_button" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <TableLayout
         android:id="@+id/feipangfenxi_tablelayout"
@@ -146,30 +186,35 @@
                     app:layout_constraintTop_toBottomOf="@+id/shentizhiliangzhishu_result_textview">
 
                     <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_low_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/_90_radiobutton"
-                        android:checked="true"
                         android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:text="低"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
                     <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_normal_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
                         android:text="正常"
-                        android:layout_margin="3dp"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
                     <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_high_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
                         android:text="高"
-                        android:layout_margin="3dp"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -231,33 +276,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_result_textview">
 
                     <RadioButton
+                        android:id="@+id/tizhibaifenbi_low_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/_90_radiobutton"
-                        android:checked="true"
                         android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:gravity="center"
                         android:text="低"
-                        android:gravity="center"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
                     <RadioButton
+                        android:id="@+id/tizhibaifenbi_normal_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
+                        android:gravity="center"
                         android:text="正常"
-                        android:gravity="center"
-                        android:layout_margin="3dp"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
                     <RadioButton
+                        android:id="@+id/tizhibaifenbi_high_radiobutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/_90_radiobutton"
-                        android:text="高"
-                        android:gravity="center"
                         android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:gravity="center"
+                        android:text="高"
+                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -339,7 +389,6 @@
                 android:layout_width="108px"
                 android:layout_height="47px"
                 android:layout_marginStart="4px"
-                android:background="#434343"
                 android:gravity="center"
                 android:text="正常"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -362,7 +411,6 @@
                 android:layout_width="160px"
                 android:layout_height="47px"
                 android:layout_marginStart="2px"
-                android:background="#434343"
                 android:gravity="center"
                 android:text="结果"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -420,7 +468,6 @@
                 android:layout_width="160px"
                 android:layout_height="72px"
                 android:layout_marginStart="2px"
-                android:background="#434343"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="0dp"
@@ -478,7 +525,6 @@
                 android:layout_width="160px"
                 android:layout_height="72px"
                 android:layout_marginStart="2px"
-                android:background="#434343"
                 android:gravity="center"
                 android:text="36.3"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -533,7 +579,6 @@
                 android:layout_width="160px"
                 android:layout_height="72px"
                 android:layout_marginStart="2px"
-                android:background="#434343"
                 android:gravity="center"
                 android:text="46.1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
