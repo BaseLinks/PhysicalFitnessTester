@@ -150,18 +150,24 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="低"
+                        android:layout_margin="10dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:textColor="@android:color/white" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="正常"
+                        android:layout_margin="10dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:textColor="@android:color/white" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="高"
+                        android:layout_margin="10dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:textColor="@android:color/white" />
 
                 </RadioGroup>
@@ -225,19 +231,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:button="@drawable/_90_radiobutton"
                         android:text="低"
+                        android:layout_margin="10dp"
                         android:textColor="@android:color/white" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="正常"
+                        android:layout_margin="10dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:textColor="@android:color/white" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="高"
+                        android:layout_margin="10dp"
+                        android:button="@drawable/_90_radiobutton"
                         android:textColor="@android:color/white" />
 
                 </RadioGroup>
