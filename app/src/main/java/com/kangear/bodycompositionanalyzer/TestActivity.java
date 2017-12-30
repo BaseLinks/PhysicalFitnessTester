@@ -244,24 +244,6 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    private void page(int page) {
-        switch (page) {
-            case FIRST_PAGE_NUMBER:
-                mHandler.sendEmptyMessage(0);
-                mLastPage.setVisibility(View.INVISIBLE);
-                mPreButton.setVisibility(View.INVISIBLE);
-                mNextButton.setVisibility(View.VISIBLE);
-                mFirstPage.setVisibility(View.VISIBLE);
-                break;
-            case LAST_PAGE_NUMBER:
-                mLastPage.setVisibility(View.VISIBLE);
-                mPreButton.setVisibility(View.VISIBLE);
-                mNextButton.setVisibility(View.INVISIBLE);
-                mFirstPage.setVisibility(View.INVISIBLE);
-                break;
-        }
-    }
-
     // This snippet hides the system bars.
     public static void hideSystemUI(View v) {
         // Set the IMMERSIVE flag.
@@ -277,15 +259,14 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Intent intent;
         switch (v.getId()) {
             case R.id.back_button:
-//                setResult(RESULT_CANCELED, intent);
-//                finish();
-                Toast.makeText(this, "返回", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case R.id.detail_button:
-                Toast.makeText(this, "详情", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, ResultActivity.class);;
+                startActivity(intent);
                 break;
             case R.id.print_button:
                 Toast.makeText(this, "打印机未连接", Toast.LENGTH_SHORT).show();
