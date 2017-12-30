@@ -1,1 +1,1 @@
-include ':BodyCompositionAnalyzer', ':javaapk.com-comassistant', ':d2xx', ':trineaandroidcommon-debug', ':app'
+include ':BodyCompositionAnalyzer', ':javaapk.com-comassistant', ':d2xx', ':trineaandroidcommon-debug', ':app', ':touchid', ':common-debug'
