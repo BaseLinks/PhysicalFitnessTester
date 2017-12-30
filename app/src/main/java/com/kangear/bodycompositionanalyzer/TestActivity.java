@@ -39,6 +39,9 @@ public class TestActivity extends AppCompatActivity {
     private static final int HUMAN_HIGH = 360; // 360px
     private static final float BILI = HUMAN_HIGH / PECENT_MAX;
     private TextView mTextView;
+    private static int HUMAN_NORMAL_PROGRESS = 90;
+    private static int WAIT_TIME = 32 * 1000; // 32 SECOND
+    private static int STEP_TIME = WAIT_TIME / HUMAN_NORMAL_PROGRESS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class TestActivity extends AppCompatActivity {
 //        mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 //
 //        page(FIRST_PAGE_NUMBER);
-        mHandler.sendEmptyMessage(0);
+        mHandler.sendEmptyMessageDelayed(0, 1 * 1000);
     }
 
     private void setProgress2(int progress) {
@@ -76,8 +79,8 @@ public class TestActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             setProgress2(progress);
             progress ++;
-            if (progress <= 100) {
-                sendEmptyMessageDelayed(0, 20);
+            if (progress <= HUMAN_NORMAL_PROGRESS) {
+                sendEmptyMessageDelayed(0, STEP_TIME);
             }
         }
     };

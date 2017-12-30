@@ -148,27 +148,30 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:button="@drawable/_90_radiobutton"
                         android:checked="true"
+                        android:layout_margin="3dp"
                         android:text="低"
-                        android:layout_margin="10dp"
-                        android:button="@drawable/_90_radiobutton"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:button="@drawable/_90_radiobutton"
                         android:text="正常"
-                        android:layout_margin="10dp"
-                        android:button="@drawable/_90_radiobutton"
-                        android:textColor="@android:color/white" />
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="高"
-                        android:layout_margin="10dp"
                         android:button="@drawable/_90_radiobutton"
-                        android:textColor="@android:color/white" />
+                        android:text="高"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                 </RadioGroup>
             </android.support.constraint.ConstraintLayout>
@@ -230,27 +233,33 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:button="@drawable/_90_radiobutton"
                         android:checked="true"
-                        android:button="@drawable/_90_radiobutton"
+                        android:layout_margin="3dp"
                         android:text="低"
-                        android:layout_margin="10dp"
-                        android:textColor="@android:color/white" />
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:button="@drawable/_90_radiobutton"
                         android:text="正常"
-                        android:layout_margin="10dp"
-                        android:button="@drawable/_90_radiobutton"
-                        android:textColor="@android:color/white" />
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="高"
-                        android:layout_margin="10dp"
                         android:button="@drawable/_90_radiobutton"
-                        android:textColor="@android:color/white" />
+                        android:text="高"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
 
                 </RadioGroup>
             </android.support.constraint.ConstraintLayout>
