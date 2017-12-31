@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +22,8 @@ public class ResultActivity extends AppCompatActivity {
     private static final String TAG = "ResultActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
-    private Button mBackButton;
     private Button mPreButton;
     private Button mNextButton;
-    private Button mPrintButton;
     private View mFirstPage;
     private View mLastPage;
     private int WEIGHT_PROGRESS = 70;
@@ -34,6 +33,7 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar mGugejiProgressBar;
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
+    private Person mPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,13 @@ public class ResultActivity extends AppCompatActivity {
         mWeightProgressBar = findViewById(R.id.weight_progressbar);
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
+
+        mPerson = WelcomeActivity.getPerson();
+
+        ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
+        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
+        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
+        ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
 
         page(FIRST_PAGE_NUMBER);
     }

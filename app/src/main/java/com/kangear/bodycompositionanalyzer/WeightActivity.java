@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
 
@@ -57,6 +59,7 @@ public class WeightActivity extends AppCompatActivity {
     /**
      * 开始
      */
+    float weight = 0;
     private void startTest() {
         startView.setVisibility(View.VISIBLE);
         stopView.setVisibility(View.GONE);
@@ -68,18 +71,10 @@ public class WeightActivity extends AppCompatActivity {
             public void run() {
                 while(true) {
                     try {
-                        sleep(800);
+                        sleep(1);
                         mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        int weight = 1;
-                        if (mTextView.getText() != null) {
-                            String str = mTextView.getText().toString();
-                            try {
-                                weight += Integer.valueOf(str);
-                            } catch (Exception e) {
-                            }
-                        }
-
-                        if (weight > 4) {
+                        weight += 0.1;
+                        if (weight >= DEFAULT_WEIGHT) {
                             mHandler.sendEmptyMessage(WEIGHT_STOP);
                             break;
                         }
@@ -96,15 +91,7 @@ public class WeightActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case WEIGHT_ACTIVITY:
-                    int weight = 1;
-                    if (mTextView.getText() != null) {
-                        String str = mTextView.getText().toString();
-                        try {
-                            weight += Integer.valueOf(str);
-                        } catch (Exception e) {
-                        }
-                    }
-                    mTextView.setText("" + weight);
+                    mTextView.setText("" + String.format(FORMAT_WEIGHT, weight));
                     break;
                 case WEIGHT_STOP:
                     stopTest();

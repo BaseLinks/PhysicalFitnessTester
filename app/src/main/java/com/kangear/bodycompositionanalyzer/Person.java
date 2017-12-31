@@ -14,6 +14,8 @@ public class Person {
     // 性别
     String gender;
     float weight;
+    
+
     public static final String GENDER_MALE   = "男";
     public static final String GENDER_FEMALE = "女";
 

@@ -47,6 +47,15 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int WEIGHT_VIP_TEST          = 2;
     public static final String CONST_WEIGHT_TAG      = "CONST_WEIGHT_TAG";
 
+    public static final float DEFAULT_WEIGHT = (float) 60.4;
+    public static final float DEFAULT_GUGEJI = (float) 36.3;
+    public static final float DEFAULT_TIZHIFANG = (float)46.1;
+    public static final float DEFAULT_SHENTIZHILIANGZHISHU = (float) 30.1;
+    public static final float DEFAULT_TIZHIBAIFENBI = (float)32.7;
+    public static final int DEFAULT_JICHUDAIXIELIANG = 1787;
+
+    public static final String FORMAT_WEIGHT = "%.1f";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

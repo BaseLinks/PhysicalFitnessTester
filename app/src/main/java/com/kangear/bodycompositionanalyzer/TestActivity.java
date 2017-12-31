@@ -17,6 +17,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_GUGEJI;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_JICHUDAIXIELIANG;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_SHENTIZHILIANGZHISHU;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIBAIFENBI;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIFANG;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -125,6 +132,15 @@ public class TestActivity extends AppCompatActivity {
         mHeadAgeTextView.setText(String.valueOf(ps.getAge()));
         mHeadWeightTextView.setText(String.valueOf(ps.getWeight()));
         mHeadHeightTextView.setText(String.valueOf(ps.getHeight()));
+
+        mWeightTextView.setText(String.valueOf(ps.getWeight()));
+        weightProgress         = ps.getWeight();
+        gugejiProgress         = DEFAULT_GUGEJI;
+        tizhifangProgress      = DEFAULT_TIZHIFANG;
+        shentizhiliangzhishu   = DEFAULT_SHENTIZHILIANGZHISHU;
+        tizhibaifenbi          = DEFAULT_TIZHIBAIFENBI;
+        jichudaixieliang       = DEFAULT_JICHUDAIXIELIANG;
+
     }
 
     private void setProgress2(int progress) {
@@ -262,7 +278,7 @@ public class TestActivity extends AppCompatActivity {
             pb.setProgress(progress);
             mHandler.sendEmptyMessageDelayed(curWhat, 20);
         } else {
-            tv.setText(String.valueOf(max));
+            tv.setText(String.format(FORMAT_WEIGHT, max));
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
             progress = 0;
             mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
@@ -273,7 +289,7 @@ public class TestActivity extends AppCompatActivity {
         progress ++;
         if (progress <= max) {
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
-            tv.setText(String.valueOf(value));
+            tv.setText(String.format(FORMAT_WEIGHT, value));
             mHandler.sendEmptyMessageDelayed(curWhat, 50);
         } else {
             if (rg != null)
