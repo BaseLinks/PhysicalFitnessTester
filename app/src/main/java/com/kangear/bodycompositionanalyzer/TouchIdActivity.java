@@ -19,6 +19,7 @@ import java.net.URL;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
@@ -45,7 +46,6 @@ public class TouchIdActivity extends Com2Activity {
         hideSystemUI(getWindow().getDecorView());
         mFingerImageView = findViewById(R.id.finger_imageview);
         mContext = getApplicationContext();
-
         page(PAGE_NORMAL);
     }
 
@@ -77,11 +77,19 @@ public class TouchIdActivity extends Com2Activity {
                 }
                 break;
             case PAGE_SUCCESS_EXIT:
-                WelcomeActivity.getPerson().setFingerId(mFingerId);
-                WelcomeActivity.doTest(this);
+                Intent intent = new Intent();
+                intent.putExtra(CONST_FINGER_ID, mFingerId);
+                setResult(RESULT_OK, intent);
+                finish();
+//                WelcomeActivity.getPerson().setFingerId(mFingerId);
+//                WelcomeActivity.doTest(this);
                 break;
             case PAGE_FAIL_EXIT:
-                exitAsFail(this);
+                Intent intent2 = new Intent();
+                intent2.putExtra(CONST_FINGER_ID, mFingerId);
+                setResult(RESULT_CANCELED, intent2);
+                finish();
+//                exitAsFail(this);
                 break;
             case PAGE_DEVICE_UNCONNECT:
                 Toast.makeText(this, "指纹模块异常，请联系工作人员", Toast.LENGTH_LONG).show();

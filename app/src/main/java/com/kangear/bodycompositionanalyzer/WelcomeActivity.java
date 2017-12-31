@@ -37,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ID          = 4;
     private static final int REQUEST_CODE_AGE         = 5;
     private static final int REQUEST_CODE_HEIGHT      = 6;
-    private static final int REQUEST_CODE_TOUCHID     = 7;
+    public static final int REQUEST_CODE_TOUCHID      = 7;
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
@@ -113,6 +113,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startTmpTest(this);
                 break;
             case R.id.history_imageview:
+                startHistory(this);
                 break;
             case R.id.settings_imageview:
                 break;
@@ -229,6 +230,14 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startTouchId(Context context) {
         context.startActivity(new Intent(context, TouchIdActivity.class));
+    }
+
+    /**
+     * 11. History
+     * @param context
+     */
+    public static void startHistory(Context context) {
+        context.startActivity(new Intent(context, HistoryActivity.class));
     }
 
     public static void exitAsFail(Activity activity) {

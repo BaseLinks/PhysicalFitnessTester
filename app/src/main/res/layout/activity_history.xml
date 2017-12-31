@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/result_background"
+    android:foregroundTint="#777777">
+
+    <include
+        layout="@layout/history_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/title_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="76px"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="97dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/id_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="I.D"
+            android:textColor="@android:color/white"
+            android:textSize="31sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gender_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gender_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="237dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="性别"
+            android:textColor="@android:color/white"
+            android:textSize="31sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/age_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/age_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="333dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="年龄"
+            android:textColor="@android:color/white"
+            android:textSize="31sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/date_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="450dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="测试日期"
+            android:textColor="@android:color/white"
+            android:textSize="31sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/content_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintBottom_toTopOf="@+id/next_page_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_constraintlayout"></android.support.constraint.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/_50_kb_back"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_100_history_check"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="@+id/next_page_button"
+        app:layout_constraintEnd_toStartOf="@+id/delete_button"
+        app:layout_constraintStart_toEndOf="@+id/next_page_button"
+        app:layout_constraintTop_toTopOf="@+id/next_page_button" />
+
+    <Button
+        android:id="@+id/next_page_button"
+        android:layout_width="wrap_content"
+        android:layout_height="126dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_50_kb_next_page"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="@+id/previous_page_button"
+        app:layout_constraintStart_toEndOf="@+id/previous_page_button"
+        app:layout_constraintTop_toTopOf="@+id/previous_page_button" />
+
+    <Button
+        android:id="@+id/previous_page_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_50_kb_previous_page"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="@+id/back_button"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="@+id/back_button" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_100_history_delete"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/back_button" />
+</android.support.constraint.ConstraintLayout>
