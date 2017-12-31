@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -34,6 +35,8 @@ public class HistoryActivity extends AppCompatActivity {
     private int GUGEJI_PROGRESS = 90;
     private int progress = 0;
     private Person mPerson;
+    private int mCurPageNumber = 1;
+    private TextView mPageNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class HistoryActivity extends AppCompatActivity {
         mFirstPage = findViewById(R.id.result_first_page);
         mLastPage = findViewById(R.id.result_last_page);
 
+        mPageNumber = findViewById(R.id.page_number_textview);
+
 //        mPerson = WelcomeActivity.getPerson();
 
 //        ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
@@ -54,7 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
 //        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
 //        ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
 
-//        page(FIRST_PAGE_NUMBER);
+        page(3);
     }
 
 
@@ -75,19 +80,36 @@ public class HistoryActivity extends AppCompatActivity {
     private void page(int page) {
         switch (page) {
             case FIRST_PAGE_NUMBER:
-                mHandler.sendEmptyMessage(0);
-                mLastPage.setVisibility(View.INVISIBLE);
-                mPreButton.setVisibility(View.INVISIBLE);
-                mNextButton.setVisibility(View.VISIBLE);
-                mFirstPage.setVisibility(View.VISIBLE);
+                mCurPageNumber --;
+//                mHandler.sendEmptyMessage(0);
+//                mLastPage.setVisibility(View.INVISIBLE);
+//                mPreButton.setVisibility(View.INVISIBLE);
+//                mNextButton.setVisibility(View.VISIBLE);
+//                mFirstPage.setVisibility(View.VISIBLE);
                 break;
             case LAST_PAGE_NUMBER:
-                mLastPage.setVisibility(View.VISIBLE);
-                mPreButton.setVisibility(View.VISIBLE);
-                mNextButton.setVisibility(View.INVISIBLE);
-                mFirstPage.setVisibility(View.INVISIBLE);
+                mCurPageNumber ++;
+//                mLastPage.setVisibility(View.VISIBLE);
+//                mPreButton.setVisibility(View.VISIBLE);
+//                mNextButton.setVisibility(View.INVISIBLE);
+//                mFirstPage.setVisibility(View.INVISIBLE);
                 break;
         }
+
+        mPageNumber.setText(mCurPageNumber + "/20");
+        switch (mCurPageNumber) {
+            case 1:
+                mPreButton.setEnabled(false);
+                break;
+            case 20:
+                mNextButton.setEnabled(false);
+                break;
+            default:
+                mPreButton.setEnabled(true);
+                mNextButton.setEnabled(true);
+                break;
+        }
+
     }
 
     // This snippet hides the system bars.
@@ -120,6 +142,10 @@ public class HistoryActivity extends AppCompatActivity {
             case R.id.vip_query_button:
                 intent = new Intent(this, TouchIdActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_TOUCHID);
+                break;
+            case R.id.check_button:
+                // TODO: 要获取选中jilu_id，传递给result ui.
+                startActivity(new Intent(this, ResultActivity.class));
                 break;
         }
     }
