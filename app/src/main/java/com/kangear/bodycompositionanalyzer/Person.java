@@ -10,10 +10,10 @@ public class Person {
     int fingerId;
     String id;
     int age;
-    int height;
+    float height;
     // 性别
     String gender;
-    int weight;
+    float weight;
     public static final String GENDER_MALE   = "男";
     public static final String GENDER_FEMALE = "女";
 
@@ -41,11 +41,11 @@ public class Person {
         this.age = age;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
@@ -69,11 +69,11 @@ public class Person {
         this.gender = gender;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 

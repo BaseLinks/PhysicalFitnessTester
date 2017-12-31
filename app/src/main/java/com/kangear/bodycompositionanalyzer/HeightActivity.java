@@ -75,7 +75,7 @@ public class HeightActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
-        WelcomeActivity.getPerson().setHeight(Integer.valueOf(mEditText.getText().toString()));
+        WelcomeActivity.getPerson().setHeight(Float.valueOf(mEditText.getText().toString()));
         WelcomeActivity.doTest(this);
         finish();
     }

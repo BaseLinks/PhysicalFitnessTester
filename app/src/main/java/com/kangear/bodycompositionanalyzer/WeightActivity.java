@@ -127,7 +127,7 @@ public class WeightActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.next_button:
-                WelcomeActivity.getPerson().setWeight(Integer.valueOf(mTextView.getText().toString()));
+                WelcomeActivity.getPerson().setWeight(Float.valueOf(mTextView.getText().toString()));
                 switch (bootTag) {
                     case WEIGHT_VIP_TEST:
                         WelcomeActivity.doVipTest(this);
