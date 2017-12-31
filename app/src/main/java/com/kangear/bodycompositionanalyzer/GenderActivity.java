@@ -74,12 +74,16 @@ public class GenderActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
+        WelcomeActivity.getPerson().setGender(mEditText.getText().toString());
+        WelcomeActivity.startHeight(this);
+        finish();
     }
 
     @Override
     public void onBackButtonClick() {
         super.onBackButtonClick();
         Log.i(TAG, "onBackButtonClick");
+        finish();
     }
 
     @Override

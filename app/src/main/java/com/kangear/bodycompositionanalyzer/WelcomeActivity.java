@@ -183,7 +183,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     /**
-     * 1. AGE
+     * 2. AGE
      * @param context
      */
     public static void startAge(Context context) {
@@ -191,7 +191,15 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     /**
-     * 1. HEIGHT
+     * 3. Gender
+     * @param context
+     */
+    public static void startGender(Context context) {
+        context.startActivity(new Intent(context, GenderActivity.class));
+    }
+
+    /**
+     * 5. HEIGHT
      * @param context
      */
     public static void startHeight(Context context) {
@@ -199,19 +207,19 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     /**
-     * 1. HEIGHT
-     * @param context
-     */
-    public static void startTouchId(Context context) {
-        context.startActivity(new Intent(context, TouchIdActivity.class));
-    }
-
-    /**
-     * 1. TEST
+     * 8. TEST
      * @param context
      */
     public static void doTest(Context context) {
         context.startActivity(new Intent(context, TestActivity.class));
+    }
+
+    /**
+     * 10. HEIGHT
+     * @param context
+     */
+    public static void startTouchId(Context context) {
+        context.startActivity(new Intent(context, TouchIdActivity.class));
     }
 
     public static void exitAsFail(Activity activity) {

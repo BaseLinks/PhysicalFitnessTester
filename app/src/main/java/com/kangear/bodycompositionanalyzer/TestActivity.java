@@ -33,17 +33,6 @@ public class TestActivity extends AppCompatActivity {
     private static final int PROGRESS_STEP_TIME             = DEFAULT_TEST_COST_TIME / DEFAULT_TEST_PROGRESS;
     private static final String TEXT_EMPTY = "";
 
-    private static final int FIRST_PAGE_NUMBER = 1;
-    private static final int LAST_PAGE_NUMBER  = 2;
-    private Button mBackButton;
-    private Button mPreButton;
-    private Button mNextButton;
-    private Button mPrintButton;
-    private View mFirstPage;
-    private View mLastPage;
-    private int WEIGHT_PROGRESS = 70;
-    private int TIZHIFANG_PROGRESS = 35;
-    private int GUGEJI_PROGRESS = 90;
     private ProgressBar mWeightProgressBar;
     private ProgressBar mGugejiProgressBar;
     private ProgressBar mTizhifangProgressBar;
@@ -63,7 +52,7 @@ public class TestActivity extends AppCompatActivity {
     private double tizhifangProgress        = 46.1;
     private int shentizhiliangzhishuLevel   = LOW;
     private double shentizhiliangzhishu     = 30.1;
-    private double tizhibaifenbiLevel       = HIGH;
+    private int tizhibaifenbiLevel          = HIGH;
     private double tizhibaifenbi            = 32.7;
     private double jichudaixieliang         = 1787;
 
@@ -83,17 +72,15 @@ public class TestActivity extends AppCompatActivity {
     private TextView mJichudaixieliangTextView;
     private TextView mShentizhiliangzhishuTextView;
     private TextView mTizhibaifenbiTextView;
-    private TextView mJichudaixieliang;
-    private RadioButton mShentizhiliangzhishuLowRadioButton;
-    private RadioButton mShentizhiliangzhishuNormalRadioButton;
-    private RadioButton mShentizhiliangzhishuHighRadioButton;
-    private RadioButton mTizhibaifenbiLowRadioButton;
-    private RadioButton mTizhibaifenbiNormalRadioButton;
-    private RadioButton mTizhibaifenbiHighRadioButton;
     private RadioGroup mTizhibaifenbiRadioGroup;
     private RadioGroup mShentizhiliangzhishuRadioGroup;
     private View mWaitView;
     private View mTestView;
+    private TextView mHeadGenderTextView;
+    private TextView mHeadIdTextView;
+    private TextView mHeadWeightTextView;
+    private TextView mHeadHeightTextView;
+    private TextView mHeadAgeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,22 +104,27 @@ public class TestActivity extends AppCompatActivity {
         mJichudaixieliangTextView              = findViewById(R.id.jichudaixie_result_textview);
 
         mShentizhiliangzhishuRadioGroup        = findViewById(R.id.shentizhiliangzhishu_radiogroup);
-        mShentizhiliangzhishuLowRadioButton    = findViewById(R.id.shentizhiliangzhishu_low_radiobutton);
-        mShentizhiliangzhishuNormalRadioButton = findViewById(R.id.shentizhiliangzhishu_normal_radiobutton);
-        mShentizhiliangzhishuHighRadioButton   = findViewById(R.id.shentizhiliangzhishu_high_radiobutton);
-
         mTizhibaifenbiRadioGroup               = findViewById(R.id.tizhibaifenbi_radiogroup);
-        mTizhibaifenbiLowRadioButton           = findViewById(R.id.tizhibaifenbi_low_radiobutton);
-        mTizhibaifenbiNormalRadioButton        = findViewById(R.id.tizhibaifenbi_normal_radiobutton);
-        mTizhibaifenbiHighRadioButton          = findViewById(R.id.tizhibaifenbi_high_radiobutton);
 
         mWaitView = findViewById(R.id.test_first_page);
         mTestView = findViewById(R.id.test_last_page);
 
+        mHeadGenderTextView = findViewById(R.id.gender_textview);
+        mHeadIdTextView     = findViewById(R.id.id_textview);
+        mHeadWeightTextView = findViewById(R.id.weight_textview);
+        mHeadHeightTextView = findViewById(R.id.height_textview);
+        mHeadAgeTextView    = findViewById(R.id.age_textview);
+
 //        page(FIRST_PAGE_NUMBER);
         mHandler.sendEmptyMessage(SHOW_CLEAN);
 
-        Log.e(TAG, "" + WelcomeActivity.getPerson().toString());
+        Person ps = WelcomeActivity.getPerson();
+        Log.e(TAG, "" + ps.toString());
+        mHeadIdTextView.setText(ps.getId());
+        mHeadGenderTextView.setText(ps.getGender());
+        mHeadAgeTextView.setText(String.valueOf(ps.getAge()));
+        mHeadWeightTextView.setText(String.valueOf(ps.getWeight()));
+        mHeadHeightTextView.setText(String.valueOf(ps.getHeight()));
     }
 
     private void setProgress2(int progress) {
@@ -203,7 +195,7 @@ public class TestActivity extends AppCompatActivity {
                     updateFeipangchengfen(shentizhiliangzhishu,
                             1,
                             mShentizhiliangzhishuRadioGroup,
-                            mShentizhiliangzhishuLowRadioButton,
+                            getShentizhiliangzhishuRadioButtonResId(shentizhiliangzhishuLevel),
                             msg.what,
                             SHOW_SHENTIZHILIANGZHISHU_DONE,
                             mShentizhiliangzhishuTextView);
@@ -212,7 +204,7 @@ public class TestActivity extends AppCompatActivity {
                     updateFeipangchengfen(tizhibaifenbi,
                             1,
                             mTizhibaifenbiRadioGroup,
-                            mTizhibaifenbiHighRadioButton,
+                            getTizhibaifenbiRadioButtonResId(tizhibaifenbiLevel),
                             msg.what,
                             SHOW_TIZHIFANG_BAIFENGBI_DONE,
                             mTizhibaifenbiTextView);
@@ -232,6 +224,38 @@ public class TestActivity extends AppCompatActivity {
         }
     };
 
+    private int getShentizhiliangzhishuRadioButtonResId(int level) {
+        int ret = R.id.shentizhiliangzhishu_low_radiobutton;
+        switch (level) {
+            case LOW:
+                ret = R.id.shentizhiliangzhishu_low_radiobutton;
+                break;
+            case NORMAL:
+                ret = R.id.shentizhiliangzhishu_normal_radiobutton;
+                break;
+            case HIGH:
+                ret = R.id.shentizhiliangzhishu_high_radiobutton;
+                break;
+        }
+        return ret;
+    }
+
+    private int getTizhibaifenbiRadioButtonResId(int level) {
+        int ret = R.id.tizhibaifenbi_low_radiobutton;
+        switch (level) {
+            case LOW:
+                ret = R.id.tizhibaifenbi_low_radiobutton;
+                break;
+            case NORMAL:
+                ret = R.id.tizhibaifenbi_normal_radiobutton;
+                break;
+            case HIGH:
+                ret = R.id.tizhibaifenbi_high_radiobutton;
+                break;
+        }
+        return ret;
+    }
+
     private void update(double max, ProgressBar pb, int curWhat, int nextWhat, TextView tv) {
         progress ++;
         if (progress <= max) {
@@ -245,15 +269,15 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    private void updateFeipangchengfen(double value, double max, RadioGroup rg, RadioButton rb, int curWhat, int nextWhat, TextView tv) {
+    private void updateFeipangchengfen(double value, double max, RadioGroup rg, int rb, int curWhat, int nextWhat, TextView tv) {
         progress ++;
         if (progress <= max) {
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
             tv.setText(String.valueOf(value));
             mHandler.sendEmptyMessageDelayed(curWhat, 50);
         } else {
-            if (rg != null && rb != null)
-                rg.check(rb.getId());
+            if (rg != null)
+                rg.check(rb);
             progress = 0;
             mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
         }

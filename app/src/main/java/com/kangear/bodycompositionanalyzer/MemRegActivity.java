@@ -237,7 +237,7 @@ public class MemRegActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Intent intent = new Intent(this, WelcomeActivity.class);
-        int gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
+        String gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
         mPerson.setGender(gender);
         mPerson.setId(mIdEditText.getText().toString());
         mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));

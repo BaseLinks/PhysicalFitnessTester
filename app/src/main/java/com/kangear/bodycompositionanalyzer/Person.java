@@ -12,10 +12,10 @@ public class Person {
     int age;
     int height;
     // 性别
-    int gender;
+    String gender;
     int weight;
-    public static final int GENDER_MALE   = 1;
-    public static final int GENDER_FEMALE = 2;
+    public static final String GENDER_MALE   = "男";
+    public static final String GENDER_FEMALE = "女";
 
     public int getFingerId() {
         return fingerId;
@@ -61,11 +61,11 @@ public class Person {
         return gson.fromJson(json, Person.class);
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

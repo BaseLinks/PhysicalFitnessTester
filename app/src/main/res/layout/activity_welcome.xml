@@ -56,17 +56,14 @@
         android:id="@+id/vip_register_imageview"
         android:layout_width="wrap_content"
         android:layout_height="127px"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="312dp"
         android:onClick="onClick"
         android:src="@drawable/_04_vip_register"
-        app:layout_constraintBottom_toTopOf="@+id/vip_test_imageview"
+        app:layout_constraintBottom_toTopOf="@+id/settings_imageview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/vip_test_imageview"
@@ -77,7 +74,7 @@
         android:layout_marginStart="8dp"
         android:onClick="onClick"
         android:src="@drawable/_05_vip_test"
-        app:layout_constraintBottom_toTopOf="@+id/start_new_test_imageview"
+        app:layout_constraintBottom_toTopOf="@+id/vip_register_imageview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -85,12 +82,12 @@
         android:id="@+id/start_new_test_imageview"
         android:layout_width="wrap_content"
         android:layout_height="127px"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onClick"
         android:src="@drawable/_07_start_new_test"
-        app:layout_constraintBottom_toTopOf="@+id/settings_imageview"
+        app:layout_constraintBottom_toTopOf="@+id/vip_test_imageview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
