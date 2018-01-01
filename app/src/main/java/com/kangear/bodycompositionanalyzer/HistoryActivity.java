@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 
@@ -47,6 +48,7 @@ public class HistoryActivity extends AppCompatActivity {
     private Button mCheckButton;
     private Button mDeleteButton;
     private RecordAdapter mAdapter;
+    private int mPosition = 1;
 
     /**
      * @param pageNumber 当前页面
@@ -96,6 +98,7 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
                 Log.i(TAG, "Select: " + position);
+                mPosition = position;
                 view.setSelected(true);
                 mCheckButton.setEnabled(true);
                 mDeleteButton.setEnabled(true);
@@ -177,7 +180,10 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
             case R.id.check_button:
                 // TODO: 要获取选中jilu_id，给result ui.
-                startActivity(new Intent(this, ResultActivity.class));
+                Record record = mData.get(mPosition);
+                intent = new Intent(this, ResultActivity.class);
+                intent.putExtra(CONST_RECORD, record.toJson());
+                startActivity(intent);
                 break;
             case R.id.delete_button:
                 // TODO: 要获取选中jilu_id，给result ui.

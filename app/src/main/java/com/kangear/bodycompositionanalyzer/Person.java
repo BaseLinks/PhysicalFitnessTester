@@ -61,7 +61,6 @@ public class Person {
         this.height = height;
     }
 
-
     // You can add those functions as LiveTemplate !
     public String toJson() {
         Gson gson = new Gson();

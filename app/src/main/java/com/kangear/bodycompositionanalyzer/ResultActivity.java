@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -34,6 +36,8 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
     private Person mPerson;
+    private Record mRecord;
+    private Record DEFAULT_RECORD = new Record(new Person("测试值", Person.GENDER_MALE, 0), "2018-01-01");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,11 @@ public class ResultActivity extends AppCompatActivity {
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
-        mPerson = WelcomeActivity.getPerson();
+        mRecord = Record.fromJson(getIntent().getStringExtra(CONST_RECORD));
+        if (mRecord == null) {
+            mRecord = DEFAULT_RECORD;
+        }
+        mPerson = mRecord.getPerson();
 
         ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
         ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));

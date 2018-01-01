@@ -31,6 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final String CONST_ID     = "ID";
     public static final String CONST_HEIGHT = "HEIGHT";
     public static final String CONST_AGE    = "AGE";
+    public static final String CONST_RECORD = "CONST_RECORD";
     private static final int REQUEST_CODE_VIP_REGISTE = 1;
     private static final int REQUEST_CODE_VIP_TEST    = 2;
     private static final int REQUEST_CODE_NEW_TEST    = 3;
