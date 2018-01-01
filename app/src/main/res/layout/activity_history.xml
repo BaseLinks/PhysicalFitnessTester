@@ -159,11 +159,13 @@
         android:layout_marginTop="10dp"
         android:divider="#00000000"
         android:dividerHeight="15dp"
+        android:choiceMode="singleChoice"
         app:layout_constraintBottom_toTopOf="@+id/next_page_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_constraintlayout"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/title_constraintlayout">
+    </ListView>
 
 
     <Button

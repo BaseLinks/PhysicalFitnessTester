@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +35,7 @@ public class HistoryActivity extends AppCompatActivity {
     private static final String TAG = "HistoryActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
+    private static final int FLESH_PAGE_NUMBER = 3;
     private Button mPreButton;
     private Button mNextButton;
     private int mCurPageNumber = 1;
@@ -90,17 +92,16 @@ public class HistoryActivity extends AppCompatActivity {
 
         //为ListView对象赋值
         mListViewArray = (ListView) findViewById(R.id.content_listview);
-        mListViewArray.setScrollContainer(false);
         mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
-                view.setSelected(true);
                 Log.i(TAG, "Select: " + position);
+                view.setSelected(true);
                 mCheckButton.setEnabled(true);
                 mDeleteButton.setEnabled(true);
             }
         });
-        page(3);
+        page(FLESH_PAGE_NUMBER);
     }
 
     private void page(int page) {
@@ -110,6 +111,8 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
             case LAST_PAGE_NUMBER:
                 mCurPageNumber ++;
+                break;
+            case FLESH_PAGE_NUMBER:
                 break;
         }
 
@@ -175,6 +178,11 @@ public class HistoryActivity extends AppCompatActivity {
             case R.id.check_button:
                 // TODO: 要获取选中jilu_id，给result ui.
                 startActivity(new Intent(this, ResultActivity.class));
+                break;
+            case R.id.delete_button:
+                // TODO: 要获取选中jilu_id，给result ui.
+                // 数据库，删除，并刷新当前界面
+                page(FLESH_PAGE_NUMBER);
                 break;
         }
     }
