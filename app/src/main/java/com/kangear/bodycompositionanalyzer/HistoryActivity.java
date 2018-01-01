@@ -48,34 +48,9 @@ public class HistoryActivity extends AppCompatActivity {
     private Button mCheckButton;
     private Button mDeleteButton;
     private RecordAdapter mAdapter;
-    private int mPosition = 1;
-
-    /**
-     * @param pageNumber 当前页面
-     * @param itemsPerPage  页面长度
-     * @return
-     */
-    List<Record> getRecordList(int pageNumber, int itemsPerPage) {
-        List<Record> records = new ArrayList<>();
-        if (pageNumber == 10) {
-            return records;
-        }
-        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
-        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
-        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
-        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
-        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
-        records.add(new Record(new Person(String.valueOf(pageNumber), Person.GENDER_FEMALE, itemsPerPage), "2017-11-27"));
-        return records;
-    }
-
-    int getTotalPageNumber () {
-        return 20;
-    }
+    private static final int PAGE_NUMBER_MIN = 1;
+    private static final int COUNTS_PER_PAGE = 10;
+    private int mPosition = PAGE_NUMBER_MIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,33 +83,38 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void page(int page) {
+        int mTotalNumber = RecordBean.getInstance(this).getTotalPageNumber(COUNTS_PER_PAGE);
+
         switch (page) {
             case FIRST_PAGE_NUMBER:
-                mCurPageNumber --;
+                if (mCurPageNumber > PAGE_NUMBER_MIN)
+                    mCurPageNumber --;
+                else
+                    mCurPageNumber = mTotalNumber;
                 break;
             case LAST_PAGE_NUMBER:
-                mCurPageNumber ++;
+                if (mCurPageNumber < mTotalNumber)
+                    mCurPageNumber ++;
+                else
+                    mCurPageNumber = PAGE_NUMBER_MIN;
                 break;
             case FLESH_PAGE_NUMBER:
                 break;
         }
 
-        mPageNumber.setText(mCurPageNumber + "/" + getTotalPageNumber());
-        switch (mCurPageNumber) {
-            case 1:
-                mPreButton.setEnabled(false);
-                break;
-            case 20:
-                mNextButton.setEnabled(false);
-                break;
-            default:
-                mPreButton.setEnabled(true);
-                mNextButton.setEnabled(true);
-                break;
-        }
+//        if (mCurPageNumber == 1) {
+//            mPreButton.setEnabled(false);
+//        } else if (mCurPageNumber == mTotalNumber) {
+//            mPreButton.setEnabled(true);
+//            mNextButton.setEnabled(false);
+//        } else {
+//            mPreButton.setEnabled(true);
+//            mNextButton.setEnabled(true);
+//        }
 
+        mPageNumber.setText(mCurPageNumber + "/" + mTotalNumber);
         LayoutInflater inflater = getLayoutInflater();
-        mData = getRecordList(mCurPageNumber, 10);
+        mData = RecordBean.getInstance(this).getRecordList(mCurPageNumber, COUNTS_PER_PAGE);
         //创建自定义Adapter的对象
         mAdapter = new RecordAdapter(inflater, mData);
         //将布局添加到ListView中
@@ -188,6 +168,7 @@ public class HistoryActivity extends AppCompatActivity {
             case R.id.delete_button:
                 // TODO: 要获取选中jilu_id，给result ui.
                 // 数据库，删除，并刷新当前界面
+                RecordBean.getInstance(this).delete((mCurPageNumber - 1) * 10 + mPosition);
                 page(FLESH_PAGE_NUMBER);
                 break;
         }
