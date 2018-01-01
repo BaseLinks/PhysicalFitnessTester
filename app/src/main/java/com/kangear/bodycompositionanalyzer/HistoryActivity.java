@@ -62,6 +62,19 @@ public class HistoryActivity extends AppCompatActivity {
         Record lisi  = new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27");
         mData.add(zhangsan);
         mData.add(lisi);
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+
     }
 
 
