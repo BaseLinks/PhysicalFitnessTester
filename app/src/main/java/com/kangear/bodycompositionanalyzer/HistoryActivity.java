@@ -6,13 +6,20 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
@@ -37,6 +44,27 @@ public class HistoryActivity extends AppCompatActivity {
     private Person mPerson;
     private int mCurPageNumber = 1;
     private TextView mPageNumber;
+    private static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
+            "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
+            "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
+
+    //定义数据
+    private List<Record> mData;
+    //定义ListView对象
+    private ListView mListViewArray;
+
+    /*
+    初始化数据
+     */
+    private void initData() {
+        mData = new ArrayList<Record>();
+        Record zhangsan  = new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17");
+        Record lisi  = new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27");
+        mData.add(zhangsan);
+        mData.add(lisi);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +86,24 @@ public class HistoryActivity extends AppCompatActivity {
 //        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
 //        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
 //        ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
+
+        //为ListView对象赋值
+        mListViewArray = (ListView) findViewById(R.id.content_listview);
+        mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+                view.setSelected(true);
+                Log.i(TAG, "Select: " + position);
+            }
+        });
+        LayoutInflater inflater = getLayoutInflater();
+        //初始化数据
+        initData();
+        //创建自定义Adapter的对象
+        RecordAdapter adapter = new RecordAdapter(inflater,mData);
+        //将布局添加到ListView中
+        mListViewArray.setAdapter(adapter);
+
 
         page(3);
     }
@@ -144,7 +190,7 @@ public class HistoryActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_TOUCHID);
                 break;
             case R.id.check_button:
-                // TODO: 要获取选中jilu_id，传递给result ui.
+                // TODO: 要获取选中jilu_id，给result ui.
                 startActivity(new Intent(this, ResultActivity.class));
                 break;
         }

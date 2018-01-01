@@ -19,6 +19,16 @@ public class Person {
     public static final String GENDER_MALE   = "男";
     public static final String GENDER_FEMALE = "女";
 
+    public Person(String id, String gender, int age) {
+        this.id = id;
+        this.gender = gender;
+        this.age = age;
+    }
+
+    public Person() {
+
+    }
+
     public int getFingerId() {
         return fingerId;
     }

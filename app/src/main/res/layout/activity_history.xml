@@ -142,19 +142,21 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/content_constraintlayout"
+    <ListView
+        android:id="@+id/content_listview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="21dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="21dp"
+        android:divider="#00000000"
+        android:dividerHeight="18dp"
         app:layout_constraintBottom_toTopOf="@+id/next_page_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_constraintlayout"></android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/title_constraintlayout"></ListView>
 
 
     <Button
