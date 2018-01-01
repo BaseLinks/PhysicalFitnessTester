@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -35,49 +36,42 @@ public class HistoryActivity extends AppCompatActivity {
     private static final int LAST_PAGE_NUMBER  = 2;
     private Button mPreButton;
     private Button mNextButton;
-    private View mFirstPage;
-    private View mLastPage;
-    private int WEIGHT_PROGRESS = 70;
-    private int TIZHIFANG_PROGRESS = 35;
-    private int GUGEJI_PROGRESS = 90;
-    private int progress = 0;
-    private Person mPerson;
     private int mCurPageNumber = 1;
     private TextView mPageNumber;
-    private static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-            "Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-            "Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
-
-    //定义数据
-    private List<Record> mData;
+    // TODO: 这里最多只存十个数据
+    private List<Record> mData = new ArrayList<>();
     //定义ListView对象
     private ListView mListViewArray;
+    private Button mCheckButton;
+    private Button mDeleteButton;
+    private RecordAdapter mAdapter;
 
-    /*
-    初始化数据
+    /**
+     * @param pageNumber 当前页面
+     * @param itemsPerPage  页面长度
+     * @return
      */
-    private void initData() {
-        mData = new ArrayList<Record>();
-        Record zhangsan  = new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17");
-        Record lisi  = new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27");
-        mData.add(zhangsan);
-        mData.add(lisi);
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-        mData.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
-
+    List<Record> getRecordList(int pageNumber, int itemsPerPage) {
+        List<Record> records = new ArrayList<>();
+        if (pageNumber == 10) {
+            return records;
+        }
+        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
+        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
+        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
+        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
+        records.add(new Record(new Person("张云贵", Person.GENDER_FEMALE, 32), "2017-11-27"));
+        records.add(new Record(new Person("21243", Person.GENDER_MALE, 26), "2017-12-17"));
+        records.add(new Record(new Person(String.valueOf(pageNumber), Person.GENDER_FEMALE, itemsPerPage), "2017-11-27"));
+        return records;
     }
 
-
+    int getTotalPageNumber () {
+        return 20;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,76 +80,40 @@ public class HistoryActivity extends AppCompatActivity {
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        mPreButton = findViewById(R.id.previous_page_button);
-        mNextButton = findViewById(R.id.next_page_button);
-        mFirstPage = findViewById(R.id.result_first_page);
-        mLastPage = findViewById(R.id.result_last_page);
-
+        mPreButton   = findViewById(R.id.previous_page_button);
+        mNextButton  = findViewById(R.id.next_page_button);
+        mCheckButton = findViewById(R.id.check_button);
+        mDeleteButton= findViewById(R.id.delete_button);
         mPageNumber = findViewById(R.id.page_number_textview);
-
-//        mPerson = WelcomeActivity.getPerson();
-
-//        ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
-//        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
-//        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
-//        ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
+        mCheckButton.setEnabled(false);
+        mDeleteButton.setEnabled(false);
 
         //为ListView对象赋值
         mListViewArray = (ListView) findViewById(R.id.content_listview);
+        mListViewArray.setScrollContainer(false);
         mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
                 view.setSelected(true);
                 Log.i(TAG, "Select: " + position);
+                mCheckButton.setEnabled(true);
+                mDeleteButton.setEnabled(true);
             }
         });
-        LayoutInflater inflater = getLayoutInflater();
-        //初始化数据
-        initData();
-        //创建自定义Adapter的对象
-        RecordAdapter adapter = new RecordAdapter(inflater,mData);
-        //将布局添加到ListView中
-        mListViewArray.setAdapter(adapter);
-
-
         page(3);
     }
-
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-//            switch (msg.what){
-//                case WEIGHT_ACTIVITY:
-//                    progress ++;
-//                    break;
-//                case WEIGHT_STOP:
-//                    stopTest();
-//                    break;
-//            }
-        }
-    };
 
     private void page(int page) {
         switch (page) {
             case FIRST_PAGE_NUMBER:
                 mCurPageNumber --;
-//                mHandler.sendEmptyMessage(0);
-//                mLastPage.setVisibility(View.INVISIBLE);
-//                mPreButton.setVisibility(View.INVISIBLE);
-//                mNextButton.setVisibility(View.VISIBLE);
-//                mFirstPage.setVisibility(View.VISIBLE);
                 break;
             case LAST_PAGE_NUMBER:
                 mCurPageNumber ++;
-//                mLastPage.setVisibility(View.VISIBLE);
-//                mPreButton.setVisibility(View.VISIBLE);
-//                mNextButton.setVisibility(View.INVISIBLE);
-//                mFirstPage.setVisibility(View.INVISIBLE);
                 break;
         }
 
-        mPageNumber.setText(mCurPageNumber + "/20");
+        mPageNumber.setText(mCurPageNumber + "/" + getTotalPageNumber());
         switch (mCurPageNumber) {
             case 1:
                 mPreButton.setEnabled(false);
@@ -169,6 +127,18 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
         }
 
+        LayoutInflater inflater = getLayoutInflater();
+        mData = getRecordList(mCurPageNumber, 10);
+        //创建自定义Adapter的对象
+        mAdapter = new RecordAdapter(inflater, mData);
+        //将布局添加到ListView中
+        mListViewArray.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        // TODO: 如果数据为空，则显示　已经没有更多数据了
+        if (mData.size() == 0) {
+            Log.e(TAG, "如果数据为空，则显示　已经没有更多数据了");
+        }
     }
 
     // This snippet hides the system bars.
