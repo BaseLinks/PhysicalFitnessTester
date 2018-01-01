@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by tony on 18-1-1.
@@ -45,17 +48,21 @@ public class RecordAdapter extends BaseAdapter {
         //获得ListView中的view
         View viewStudent = mInflater.inflate(R.layout.history_banner,null);
         //获得学生对象
+        Log.i(TAG, "postition: " + position);
         Record record = mData.get(position);
-        //获得自定义布局中每一个控件的对象。
-        TextView id = (TextView) viewStudent.findViewById(R.id.id_textview);
-        TextView age = (TextView) viewStudent.findViewById(R.id.age_textview);
-        TextView gender = (TextView) viewStudent.findViewById(R.id.gender_textview);
-        TextView date = (TextView) viewStudent.findViewById(R.id.date_textview);
-        //将数据一一添加到自定义的布局中。
-        id.setText(record.getPerson().getId());
-        age.setText(String.valueOf(record.getPerson().getAge()));
-        gender.setText(record.getPerson().getGender());
-        date.setText(record.getDate());
+        if (record != null) {
+            //获得自定义布局中每一个控件的对象。
+            TextView id = (TextView) viewStudent.findViewById(R.id.id_textview);
+            TextView age = (TextView) viewStudent.findViewById(R.id.age_textview);
+            TextView gender = (TextView) viewStudent.findViewById(R.id.gender_textview);
+            TextView date = (TextView) viewStudent.findViewById(R.id.date_textview);
+            //将数据一一添加到自定义的布局中。
+//            id.setText(record.getPerson().getId());
+//            age.setText(String.valueOf(record.getPerson().getAge()));
+//            gender.setText(record.getPerson().getGender());
+            date.setText(record.getDate());
+        }
+
         return viewStudent ;
     }
 }

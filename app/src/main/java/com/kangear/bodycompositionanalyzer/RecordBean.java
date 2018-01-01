@@ -2,6 +2,8 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 
+import org.xutils.ex.DbException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,25 @@ public class RecordBean {
         }
     }
 
+//    /**
+//     * @param pageNumber 当前页面
+//     * @param itemsPerPage  页面长度
+//     * @return
+//     */
+//    public List<Record>  getRecordList(int pageNumber, int itemsPerPage) {
+//        List<Record> records = new ArrayList<>();
+//        if (pageNumber < 1 || itemsPerPage < 1) {
+//            return records;
+//        }
+//
+//        pageNumber --; // 要从1(min)->0(min)
+//        for (int i=pageNumber*itemsPerPage; i<(pageNumber + 1)*itemsPerPage; i++) {
+//            if (i < mRecords.size())
+//                records.add(mRecords.get(i));
+//        }
+//        return records;
+//    }
+
     /**
      * @param pageNumber 当前页面
      * @param itemsPerPage  页面长度
@@ -52,8 +73,13 @@ public class RecordBean {
 
         pageNumber --; // 要从1(min)->0(min)
         for (int i=pageNumber*itemsPerPage; i<(pageNumber + 1)*itemsPerPage; i++) {
-            if (i < mRecords.size())
-                records.add(mRecords.get(i));
+            if (i < mRecords.size()) {
+                try {
+                    records.add(WelcomeActivity.getDB().findById(Record.class, i));
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return records;
     }

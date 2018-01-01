@@ -17,6 +17,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xutils.ex.DbException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_GUGEJI;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_JICHUDAIXIELIANG;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_SHENTIZHILIANGZHISHU;
@@ -88,6 +94,8 @@ public class TestActivity extends AppCompatActivity {
     private TextView mHeadWeightTextView;
     private TextView mHeadHeightTextView;
     private TextView mHeadAgeTextView;
+
+    private Record mRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +334,17 @@ public class TestActivity extends AppCompatActivity {
             case R.id.print_button:
                 Toast.makeText(this, "打印机未连接", Toast.LENGTH_SHORT).show();
                 break;
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        mRecord = new Record();
+        mRecord.setDate(dateFormat.format(new Date()));
+        mRecord.setPersonId(0);
+        try {
+            WelcomeActivity.getDB().saveBindingId(mRecord);
+        } catch (DbException e) {
+            e.printStackTrace();
+            Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
         }
     }
 }
