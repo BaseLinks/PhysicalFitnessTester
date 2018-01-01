@@ -12,6 +12,7 @@ import java.util.List;
 public class RecordBean {
     private volatile static RecordBean singleton = null;
     List<Record> mRecords = new ArrayList<>();
+    private static final int TEST_RECORD_MAX = 100;
     private Context mContext;
 
     public RecordBean(Context context) {
@@ -33,7 +34,7 @@ public class RecordBean {
 
     private void init() {
         List<Record> records = mRecords;
-        for (int i=0; i<11; i++) {
+        for (int i=0; i<TEST_RECORD_MAX; i++) {
             records.add(new Record(new Person(String.valueOf(i), Person.GENDER_MALE, 26), "2018-01-01"));
         }
     }

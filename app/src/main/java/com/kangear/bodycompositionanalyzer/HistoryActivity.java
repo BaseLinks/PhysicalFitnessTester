@@ -64,8 +64,6 @@ public class HistoryActivity extends AppCompatActivity {
         mCheckButton = findViewById(R.id.check_button);
         mDeleteButton= findViewById(R.id.delete_button);
         mPageNumber = findViewById(R.id.page_number_textview);
-        mCheckButton.setEnabled(false);
-        mDeleteButton.setEnabled(false);
 
         //为ListView对象赋值
         mListViewArray = (ListView) findViewById(R.id.content_listview);
@@ -84,6 +82,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void page(int page) {
         int mTotalNumber = RecordBean.getInstance(this).getTotalPageNumber(COUNTS_PER_PAGE);
+        mDeleteButton.setEnabled(false);
+        mCheckButton.setEnabled(false);
 
         switch (page) {
             case FIRST_PAGE_NUMBER:
