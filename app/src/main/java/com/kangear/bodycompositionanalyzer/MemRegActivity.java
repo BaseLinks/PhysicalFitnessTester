@@ -17,11 +17,20 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xutils.db.Selector;
+import org.xutils.ex.DbException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
@@ -39,12 +48,12 @@ public class MemRegActivity extends Com2Activity {
     private Person mPerson;
     private RadioButton mMaleRadio;
     private RadioButton mFeMaleRadio;
+    private int mFingerId = INVALID_FINGER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memreg);
-        hideSystemUI(getWindow().getDecorView());
         logoView = findViewById(R.id.logo_imageview);
         logoView.setVisibility(View.GONE);
         mFingerButton = findViewById(R.id.finger_button);
@@ -63,19 +72,22 @@ public class MemRegActivity extends Com2Activity {
         mIdEditText.setText("");
         mAgeEditText.setText("");
         mHeightEditText.setText("");
+        mPerson = new Person();
 
-        Intent intent = getIntent();
-        String pStr =  intent.getStringExtra(WelcomeActivity.CONST_PERSON);
-        if (pStr == null) {
-            unkownError(this);
-            exitAsFail(this);
+        // TODO: fingerId如何生成？ 0-1024范围，不能重复
+        for (int i = 0; i < 1024; i++) {
+            try {
+                Person test = WelcomeActivity.getDB().selector(Person.class).where("fingerId", "=", i).findFirst();
+                if (test == null) {
+                    mFingerId = i;
+                    break;
+                }
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
         }
 
-        mPerson = Person.fromJson(pStr);
-        if (mPerson == null) {
-            unkownError(this);
-            exitAsFail(this);
-        }
+        Log.i(TAG, "mFingerId: " + mFingerId);
     }
 
     private TextWatcher mIdTextWatcher = new TextWatcher() {
@@ -165,34 +177,14 @@ public class MemRegActivity extends Com2Activity {
         }
     }
 
-    // This snippet hides the system bars.
-    public static void hideSystemUI(View v) {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        v.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.back_button:
-                Toast.makeText(this, "返回按钮按下", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.next_button:
-                Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.finger_button:
                 Intent intent = new Intent(this, GetFingerActivity.class);
-                intent.putExtra(CONST_FINGER_ID, mPerson.getFingerId());
-                startActivityForResult(intent, 0);
+                intent.putExtra(CONST_FINGER_ID, mFingerId);
+                startActivityForResult(intent, REQUEST_CODE_TOUCHID);
                 break;
         }
     }
@@ -214,7 +206,6 @@ public class MemRegActivity extends Com2Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e(TAG, "onActivityResult requestCode: " + resultCode);
         switch (resultCode) {
             case RESULT_CANCELED:
                 break;
@@ -236,15 +227,22 @@ public class MemRegActivity extends Com2Activity {
     @Override
     public void onNextButtonClick() {
         super.onNextButtonClick();
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
         String gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
         mPerson.setGender(gender);
+        mPerson.setFingerId(mFingerId);
         mPerson.setId(mIdEditText.getText().toString());
         mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
-        intent.putExtra(WelcomeActivity.CONST_PERSON, mPerson.toJson());
-        setResult(RESULT_OK, intent);
+        mPerson.setDate(dateFormat.format(date));
         Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        try {
+            WelcomeActivity.getDB().save(mPerson);
+        } catch (DbException e) {
+            e.printStackTrace();
+            Log.e(TAG, "DB().save error");
+        }
         finish();
     }
 
@@ -257,7 +255,7 @@ public class MemRegActivity extends Com2Activity {
     public void onContentChanged() {
         boolean hefa = true;
 
-        Log.e(TAG, "onContentChanged");
+        //onActivityResultLog.e(TAG, "onContentChanged");
         if (mFingerButton == null
                 || mIdEditText == null
                 || mHeightEditText == null
@@ -268,17 +266,17 @@ public class MemRegActivity extends Com2Activity {
 
         // 指纹
         if (mFingerButton.isEnabled()) {
-            Log.e(TAG, "请指纹采集");
+            //Log.e(TAG, "请指纹采集");
             hefa = false;
         }
 
         if (mIdEditText.getText().toString().equals("")) {
-            Log.e(TAG, "请输入ID");
+            //Log.e(TAG, "请输入ID");
             hefa = false;
         }
 
         if (mHeightEditText.getText().toString().equals("")) {
-            Log.e(TAG, "请输入身高");
+            //Log.e(TAG, "请输入身高");
             hefa = false;
         } else {
             int height = Integer.valueOf(mHeightEditText.getText().toString());
@@ -287,7 +285,7 @@ public class MemRegActivity extends Com2Activity {
         }
 
         if (mAgeEditText.getText().toString().equals("")) {
-            Log.e(TAG, "请输入年龄");
+            //Log.e(TAG, "请输入年龄");
             hefa = false;
         } else {
             int age = Integer.valueOf(mAgeEditText.getText().toString());
@@ -295,5 +293,11 @@ public class MemRegActivity extends Com2Activity {
                 hefa = false;
         }
         mNextButton.setEnabled(hefa);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WelcomeActivity.hideSystemUI(getWindow().getDecorView());
     }
 }

@@ -33,7 +33,7 @@ public class GetFingerActivity extends Com2Activity {
     private static final int PAGE_DEVICE_UNCONNECT = 6;
     private ImageView mFingerImageView;
     private Button mNextButton;
-
+    private int mFingerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class GetFingerActivity extends Com2Activity {
         mContext = getApplicationContext();
         mNextButton.setEnabled(false);
 
-        int fingerId = getIntent().getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
-        if (fingerId == INVALID_FINGER_ID) {
+        mFingerId = getIntent().getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
+        if (mFingerId == INVALID_FINGER_ID) {
             unkownError(this);
             exitAsFail(this);
         }
@@ -64,7 +64,8 @@ public class GetFingerActivity extends Com2Activity {
             boolean ret;
             while(!isInterrupted()) {
                 try {
-                    ret = TouchID.getInstance(mContext).register(0);
+                    // TODO:这里需要再匹配一下，确定指纹没有被添加过才算成功huozhe,chongdiaozhiqiande firId
+                    ret = TouchID.getInstance(mContext).register(mFingerId);
                     if (ret) {
                         mHandler.sendEmptyMessage(GET_FINGER_OK);
                         break;
@@ -153,7 +154,7 @@ public class GetFingerActivity extends Com2Activity {
         super.onNextButtonClick();
         //Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MemRegActivity.class);
-        intent.putExtra("FINGER_ID", 1);
+        intent.putExtra(CONST_FINGER_ID, 1);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -161,8 +162,6 @@ public class GetFingerActivity extends Com2Activity {
     @Override
     public void onDeleteClick() {
         super.onDeleteClick();
-        //Toast.makeText(this, "删除按钮按下", Toast.LENGTH_SHORT).show();
-
     }
 
     // from the link above

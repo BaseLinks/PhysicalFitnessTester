@@ -2,19 +2,38 @@ package com.kangear.bodycompositionanalyzer;
 
 import com.google.gson.Gson;
 
+import org.xutils.db.annotation.Column;
+import org.xutils.db.annotation.Table;
+
 /**
  * Created by tony on 17-12-24.
  */
-
+@Table(name = "person", onCreated = "CREATE UNIQUE INDEX index_name ON person(id,fingerId)")
 public class Person {
-    int fingerId;
-    String id;
-    int age;
-    float height;
-    // 性别
-    String gender;
-    float weight;
-    
+    @Column(name = "uid", isId = true)
+    private int uid;
+    @Column(name = "id")
+    private String id;
+    @Column(name = "fingerId")
+    private int fingerId;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "height")
+    private float height;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "weight")
+    private float weight;
+    @Column(name = "date")
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public static final String GENDER_MALE   = "男";
     public static final String GENDER_FEMALE = "女";
