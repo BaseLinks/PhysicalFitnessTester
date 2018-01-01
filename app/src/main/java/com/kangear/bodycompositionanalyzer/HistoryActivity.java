@@ -1,10 +1,13 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +29,7 @@ import java.util.List;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_DELETE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 
 /**
@@ -51,6 +55,7 @@ public class HistoryActivity extends AppCompatActivity {
     private static final int PAGE_NUMBER_MIN = 1;
     private static final int COUNTS_PER_PAGE = 10;
     private int mPosition = PAGE_NUMBER_MIN;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,8 @@ public class HistoryActivity extends AppCompatActivity {
         mNextButton  = findViewById(R.id.next_page_button);
         mCheckButton = findViewById(R.id.check_button);
         mDeleteButton= findViewById(R.id.delete_button);
-        mPageNumber = findViewById(R.id.page_number_textview);
+        mPageNumber  = findViewById(R.id.page_number_textview);
+        mContext     = this;
 
         //为ListView对象赋值
         mListViewArray = (ListView) findViewById(R.id.content_listview);
@@ -168,8 +174,7 @@ public class HistoryActivity extends AppCompatActivity {
             case R.id.delete_button:
                 // TODO: 要获取选中jilu_id，给result ui.
                 // 数据库，删除，并刷新当前界面
-                RecordBean.getInstance(this).delete((mCurPageNumber - 1) * 10 + mPosition);
-                page(FLESH_PAGE_NUMBER);
+                startActivityForResult(new Intent(this, HistoryDeleteDialogActivity.class), REQUEST_CODE_DELETE);
                 break;
         }
     }
@@ -186,6 +191,12 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.d(TAG, "intent: " + intent.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID));
                 } else {
                     Log.d(TAG, "fuck you");
+                }
+                break;
+            case REQUEST_CODE_DELETE:
+                if (resultCode == RESULT_OK) {
+                    RecordBean.getInstance(mContext).delete((mCurPageNumber - 1) * 10 + mPosition);
+                    page(FLESH_PAGE_NUMBER);
                 }
                 break;
         }

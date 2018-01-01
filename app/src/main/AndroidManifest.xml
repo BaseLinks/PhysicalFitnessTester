@@ -96,5 +96,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".HistoryDeleteDialogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleDialog">
+        </activity>
     </application>
 </manifest>

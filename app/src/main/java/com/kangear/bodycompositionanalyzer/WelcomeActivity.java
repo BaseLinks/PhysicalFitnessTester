@@ -39,6 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_AGE         = 5;
     private static final int REQUEST_CODE_HEIGHT      = 6;
     public static final int REQUEST_CODE_TOUCHID      = 7;
+    public static final int REQUEST_CODE_DELETE       = 8;
     private static final String TAG = "WelcomeActivity";
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
