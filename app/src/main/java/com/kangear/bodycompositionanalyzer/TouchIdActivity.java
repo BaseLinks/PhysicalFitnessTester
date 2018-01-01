@@ -81,15 +81,12 @@ public class TouchIdActivity extends Com2Activity {
                 intent.putExtra(CONST_FINGER_ID, mFingerId);
                 setResult(RESULT_OK, intent);
                 finish();
-//                WelcomeActivity.getPerson().setFingerId(mFingerId);
-//                WelcomeActivity.doTest(this);
                 break;
             case PAGE_FAIL_EXIT:
                 Intent intent2 = new Intent();
                 intent2.putExtra(CONST_FINGER_ID, mFingerId);
                 setResult(RESULT_CANCELED, intent2);
                 finish();
-//                exitAsFail(this);
                 break;
             case PAGE_DEVICE_UNCONNECT:
                 Toast.makeText(this, "指纹模块异常，请联系工作人员", Toast.LENGTH_LONG).show();
@@ -147,28 +144,16 @@ public class TouchIdActivity extends Com2Activity {
     @Override
     public void onBackButtonClick() {
         super.onBackButtonClick();
-        //Toast.makeText(this, "返回按钮按下", Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MemRegActivity.class);
-        setResult(RESULT_CANCELED, intent);
-        finish();
     }
 
     @Override
     public void onNextButtonClick() {
         super.onNextButtonClick();
-        //Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MemRegActivity.class);
-        intent.putExtra("FINGER_ID", mFingerId);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
     @Override
     public void onDeleteClick() {
         super.onDeleteClick();
-        //Toast.makeText(this, "删除按钮按下", Toast.LENGTH_SHORT).show();
-
     }
 
     // from the link above

@@ -62,7 +62,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        hideSystemUI(getWindow().getDecorView());
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
                 (TextView)findViewById(R.id.date_textview));
 
@@ -88,6 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mTimeUtils.start();
+        hideSystemUI(getWindow().getDecorView());
     }
 
     @Override
@@ -183,7 +183,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public static void doVipTest(Context context) {
-        startTouchId(context);
+        doTest(context);
     }
 
     /**
@@ -228,10 +228,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     /**
      * 10. HEIGHT
-     * @param context
+     * @param actvity
      */
-    public static void startTouchId(Context context) {
-        context.startActivity(new Intent(context, TouchIdActivity.class));
+    public static void startTouchId(Activity actvity) {
+        actvity.startActivityForResult(new Intent(actvity, TouchIdActivity.class), REQUEST_CODE_TOUCHID);
     }
 
     /**

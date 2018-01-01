@@ -10,10 +10,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_DELETE;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -26,7 +32,7 @@ public class WeightActivity extends AppCompatActivity {
     private TextView mTextView;
     private static final int WEIGHT_ACTIVITY = 1;
     private static final int WEIGHT_STOP = 2;
-    private static int bootTag;
+    private int bootTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,7 @@ public class WeightActivity extends AppCompatActivity {
 
         bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
         startTest();
-        Log.i(TAG, "onCreate");
+        Log.i(TAG, "onCreate bootTag: " + bootTag);
     }
 
     // This snippet hides the system bars.
@@ -117,13 +123,28 @@ public class WeightActivity extends AppCompatActivity {
                 WelcomeActivity.getPerson().setWeight(Float.valueOf(mTextView.getText().toString()));
                 switch (bootTag) {
                     case WEIGHT_VIP_TEST:
-                        WelcomeActivity.doVipTest(this);
+                        startTouchId(this);
                         break;
                     case WEIGHT_NEW_TEST:
                         WelcomeActivity.doTmpTest(this);
                         break;
                 }
 //                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case REQUEST_CODE_TOUCHID:
+                if (resultCode == RESULT_OK) {
+                    int fingerId = intent.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
+                    WelcomeActivity.getPerson().setFingerId(fingerId);
+                    doVipTest(this);
+                    finish();
+                }
                 break;
         }
     }
