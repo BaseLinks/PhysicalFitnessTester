@@ -138,11 +138,7 @@ public class WelcomeActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.vip_register_imageview:
                 // TODO：获取一个id以及一个fingerId
-                Person p = new Person();
-                p.setFingerId(0);
-                p.setId("中国");
                 intent = new Intent(this, MemRegActivity.class);
-                intent.putExtra(CONST_PERSON, p.toJson());
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:

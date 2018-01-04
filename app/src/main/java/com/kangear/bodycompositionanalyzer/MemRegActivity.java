@@ -232,7 +232,7 @@ public class MemRegActivity extends Com2Activity {
         String gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
         mPerson.setGender(gender);
         mPerson.setFingerId(mFingerId);
-        mPerson.setId(mIdEditText.getText().toString());
+        mPerson.setName(mIdEditText.getText().toString());
         mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
         mPerson.setDate(dateFormat.format(date));

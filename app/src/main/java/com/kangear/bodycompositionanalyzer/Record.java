@@ -11,21 +11,78 @@ import org.xutils.db.annotation.Table;
 
 @Table(name = "record")
 public class Record {
+    /**
+     * database table's id
+     */
     @Column(name = "id", isId = true)
     private int id;
-    @Column(name = "personId" /*, property = "UNIQUE"//如果是一对一加上唯一约束*/)
+    @Column(name = "personId", property = "UNIQUE")
     private int personId;    // 外键表id
-    private Person person;
+    /**
+     * UI's `ID`
+     */
+    @Column(name = "name")
+    private String name;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "height")
+    private float height;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "weight")
+    private float weight;
+    /**
+     * test's date
+     */
     @Column(name = "date")
     private String date;
 
-    public Record(Person person, String date) {
-        this.person = person;
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public Record(String date) {
         this.date = date;
     }
 
     public Record() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -34,14 +91,6 @@ public class Record {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public String getDate() {

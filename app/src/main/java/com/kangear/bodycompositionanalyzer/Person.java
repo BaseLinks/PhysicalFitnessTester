@@ -10,10 +10,13 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "person", onCreated = "CREATE UNIQUE INDEX index_name ON person(id,fingerId)")
 public class Person {
-    @Column(name = "uid", isId = true)
-    private int uid;
-    @Column(name = "id")
-    private String id;
+    @Column(name = "id", isId = true)
+    private int id;
+    /**
+     * UI's `ID`
+     */
+    @Column(name = "name")
+    private String name;
     @Column(name = "fingerId")
     private int fingerId;
     @Column(name = "age")
@@ -22,8 +25,14 @@ public class Person {
     private float height;
     @Column(name = "gender")
     private String gender;
+    /**
+     * last time test weight or don't not change
+     */
     @Column(name = "weight")
     private float weight;
+    /**
+     * log up time
+     */
     @Column(name = "date")
     private String date;
 
@@ -38,8 +47,8 @@ public class Person {
     public static final String GENDER_MALE   = "男";
     public static final String GENDER_FEMALE = "女";
 
-    public Person(String id, String gender, int age) {
-        this.id = id;
+    public Person(String name, String gender, int age) {
+        this.name = name;
         this.gender = gender;
         this.age = age;
     }
@@ -56,12 +65,12 @@ public class Person {
         this.fingerId = fingerId;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String id) {
+        this.name = name;
     }
 
     public int getAge() {
