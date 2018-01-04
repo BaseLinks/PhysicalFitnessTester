@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.xutils.ex.DbException;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 
 public class RecordBean {
+    private static final String TAG = "RecordBean";
     private volatile static RecordBean singleton = null;
     List<Record> mRecords = new ArrayList<>();
     private static final int TEST_RECORD_MAX = 100;
@@ -34,10 +36,15 @@ public class RecordBean {
         return singleton;
     }
 
+    /**
+     * 读取所有数据
+     */
     private void init() {
-        List<Record> records = mRecords;
-        for (int i=0; i<TEST_RECORD_MAX; i++) {
-            records.add(new Record(new Person(String.valueOf(i), Person.GENDER_MALE, 26), "2018-01-01"));
+        try {
+            mRecords = WelcomeActivity.getDB().selector(Record.class).findAll();
+            Log.i(TAG, "mRecords.size(): " + mRecords.size());
+        } catch (DbException e) {
+            e.printStackTrace();
         }
     }
 

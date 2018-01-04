@@ -29,13 +29,14 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int MIN_AGE = 7;
     public static final int MAX_AGE = 99;
     public static final int INVALID_FINGER_ID = -1;
+    public static final int INVALID_RECORD_ID = -1;
     public static final String CONST_FINGER_ID = "CONST_FINGER_ID";
     public static final String CONST_PERSON = "PERSON";
     public static final String CONST_WEIGHT = "WEIGHT";
     public static final String CONST_ID     = "ID";
     public static final String CONST_HEIGHT = "HEIGHT";
     public static final String CONST_AGE    = "AGE";
-    public static final String CONST_RECORD = "CONST_RECORD";
+    public static final String CONST_RECORD_ID = "CONST_RECORD_ID";
     private static final int REQUEST_CODE_VIP_REGISTE = 1;
     private static final int REQUEST_CODE_VIP_TEST    = 2;
     private static final int REQUEST_CODE_NEW_TEST    = 3;

@@ -14,7 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD;
+import org.xutils.ex.DbException;
+
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -55,18 +59,34 @@ public class ResultActivity extends AppCompatActivity {
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
-        mRecord = Record.fromJson(getIntent().getStringExtra(CONST_RECORD));
+        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
+        try {
+            mRecord = WelcomeActivity.getDB().selector(Record.class).where("id", "=", recordId).findFirst();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
         if (mRecord == null) {
+            Log.e(TAG, "mRecord == null recordId: " + recordId);
             mRecord = DEFAULT_RECORD;
         }
-        mPerson = mRecord.getPerson();
+//        mPerson = mRecord.getPerson();
+        try {
+            mPerson = WelcomeActivity.getDB().selector(Person.class).where("id", "=", mRecord.getPersonId()).findFirst();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
-        ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
-        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
-        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
-        ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
+        if (mPerson == null) {
+            Log.e(TAG, "mPerson == null PersonId: " + mRecord.getPersonId());
+        } else {
+            ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
+            ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
+            ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
+            ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
 
-        page(FIRST_PAGE_NUMBER);
+            page(FIRST_PAGE_NUMBER);
+        }
     }
 
 

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_DELETE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
@@ -166,9 +166,8 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
             case R.id.check_button:
                 // TODO: 要获取选中jilu_id，给result ui.
-                Record record = mData.get(mPosition);
                 intent = new Intent(this, ResultActivity.class);
-                intent.putExtra(CONST_RECORD, record.toJson());
+                intent.putExtra(CONST_RECORD_ID, (mCurPageNumber - 1)*10 + mPosition);
                 startActivity(intent);
                 break;
             case R.id.delete_button:
