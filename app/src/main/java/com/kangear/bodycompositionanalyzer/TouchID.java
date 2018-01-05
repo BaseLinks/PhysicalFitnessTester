@@ -337,7 +337,7 @@ public class TouchID {
             return null;
         }
 
-        Log.e(TAG, "parsePackage: " + bytesToHex(ret));
+        //Log.e(TAG, "parsePackage: " + bytesToHex(ret));
         return ret;
     }
 
@@ -455,7 +455,7 @@ public class TouchID {
         if (!ret) {
             return false;
         }
-        Log.e(TAG, "Finger: " + bytesToHex(b));
+        //Log.e(TAG, "Finger: " + bytesToHex(b));
 
         // 2. GR_GenChar
         ret = fu.send(TouchID.cmdPackage(TouchID.GR_GenChar, new byte[]{CharBuffer1}));
@@ -466,7 +466,7 @@ public class TouchID {
         if (b == null) {
             return false;
         }
-        Log.e(TAG, "Finger: " + bytesToHex(b));
+        //Log.e(TAG, "Finger: " + bytesToHex(b));
 
         // 3. GR_StoreChar
         ret = fu.send(TouchID.cmdPackage(TouchID.GR_StoreChar, new byte[]{CharBuffer1, (byte)((pageId & 0xFFFF) >> 8), (byte)(pageId & 0xFFFF)}));
@@ -477,7 +477,7 @@ public class TouchID {
         if (b == null || !Arrays.equals(b, RESULT_OK)) {
             return false;
         }
-        Log.e(TAG, "Finger: " + bytesToHex(b));
+        //Log.e(TAG, "Finger: " + bytesToHex(b));
 
         return true;
     }
@@ -498,5 +498,12 @@ public class TouchID {
      * 查
      */
     void query() {
+    }
+
+    /**
+     * clear all
+     */
+    void clearAll() {
+
     }
 }

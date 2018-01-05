@@ -105,6 +105,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mDb = x.getDb(daoConfig);
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
+
+        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
     }
 
     // This snippet hides the system bars.

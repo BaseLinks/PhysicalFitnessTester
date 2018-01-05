@@ -236,7 +236,7 @@ public class MemRegActivity extends Com2Activity {
         mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
         mPerson.setDate(dateFormat.format(date));
-        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
         try {
             WelcomeActivity.getDB().save(mPerson);
         } catch (DbException e) {
@@ -299,5 +299,12 @@ public class MemRegActivity extends Com2Activity {
     protected void onResume() {
         super.onResume();
         WelcomeActivity.hideSystemUI(getWindow().getDecorView());
+    }
+
+    /**
+     * 判断Person数据库表，如果数据库表为空，那么Empty指纹
+     */
+    public void checkMem() {
+
     }
 }

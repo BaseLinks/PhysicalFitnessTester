@@ -23,8 +23,8 @@ import java.io.IOException;
  */
 public class FingerUSB {
     private static final boolean DEBUG = true;
-    private static final String TAG = "Finger";
-    private static final boolean USB_EVENT_DEBUG = true;
+    private static final String TAG = "FingerUSB";
+    private static final boolean USB_EVENT_DEBUG = false;
 
     private UsbDeviceConnection mDeviceConnection;
     private UsbEndpoint mEndpointOut;
@@ -44,9 +44,9 @@ public class FingerUSB {
             Log.i(TAG, "open failed");
             return false;
         }
-        Log.i(TAG, "open succeeded");
+        //　Log.i(TAG, "open succeeded");
         if (mDeviceConnection.claimInterface(intf, true)) {
-            Log.i(TAG, "claim interface succeeded");
+            // Log.i(TAG, "claim interface succeeded");
         } else {
             Log.i(TAG, "claim interface failed");
             mDeviceConnection.close();
@@ -93,7 +93,7 @@ public class FingerUSB {
         }
 
         int length = mDeviceConnection.bulkTransfer(mEndpointOut, arr, arr.length, 5000);
-        Log.e(TAG, "send length: " + length);
+        //Log.e(TAG, "send length: " + length);
         return length == arr.length;
     }
 
@@ -112,7 +112,7 @@ public class FingerUSB {
             return false;
         }
         int length = mDeviceConnection.bulkTransfer(mEndpointIn, arr, arr.length, 5000);
-        Log.e(TAG, "read: " + length);
+        // Log.e(TAG, "read: " + length);
         return length > 0;
     }
 
@@ -144,7 +144,7 @@ public class FingerUSB {
      * @param usbManager
      */
     private void tryGetUsbPermission(Context context, UsbManager usbManager, UsbDevice device, UsbInterface intf){
-        Log.i(TAG, "Printer#tryGetUsbPermission");
+        // Log.i(TAG, "Printer#tryGetUsbPermission");
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
 //        context.registerReceiver(mUsbPermissionActionReceiver, filter);
 
@@ -162,7 +162,7 @@ public class FingerUSB {
     }
 
     private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
-        Log.i(TAG, "Printer#afterGetUsbPermission");
+        // Log.i(TAG, "Printer#afterGetUsbPermission");
         //call method to set up device communication
 //        context.unregisterReceiver(mUsbPermissionActionReceiver);
         if(USB_EVENT_DEBUG) Log.d(TAG, String.valueOf("Got permission for usb device: " + usbDevice));
@@ -186,21 +186,21 @@ public class FingerUSB {
         }
 
         for(UsbDevice d : mManager.getDeviceList().values()) {
-            Log.d(TAG, "VID: " + String.format("%04X", d.getVendorId()) + " PID: " + String.format("%04X", d.getProductId()));
+            //Log.d(TAG, "VID: " + String.format("%04X", d.getVendorId()) + " PID: " + String.format("%04X", d.getProductId()));
 
             if (d.getVendorId() != 0x2109 || d.getProductId() != 0x7638) {
                 continue;
             }
             intf = findFingerInterface(d);
             if (intf != null) {
-                Log.i(TAG, "Found Finger interface " + intf);
+                //Log.i(TAG, "Found Finger interface " + intf);
                 device = d;
                 hasPrinter = true;
                 break;
             }
         }
 
-        Log.e(TAG, "Has Finger: " + hasPrinter);
+        //Log.e(TAG, "Has Finger: " + hasPrinter);
 
         if(!hasPrinter) {
             return false;
@@ -214,12 +214,12 @@ public class FingerUSB {
 
     // searches for an printer interface on the given USB device
     private static UsbInterface findFingerInterface(UsbDevice device) {
-        Log.d(TAG, "findFingerInterface " + device);
+        //Log.d(TAG, "findFingerInterface " + device);
         int count = device.getInterfaceCount();
         for (int i = 0; i < count; i++) {
             UsbInterface intf = device.getInterface(i);
             if (intf.getInterfaceClass() == UsbConstants.USB_CLASS_MASS_STORAGE) {
-                Log.i(TAG, "findFingerInterface true!");
+                //Log.i(TAG, "findFingerInterface true!");
                 return intf;
             }
         }
@@ -242,16 +242,16 @@ public class FingerUSB {
                 // 获取最大LUN命令的设置由USB Mass Storage的定义文档给出
                 int result = mDeviceConnection.controlTransfer(0xA1, 0xFE, 0x00, 0x00, message, 1, 1000);
                 if(result < 0) {
-                    Log.d(TAG,  "Get max lnu failed!");
+                    //Log.d(TAG,  "Get max lnu failed!");
                 } else {
-                    Log.d(TAG, "Get max lnu succeeded!");
+                    //Log.d(TAG, "Get max lnu succeeded!");
                     for(int i=0; i<message.length; i++) {
                         str += Integer.toString(message[i]&0x00FF);
                     }
                 }
             }
 
-            Log.e(TAG, "MaxLnu: " + str);
+            //Log.e(TAG, "MaxLnu: " + str);
         }
     }
 
@@ -272,7 +272,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Send command failed!");
         } else {
-            Log.d(TAG, "Send command succeeded!");
+            //Log.d(TAG, "Send command succeeded!");
         }
 
         byte[] message = {(byte) 0xef, 0x01, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x01, 0x00, 0x07, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1b};      //  需要足够的长度接收数据
@@ -281,7 +281,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Send message failed!");
         } else {
-            Log.d(TAG, "Send message succeeded!");
+            //Log.d(TAG, "Send message succeeded!");
         }
 
         byte[] csw = new byte[13];
@@ -289,9 +289,9 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Receive CSW failed!");
         } else {
-            Log.d(TAG, "Receive CSW succeeded!");
+            //Log.d(TAG, "Receive CSW succeeded!");
         }
-        Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
+        //Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
     }
 
     public void sendCommand3() {
@@ -311,7 +311,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Send command failed!");
         } else {
-            Log.d(TAG, "Send command succeeded!");
+            //Log.d(TAG, "Send command succeeded!");
         }
 
 //        byte[] message = {(byte) 0xef, 0x01, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x01, 0x00, 0x07, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1b};      //  需要足够的长度接收数据
@@ -320,7 +320,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Send message failed!");
         } else {
-            Log.d(TAG, "Send message succeeded!");
+            //Log.d(TAG, "Send message succeeded!");
         }
 
         byte[] csw = new byte[13];
@@ -328,9 +328,9 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Receive CSW failed!");
         } else {
-            Log.d(TAG, "Receive CSW succeeded!");
+            //Log.d(TAG, "Receive CSW succeeded!");
         }
-        Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
+        //Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
     }
 
     public boolean send(byte[] arr) throws IOException {
@@ -358,7 +358,7 @@ public class FingerUSB {
             Log.d(TAG,  "Send command failed!");
             return false;
         } else {
-            Log.d(TAG, "Send command succeeded!");
+            //Log.d(TAG, "Send command succeeded!");
         }
 
 //        byte[] message = {(byte) 0xef, 0x01, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x01, 0x00, 0x07, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1b};      //  需要足够的长度接收数据
@@ -367,7 +367,7 @@ public class FingerUSB {
             Log.d(TAG,  "Send message failed!");
             return false;
         } else {
-            Log.d(TAG, "Send message succeeded!");
+            //Log.d(TAG, "Send message succeeded!");
         }
 
         byte[] csw = new byte[13];
@@ -376,9 +376,9 @@ public class FingerUSB {
             Log.d(TAG,  "Receive CSW failed!");
             return false;
         } else {
-            Log.d(TAG, "Receive CSW succeeded!");
+            //Log.d(TAG, "Receive CSW succeeded!");
         }
-        Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
+        //Log.e(TAG, "" + ByteArrayUtils.bytesToHex(csw));
 
         return true;
     }
@@ -401,7 +401,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Send command failed!");
         } else {
-            Log.d(TAG, "Send command succeeded!");
+            //Log.d(TAG, "Send command succeeded!");
         }
 
 //        byte[] message = {(byte) 0xef, 0x01, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x01, 0x00, 0x07, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1b};      //  需要足够的长度接收数据
@@ -409,7 +409,7 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Receive message failed!");
         } else {
-            Log.d(TAG, "Receive message succeeded!");
+            //Log.d(TAG, "Receive message succeeded!");
         }
 
         byte[] csw = new byte[13];
@@ -417,9 +417,9 @@ public class FingerUSB {
         if(result < 0) {
             Log.d(TAG,  "Receive CSW failed!");
         } else {
-            Log.d(TAG, "Receive CSW succeeded!");
+            //Log.d(TAG, "Receive CSW succeeded!");
         }
-        Log.e(TAG, "Receive " + ByteArrayUtils.bytesToHex(arr));
+        //Log.e(TAG, "Receive " + ByteArrayUtils.bytesToHex(arr));
 
         return arr;
     }
@@ -444,7 +444,7 @@ public class FingerUSB {
             Log.d(TAG,  "Send command failed!");
             str += "Send command failed!\n";
         } else {
-            Log.d(TAG, "Send command succeeded!");
+            //Log.d(TAG, "Send command succeeded!");
             str += "Send command succeeded!\n";
         }
 
@@ -454,7 +454,7 @@ public class FingerUSB {
             Log.d(TAG,  "Receive message failed!");
             str += "Receive message failed!\n";
         } else {
-            Log.d(TAG, "Receive message succeeded!");
+            //Log.d(TAG, "Receive message succeeded!");
             str += "Receive message succeeded!\nFormat capacities : \n";
             for(int i=0; i<message.length; i++) {
                 str += Integer.toHexString(message[i]&0x00FF) + " ";
@@ -467,14 +467,14 @@ public class FingerUSB {
             Log.d(TAG,  "Receive CSW failed!");
             str += "\nReceive CSW failed!";
         } else {
-            Log.d(TAG, "Receive CSW succeeded!");
+            //Log.d(TAG, "Receive CSW succeeded!");
             str += "\nReceive CSW succeeded!\nReceived CSW : ";
             for(int i=0; i<csw.length; i++) {
                 str += Integer.toHexString(csw[i]&0x00FF) + " ";
             }
         }
         str += "\n";
-        Log.e(TAG, "" + str);
+        //Log.e(TAG, "" + str);
     }
 
     void sendAccessControlInLUN() {

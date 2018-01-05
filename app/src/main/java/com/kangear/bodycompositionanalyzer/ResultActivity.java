@@ -40,7 +40,6 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
     private Record mRecord;
-    private Record DEFAULT_RECORD = new Record();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
