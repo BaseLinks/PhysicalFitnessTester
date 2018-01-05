@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_GUGEJI;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_JICHUDAIXIELIANG;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_SHENTIZHILIANGZHISHU;
@@ -133,16 +134,16 @@ public class TestActivity extends AppCompatActivity {
 //        page(FIRST_PAGE_NUMBER);
         mHandler.sendEmptyMessage(SHOW_CLEAN);
 
-        Person ps = WelcomeActivity.getPerson();
-        Log.e(TAG, "" + ps.toString());
-        mHeadIdTextView.setText(ps.getId());
-        mHeadGenderTextView.setText(ps.getGender());
-        mHeadAgeTextView.setText(String.valueOf(ps.getAge()));
-        mHeadWeightTextView.setText(String.valueOf(ps.getWeight()));
-        mHeadHeightTextView.setText(String.valueOf(ps.getHeight()));
+        Record record = WelcomeActivity.getRecord();
+        Log.e(TAG, "" + record.toString());
+        mHeadIdTextView.setText(record.getName());
+        mHeadGenderTextView.setText(record.getGender());
+        mHeadAgeTextView.setText(String.valueOf(record.getAge()));
+        mHeadWeightTextView.setText(String.valueOf(record.getWeight()));
+        mHeadHeightTextView.setText(String.valueOf(record.getHeight()));
 
-        mWeightTextView.setText(String.valueOf(ps.getWeight()));
-        weightProgress         = ps.getWeight();
+        mWeightTextView.setText(String.valueOf(record.getWeight()));
+        weightProgress         = record.getWeight();
         gugejiProgress         = DEFAULT_GUGEJI;
         tizhifangProgress      = DEFAULT_TIZHIFANG;
         shentizhiliangzhishu   = DEFAULT_SHENTIZHILIANGZHISHU;
@@ -154,6 +155,17 @@ public class TestActivity extends AppCompatActivity {
     private void setProgress2(int progress) {
         if (progress == DEFAULT_TEST_PROGRESS_MAX) {
             mHumanProgress.setVisibility(View.INVISIBLE);
+            // 测试完成
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            mRecord = WelcomeActivity.getRecord();
+            mRecord.setDate(dateFormat.format(new Date()));
+            mRecord.setPersonId((int) System.currentTimeMillis());
+            try {
+                WelcomeActivity.getDB().save(mRecord);
+            } catch (DbException e) {
+                e.printStackTrace();
+                Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
+            }
         } else {
             mHumanProgress.setVisibility(View.VISIBLE);
             mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
@@ -328,23 +340,13 @@ public class TestActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.detail_button:
-                intent = new Intent(this, ResultActivity.class);;
+                intent = new Intent(this, ResultActivity.class);
+                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
                 startActivity(intent);
                 break;
             case R.id.print_button:
                 Toast.makeText(this, "打印机未连接", Toast.LENGTH_SHORT).show();
                 break;
-        }
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        mRecord = new Record();
-        mRecord.setDate(dateFormat.format(new Date()));
-        mRecord.setPersonId(0);
-        try {
-            WelcomeActivity.getDB().saveBindingId(mRecord);
-        } catch (DbException e) {
-            e.printStackTrace();
-            Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
         }
     }
 }

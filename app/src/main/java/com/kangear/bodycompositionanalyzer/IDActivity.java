@@ -42,7 +42,7 @@ public class IDActivity extends Com2Activity {
     public void onNextButtonClick() {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
-        WelcomeActivity.getPerson().setName(mEditText.getText().toString());
+        WelcomeActivity.getRecord().setName(mEditText.getText().toString());
         WelcomeActivity.startAge(this);
         finish();
     }

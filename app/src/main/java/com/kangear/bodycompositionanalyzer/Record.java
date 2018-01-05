@@ -16,7 +16,7 @@ public class Record {
      */
     @Column(name = "id", isId = true)
     private int id;
-    @Column(name = "personId", property = "UNIQUE")
+    @Column(name = "personId")
     private int personId;    // 外键表id
     /**
      * UI's `ID`
@@ -110,6 +110,20 @@ public class Record {
     public static Record fromJson(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, Record.class);
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", personId=" + personId +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", height=" + height +
+                ", gender='" + gender + '\'' +
+                ", weight=" + weight +
+                ", date='" + date + '\'' +
+                '}';
     }
 
     public int getPersonId() {

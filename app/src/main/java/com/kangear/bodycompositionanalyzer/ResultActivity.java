@@ -39,9 +39,8 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar mGugejiProgressBar;
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
-    private Person mPerson;
     private Record mRecord;
-    private Record DEFAULT_RECORD = new Record(new Person("测试值", Person.GENDER_MALE, 0), "2018-01-01");
+    private Record DEFAULT_RECORD = new Record();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +58,13 @@ public class ResultActivity extends AppCompatActivity {
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
-        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
-        try {
-            mRecord = WelcomeActivity.getDB().selector(Record.class).where("id", "=", recordId).findFirst();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+        mRecord = WelcomeActivity.getRecord();
+        ((EditText)findViewById(R.id.id_edittext)).setText(mRecord.getName());
+        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mRecord.getAge()));
+        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mRecord.getHeight()));
+        ((EditText)findViewById(R.id.gender_edittext)).setText(mRecord.getGender());
 
-        if (mRecord == null) {
-            Log.e(TAG, "mRecord == null recordId: " + recordId);
-            mRecord = DEFAULT_RECORD;
-        }
-//        mPerson = mRecord.getPerson();
-        try {
-            mPerson = WelcomeActivity.getDB().selector(Person.class).where("id", "=", mRecord.getPersonId()).findFirst();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-
-        if (mPerson == null) {
-            Log.e(TAG, "mPerson == null PersonId: " + mRecord.getPersonId());
-        } else {
-            ((EditText)findViewById(R.id.id_edittext)).setText(mPerson.getId());
-            ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mPerson.getAge()));
-            ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mPerson.getHeight()));
-            ((EditText)findViewById(R.id.gender_edittext)).setText(mPerson.getGender());
-
-            page(FIRST_PAGE_NUMBER);
-        }
+        page(FIRST_PAGE_NUMBER);
     }
 
 

@@ -49,6 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TimeUtils mTimeUtils;
     private List<Person> mPersons = new ArrayList<>();
     private static Person mCurPersion;
+    private static Record mCurRecord;
     public static final int WEIGHT_INVALIDE          = -1;
     public static final int WEIGHT_NEW_TEST          = 1;
     public static final int WEIGHT_VIP_TEST          = 2;
@@ -196,6 +197,14 @@ public class WelcomeActivity extends AppCompatActivity {
             mCurPersion = new Person();
         }
         return mCurPersion;
+    }
+
+    public static Record getRecord() {
+        if (mCurRecord == null) {
+            mCurRecord = new Record();
+        }
+
+        return mCurRecord;
     }
 
 

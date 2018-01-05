@@ -30,6 +30,21 @@ public class Person {
      */
     @Column(name = "weight")
     private float weight;
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fingerId=" + fingerId +
+                ", age=" + age +
+                ", height=" + height +
+                ", gender='" + gender + '\'' +
+                ", weight=" + weight +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
     /**
      * log up time
      */
@@ -116,15 +131,4 @@ public class Person {
         this.weight = weight;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "fingerId=" + fingerId +
-                ", id='" + id + '\'' +
-                ", age=" + age +
-                ", height=" + height +
-                ", gender=" + gender +
-                ", weight=" + weight +
-                '}';
-    }
 }
