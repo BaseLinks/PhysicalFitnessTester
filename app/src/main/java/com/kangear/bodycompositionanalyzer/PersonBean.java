@@ -8,28 +8,26 @@ import org.xutils.ex.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
+
 /**
  * Created by tony on 18-1-1.
  */
 
-public class RecordBean {
-    private static final String TAG = "RecordBean";
-    private volatile static RecordBean singleton = null;
-    List<Record> mRecords = new ArrayList<>();
-    private static final int TEST_RECORD_MAX = 100;
-    private Context mContext;
+public class PersonBean {
+    private static final String TAG = "PersonBean";
+    private volatile static PersonBean singleton = null;
 
-    public RecordBean(Context context) {
-        mContext = context;
+    public PersonBean(Context context) {
         init();
     }
 
     // 请使用Application context
-    public static RecordBean getInstance(Context context) {
+    public static PersonBean getInstance(Context context) {
         if (singleton == null) {
-            synchronized (RecordBean.class) {
+            synchronized (PersonBean.class) {
                 if (singleton == null) {
-                    singleton = new RecordBean(context);
+                    singleton = new PersonBean(context);
                 }
             }
         }
@@ -40,13 +38,13 @@ public class RecordBean {
      * 读取所有数据
      */
     private void init() {
-        try {
-            mRecords = WelcomeActivity.getDB().selector(Record.class).findAll();
-            if (mRecords != null)
-                Log.i(TAG, "mRecords.size(): " + mRecords.size());
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mRecords = WelcomeActivity.getDB().selector(Record.class).findAll();
+//            if (mRecords != null)
+//                Log.i(TAG, "mRecords.size(): " + mRecords.size());
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -83,16 +81,16 @@ public class RecordBean {
         return true;
     }
 
-    public int getTotalPageNumber (int itemsPerPage) {
-        if (mRecords == null)
-            return 0;
-
-        int i = mRecords.size() / itemsPerPage;
-        if (mRecords.size() % itemsPerPage > 0) {
-            i ++;
-        }
-        return i;
-    }
+//    public int getTotalPageNumber (int itemsPerPage) {
+//        if (mRecords == null)
+//            return 0;
+//
+//        int i = mRecords.size() / itemsPerPage;
+//        if (mRecords.size() % itemsPerPage > 0) {
+//            i ++;
+//        }
+//        return i;
+//    }
 
     public boolean insert(Record record) {
         boolean ret = false;
@@ -108,4 +106,20 @@ public class RecordBean {
         return ret;
     }
 
+    public void check() {
+        // check invalid person
+        try {
+            Person p = WelcomeActivity.getDB().selector(Person.class).findFirst();
+            if (p == null) {
+                p = new Person();
+                p.setId(PERSON_ID_INVALID);
+                WelcomeActivity.getDB().saveBindingId(p);
+
+                p = WelcomeActivity.getDB().selector(Person.class).findFirst();
+                Log.i(TAG, "" + p.toString());
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 }

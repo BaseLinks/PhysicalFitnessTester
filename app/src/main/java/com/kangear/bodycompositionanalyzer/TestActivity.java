@@ -102,6 +102,9 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        mRecord = WelcomeActivity.getRecord();
+
         hideSystemUI(getWindow().getDecorView());
         mTextView                 = findViewById(R.id.progress_textview);
         mHumanProgress            = findViewById(R.id.human_frontgound_imageview);
@@ -157,15 +160,9 @@ public class TestActivity extends AppCompatActivity {
             mHumanProgress.setVisibility(View.INVISIBLE);
             // 测试完成
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            mRecord = WelcomeActivity.getRecord();
             mRecord.setDate(dateFormat.format(new Date()));
             mRecord.setPersonId((int) System.currentTimeMillis());
-            try {
-                WelcomeActivity.getDB().save(mRecord);
-            } catch (DbException e) {
-                e.printStackTrace();
-                Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
-            }
+            RecordBean.getInstance(this).insert(mRecord);
         } else {
             mHumanProgress.setVisibility(View.VISIBLE);
             mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);

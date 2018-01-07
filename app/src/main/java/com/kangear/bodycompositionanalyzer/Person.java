@@ -131,4 +131,7 @@ public class Person {
         this.weight = weight;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

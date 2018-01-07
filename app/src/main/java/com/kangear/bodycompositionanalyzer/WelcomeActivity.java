@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,8 +47,8 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
     private static final String TAG = "WelcomeActivity";
+    public static final int PERSON_ID_INVALID        = 1;
     private TimeUtils mTimeUtils;
-    private List<Person> mPersons = new ArrayList<>();
     private static Person mCurPersion;
     private static Record mCurRecord;
     public static final int WEIGHT_INVALIDE          = -1;
@@ -64,30 +65,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static final String FORMAT_WEIGHT = "%.1f";
 
-    private static DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-            .setDbName("test2.db")
-            // 不设置dbDir时, 默认存储在app的私有目录.
-            .setDbDir(new File("/sdcard")) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
-            .setDbVersion(2)
-            .setDbOpenListener(new DbManager.DbOpenListener() {
-                @Override
-                public void onDbOpened(DbManager db) {
-                    // 开启WAL, 对写入加速提升巨大
-                    db.getDatabase().enableWriteAheadLogging();
-                }
-            })
-            .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
-                @Override
-                public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
-                    // TODO: ...
-                    // db.addColumn(...);
-                    // db.dropTable(...);
-                    // ...
-                    // or
-                    // db.dropDb();
-                }
-            });
-
     private static DbManager mDb;
 
     public static DbManager getDB() {
@@ -102,11 +79,36 @@ public class WelcomeActivity extends AppCompatActivity {
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
                 (TextView)findViewById(R.id.date_textview));
 
+
+        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
+                .setDbName("test2.db")
+                // 不设置dbDir时, 默认存储在app的私有目录.
+                .setDbDir(getFilesDir()) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
+                .setDbVersion(2)
+                .setDbOpenListener(new DbManager.DbOpenListener() {
+                    @Override
+                    public void onDbOpened(DbManager db) {
+                        // 开启WAL, 对写入加速提升巨大
+                        db.getDatabase().enableWriteAheadLogging();
+                    }
+                })
+                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                    @Override
+                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                        // TODO: ...
+                        // db.addColumn(...);
+                        // db.dropTable(...);
+                        // ...
+                        // or
+                        // db.dropDb();
+                    }
+                });
         mDb = x.getDb(daoConfig);
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
 
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+        MemRegActivity.checkMem(getApplicationContext());
     }
 
     // This snippet hides the system bars.
@@ -211,6 +213,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     private static void startTmpTest(Context context) {
+        getRecord().setPersonId(PERSON_ID_INVALID);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
@@ -222,6 +225,7 @@ public class WelcomeActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    // 临时测试需要将personId设置成INVALID
     public static void doTmpTest(Context context) {
         startId(context);
     }

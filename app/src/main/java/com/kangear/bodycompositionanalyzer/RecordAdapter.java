@@ -52,17 +52,16 @@ public class RecordAdapter extends BaseAdapter {
         Record record = mData.get(position);
         if (record != null) {
             //获得自定义布局中每一个控件的对象。
-            TextView id = (TextView) viewStudent.findViewById(R.id.id_textview);
-            TextView age = (TextView) viewStudent.findViewById(R.id.age_textview);
-            TextView gender = (TextView) viewStudent.findViewById(R.id.gender_textview);
-            TextView date = (TextView) viewStudent.findViewById(R.id.date_textview);
+            TextView id = viewStudent.findViewById(R.id.id_textview);
+            TextView age = viewStudent.findViewById(R.id.age_textview);
+            TextView gender = viewStudent.findViewById(R.id.gender_textview);
+            TextView date = viewStudent.findViewById(R.id.date_textview);
             //将数据一一添加到自定义的布局中。
-//            id.setText(record.getPerson().getId());
-//            age.setText(String.valueOf(record.getPerson().getAge()));
-//            gender.setText(record.getPerson().getGender());
+            id.setText(record.getName());
+            age.setText(String.valueOf(record.getAge()));
+            gender.setText(record.getGender());
             date.setText(record.getDate());
         }
-
         return viewStudent ;
     }
 }

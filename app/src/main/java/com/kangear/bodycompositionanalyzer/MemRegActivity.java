@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -304,7 +305,7 @@ public class MemRegActivity extends Com2Activity {
     /**
      * 判断Person数据库表，如果数据库表为空，那么Empty指纹
      */
-    public void checkMem() {
-
+    public static void checkMem(Context context) {
+        PersonBean.getInstance(context).check();
     }
 }

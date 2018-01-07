@@ -1,27 +1,17 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +50,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_history);
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
@@ -130,6 +121,8 @@ public class HistoryActivity extends AppCompatActivity {
         // TODO: 如果数据为空，则显示　已经没有更多数据了
         if (mData.size() == 0) {
             Log.e(TAG, "如果数据为空，则显示　已经没有更多数据了");
+        } else {
+            Log.i(TAG, "" + mData.toString());
         }
     }
 
