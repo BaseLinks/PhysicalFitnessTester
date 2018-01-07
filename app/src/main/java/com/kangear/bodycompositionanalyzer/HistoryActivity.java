@@ -33,7 +33,7 @@ public class HistoryActivity extends AppCompatActivity {
     private static final int FLESH_PAGE_NUMBER = 3;
     private Button mPreButton;
     private Button mNextButton;
-    private int mCurPageNumber = 1;
+    private int mCurPageNumber = 0;
     private TextView mPageNumber;
     // TODO: 这里最多只存十个数据
     private List<Record> mData = new ArrayList<>();
@@ -187,7 +187,7 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
             case REQUEST_CODE_DELETE:
                 if (resultCode == RESULT_OK) {
-                    RecordBean.getInstance(mContext).delete((mCurPageNumber - 1) * 10 + mPosition);
+                    RecordBean.getInstance(mContext).delete(mData.get(mPosition).getId());
                     page(FLESH_PAGE_NUMBER);
                 }
                 break;

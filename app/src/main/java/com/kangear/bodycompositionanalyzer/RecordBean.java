@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Context;
 import android.util.Log;
 
+import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
@@ -15,12 +16,14 @@ import java.util.List;
 public class RecordBean {
     private static final String TAG = "RecordBean";
     private volatile static RecordBean singleton = null;
-    List<Record> mRecords = new ArrayList<>();
+    private List<Record> mRecords = new ArrayList<>();
     private static final int TEST_RECORD_MAX = 100;
     private Context mContext;
+    private DbManager mDbManager;
 
     public RecordBean(Context context) {
         mContext = context;
+        mDbManager = WelcomeActivity.getDB();
         init();
     }
 
@@ -41,7 +44,7 @@ public class RecordBean {
      */
     private void init() {
         try {
-            mRecords = WelcomeActivity.getDB().selector(Record.class).findAll();
+            mRecords = mDbManager.selector(Record.class).findAll();
             if (mRecords != null)
                 Log.i(TAG, "mRecords.size(): " + mRecords.size());
         } catch (DbException e) {
@@ -57,25 +60,24 @@ public class RecordBean {
     public List<Record>  getRecordList(int pageNumber, int itemsPerPage) {
         List<Record> records = new ArrayList<>();
         Record record;
-        if (pageNumber < 1 || itemsPerPage < 1) {
+        if (pageNumber < 0 || itemsPerPage < 1 || mRecords == null || mRecords.size() == 0) {
             return records;
         }
-        pageNumber --; // 要从1(min)->0(min)
         for (int i = pageNumber * itemsPerPage; i < (pageNumber + 1) * itemsPerPage; i++) {
-            try {
-                record = WelcomeActivity.getDB().findById(Record.class, i);
-                if (record != null)
-                    records.add(record);
-            } catch (DbException e) {
-                e.printStackTrace();
+            if (i < mRecords.size()) {
+                record = mRecords.get(i);
+                if (record != null) {
+                    records.add(mRecords.get(i));
+                }
             }
         }
         return records;
     }
 
     public boolean delete(int recordid) {
+        Log.i(TAG, "delete recordid: " + recordid);
         try {
-            WelcomeActivity.getDB().deleteById(Record.class, recordid);
+            mDbManager.deleteById(Record.class, recordid);
             init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
@@ -97,12 +99,12 @@ public class RecordBean {
     public boolean insert(Record record) {
         boolean ret = false;
         try {
-            WelcomeActivity.getDB().save(record);
+            mDbManager.save(record);
             ret = true;
             init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
-            Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
+            Log.e(TAG, "mDbManager.save(mRecord); error!!!");
         } finally {
         }
         return ret;
