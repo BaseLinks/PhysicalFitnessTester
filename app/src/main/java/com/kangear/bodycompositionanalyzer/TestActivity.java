@@ -163,6 +163,9 @@ public class TestActivity extends AppCompatActivity {
             mRecord.setDate(dateFormat.format(new Date()));
             mRecord.setPersonId((int) System.currentTimeMillis());
             RecordBean.getInstance(this).insert(mRecord);
+
+            // TODO:personId为什么一直不对
+            // [Record{id=1, personId=-829036295, name='9', age=9, height=9.0, gender='男', weight=60.5, date='2018-01-07'}]
         } else {
             mHumanProgress.setVisibility(View.VISIBLE);
             mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
