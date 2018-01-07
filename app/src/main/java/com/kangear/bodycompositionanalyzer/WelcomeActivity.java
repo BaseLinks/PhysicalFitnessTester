@@ -25,6 +25,7 @@ import java.util.List;
  * status bar and navigation/system bar) with user interaction.
  */
 public class WelcomeActivity extends AppCompatActivity {
+    private static final String TAG = "WelcomeActivity";
     public static final int MIN_HEIGHT = 1;
     public static final int MAX_HEIGHT = 250;
     public static final int MIN_AGE = 7;
@@ -46,8 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_HEIGHT      = 6;
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
-    private static final String TAG = "WelcomeActivity";
-    public static final int PERSON_ID_INVALID        = -1;
+    public static final int PERSON_ID_INVALID         = -1;
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
     private static Record mCurRecord;

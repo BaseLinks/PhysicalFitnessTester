@@ -84,7 +84,7 @@ public class Person {
         return name;
     }
 
-    public void setName(String id) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -133,5 +133,9 @@ public class Person {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

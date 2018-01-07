@@ -92,34 +92,49 @@ public class PersonBean {
 //        return i;
 //    }
 
-    public boolean insert(Record record) {
+    public boolean insert(Person p) {
         boolean ret = false;
         try {
-            WelcomeActivity.getDB().save(record);
+            WelcomeActivity.getDB().saveBindingId(p);
             ret = true;
             init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
             Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
         } finally {
+            Log.i(TAG, "KANGEARALL: " + p.toString());
         }
         return ret;
     }
 
-    public void check() {
-        // check invalid person
+    public Person queryByFingerId(int fingerId) {
+        Person p = null;
         try {
-            Person p = WelcomeActivity.getDB().selector(Person.class).findFirst();
-            if (p == null) {
-                p = new Person();
-                p.setId(PERSON_ID_INVALID);
-                WelcomeActivity.getDB().saveBindingId(p);
-
-                p = WelcomeActivity.getDB().selector(Person.class).findFirst();
-                Log.i(TAG, "" + p.toString());
-            }
+            p = WelcomeActivity.getDB().selector(Person.class).where("fingerId", "=", fingerId).findFirst();
+            init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
+            Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
+        } finally {
+            Log.i(TAG, "KANGEARALL: " + p.toString());
         }
+        return p;
+    }
+
+    public void check() {
+        // check invalid person
+//        try {
+//            Person p = WelcomeActivity.getDB().selector(Person.class).findFirst();
+//            if (p == null) {
+//                p = new Person();
+//                p.setId(PERSON_ID_INVALID);
+//                WelcomeActivity.getDB().saveBindingId(p);
+//
+//                p = WelcomeActivity.getDB().selector(Person.class).findFirst();
+//                Log.i(TAG, "" + p.toString());
+//            }
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
     }
 }

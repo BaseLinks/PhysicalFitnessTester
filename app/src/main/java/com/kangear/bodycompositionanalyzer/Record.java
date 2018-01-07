@@ -101,6 +101,14 @@ public class Record {
         this.date = date;
     }
 
+    public void setPerson(Person p) {
+        this.age = p.getAge();
+        this.gender = p.getGender();
+        this.personId = p.getId();
+        this.height = p.getHeight();
+        this.name = p.getName();
+    }
+
     // You can add those functions as LiveTemplate !
     public String toJson() {
         Gson gson = new Gson();

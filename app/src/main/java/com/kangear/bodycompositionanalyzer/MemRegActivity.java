@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,11 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.xutils.db.Selector;
-import org.xutils.ex.DbException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +26,6 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
 /**
  * 本页面不显示logo
@@ -77,14 +69,10 @@ public class MemRegActivity extends Com2Activity {
 
         // TODO: fingerId如何生成？ 0-1024范围，不能重复
         for (int i = 0; i < 1024; i++) {
-            try {
-                Person test = WelcomeActivity.getDB().selector(Person.class).where("fingerId", "=", i).findFirst();
-                if (test == null) {
-                    mFingerId = i;
-                    break;
-                }
-            } catch (DbException e) {
-                e.printStackTrace();
+            Person test = PersonBean.getInstance(this).queryByFingerId(i);
+            if (test == null) {
+                mFingerId = i;
+                break;
             }
         }
 
@@ -238,12 +226,7 @@ public class MemRegActivity extends Com2Activity {
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
         mPerson.setDate(dateFormat.format(date));
         Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
-        try {
-            WelcomeActivity.getDB().save(mPerson);
-        } catch (DbException e) {
-            e.printStackTrace();
-            Log.e(TAG, "DB().save error");
-        }
+        PersonBean.getInstance(this).insert(mPerson);
         finish();
     }
 

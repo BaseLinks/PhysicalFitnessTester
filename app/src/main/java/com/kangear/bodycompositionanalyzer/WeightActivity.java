@@ -141,9 +141,14 @@ public class WeightActivity extends AppCompatActivity {
             case REQUEST_CODE_TOUCHID:
                 if (resultCode == RESULT_OK) {
                     int fingerId = intent.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
-                    WelcomeActivity.getPerson().setFingerId(fingerId);
-                    doVipTest(this);
-                    finish();
+                    Person p = PersonBean.getInstance(this).queryByFingerId(fingerId);
+                    if (p != null) {
+                        WelcomeActivity.getRecord().setPerson(p);
+                        doVipTest(this);
+                        finish();
+                    } else {
+                        Log.i(TAG, "指纹识别异常");
+                    }
                 }
                 break;
         }
