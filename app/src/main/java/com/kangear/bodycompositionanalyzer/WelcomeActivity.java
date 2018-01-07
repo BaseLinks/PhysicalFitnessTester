@@ -47,7 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
     private static final String TAG = "WelcomeActivity";
-    public static final int PERSON_ID_INVALID        = 1;
+    public static final int PERSON_ID_INVALID        = -1;
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
     private static Record mCurRecord;

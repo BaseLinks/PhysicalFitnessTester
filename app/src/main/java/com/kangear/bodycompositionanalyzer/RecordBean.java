@@ -99,13 +99,15 @@ public class RecordBean {
     public boolean insert(Record record) {
         boolean ret = false;
         try {
-            mDbManager.save(record);
+            Log.i(TAG, "KANGEARALL: " + record.toString());
+            mDbManager.saveBindingId(record);
             ret = true;
             init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
             Log.e(TAG, "mDbManager.save(mRecord); error!!!");
         } finally {
+            Log.i(TAG, "KANGEARALL: " + mRecords.toString());
         }
         return ret;
     }
