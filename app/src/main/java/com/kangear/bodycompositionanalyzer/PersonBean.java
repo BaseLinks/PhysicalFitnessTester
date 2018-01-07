@@ -27,7 +27,7 @@ public class PersonBean {
         if (singleton == null) {
             synchronized (PersonBean.class) {
                 if (singleton == null) {
-                    singleton = new PersonBean(context);
+                    singleton = new PersonBean(context.getApplicationContext());
                 }
             }
         }
@@ -116,7 +116,6 @@ public class PersonBean {
             e.printStackTrace();
             Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
         } finally {
-            Log.i(TAG, "KANGEARALL: " + p.toString());
         }
         return p;
     }

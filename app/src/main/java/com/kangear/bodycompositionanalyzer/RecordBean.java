@@ -9,6 +9,9 @@ import org.xutils.ex.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kangear.bodycompositionanalyzer.Record.PERSON_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
+
 /**
  * Created by tony on 18-1-1.
  */
@@ -20,6 +23,7 @@ public class RecordBean {
     private static final int TEST_RECORD_MAX = 100;
     private Context mContext;
     private DbManager mDbManager;
+    private int mPersonId = PERSON_ID_INVALID; // INVALID: 不区分；否则只显示某个
 
     public RecordBean(Context context) {
         mContext = context;
@@ -44,9 +48,16 @@ public class RecordBean {
      */
     private void init() {
         try {
-            mRecords = mDbManager.selector(Record.class).findAll();
-            if (mRecords != null)
+            if (mPersonId == PERSON_ID_INVALID)
+                mRecords = mDbManager.selector(Record.class).findAll();
+            else {
+                Log.i(TAG, "PersonId: " + mPersonId);
+                mRecords = mDbManager.selector(Record.class).where(PERSON_ID, "=", mPersonId).findAll();
+            }
+            if (mRecords != null) {
                 Log.i(TAG, "mRecords.size(): " + mRecords.size());
+                Log.i(TAG, "mRecords: " + mRecords.toString());
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -58,8 +69,10 @@ public class RecordBean {
      * @return
      */
     public List<Record>  getRecordList(int pageNumber, int itemsPerPage) {
+        Log.i(TAG, "pageNumber: " + pageNumber + " itemsPerPage: " + itemsPerPage);
         List<Record> records = new ArrayList<>();
         Record record;
+
         if (pageNumber < 0 || itemsPerPage < 1 || mRecords == null || mRecords.size() == 0) {
             return records;
         }
@@ -85,6 +98,11 @@ public class RecordBean {
         return true;
     }
 
+    /**
+     * 获取总数量
+     * @param itemsPerPage
+     * @return
+     */
     public int getTotalPageNumber (int itemsPerPage) {
         if (mRecords == null)
             return 0;
@@ -96,20 +114,33 @@ public class RecordBean {
         return i;
     }
 
+    /**
+     * 插入新记录
+     * @param record
+     * @return
+     */
     public boolean insert(Record record) {
         boolean ret = false;
         try {
-            Log.i(TAG, "KANGEARALL: " + record.toString());
+            //Log.i(TAG, "KANGEARALL: " + record.toString());
             mDbManager.saveBindingId(record);
             ret = true;
             init(); // 这里需要date
         } catch (DbException e) {
             e.printStackTrace();
-            Log.e(TAG, "mDbManager.save(mRecord); error!!!");
+            //Log.e(TAG, "mDbManager.save(mRecord); error!!!");
         } finally {
-            Log.i(TAG, "KANGEARALL: " + mRecords.toString());
+            //Log.i(TAG, "KANGEARALL: " + mRecords.toString());
         }
         return ret;
     }
 
+    /**
+     * 设置PersonId
+     * @param personId
+     */
+    public void setPersonId(int personId) {
+        mPersonId = personId;
+        init();
+    }
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_DELETE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 
@@ -42,10 +43,11 @@ public class HistoryActivity extends AppCompatActivity {
     private Button mCheckButton;
     private Button mDeleteButton;
     private RecordAdapter mAdapter;
-    private static final int PAGE_NUMBER_MIN = 1;
+    private static final int PAGE_NUMBER_MIN = 0;
     private static final int COUNTS_PER_PAGE = 10;
     private int mPosition = PAGE_NUMBER_MIN;
     private Context mContext;
+    private static final int personId = PERSON_ID_INVALID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class HistoryActivity extends AppCompatActivity {
                 mDeleteButton.setEnabled(true);
             }
         });
+
+        RecordBean.getInstance(this).setPersonId(PERSON_ID_INVALID);
         page(FLESH_PAGE_NUMBER);
     }
 
@@ -160,7 +164,7 @@ public class HistoryActivity extends AppCompatActivity {
             case R.id.check_button:
                 // TODO: 要获取选中jilu_id，给result ui.
                 intent = new Intent(this, ResultActivity.class);
-                intent.putExtra(CONST_RECORD_ID, (mCurPageNumber - 1)*10 + mPosition);
+                intent.putExtra(CONST_RECORD_ID, mData.get(mPosition).getId());
                 startActivity(intent);
                 break;
             case R.id.delete_button:
@@ -180,7 +184,14 @@ public class HistoryActivity extends AppCompatActivity {
                     // get finger id
                     // query all date
                     // TODO: show to user
-                    Log.d(TAG, "intent: " + intent.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID));
+                    int fingerId = intent.getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
+                    if (fingerId != INVALID_FINGER_ID) {
+                        Person p = PersonBean.getInstance(this).queryByFingerId(fingerId);
+                        if (p != null) {
+                            RecordBean.getInstance(this).setPersonId(p.getId());
+                            page(PAGE_NUMBER_MIN);
+                        }
+                    }
                 } else {
                     Log.d(TAG, "fuck you");
                 }
