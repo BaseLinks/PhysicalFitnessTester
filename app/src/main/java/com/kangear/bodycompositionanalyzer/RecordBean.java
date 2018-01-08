@@ -87,6 +87,17 @@ public class RecordBean {
         return records;
     }
 
+    public Record query(int recordid) {
+        Log.i(TAG, "query recordid: " + recordid);
+        Record r = null;
+        try {
+            r = mDbManager.findById(Record.class, recordid);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
     public boolean delete(int recordid) {
         Log.i(TAG, "delete recordid: " + recordid);
         try {

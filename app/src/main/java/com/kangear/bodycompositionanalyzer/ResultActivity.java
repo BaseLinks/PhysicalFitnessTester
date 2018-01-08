@@ -19,6 +19,7 @@ import org.xutils.ex.DbException;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -28,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
     private static final String TAG = "ResultActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
+    private static final Record DEFAULT_RECORD = new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, "20180101");
     private Button mPreButton;
     private Button mNextButton;
     private View mFirstPage;
@@ -57,7 +59,15 @@ public class ResultActivity extends AppCompatActivity {
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
-        mRecord = WelcomeActivity.getRecord();
+        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
+        if (recordId != INVALID_RECORD_ID) {
+            mRecord = RecordBean.getInstance(this).query(recordId);
+        }
+
+        if (mRecord == null) {
+            mRecord = DEFAULT_RECORD;
+        }
+
         ((EditText)findViewById(R.id.id_edittext)).setText(mRecord.getName());
         ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mRecord.getAge()));
         ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mRecord.getHeight()));

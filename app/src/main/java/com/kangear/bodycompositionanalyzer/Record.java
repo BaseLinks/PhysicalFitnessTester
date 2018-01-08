@@ -40,6 +40,10 @@ public class Record {
     @Column(name = "date")
     private String date;
 
+    public Record() {
+
+    }
+
     public int getAge() {
         return age;
     }
@@ -76,8 +80,15 @@ public class Record {
         this.date = date;
     }
 
-    public Record() {
-
+    public Record(int id, int personId, String name, int age, float height, String gender, float weight, String date) {
+        this.id = id;
+        this.personId = personId;
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.gender = gender;
+        this.weight = weight;
+        this.date = date;
     }
 
     public String getName() {
