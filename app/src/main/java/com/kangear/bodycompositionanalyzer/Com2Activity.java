@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -61,6 +63,16 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                     setEnable(canNext(mEditText.getText().toString()));
                 }
             });
+
+            mEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                @Override
+                public void onFocusChange(View v, boolean hasFocus){
+                    Log.i(TAG, "hasFocus: " + hasFocus);
+                    if (hasFocus){
+                        //键盘弹起事件
+                    }
+                }
+            });
         }
     }
 
@@ -82,11 +94,11 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
      * @param v
      */
     public void onClick(View v) {
-        // Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
         String tmp = "";
         if (mEditText != null) {
             tmp = mEditText.getText().toString();
         }
+        Toast.makeText(this, "haha: " + tmp, Toast.LENGTH_SHORT).show();
         switch (v.getId()) {
             case R.id.kb_0_button:
                 tmp += "0";
@@ -134,18 +146,18 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 break;
             case R.id.kb_softboard_button:
                 // 启动软键盘
-                Log.d(TAG, "启动软键盘");
                 if (mEditText.requestFocus()) {
-                    mEditText.setText("");
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
-                    isFocus = true;
                 }
                 break;
         }
 
-        if (mEditText != null && tmp.length() <= 4 && !isFocus)
+        if (mEditText != null && tmp.length() <= 4) {
             mEditText.setText(tmp);
+            // 将光标调到末尾
+            mEditText.setSelection(mEditText.getText().toString().length());
+        }
     }
 
     @Override
@@ -153,7 +165,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
     }
 
-    boolean isFocus = false;
+//    boolean isFocus = false;
 
     public boolean canNext(String str) {
         return true;
