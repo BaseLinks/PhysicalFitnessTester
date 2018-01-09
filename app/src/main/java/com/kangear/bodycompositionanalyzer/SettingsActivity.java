@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
@@ -43,11 +45,13 @@ public class SettingsActivity extends AppCompatActivity {
     private int mMaxVolume;
     private Button mVolumeAdd;
     private Button mVolumeSub;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        mContext = this;
         mVolumeTextView = findViewById(R.id.volume_textview);
         mVolumeAdd = findViewById(R.id.volume_add);
         mVolumeSub = findViewById(R.id.volume_jian);
@@ -150,11 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
                 updateVolume();
                 break;
             case R.id.ad_text_setting:
-                LayoutInflater mInflater = LayoutInflater.from(this);
-                View adText = mInflater.inflate(R.layout.dialog_ad_text, null, false);
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setView(adText);
-                alert.show();
+                startActivity(new Intent(this, AdDialogActivity.class));
                 break;
         }
     }
