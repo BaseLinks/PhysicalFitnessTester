@@ -47,7 +47,7 @@ public class TimeActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.no_button:
-//                finish();
+                finish();
                 break;
 
             case R.id.yes_button:
@@ -73,7 +73,7 @@ public class TimeActivity extends AppCompatActivity {
 
                 String text = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day) + "-" + String.valueOf(hour) + "-" + String.valueOf(minute);
                 Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-//                finish();
+                finish();
                 break;
         }
     }
