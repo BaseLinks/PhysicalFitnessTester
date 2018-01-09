@@ -156,6 +156,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startHistory(this);
                 break;
             case R.id.settings_imageview:
+                startSettings(this);
                 break;
         }
     }
@@ -280,6 +281,15 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startTouchId(Activity actvity) {
         actvity.startActivityForResult(new Intent(actvity, TouchIdActivity.class), REQUEST_CODE_TOUCHID);
+    }
+
+
+    /**
+     * 11. Settings
+     * @param actvity
+     */
+    public static void startSettings(Activity actvity) {
+        actvity.startActivity(new Intent(actvity, SettingsActivity.class));
     }
 
     /**

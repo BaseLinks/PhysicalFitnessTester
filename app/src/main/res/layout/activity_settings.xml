@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <include
+        layout="@layout/logo_background"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 中间黑块 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="124dp"
+        android:background="@drawable/background"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/read_xishu_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/_120_settings_button"
+        android:gravity="center"
+        android:text="读取系数"
+        android:textColor="#434343"
+        android:textSize="65sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jiaozhuntizhong_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/_120_settings_button"
+        android:gravity="center"
+        android:text="校准体重"
+        android:textColor="#434343"
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
+
+    <TextView
+        android:id="@+id/test_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/_120_settings_button"
+        android:gravity="center"
+        android:text="测　试"
+        android:textColor="#434343"
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/jiaozhuntizhong_button" />
+
+
+    <TextView
+        android:id="@+id/time_setting_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/_120_settings_button"
+        android:gravity="center"
+        android:text="时间设置"
+        android:textColor="#434343"
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/test_button" />
+
+    <TextView
+        android:id="@+id/volume_setting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/_120_settings_button"
+        android:gravity="center"
+        android:text="音量设置"
+        android:textColor="#434343"
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/time_setting_button" />
+
+    <include
+        android:id="@+id/weight_stop"
+        layout="@layout/weight_stop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="772dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginStart="22dp"
+        android:background="@drawable/_120_settings_data_background"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="#FFFFFF"
+        android:textSize="65sp"
+        app:layout_constraintBottom_toBottomOf="@+id/read_xishu_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toTopOf="@+id/read_xishu_textview" />
+
+    <TextView
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_120_settings_data_background"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="#FFFFFF"
+        android:textSize="65sp"
+        app:layout_constraintBottom_toBottomOf="@+id/jiaozhuntizhong_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/jiaozhuntizhong_button"
+        app:layout_constraintTop_toTopOf="@+id/jiaozhuntizhong_button" />
+
+    <Button
+        android:id="@+id/ad_text_setting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/_120_settings_button"
+        android:text="广告文本设置"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/test_button"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/test_button" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="38dp"
+        android:background="@drawable/_120_settings_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/volume_constrainlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/volume_setting"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/volume_setting">
+
+        <Button
+            android:id="@+id/volume_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_120_settings_volume"
+            android:text="+"
+            android:textAllCaps="false"
+            android:textSize="65sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/volume_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="100"
+            android:textColor="@android:color/white"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/volume_percent_textview"
+            app:layout_constraintStart_toEndOf="@+id/volume_jian"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/volume_percent_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="%"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/volume_add"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/volume_jian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_120_settings_volume"
+            android:text="-"
+            android:padding="0dp"
+            android:textAllCaps="false"
+            android:textSize="65sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
