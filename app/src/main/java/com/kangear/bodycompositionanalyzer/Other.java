@@ -8,10 +8,12 @@ import org.xutils.db.annotation.Table;
  */
 @Table(name = "other")
 public class Other {
-    public static final String OTHER_NAME         = "name";
-    public static final String OTHER_STRING_VALUE = "str_value";
-    public static final String OTHER_NAME_COMPANY = "company";
-    public static final String OTHER_NAME_NUMBER  = "number";
+    public static final String OTHER_NAME                 = "name";
+    public static final String OTHER_STRING_VALUE         = "str_value";
+    public static final String OTHER_NAME_COMPANY         = "company";
+    public static final String OTHER_NAME_NUMBER          = "number";
+    public static final String FIRST_TIME                 = "isFirstTime";
+    public static final String FIRST_TIME_FALSE           = "false";
 
     @Column(name = "id", isId = true)
     private int id;

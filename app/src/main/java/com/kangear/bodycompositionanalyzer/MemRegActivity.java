@@ -289,6 +289,7 @@ public class MemRegActivity extends Com2Activity {
      * 判断Person数据库表，如果数据库表为空，那么Empty指纹
      */
     public static void checkMem(Context context) {
+        // 如果是第一次启动，需要Clean
         PersonBean.getInstance(context).check();
     }
 }

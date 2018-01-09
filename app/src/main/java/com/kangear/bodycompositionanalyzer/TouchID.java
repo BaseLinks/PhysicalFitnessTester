@@ -503,7 +503,26 @@ public class TouchID {
     /**
      * clear all
      */
-    void clearAll() {
+    public boolean clearAll() {
+        Log.i(TAG, "clearAll");
+        FingerUSB fu = mFingerUsb;
+        byte[] b;
+        boolean ret = false;
+        // 1. GR_Empty
+        try {
+            ret = fu.send(TouchID.cmdPackage(TouchID.GR_Empty, ARGE_NONE));
+            if (!ret) {
+                return false;
+            }
 
+            b = TouchID.parsePackage(fu.read());
+            ret = ((b != null) && Arrays.equals(b, RESULT_OK));
+            if (b != null)
+                Log.e(TAG, "GR_Empty: " + bytesToHex(b));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
     }
 }

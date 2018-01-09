@@ -148,6 +148,7 @@ public class WeightActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Log.i(TAG, "指纹识别异常");
+                        Toast.makeText(this, "指纹识别异常", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

@@ -1,9 +1,12 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Environment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,6 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
         return mDb;
     }
 
+    public static final String CONST_ACTION_TOUCHID_OK = "CONST_ACTION_TOUCHID_OK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,13 @@ public class WelcomeActivity extends AppCompatActivity {
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
                 (TextView)findViewById(R.id.date_textview));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+                MemRegActivity.checkMem(getApplicationContext());
+            }
+        }, new IntentFilter(CONST_ACTION_TOUCHID_OK));
 
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
                 .setDbName("test2.db")
@@ -106,9 +117,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mDb = x.getDb(daoConfig);
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
-
-        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-        MemRegActivity.checkMem(getApplicationContext());
     }
 
     // This snippet hides the system bars.

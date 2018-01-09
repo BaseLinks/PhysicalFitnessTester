@@ -2,6 +2,7 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.xutils.ex.DbException;
 
@@ -17,8 +18,10 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVA
 public class PersonBean {
     private static final String TAG = "PersonBean";
     private volatile static PersonBean singleton = null;
+    private Context mContext;
 
     public PersonBean(Context context) {
+        mContext = context;
         init();
     }
 
@@ -121,6 +124,17 @@ public class PersonBean {
     }
 
     public void check() {
+        Other o1 = OtherBean.getInstance(mContext).queryByName(Other.FIRST_TIME);
+        String c = o1 == null ? "" : o1.getStrValue();
+        String txt = "第一次启动: false";
+//        if (!c.equals(Other.FIRST_TIME_FALSE)) {
+            // first boot
+            boolean ret = TouchID.getInstance(mContext).clearAll();
+            OtherBean.getInstance(mContext).insert(new Other(Other.FIRST_TIME, Other.FIRST_TIME_FALSE));
+            txt = "第一次启动: true 清理指纹库: " + ret;
+//        }
+
+        Toast.makeText(mContext, txt, Toast.LENGTH_LONG).show();
         // check invalid person
 //        try {
 //            Person p = WelcomeActivity.getDB().selector(Person.class).findFirst();

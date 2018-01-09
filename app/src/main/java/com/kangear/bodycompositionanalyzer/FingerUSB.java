@@ -11,6 +11,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -168,7 +169,11 @@ public class FingerUSB {
         if(USB_EVENT_DEBUG) Log.d(TAG, String.valueOf("Got permission for usb device: " + usbDevice));
         if(USB_EVENT_DEBUG) Log.d(TAG, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()));
         if(USB_EVENT_DEBUG) Log.d(TAG, String.valueOf("Found USB device: VID=" + usbDevice.getVendorId() + " PID=" + usbDevice.getProductId()));
-        init(usbManager, usbDevice, intf);
+
+        boolean ret = init(usbManager, usbDevice, intf);
+        if (ret) {
+            LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(WelcomeActivity.CONST_ACTION_TOUCHID_OK));
+        }
     }
 
     /**
