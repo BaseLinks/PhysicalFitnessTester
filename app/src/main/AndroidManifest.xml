@@ -111,5 +111,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".TimeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 </manifest>

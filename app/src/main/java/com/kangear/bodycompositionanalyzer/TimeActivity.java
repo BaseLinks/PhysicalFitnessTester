@@ -23,8 +23,8 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SettingsActivity extends AppCompatActivity {
-    private static final String TAG = "WeightActivity";
+public class TimeActivity extends AppCompatActivity {
+    private static final String TAG = "TimeActivity";
     private View startView;
     private View stopView;
     private TextView mTextView;
@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_time);
         hideSystemUI(getWindow().getDecorView());
 //        startView = findViewById(R.id.weight_start);
 //        stopView = findViewById(R.id.weight_stop);
@@ -128,9 +128,6 @@ public class SettingsActivity extends AppCompatActivity {
                         break;
                 }
 //                finish();
-                break;
-            case R.id.time_setting_button:
-                startActivity(new Intent(this, TimeActivity.class));
                 break;
         }
     }

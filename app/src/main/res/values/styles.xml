@@ -104,4 +104,10 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:background">@drawable/_90_human_progressbar</item>
     </style>
+
+    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#ff6d00</item>
+        <item name="colorControlActivated">#33691e</item>
+        <item name="colorControlHighlight">#d50000</item>
+    </style>
 </resources>
