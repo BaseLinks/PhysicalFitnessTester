@@ -1,14 +1,19 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -143,6 +148,13 @@ public class SettingsActivity extends AppCompatActivity {
                         AudioManager.STREAM_MUSIC, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) - 1,
                         AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                 updateVolume();
+                break;
+            case R.id.ad_text_setting:
+                LayoutInflater mInflater = LayoutInflater.from(this);
+                View adText = mInflater.inflate(R.layout.dialog_ad_text, null, false);
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setView(adText);
+                alert.show();
                 break;
         }
     }
