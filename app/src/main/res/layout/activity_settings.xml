@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+    tools:context="com.kangear.bodycompositionanalyzer.SettingsActivity">
 
     <include
         layout="@layout/logo_background"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <!-- 中间黑块 -->
     <View
@@ -19,9 +19,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="124dp"
         android:background="@drawable/background"
-        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/read_xishu_textview"
@@ -31,6 +31,7 @@
         android:layout_marginTop="150dp"
         android:background="@drawable/_120_settings_button"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="读取系数"
         android:textColor="#434343"
         android:textSize="65sp"
@@ -44,6 +45,7 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/_120_settings_button"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="校准体重"
         android:textColor="#434343"
         android:textSize="65sp"
@@ -58,6 +60,7 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/_120_settings_button"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="测　试"
         android:textColor="#434343"
         android:textSize="65sp"
@@ -152,6 +155,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/_120_settings_button"
+        android:onClick="onClick"
         android:text="广告文本设置"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/test_button"
@@ -166,6 +170,7 @@
         android:layout_marginBottom="48dp"
         android:layout_marginEnd="38dp"
         android:background="@drawable/_120_settings_back"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -186,6 +191,7 @@
             android:text="+"
             android:textAllCaps="false"
             android:textSize="65sp"
+            android:onClick="onClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -198,6 +204,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="100"
             android:textColor="@android:color/white"
             android:textSize="60sp"
@@ -227,8 +234,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/_120_settings_volume"
-            android:text="-"
             android:padding="0dp"
+            android:onClick="onClick"
+            android:text="-"
             android:textAllCaps="false"
             android:textSize="65sp"
             app:layout_constraintBottom_toBottomOf="parent"

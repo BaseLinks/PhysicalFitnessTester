@@ -1,12 +1,14 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -24,19 +26,28 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
  * status bar and navigation/system bar) with user interaction.
  */
 public class SettingsActivity extends AppCompatActivity {
-    private static final String TAG = "WeightActivity";
+    private static final String TAG = "SettingsActivity";
     private View startView;
     private View stopView;
     private TextView mTextView;
     private static final int WEIGHT_ACTIVITY = 1;
     private static final int WEIGHT_STOP = 2;
     private int bootTag;
+    private AudioManager mAudioManager;
+    private TextView mVolumeTextView;
+    private int mMaxVolume;
+    private Button mVolumeAdd;
+    private Button mVolumeSub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        hideSystemUI(getWindow().getDecorView());
+        mVolumeTextView = findViewById(R.id.volume_textview);
+        mVolumeAdd = findViewById(R.id.volume_add);
+        mVolumeSub = findViewById(R.id.volume_jian);
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
 //        startView = findViewById(R.id.weight_start);
 //        stopView = findViewById(R.id.weight_stop);
 //        mTextView = findViewById(R.id.weight_textview);
@@ -113,24 +124,25 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
+        Log.i(TAG, "onClick");
         switch (v.getId()) {
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.next_button:
-                WelcomeActivity.getRecord().setWeight(Float.valueOf(mTextView.getText().toString()));
-                switch (bootTag) {
-                    case WEIGHT_VIP_TEST:
-                        startTouchId(this);
-                        break;
-                    case WEIGHT_NEW_TEST:
-                        WelcomeActivity.doTmpTest(this);
-                        break;
-                }
-//                finish();
-                break;
             case R.id.time_setting_button:
                 startActivity(new Intent(this, TimeActivity.class));
+                break;
+            case R.id.volume_add:
+                mAudioManager.setStreamVolume(
+                        AudioManager.STREAM_MUSIC, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) + 1,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                updateVolume();
+                break;
+            case R.id.volume_jian:
+                mAudioManager.setStreamVolume(
+                        AudioManager.STREAM_MUSIC, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) - 1,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                updateVolume();
                 break;
         }
     }
@@ -152,6 +164,41 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI(getWindow().getDecorView());
+        updateVolume();
+    }
+
+    void updateVolume() {
+        if (mAudioManager != null) {
+            boolean add, sub;
+            mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            int cur = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            int percent;
+            if (cur == mMaxVolume) {
+                percent = 100;
+                // 禁用add
+                add = false;
+                sub = true;
+            } else if (cur == 0) {
+                percent = 0;
+                // 禁用sub
+                add = true;
+                sub = false;
+            } else {
+                percent = cur * 100 / mMaxVolume;
+                add = true;
+                sub = true;
+            }
+            mVolumeAdd.setEnabled(add);
+            mVolumeSub.setEnabled(sub);
+            Log.i(TAG, "max: " + mMaxVolume + " cur: " + cur);
+            mVolumeTextView.setText(String.valueOf(percent));
         }
     }
 }
