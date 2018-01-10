@@ -30,6 +30,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_SHENTI
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIBAIFENBI;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIFANG;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -159,11 +160,11 @@ public class TestActivity extends AppCompatActivity {
         if (progress == DEFAULT_TEST_PROGRESS_MAX) {
             mHumanProgress.setVisibility(View.INVISIBLE);
             // 测试完成
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            mRecord.setDate(dateFormat.format(new Date()));
-            RecordBean.getInstance(this).insert(mRecord);
-            // TODO:personId为什么一直不对
-            // [Record{id=1, personId=-829036295, name='9', age=9, height=9.0, gender='男', weight=60.5, date='2018-01-07'}]
+            if (mRecord.getPersonId() != PERSON_ID_INVALID) {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                mRecord.setDate(dateFormat.format(new Date()));
+                RecordBean.getInstance(this).insert(mRecord);
+            }
         } else {
             mHumanProgress.setVisibility(View.VISIBLE);
             mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
