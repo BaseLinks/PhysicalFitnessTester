@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/keyboard"
         layout="@layout/keyboard"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="0dp" />

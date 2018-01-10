@@ -98,7 +98,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
         if (mEditText != null) {
             tmp = mEditText.getText().toString();
         }
-        Toast.makeText(this, "haha: " + tmp, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "haha: " + tmp, Toast.LENGTH_SHORT).show();
         switch (v.getId()) {
             case R.id.kb_0_button:
                 tmp += "0";

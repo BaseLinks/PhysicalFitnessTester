@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -172,13 +173,10 @@ public class MemRegActivity extends Com2Activity {
         switch (v.getId()) {
             case R.id.finger_button:
                 Intent intent = new Intent(this, GetFingerActivity.class);
-                intent.putExtra(CONST_FINGER_ID, mFingerId);
                 startActivityForResult(intent, REQUEST_CODE_TOUCHID);
                 break;
         }
     }
-
-
 
     // from the link above
     @Override
@@ -197,6 +195,7 @@ public class MemRegActivity extends Com2Activity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case RESULT_CANCELED:
+                mFingerButton.setEnabled(true);
                 break;
             case RESULT_OK:
                 mFingerButton.setEnabled(false);
@@ -225,6 +224,11 @@ public class MemRegActivity extends Com2Activity {
         mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
         mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
         mPerson.setDate(dateFormat.format(date));
+        try {
+            boolean ret = TouchID.getInstance(this).saveFinger((short) mFingerId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
         PersonBean.getInstance(this).insert(mPerson);
         finish();

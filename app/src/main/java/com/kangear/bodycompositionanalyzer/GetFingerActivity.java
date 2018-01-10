@@ -3,15 +3,19 @@ package com.kangear.bodycompositionanalyzer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -23,36 +27,29 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 /**
  * 本页面不显示logo
  */
-public class GetFingerActivity extends Com2Activity {
+public class GetFingerActivity extends AppCompatActivity {
     private static final String TAG = "GetFingerActivity";
-    private TextView mTextView;
-    private View logoView;
     private Context mContext;
     private static final int GET_FINGER_OK         = 1;
     private static final int PAGE_FAIL_EXIT        = 5;
     private static final int PAGE_DEVICE_UNCONNECT = 6;
+    private static final int FINGER_ALREADY_EXIST  = 7;
+    private static final int UNKOWN_ERROR          = 8;
+    private static final int EXIT_OK               = 9;
     private ImageView mFingerImageView;
-    private Button mNextButton;
     private int mFingerId;
+    private TextView mTextView;
+    private Button mCancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getfinger);
         hideSystemUI(getWindow().getDecorView());
-        logoView = findViewById(R.id.logo_imageview);
-        logoView.setVisibility(View.GONE);
         mFingerImageView = findViewById(R.id.finger_imageview);
-        mNextButton = findViewById(R.id.kb_next_button);
-        dissAllwithoutBackNext();
+        mTextView = findViewById(R.id.textview);
+        mCancelButton = findViewById(R.id.no_button);
         mContext = getApplicationContext();
-        mNextButton.setEnabled(false);
-
-        mFingerId = getIntent().getIntExtra(CONST_FINGER_ID, INVALID_FINGER_ID);
-        if (mFingerId == INVALID_FINGER_ID) {
-            unkownError(this);
-            exitAsFail(this);
-        }
     }
 
     /**
@@ -62,19 +59,26 @@ public class GetFingerActivity extends Com2Activity {
         @Override
         public void run() {
             boolean ret;
+            int fingerId;
             while(!isInterrupted()) {
                 try {
-                    // TODO:这里需要再匹配一下，确定指纹没有被添加过才算成功huozhe,chongdiaozhiqiande firId
-                    ret = TouchID.getInstance(mContext).register(mFingerId);
+                    ret = TouchID.getInstance(mContext).getFinger();
                     if (ret) {
-                        mHandler.sendEmptyMessage(GET_FINGER_OK);
-                        break;
+                        fingerId = TouchID.getInstance(mContext).macheFinger();
+                        if (fingerId != INVALID_FINGER_ID) {
+                            mHandler.sendEmptyMessage(FINGER_ALREADY_EXIST);
+                        } else {
+                            mHandler.sendEmptyMessage(GET_FINGER_OK);
+                            break;
+                        }
                     }
 
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
+                        // 这里必须break，否则会导致返回时仍然在获取指纹
+                        break;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -84,27 +88,6 @@ public class GetFingerActivity extends Com2Activity {
             }
         }
     };
-
-    private void dissAllwithoutBackNext() {
-        int[] reses = {
-                R.id.kb_0_button,
-                R.id.kb_1_button,
-                R.id.kb_2_button,
-                R.id.kb_3_button,
-                R.id.kb_4_button,
-                R.id.kb_5_button,
-                R.id.kb_6_button,
-                R.id.kb_7_button,
-                R.id.kb_8_button,
-                R.id.kb_9_button,
-                R.id.kb_dot_button,
-                R.id.kb_softboard_button,
-        };
-
-        for (int res : reses) {
-            findViewById(res).setVisibility(View.GONE);
-        }
-    }
 
     // This snippet hides the system bars.
     public static void hideSystemUI(View v) {
@@ -125,8 +108,11 @@ public class GetFingerActivity extends Com2Activity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case GET_FINGER_OK:
-                    mFingerImageView.setBackgroundResource(R.drawable._20_finger_ok);
-                    mNextButton.setEnabled(true);
+                    mCancelButton.setEnabled(false);
+                    mFingerImageView.setBackgroundResource(R.drawable._80_finger_yellow);
+                    mTextView.setTextColor(Color.YELLOW);
+                    mTextView.setText("指纹识别成功");
+                    sendEmptyMessageDelayed(EXIT_OK, 1000);
                     break;
                 case PAGE_FAIL_EXIT:
                     exitAsFail(GetFingerActivity.this);
@@ -135,46 +121,22 @@ public class GetFingerActivity extends Com2Activity {
                     Toast.makeText(GetFingerActivity.this, "指纹模块异常，请联系工作人员", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 2 * 1000);
                     break;
+                case FINGER_ALREADY_EXIST:
+                    mTextView.setTextColor(Color.RED);
+                    mFingerImageView.setBackgroundResource(R.drawable._80_finger_red);
+//                    Toast.makeText(mContext, "指纹已经存在", Toast.LENGTH_LONG).show();
+                    mTextView.setText("指纹已存在,请使用新指纹");
+                    break;
+                case UNKOWN_ERROR:
+                    Toast.makeText(mContext, "指纹模块：未知错误!", Toast.LENGTH_LONG).show();
+                    break;
+                case EXIT_OK:
+                    setResult(RESULT_OK, new Intent());
+                    finish();
+                    break;
             }
         }
     };
-
-    @Override
-    public void onBackButtonClick() {
-        super.onBackButtonClick();
-        //Toast.makeText(this, "返回按钮按下", Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MemRegActivity.class);
-        setResult(RESULT_CANCELED, intent);
-        finish();
-    }
-
-    @Override
-    public void onNextButtonClick() {
-        super.onNextButtonClick();
-        //Toast.makeText(this, "下一项按钮按下", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MemRegActivity.class);
-        intent.putExtra(CONST_FINGER_ID, 1);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    @Override
-    public void onDeleteClick() {
-        super.onDeleteClick();
-    }
-
-    // from the link above
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
-            Toast.makeText(this, "keyboard visible", Toast.LENGTH_SHORT).show();
-        } else if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
-            Toast.makeText(this, "keyboard hidden", Toast.LENGTH_SHORT).show();
-            hideSystemUI(getWindow().getDecorView());
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -187,5 +149,15 @@ public class GetFingerActivity extends Com2Activity {
     protected void onPause() {
         super.onPause();
         mThread.interrupt();
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.no_button:
+                Intent intent = new Intent(this, MemRegActivity.class);
+                setResult(RESULT_CANCELED, intent);
+                finish();
+                break;
+        }
     }
 }
