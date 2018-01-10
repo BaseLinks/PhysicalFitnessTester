@@ -32,9 +32,6 @@ public class HistoryActivity extends AppCompatActivity {
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
     private static final int FLESH_PAGE_NUMBER = 3;
-    private Button mPreButton;
-    private Button mNextButton;
-    private int mCurPageNumber = 0;
     private TextView mPageNumber;
     // TODO: 这里最多只存十个数据
     private List<Record> mData = new ArrayList<>();
@@ -43,11 +40,11 @@ public class HistoryActivity extends AppCompatActivity {
     private Button mCheckButton;
     private Button mDeleteButton;
     private RecordAdapter mAdapter;
-    private static final int PAGE_NUMBER_MIN = 0;
+    private static final int PAGE_NUMBER_MIN = 1;
     private static final int COUNTS_PER_PAGE = 10;
+    private int mCurPageNumber = PAGE_NUMBER_MIN;
     private int mPosition = PAGE_NUMBER_MIN;
     private Context mContext;
-    private static final int personId = PERSON_ID_INVALID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +54,6 @@ public class HistoryActivity extends AppCompatActivity {
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        mPreButton   = findViewById(R.id.previous_page_button);
-        mNextButton  = findViewById(R.id.next_page_button);
         mCheckButton = findViewById(R.id.check_button);
         mDeleteButton= findViewById(R.id.delete_button);
         mPageNumber  = findViewById(R.id.page_number_textview);
@@ -115,7 +110,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         mPageNumber.setText(mCurPageNumber + "/" + mTotalNumber);
         LayoutInflater inflater = getLayoutInflater();
-        mData = RecordBean.getInstance(this).getRecordList(mCurPageNumber, COUNTS_PER_PAGE);
+        mData = RecordBean.getInstance(this).getRecordList(mCurPageNumber - 1, COUNTS_PER_PAGE);
         //创建自定义Adapter的对象
         mAdapter = new RecordAdapter(inflater, mData);
         //将布局添加到ListView中
