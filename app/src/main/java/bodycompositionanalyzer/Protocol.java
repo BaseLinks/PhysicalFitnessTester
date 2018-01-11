@@ -8,7 +8,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+
+import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 /**
  * Created by tony on 18-1-11.
@@ -22,13 +25,22 @@ public class Protocol {
 
     // 二.通信格式
     // [引导符][消息长度] [命令/状态][项目代码][项目地址][数 据] [CRC]
-    public static final int MSG_HEAD_LENGTH        = 0x01;
+    public static final int MSG_HEAD_LENGTH        = 0x02;
     public static final int MSG_LENGTH_LENGTH      = 0x01;
     public static final int MSG_CMD_LENGTH         = 0x01;
     public static final int MSG_ITEM_CODE_LENGTH   = 0x01;
     public static final int MSG_ITEM_ADDR_LENGTH   = 0x01;
+    public static final int MSG_DATA_LENGTH        = 0x00; // n
     public static final int MSG_CRC_LENGTH         = 0x02;
     public static final int MSG_STATE_LENGTH       = 0x01;
+
+    public static final int MSG_HEAD_START         = 0x00;
+    public static final int MSG_LENGTH_START       = MSG_HEAD_START + MSG_HEAD_LENGTH;
+    public static final int MSG_STATE_START        = MSG_LENGTH_START + MSG_LENGTH_LENGTH;
+    public static final int MSG_ITEM_CODE_START    = MSG_STATE_START + MSG_STATE_LENGTH;
+    public static final int MSG_ITEM_ADDR_START    = MSG_ITEM_CODE_START + MSG_ITEM_CODE_LENGTH;
+    public static final int MSG_DATA_START         = MSG_ITEM_ADDR_START + MSG_ITEM_ADDR_LENGTH;
+    public static final int MSG_CRC_START          = MSG_DATA_START + MSG_DATA_LENGTH; // n
 
     // 三.数据包说明
     // 1. 大小端
@@ -88,32 +100,79 @@ public class Protocol {
 
     // 2，错误状态（ 0X80-----0XFE）
     // 1， 0X80： 数据包错误
-    public static final int MSG_STATE_ERR_DATA_PACK = 0X80;
+    public static final byte MSG_STATE_ERR_DATA_PACK = (byte) 0X80;
     // 2， 0X81：性别错误
-    public static final int MSG_STATE_ERR_GENDER    = 0X81;
+    public static final byte MSG_STATE_ERR_GENDER    = (byte) 0X81;
     // 3， 0X82：年龄错误
-    public static final int MSG_STATE_ERR_AGE       = 0X82;
+    public static final byte MSG_STATE_ERR_AGE       = (byte) 0X82;
     // 4， 0X83：身高错误
-    public static final int MSG_STATE_ERR_HEIGHT    = 0X83;
+    public static final byte MSG_STATE_ERR_HEIGHT    = (byte) 0X83;
     // 5， 0X84：体重错误
-    public static final int MSG_STATE_ERR_WEIGHT    = 0X84;
+    public static final byte MSG_STATE_ERR_WEIGHT    = (byte) 0X84;
     // 6， 0X85： 标准源错误
-    public static final int MSG_STATE_ERR_SOURCE    = 0X85;
+    public static final byte MSG_STATE_ERR_SOURCE    = (byte) 0X85;
     // 7， 0X90：测试体成分时，有错误
-    public static final int MSG_STATE_ERR_TEST_1    = 0X90;
+    public static final byte MSG_STATE_ERR_TEST_1    = (byte) 0X90;
     // 8， 0X91：测试体成分时，有错误
-    public static final int MSG_STATE_ERR_TEST_2    = 0X91;
+    public static final byte MSG_STATE_ERR_TEST_2    = (byte) 0X91;
     // 9， 0X92：测试体成分时，有错误
-    public static final int MSG_STATE_ERR_TEST_3    = 0X92;
+    public static final byte MSG_STATE_ERR_TEST_3    = (byte) 0X92;
     // 10， 0X93：测试体成分时，有错误
-    public static final int MSG_STATE_ERR_TEST_4    = 0X93;
+    public static final byte MSG_STATE_ERR_TEST_4    = (byte) 0X93;
 
 
 
     // 六，命令的详细解释
+    /**
+     * query weight
+     * @return
+     */
+    public static byte[] createQueryWeight() {
+        return createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT);
+    }
+
+    public static byte[] createStartWeight() {
+        return createCmd(MSG_CMD_START, MSG_ITEM_CODE_WEIGHT);
+    }
+
+    public static byte[] createStopWeight() {
+        return createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_WEIGHT);
+    }
+
+    public static byte[] createReadWeight() {
+        return createCmd(MSG_CMD_READ, MSG_ITEM_CODE_WEIGHT);
+    }
+
+    public static byte[] createWriteWeight() {
+        return createCmd(MSG_CMD_WRITE, MSG_ITEM_CODE_WEIGHT);
+    }
+
+    /**
+     * query weight
+     * @return
+     */
+    public static byte[] createQueryTichengfen() {
+        return createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    public static byte[] createStartTichengfen() {
+        return createCmd(MSG_CMD_START, MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    public static byte[] createStopTichengfen() {
+        return createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    public static byte[] createReadTichengfen() {
+        return createCmd(MSG_CMD_READ, MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    public static byte[] createWriteTichengfen() {
+        return createCmd(MSG_CMD_WRITE, MSG_ITEM_CODE_TICHENGFEN);
+    }
 
     // [引导符][消息长度] [命令/状态][项目代码][项目地址][数 据] [CRC]
-    public static void createCmd(byte cmd) {
+    public static byte[] createCmd(byte cmd, byte code) {
         byte[] data = {};
         int dataLength = 0;
         // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
@@ -128,10 +187,12 @@ public class Protocol {
         target.put(SEND_HEAD);
         target.put(msgLength);
         target.put(cmd);
-        target.put(MSG_ITEM_CODE_WEIGHT);
+        target.put(code);
         target.put(MSG_ITEM_ADDR);
         target.put(data);
-        target.put(calcCRC(target.array(), 0, target.array().length));
+        CRC_XModem(new byte[] {(byte) 0xAA, 0x55, 0x05, (byte) 0xC0, 0x31, 0x00});
+        int crcEnd = MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH + msgLength - MSG_CRC_LENGTH;
+        target.put(calcCRC(Arrays.copyOfRange(target.array(), 0, crcEnd)));
 
         target.limit(target.remaining());
         target.rewind();
@@ -142,31 +203,297 @@ public class Protocol {
         target.clear();
 
         Log.i(TAG, "" + ByteArrayUtils.bytesToHex(byteArray));
+        return byteArray;
+    }
+
+    /**
+     * STOP
+     * @return
+     * @throws Exception
+     */
+    private static boolean stop(byte item) throws Exception {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
+            return false;
+
+        // 1. send msg
+        boolean ret = send(createCmd(MSG_CMD_STOP, item));
+        if (!ret) {
+            Log.e(TAG, "send error");
+            return false;
+        }
+        // 2. recv msg
+        parseMsg(recv(), item, MSG_STATE_OK);
+        return true;
+    }
+
+    public static boolean stopWeight() throws Exception {
+        return stop(MSG_ITEM_CODE_WEIGHT);
+    }
+
+    public static boolean stopTichengfen() throws Exception {
+        return stop(MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    /**
+     * Query
+     * @return
+     * @throws Exception
+     */
+    public static boolean query(byte item) throws Exception {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
+            return false;
+
+        // 1. send msg
+        boolean ret = send(createCmd(MSG_CMD_QUERY, item));
+        if (!ret) {
+            Log.e(TAG, "send error");
+            return false;
+        }
+        // 2. recv msg
+        parseMsg(recv(), item, MSG_STATE_OK);
+        return true;
+    }
+
+    /**
+     * Start
+     * @return
+     * @throws Exception
+     */
+    public static boolean start(byte item) throws Exception {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
+            return false;
+
+        // 1. send msg
+        boolean ret = send(createCmd(MSG_CMD_START, item));
+        if (!ret) {
+            Log.e(TAG, "send error");
+            return false;
+        }
+        // 2. recv msg
+        parseMsg(recv(), item, MSG_STATE_OK);
+        return true;
+    }
+
+
+    /**
+     * Read
+     * @return
+     * @throws Exception
+     */
+    public static boolean read(byte item) throws Exception {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
+            return false;
+
+        // 1. send msg
+        boolean ret = send(createCmd(MSG_CMD_READ, item));
+        if (!ret) {
+            Log.e(TAG, "send error");
+            return false;
+        }
+        // 2. recv msg
+        parseMsg(recv(), item, MSG_STATE_OK);
+        return true;
+    }
+
+
+    /**
+     * Write
+     * @return
+     * @throws Exception
+     */
+    public static boolean write(byte item) throws Exception {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
+            return false;
+
+        // 1. send msg
+        boolean ret = send(createCmd(MSG_CMD_WRITE, item));
+        if (!ret) {
+            Log.e(TAG, "send error");
+            return false;
+        }
+        // 2. recv msg
+        parseMsg(recv(), item, MSG_STATE_OK);
+        return true;
+    }
+
+    public static boolean send(byte[] msg) {
+        Log.i(TAG, "send msg: " + bytesToHex(msg));
+        return true;
+    }
+
+    public static byte[] recv() {
+        return null;
+    }
+
+    /**
+     * @param msg response
+     * @return data
+     */
+    public static byte[] parseMsg(byte msg[], byte code, byte state) throws Exception {
+        byte[] b;
+        byte[] ret;
+        int tmpInt;
+        int end = 0;
+        int start = 0;
+        int length = 0;
+        byte tmpByte;
+
+        if (msg == null)
+            return null;
+
+        // 1. Package Head check
+        start = MSG_HEAD_START;
+        end = start + MSG_HEAD_LENGTH;
+        if (msg.length < end)
+            return null;
+        b = Arrays.copyOfRange(msg, start, end);
+        if (!Arrays.equals(b, RECV_HEAD)) {
+            Log.e(TAG, "parsePackage: RESPONSE_PACK_HEAD error");
+            return null;
+        }
+
+        // 2. Package Length
+        start = MSG_LENGTH_START;
+        end = start + MSG_LENGTH_LENGTH;
+        if (msg.length < end) {
+            Log.e(TAG, "parsePackage: response.length error");
+            return null;
+        }
+        b = Arrays.copyOfRange(msg, start, end);
+        length = ByteBuffer.wrap(b).order(BYTE_ORDER).getShort() & 0xFFFF;
+
+        // 3. state
+        start = MSG_STATE_START;
+        end = start + MSG_STATE_LENGTH;
+        if (msg.length < end) {
+            Log.e(TAG, "parsePackage: response.length error");
+            return null;
+        }
+        tmpByte = msg[MSG_STATE_START];
+        if (tmpByte != state) {
+            parseErrorState(tmpByte);
+        }
+
+        // 4. CODE
+        start = MSG_ITEM_CODE_START;
+        end = start + MSG_ITEM_CODE_LENGTH;
+        if ((msg.length < end) || (msg[MSG_ITEM_CODE_START]  != code)) {
+            Log.e(TAG, "parsePackage: response.length error or code error");
+            return null;
+        }
+
+        // 5. ADDR
+        start = MSG_ITEM_ADDR_START;
+        end = start + MSG_ITEM_ADDR_LENGTH;
+        if ((msg.length < end) || (msg[MSG_ITEM_ADDR_START]  != MSG_ITEM_ADDR)) {
+            Log.e(TAG, "parsePackage: response.length error or MSG_ITEM_ADDR error");
+            return null;
+        }
+
+        // 6. Package Data
+        // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
+        // total length
+        tmpInt = MSG_LENGTH_START + MSG_LENGTH_LENGTH + length;
+        int dataLength = tmpInt - (MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH + MSG_STATE_LENGTH + MSG_ITEM_CODE_LENGTH + MSG_ITEM_ADDR_LENGTH + MSG_CRC_LENGTH);
+        start = MSG_DATA_START;
+        end = start + dataLength;
+        if (msg.length < end) {
+            Log.e(TAG, "parsePackage: response.length error");
+            return null;
+        }
+        ret = Arrays.copyOfRange(msg, start, end);
+
+        // 8. Package crc
+        int startSum = MSG_HEAD_START;
+        int endSum = startSum + (tmpInt - MSG_CRC_LENGTH) ;
+        start = MSG_CRC_START;
+        end = start + MSG_CRC_LENGTH;
+        if (msg.length < end) {
+            Log.e(TAG, "parsePackage: response.length error");
+            return null;
+        }
+        b = Arrays.copyOfRange(msg, start, end);
+        byte[] sum = calcCRC(Arrays.copyOfRange(msg, startSum, endSum));
+        if (!Arrays.equals(b, sum)) {
+            Log.e(TAG, "parsePackage: RESPONSE_SUM error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )");
+            return null;
+        }
+
+        //Log.e(TAG, "parsePackage: " + bytesToHex(ret));
+        return ret;
+    }
+
+    public static void parseErrorState(byte state) throws Exception {
+        switch (state) {
+            case MSG_STATE_ERR_DATA_PACK:
+                throw new ProtocalExcption.PackageException();
+            case MSG_STATE_ERR_GENDER:
+                throw new ProtocalExcption.GenderExcetion();
+            case MSG_STATE_ERR_AGE:
+                throw new ProtocalExcption.AgeExcetion();
+            case MSG_STATE_ERR_HEIGHT:
+                throw new ProtocalExcption.HeightExcetion();
+            case MSG_STATE_ERR_WEIGHT:
+                throw new ProtocalExcption.WeightExcetion();
+            case MSG_STATE_ERR_SOURCE:
+                throw new ProtocalExcption.SourceExcetion();
+            case MSG_STATE_ERR_TEST_1:
+            case MSG_STATE_ERR_TEST_2:
+            case MSG_STATE_ERR_TEST_3:
+            case MSG_STATE_ERR_TEST_4:
+                throw new ProtocalExcption.TichengfenTestExcetion();
+        }
+    }
+
+    public static class ProtocalExcption {
+        public static class PackageException extends Exception {
+        }
+
+        public static class GenderExcetion extends Exception {
+        }
+
+        public static class AgeExcetion extends Exception {
+        }
+
+        public static class HeightExcetion extends Exception {
+        }
+
+        public static class WeightExcetion extends Exception {
+        }
+
+        public static class SourceExcetion extends Exception {
+        }
+
+        public static class TichengfenTestExcetion extends Exception {
+        }
     }
 
     /**
      * 对buf中offset以前crcLen长度的字节作crc校验，返回校验结果
      * @param  buf
-     * @param crcLen
      */
-    public static byte[] calcCRC(byte[] buf, int offset, int crcLen) {
-        int start = offset;
-        int end = offset + crcLen;
-        int crc = 0xffff; // initial value
+    public static byte[] calcCRC(byte[] buf) {
+        int crc = CRC_XModem(buf);
+        // 根据字节序直接返回
+        Log.d(TAG, "CRC: " + crc + " SRC: " + bytesToHex(buf));
+        return ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (crc & 0xFFFF)).array();
+    }
+
+    public static int CRC_XModem(byte[] bytes){
+        int crc = 0x00;          // initial value
         int polynomial = 0x1021;
-        for (int index = start; index < end; index++) {
-            byte b = buf[index];
+        for (int index = 0 ; index< bytes.length; index++) {
+            byte b = bytes[index];
             for (int i = 0; i < 8; i++) {
-                boolean bit = ((b >> (7 - i) & 1) == 1);
-                boolean c15 = ((crc >> 15 & 1) == 1);
+                boolean bit = ((b   >> (7-i) & 1) == 1);
+                boolean c15 = ((crc >> 15    & 1) == 1);
                 crc <<= 1;
-                if (c15 ^ bit)
-                    crc ^= polynomial;
+                if (c15 ^ bit) crc ^= polynomial;
             }
         }
         crc &= 0xffff;
-        // 根据字节序直接返回
-        return ByteBuffer.allocate(MSG_CRC_LENGTH).putShort((short) (crc & 0xFFFF)).order(BYTE_ORDER).array();
+        Log.d(TAG, "CRC: " + crc + " SRC: " + bytesToHex(bytes));
+        return crc;
     }
 
 
