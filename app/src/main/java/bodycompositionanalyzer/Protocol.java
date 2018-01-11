@@ -202,7 +202,7 @@ public class Protocol {
 		/* 将byteBuffer清理 */
         target.clear();
 
-        Log.i(TAG, "" + ByteArrayUtils.bytesToHex(byteArray));
+        //Log.i(TAG, "" + ByteArrayUtils.bytesToHex(byteArray));
         return byteArray;
     }
 
@@ -474,8 +474,6 @@ public class Protocol {
      */
     public static byte[] calcCRC(byte[] buf) {
         int crc = CRC_XModem(buf);
-        // 根据字节序直接返回
-        Log.d(TAG, "CRC: " + crc + " SRC: " + bytesToHex(buf));
         return ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (crc & 0xFFFF)).array();
     }
 
@@ -492,7 +490,7 @@ public class Protocol {
             }
         }
         crc &= 0xffff;
-        Log.d(TAG, "CRC: " + crc + " SRC: " + bytesToHex(bytes));
+        //Log.d(TAG, "CRC: " + crc + " SRC: " + bytesToHex(bytes));
         return crc;
     }
 
