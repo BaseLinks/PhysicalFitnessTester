@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import bodycompositionanalyzer.Protocol;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
@@ -33,11 +36,13 @@ public class WeightActivity extends AppCompatActivity {
     private static final int WEIGHT_ACTIVITY = 1;
     private static final int WEIGHT_STOP = 2;
     private int bootTag;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
+        mContext = this;
         hideSystemUI(getWindow().getDecorView());
         startView = findViewById(R.id.weight_start);
         stopView = findViewById(R.id.weight_stop);
@@ -65,8 +70,66 @@ public class WeightActivity extends AppCompatActivity {
     /**
      * 开始
      */
-    float weight = 0;
     private void startTest() {
+        startView.setVisibility(View.VISIBLE);
+        stopView.setVisibility(View.GONE);
+        mTextView.setText("");
+
+        // star phread
+        new Thread() {
+            @Override
+            public void run() {
+                boolean ret = false;
+                try {
+                    ret = Protocol.startWeight();
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    ret = false;
+                } finally {
+                    if (!ret) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, "体重测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, "体重测试开始成功", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
+                while(true) {
+                    try {
+                        sleep(500);
+                        Protocol.QueryResult qr = Protocol.qeuryWeight();
+                        if (qr == null) {
+                            continue;
+                        }
+                        byte state = qr.getState();
+                        weight = qr.getShortFromData() / (float)10;
+                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
+                        Log.d(TAG, "weight: " + weight);
+                        if (state == Protocol.MSG_STATE_DONE) {
+                            mHandler.sendEmptyMessage(WEIGHT_STOP);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+    }
+
+    /**
+     * 开始
+     */
+    float weight = 0;
+    private void startFakeTest() {
         startView.setVisibility(View.VISIBLE);
         stopView.setVisibility(View.GONE);
         mTextView.setText("");
@@ -91,6 +154,7 @@ public class WeightActivity extends AppCompatActivity {
             }
         }.start();
     }
+
 
     private Handler mHandler = new Handler() {
         @Override
