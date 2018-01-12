@@ -64,6 +64,9 @@ public class Protocol {
     // 8. CRC 校验 CRC--指对前面的整个数据包（不含 CRC 字符）做 16 位 CRC
     public static final int MSG_CRC                   = 0x00;
 
+    public static final byte PROTOCAL_GENDER_FEMALE   = 0x00;
+    public static final byte PROTOCAL_GENDER_MALE     = 0x01;
+
     // 四.命令说明
     // 1， 0XC0： 停止命令，使下位机停止当前工作，回到空闲等待状态
     public static final byte MSG_CMD_STOP        = (byte) 0xC0;
@@ -82,21 +85,21 @@ public class Protocol {
     // 1， 0X00：指令正常返回（除查询指令外，其它指令的正常返回）
     public static final byte MSG_STATE_OK        = 0x00;
     // 2， 0X01：开机空闲状态（无测试数据，查询时返回的数据为空）
-    public static final byte MSG_STATE_IDLE      = 0X01;
+    public static final byte MSG_STATE_IDLE      = 0x01;
     // 3， 0X02：测试完成状态（有测试数据，查询时返回测试数据）
-    public static final byte MSG_STATE_DONE      = 0X02;
+    public static final byte MSG_STATE_DONE      = 0x02;
     // 4， 0X03：等待测试者就绪状态（无测试数据，查询时返回的数据为空）
-    public static final byte MSG_STATE_WAIT      = 0X03;
+    public static final byte MSG_STATE_WAIT      = 0x03;
     // 5， 0X10：体重测试中（只对体重，查询时返回测试中数据）
-    public static final byte MSG_STATE_WEIGHTING = 0X10;
+    public static final byte MSG_STATE_WEIGHTING = 0x10;
     // 6， 0X20：测试中正常返回（只对体成分，查询时返回空数据）
-    public static final byte MSG_STATE_TESTING_1 = 0X20;
+    public static final byte MSG_STATE_TESTING_1 = 0x20;
     // 7， 0X21：测试中正常返回（只对体成分，查询时返回空数据）
-    public static final byte MSG_STATE_TESTING_2 = 0X21;
+    public static final byte MSG_STATE_TESTING_2 = 0x21;
     // 8， 0X22：测试中正常返回（只对体成分，查询时返回空数据）
-    public static final byte MSG_STATE_TESTING_3 = 0X22;
+    public static final byte MSG_STATE_TESTING_3 = 0x22;
     // 9， 0X23：测试中正常返回（只对体成分，查询时返回空数据）
-    public static final byte MSG_STATE_TESTING_4 = 0X23;
+    public static final byte MSG_STATE_TESTING_4 = 0x23;
 
     // 2，错误状态（ 0X80-----0XFE）
     // 1， 0X80： 数据包错误
@@ -131,16 +134,16 @@ public class Protocol {
         }
         int dataLength = tmpDataArray.length;
         // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
-        byte msgLength = (byte) ((MSG_CMD_LENGTH
+        int msgLength = MSG_CMD_LENGTH
                         + MSG_ITEM_CODE_LENGTH
                         + MSG_ITEM_ADDR_LENGTH
                         + dataLength
-                        + MSG_CRC_LENGTH) & 0xFF);
+                        + MSG_CRC_LENGTH;
         int BYTE_BUFFER_ALLOCATE = 1024;
         byte[] byteArray = null;
         ByteBuffer target = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
         target.put(SEND_HEAD);
-        target.put(msgLength);
+        target.put((byte)(msgLength & 0xFF));
         target.put(cmd);
         target.put(code);
         target.put(MSG_ITEM_ADDR);
@@ -169,16 +172,16 @@ public class Protocol {
         }
         int dataLength = tmpDataArray.length;
         // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
-        byte msgLength = (byte) ((MSG_STATE_LENGTH
+        int msgLength = MSG_STATE_LENGTH
                 + MSG_ITEM_CODE_LENGTH
                 + MSG_ITEM_ADDR_LENGTH
                 + dataLength
-                + MSG_CRC_LENGTH) & 0xFF);
+                + MSG_CRC_LENGTH;
         int BYTE_BUFFER_ALLOCATE = 1024;
         byte[] byteArray = null;
         ByteBuffer target = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
         target.put(RECV_HEAD);
-        target.put(msgLength);
+        target.put((byte)(msgLength & 0xFF));
         target.put(state);
         target.put(code);
         target.put(MSG_ITEM_ADDR);
@@ -194,7 +197,7 @@ public class Protocol {
 		/* 将byteBuffer清理 */
         target.clear();
 
-        //Log.i(TAG, "createResponse: " + ByteArrayUtils.bytesToHex(byteArray));
+        Log.i(TAG, "createResponse: " + ByteArrayUtils.bytesToHex(byteArray));
         return byteArray;
     }
 
@@ -258,19 +261,19 @@ public class Protocol {
     public static boolean startTichengfen(byte gender, byte age, short height, short weight) throws ProtocalExcption {
         // 判断Gender
         if (gender != 0x01 && gender != 0x00) {
-            return false;
+            throw new ProtocalExcption.GenderExcetion("need 0->1, but arg is: " + gender);
         }
 
         if (age < 7 || age > 99) {
-            return false;
+            throw new ProtocalExcption.AgeExcetion("need 7->99, but arg is: " + age);
         }
 
         if (height < 900 || height > 2200) {
-            return false;
+            throw new ProtocalExcption.HeightExcetion("need 900->2200, but arg is: " + height);
         }
 
         if (weight < 100 || weight > 2000) {
-            return false;
+            throw new ProtocalExcption.WeightExcetion("need 100->2000, but arg is: " + weight);
         }
 
         // create data
@@ -450,7 +453,30 @@ public class Protocol {
     }
 
     private static final byte[] TEST_MSG_WEIGHT_TEST   = {(byte) 0xAA, 0x55, 0x05, (byte) 0xC2, 0x30, 0x00, 0x08, (byte) 0xA0};
+    private static final byte[] tmpdata = {
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x01, 0x28, (byte)0xA4, 0x06, 0x20, 0x03, 0x63, 0x19, (byte)0xB8, 0x15,
+            0x4D, 0x00, 0x7F, 0x0A, 0x76, 0x0A, 0x79, 0x01, (byte)0xE4, 0x09,
+            (byte)0xA3, 0x09, (byte)0x8F, 0x14, (byte)0xB6, 0x12, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x7B, 0x02, 0x16, 0x02, (byte)0xB5, 0x02, 0x35, 0x02, (byte)0xFC,
+            0x01, 0x1B, 0x02, (byte)0xEB, 0x00, 0x5F, 0x00, 0x7F, 0x00, 0x12,
+            0x02, (byte)0xD5, 0x01, (byte)0xF5, 0x01, 0x36, 0x01, 0x0A, 0x01, 0x4A,
+            0x01, (byte)0x9C, 0x01, 0x6D, 0x01, (byte)0x84, 0x01, 0x76, 0x00, 0x64,
+            0x00, 0x71, 0x00, 0x23, 0x24, 0x26, 0x00, (byte)0x85, 0x00, (byte)0x90,
+            0x00, (byte)0xA4, 0x00, 0x17, 0x01, (byte)0xF7, 0x00, 0x0B, 0x01, 0x26,
+            0x1F, 0x21, 0x26, 0x1F, 0x21, 0x1C, 0x01, (byte)0xEA, 0x00, (byte)0xF9,
+            0x00, 0x54, 0x00, 0x56, 0x00, 0x5C, 0x00, 0x56, 0x00, 0x56,
+            0x00, 0x5C, 0x00, 0x0E, 0x06, 0x08, 0x0E, 0x06, 0x08, (byte)0x88,
+            0x00, 0x2F, 0x00, 0x3F, 0x00, 0x24, 0x11, 0x17, 0x23, 0x11,
+            0x17, (byte)0xEB, 0x04, (byte)0x84, 0x03, 0x4C, 0x04, 0x14, 0x01, (byte)0xB9,
+            0x00, (byte)0xF0, 0x00, 0x25, 0x01, (byte)0x96, 0x00, (byte)0xC8, 0x00, 0x44,
+            0x04, 0x46, 0x04, 0x53, 0x04, (byte)0xB1, 0x03, 0x5D, 0x50, 0x5A,
+            0x20, 0x1E, 0x23, 0x03, 0x04, (byte)0xEC, 0x04, (byte)0xAA, 0x02, 0x2B,
+            (byte)0xA5, (byte)0x80, 0x7C, (byte)0x80, 0x2D, (byte)0x80, 0x0F, 0x07, (byte)0xDC, 0x0A};
     private static byte[] sendMsg = null;
+
+
     private static boolean send(byte[] msg) {
         Log.i(TAG, "send msg: " + bytesToHex(msg));
         sendMsg = new byte[msg.length];
@@ -466,7 +492,7 @@ public class Protocol {
 //            return Protocol.createResponse((byte)0x02, (byte)0x30, new byte[]{0x00, 0x00});
         }
 
-        // query
+        // query weight
         if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT, null))) {
             int weight;
             byte state = MSG_STATE_WEIGHTING;
@@ -474,9 +500,11 @@ public class Protocol {
             switch (times) {
                 case 1:
                     weight = 728;
+                    times ++;
                     break;
                 case 2:
                     weight = 730;
+                    times ++;
                     break;
                 case 3:
                     weight = 729;
@@ -484,13 +512,48 @@ public class Protocol {
                     times = 0;
                     break;
                 default:
+                    times ++;
                     weight = 0;
                     break;
             }
 
             arr = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (weight & 0xFFFF)).array();
             ret = Protocol.createResponse(state, MSG_ITEM_CODE_WEIGHT, arr);
-            times ++;
+        }
+
+        // query tichengfen
+        else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_TICHENGFEN, null))) {
+            byte state = MSG_STATE_WAIT;
+            byte[] data = null;
+            Log.i(TAG, "times: " + times);
+            switch (times) {
+                case 33:
+                    state = MSG_STATE_TESTING_1;
+                    times ++;
+                    break;
+                case 54:
+                    times ++;
+                    state = MSG_STATE_TESTING_2;
+                    break;
+                case 109:
+                    times ++;
+                    state = MSG_STATE_TESTING_3;
+                    break;
+                case 130:
+                    times ++;
+                    state = MSG_STATE_TESTING_4;
+                    break;
+                case 149:
+                    state = MSG_STATE_DONE;
+                    times = 0;
+                    data = tmpdata;
+                    break;
+                default:
+                    times ++;
+                    break;
+            }
+
+            ret = Protocol.createResponse(state, MSG_ITEM_CODE_TICHENGFEN, data);
         }
         return ret;
     }
@@ -530,7 +593,7 @@ public class Protocol {
             Log.e(TAG, "parsePackage: response.length error");
             return null;
         }
-        length = msg[start];
+        length = msg[start] & 0xFF;
 
         // 3. state
         start = MSG_STATE_START;
@@ -630,28 +693,83 @@ public class Protocol {
     }
 
     public static class ProtocalExcption extends Exception {
+        public ProtocalExcption() {
+        }
+
+        public ProtocalExcption(String message) {
+            super(message);
+        }
+
         public static class PackageException extends ProtocalExcption {
+            public PackageException() {
+            }
+
+            public PackageException(String message) {
+                super(message);
+            }
         }
 
         public static class GenderExcetion extends ProtocalExcption {
+            public GenderExcetion() {
+            }
+
+            public GenderExcetion(String message) {
+                super(message);
+            }
         }
 
         public static class AgeExcetion extends ProtocalExcption {
+            public AgeExcetion() {
+            }
+
+            public AgeExcetion(String message) {
+                super(message);
+            }
         }
 
         public static class HeightExcetion extends ProtocalExcption {
+            public HeightExcetion(String s) {
+                super(s);
+            }
+
+            public HeightExcetion() {
+            }
         }
 
         public static class WeightExcetion extends ProtocalExcption {
+            public WeightExcetion() {
+            }
+
+            public WeightExcetion(String message) {
+                super(message);
+            }
         }
 
         public static class SourceExcetion extends ProtocalExcption {
+            public SourceExcetion() {
+            }
+
+            public SourceExcetion(String message) {
+                super(message);
+            }
         }
 
         public static class TichengfenTestExcetion extends ProtocalExcption {
+            public TichengfenTestExcetion() {
+            }
+
+            public TichengfenTestExcetion(String message) {
+                super(message);
+            }
         }
 
         public static class UnkownExcetion extends ProtocalExcption {
+            public UnkownExcetion() {
+            }
+
+            public UnkownExcetion(String message) {
+                super(message);
+            }
         }
     }
 
