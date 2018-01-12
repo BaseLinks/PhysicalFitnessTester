@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import static com.kangear.bodycompositionanalyzer.Person.GENDER_FEMALE;
+import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -30,10 +33,10 @@ public class GenderActivity extends Com2Activity {
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
                     case R.id.male_radiobutton:
-                        mEditText.setText("男");
+                        mEditText.setText(GENDER_MALE);
                         break;
                     case R.id.female_radiobutton:
-                        mEditText.setText("女");
+                        mEditText.setText(GENDER_FEMALE);
                         break;
                 }
             }

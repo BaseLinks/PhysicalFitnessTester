@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import bodycompositionanalyzer.Protocol;
+
+import static bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
+import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
+import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
+import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_3;
+import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
+import static bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
+import static bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
+import static bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
+import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_GUGEJI;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_JICHUDAIXIELIANG;
@@ -98,11 +110,13 @@ public class TestActivity extends AppCompatActivity {
     private TextView mHeadAgeTextView;
 
     private Record mRecord;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        mContext = this;
 
         mRecord = WelcomeActivity.getRecord();
 
@@ -156,21 +170,101 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
-    private void setProgress2(int progress) {
-        if (progress == DEFAULT_TEST_PROGRESS_MAX) {
-            mHumanProgress.setVisibility(View.INVISIBLE);
-            // 测试完成
-            if (mRecord.getPersonId() != PERSON_ID_INVALID) {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                mRecord.setDate(dateFormat.format(new Date()));
-                RecordBean.getInstance(this).insert(mRecord);
+    private void setProgress2(final int progress) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                if (progress == DEFAULT_TEST_PROGRESS_MAX) {
+                    mHumanProgress.setVisibility(View.INVISIBLE);
+                    // 测试完成
+                    if (mRecord.getPersonId() != PERSON_ID_INVALID) {
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        mRecord.setDate(dateFormat.format(new Date()));
+                        RecordBean.getInstance(mContext).insert(mRecord);
+                    }
+                } else {
+                    mHumanProgress.setVisibility(View.VISIBLE);
+                    mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
+                    mHumanProgress.requestLayout();
+                }
+                mTextView.setText("分析中..." + progress + "%");
             }
-        } else {
-            mHumanProgress.setVisibility(View.VISIBLE);
-            mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
-            mHumanProgress.requestLayout();
-        }
-        mTextView.setText("分析中..." + progress + "%");
+        });
+    }
+
+    /**
+     * 开始
+     */
+    private void startTest(final byte gender, final byte age, final short height, final short weight) {
+        // star phread
+        new Thread() {
+            @Override
+            public void run() {
+                boolean ret = false;
+                try {
+                    ret = Protocol.startTichengfen(gender, age, height, weight);
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    ret = false;
+                } finally {
+                    if (!ret) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, "体成分测试开始成功", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
+                boolean isRun = true;
+                while(isRun) {
+                    try {
+                        sleep(20);
+                        Protocol.QueryResult qr = Protocol.qeuryTichengfen();
+                        if (qr == null) {
+                            continue;
+                        }
+                        switch (qr.getState()) {
+                            case MSG_STATE_WAIT:
+                                // 进度条走到0%
+                                break;
+                            case MSG_STATE_TESTING_1:
+                                // 进度条走到20%
+                                mHandler.sendEmptyMessage(SHOW_TEST);
+                                setProgress2(20);
+                                break;
+                            case MSG_STATE_TESTING_2:
+                                // 进度条走到40%
+                                setProgress2(40);
+                                break;
+                            case MSG_STATE_TESTING_3:
+                                // 进度条走到60%
+                                setProgress2(60);
+                                break;
+                            case MSG_STATE_TESTING_4:
+                                // 进度条走到80%
+                                setProgress2(80);
+                                break;
+                            case MSG_STATE_DONE:
+                                // 进度条走到100%
+                                setProgress2(100);
+                                mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
+                                isRun = false;
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+            }
+        }.start();
     }
 
     private Handler mHandler = new Handler() {
@@ -190,32 +284,30 @@ public class TestActivity extends AppCompatActivity {
                     mTizhibaifenbiTextView.setText(TEXT_EMPTY);
                     mJichudaixieliangTextView.setText(TEXT_EMPTY);
 
-//                    mShentizhiliangzhishuHighRadioButton.setChecked(false);
-//                    mShentizhiliangzhishuNormalRadioButton.setChecked(false);
-//                    mShentizhiliangzhishuLowRadioButton.setChecked(false);
-//
-//                    mTizhibaifenbiHighRadioButton.setChecked(false);
-//                    mTizhibaifenbiNormalRadioButton.setChecked(false);
-//                    mTizhibaifenbiLowRadioButton.setChecked(false);
-                    mHandler.sendEmptyMessageDelayed(SHOW_WAIT, 1 * 1000);
+                    mHandler.sendEmptyMessage(SHOW_WAIT);
                     // test
                     break;
                 case SHOW_WAIT: // 等待测试 界面
                     mWaitView.setVisibility(View.VISIBLE);
                     mTestView.setVisibility(View.GONE);
-                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
+//                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
+                    byte gender = (mRecord.getGender() == GENDER_MALE) ? PROTOCAL_GENDER_MALE : PROTOCAL_GENDER_FEMALE;
+                    byte age = (byte)(mRecord.getAge() & 0xFF);
+                    short height = (short) (((int)mRecord.getHeight() & 0xFFFF) * 10);
+                    short weight = (short) (((int)mRecord.getWeight() & 0xFFFF) * 10);
+                    startTest(gender, age, height, weight);
                     break;
                 case SHOW_TEST: // 测试中界面 界面
                     mWaitView.setVisibility(View.GONE);
                     mTestView.setVisibility(View.VISIBLE);
-                    setProgress2(progress);
-                    progress ++;
-                    if (progress <= DEFAULT_TEST_PROGRESS_MAX) {
-                        sendEmptyMessageDelayed(msg.what, PROGRESS_STEP_TIME);
-                    } else {
-                        progress = 0;
-                        sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
-                    }
+//                    setProgress2(progress);
+//                    progress ++;
+//                    if (progress <= DEFAULT_TEST_PROGRESS_MAX) {
+//                        sendEmptyMessageDelayed(msg.what, PROGRESS_STEP_TIME);
+//                    } else {
+//                        progress = 0;
+//                        sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
+//                    }
                     break;
                 case SHOW_TEST_DONE: // show weight
                     update(weightProgress, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
