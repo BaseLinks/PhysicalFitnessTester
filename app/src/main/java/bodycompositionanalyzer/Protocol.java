@@ -62,7 +62,7 @@ public class Protocol {
     // 7. 数据 上位机或下位机的数据
 
     // 8. CRC 校验 CRC--指对前面的整个数据包（不含 CRC 字符）做 16 位 CRC
-    public static final int MSG_CRC             = 0x00;
+    public static final int MSG_CRC                   = 0x00;
 
     // 四.命令说明
     // 1， 0XC0： 停止命令，使下位机停止当前工作，回到空闲等待状态
@@ -123,58 +123,13 @@ public class Protocol {
 
 
     // 六，命令的详细解释
-    /**
-     * query weight
-     * @return
-     */
-    public static byte[] createQueryWeight() {
-        return createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT);
-    }
-
-    public static byte[] createStartWeight() {
-        return createCmd(MSG_CMD_START, MSG_ITEM_CODE_WEIGHT);
-    }
-
-    public static byte[] createStopWeight() {
-        return createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_WEIGHT);
-    }
-
-    public static byte[] createReadWeight() {
-        return createCmd(MSG_CMD_READ, MSG_ITEM_CODE_WEIGHT);
-    }
-
-    public static byte[] createWriteWeight() {
-        return createCmd(MSG_CMD_WRITE, MSG_ITEM_CODE_WEIGHT);
-    }
-
-    /**
-     * query weight
-     * @return
-     */
-    public static byte[] createQueryTichengfen() {
-        return createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_TICHENGFEN);
-    }
-
-    public static byte[] createStartTichengfen() {
-        return createCmd(MSG_CMD_START, MSG_ITEM_CODE_TICHENGFEN);
-    }
-
-    public static byte[] createStopTichengfen() {
-        return createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_TICHENGFEN);
-    }
-
-    public static byte[] createReadTichengfen() {
-        return createCmd(MSG_CMD_READ, MSG_ITEM_CODE_TICHENGFEN);
-    }
-
-    public static byte[] createWriteTichengfen() {
-        return createCmd(MSG_CMD_WRITE, MSG_ITEM_CODE_TICHENGFEN);
-    }
-
     // [引导符][消息长度] [命令/状态][项目代码][项目地址][数 据] [CRC]
-    public static byte[] createCmd(byte cmd, byte code) {
-        byte[] data = {};
-        int dataLength = 0;
+    public static byte[] createCmd(byte cmd, byte code, byte[] data) {
+        byte[] tmpDataArray = {};
+        if (data != null) {
+            tmpDataArray = data;
+        }
+        int dataLength = tmpDataArray.length;
         // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
         byte msgLength = (byte) ((MSG_CMD_LENGTH
                         + MSG_ITEM_CODE_LENGTH
@@ -189,7 +144,7 @@ public class Protocol {
         target.put(cmd);
         target.put(code);
         target.put(MSG_ITEM_ADDR);
-        target.put(data);
+        target.put(tmpDataArray);
         CRC_XModem(new byte[] {(byte) 0xAA, 0x55, 0x05, (byte) 0xC0, 0x31, 0x00});
         int crcEnd = MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH + msgLength - MSG_CRC_LENGTH;
         target.put(calcCRC(Arrays.copyOfRange(target.array(), 0, crcEnd)));
@@ -209,14 +164,14 @@ public class Protocol {
     /**
      * STOP
      * @return
-     * @throws Exception
+     * @throws ProtocalExcption
      */
-    private static boolean stop(byte item) throws Exception {
+    private static boolean stop(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_STOP, item));
+        boolean ret = send(createCmd(MSG_CMD_STOP, item, null));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;
@@ -226,25 +181,134 @@ public class Protocol {
         return true;
     }
 
-    public static boolean stopWeight() throws Exception {
+    /**
+     * 停止体重测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean stopWeight() throws ProtocalExcption {
         return stop(MSG_ITEM_CODE_WEIGHT);
     }
 
-    public static boolean stopTichengfen() throws Exception {
+    /**
+     * 停止体成分测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean stopTichengfen() throws ProtocalExcption {
         return stop(MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    /**
+     * 开始体重测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean startWeight() throws ProtocalExcption {
+        return start(MSG_ITEM_CODE_WEIGHT, null);
+    }
+
+    /**
+     * 开始体成分测试
+     * 这些硬性条件需要界面做对应的设置
+     * @param gender 性别(男-1, 女-0)
+     * @param age    年龄(7-99岁)
+     * @param height 身高: 900-2200厘米,小数点一位2byte
+     * @param weight 体重：100-2000千克，小数点一位2byte
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean startTichengfen(byte gender, byte age, short height, short weight) throws ProtocalExcption {
+        // 判断Gender
+        if (gender != 0x01 && gender != 0x00) {
+            return false;
+        }
+
+        if (age < 7 || age > 99) {
+            return false;
+        }
+
+        if (height < 900 || height > 2200) {
+            return false;
+        }
+
+        if (weight < 100 || weight > 2000) {
+            return false;
+        }
+
+        // create data
+        byte[] tmpHeight = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (height & 0xFFFF)).array();
+        byte[] tmpWeight = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (weight & 0xFFFF)).array();
+        byte[] data = {gender, age, tmpHeight[0], tmpHeight[1], tmpWeight[0], tmpWeight[1]};
+        return start(MSG_ITEM_CODE_TICHENGFEN, data);
+    }
+
+    /**
+     * 开始体重测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean qeuryWeight() throws ProtocalExcption {
+        return query(MSG_ITEM_CODE_WEIGHT);
+    }
+
+    /**
+     * 开始体成分测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean qeuryTichengfen() throws ProtocalExcption {
+        return query(MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    /**
+     * 开始体重测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean readWeight() throws ProtocalExcption {
+        return read(MSG_ITEM_CODE_WEIGHT);
+    }
+
+    /**
+     * 开始体成分测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean readTichengfen() throws ProtocalExcption {
+        return read(MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+
+    /**
+     * 开始体重测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean writeWeight() throws ProtocalExcption {
+        return write(MSG_ITEM_CODE_WEIGHT);
+    }
+
+    /**
+     * 开始体成分测试
+     * @return
+     * @throws ProtocalExcption
+     */
+    public static boolean writeTichengfen() throws ProtocalExcption {
+        return write(MSG_ITEM_CODE_TICHENGFEN);
     }
 
     /**
      * Query
      * @return
-     * @throws Exception
+     * @throws ProtocalExcption
      */
-    public static boolean query(byte item) throws Exception {
+    private static boolean query(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_QUERY, item));
+        boolean ret = send(createCmd(MSG_CMD_QUERY, item, null));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;
@@ -257,14 +321,14 @@ public class Protocol {
     /**
      * Start
      * @return
-     * @throws Exception
+     * @throws ProtocalExcption
      */
-    public static boolean start(byte item) throws Exception {
+    private static boolean start(byte item, byte[] data) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_START, item));
+        boolean ret = send(createCmd(MSG_CMD_START, item, data));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;
@@ -278,14 +342,14 @@ public class Protocol {
     /**
      * Read
      * @return
-     * @throws Exception
+     * @throws ProtocalExcption
      */
-    public static boolean read(byte item) throws Exception {
+    private static boolean read(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_READ, item));
+        boolean ret = send(createCmd(MSG_CMD_READ, item, null));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;
@@ -299,14 +363,14 @@ public class Protocol {
     /**
      * Write
      * @return
-     * @throws Exception
+     * @throws ProtocalExcption
      */
-    public static boolean write(byte item) throws Exception {
+    private static boolean write(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_WRITE, item));
+        boolean ret = send(createCmd(MSG_CMD_WRITE, item, null));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;
@@ -316,12 +380,12 @@ public class Protocol {
         return true;
     }
 
-    public static boolean send(byte[] msg) {
+    private static boolean send(byte[] msg) {
         Log.i(TAG, "send msg: " + bytesToHex(msg));
         return true;
     }
 
-    public static byte[] recv() {
+    private static byte[] recv() {
         return null;
     }
 
@@ -329,7 +393,7 @@ public class Protocol {
      * @param msg response
      * @return data
      */
-    public static byte[] parseMsg(byte msg[], byte code, byte state) throws Exception {
+    public static byte[] parseMsg(byte msg[], byte code, byte state) throws ProtocalExcption {
         byte[] b;
         byte[] ret;
         int tmpInt;
@@ -423,7 +487,7 @@ public class Protocol {
         return ret;
     }
 
-    public static void parseErrorState(byte state) throws Exception {
+    public static void parseErrorState(byte state) throws ProtocalExcption {
         switch (state) {
             case MSG_STATE_ERR_DATA_PACK:
                 throw new ProtocalExcption.PackageException();
@@ -445,26 +509,26 @@ public class Protocol {
         }
     }
 
-    public static class ProtocalExcption {
-        public static class PackageException extends Exception {
+    public static class ProtocalExcption extends Exception {
+        public static class PackageException extends ProtocalExcption {
         }
 
-        public static class GenderExcetion extends Exception {
+        public static class GenderExcetion extends ProtocalExcption {
         }
 
-        public static class AgeExcetion extends Exception {
+        public static class AgeExcetion extends ProtocalExcption {
         }
 
-        public static class HeightExcetion extends Exception {
+        public static class HeightExcetion extends ProtocalExcption {
         }
 
-        public static class WeightExcetion extends Exception {
+        public static class WeightExcetion extends ProtocalExcption {
         }
 
-        public static class SourceExcetion extends Exception {
+        public static class SourceExcetion extends ProtocalExcption {
         }
 
-        public static class TichengfenTestExcetion extends Exception {
+        public static class TichengfenTestExcetion extends ProtocalExcption {
         }
     }
 
