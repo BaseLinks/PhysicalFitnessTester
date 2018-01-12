@@ -145,7 +145,6 @@ public class Protocol {
         target.put(code);
         target.put(MSG_ITEM_ADDR);
         target.put(tmpDataArray);
-        CRC_XModem(new byte[] {(byte) 0xAA, 0x55, 0x05, (byte) 0xC0, 0x31, 0x00});
         int crcEnd = MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH + msgLength - MSG_CRC_LENGTH;
         target.put(calcCRC(Arrays.copyOfRange(target.array(), 0, crcEnd)));
 
@@ -158,6 +157,44 @@ public class Protocol {
         target.clear();
 
         //Log.i(TAG, "" + ByteArrayUtils.bytesToHex(byteArray));
+        return byteArray;
+    }
+
+    // for test
+    // [引导符][消息长度] [命令/状态][项目代码][项目地址][数 据] [CRC]
+    public static byte[] createResponse(byte state, byte code, byte[] data) {
+        byte[] tmpDataArray = {};
+        if (data != null) {
+            tmpDataArray = data;
+        }
+        int dataLength = tmpDataArray.length;
+        // 消息长度 指 [命令/状态][项目代码][项目地址][数据][CRC] 的总长度(字节数)
+        byte msgLength = (byte) ((MSG_STATE_LENGTH
+                + MSG_ITEM_CODE_LENGTH
+                + MSG_ITEM_ADDR_LENGTH
+                + dataLength
+                + MSG_CRC_LENGTH) & 0xFF);
+        int BYTE_BUFFER_ALLOCATE = 1024;
+        byte[] byteArray = null;
+        ByteBuffer target = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
+        target.put(RECV_HEAD);
+        target.put(msgLength);
+        target.put(state);
+        target.put(code);
+        target.put(MSG_ITEM_ADDR);
+        target.put(tmpDataArray);
+        int crcEnd = MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH + msgLength - MSG_CRC_LENGTH;
+        target.put(calcCRC(Arrays.copyOfRange(target.array(), 0, crcEnd)));
+
+        target.limit(target.remaining());
+        target.rewind();
+		/* 提取 */
+        byteArray = new byte[BYTE_BUFFER_ALLOCATE - target.remaining()];
+        target.get(byteArray);
+		/* 将byteBuffer清理 */
+        target.clear();
+
+        //Log.i(TAG, "createResponse: " + ByteArrayUtils.bytesToHex(byteArray));
         return byteArray;
     }
 
@@ -248,7 +285,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean qeuryWeight() throws ProtocalExcption {
+    public static QueryResult qeuryWeight() throws ProtocalExcption {
         return query(MSG_ITEM_CODE_WEIGHT);
     }
 
@@ -257,7 +294,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean qeuryTichengfen() throws ProtocalExcption {
+    public static QueryResult qeuryTichengfen() throws ProtocalExcption {
         return query(MSG_ITEM_CODE_TICHENGFEN);
     }
 
@@ -267,7 +304,8 @@ public class Protocol {
      * @throws ProtocalExcption
      */
     public static boolean readWeight() throws ProtocalExcption {
-        return read(MSG_ITEM_CODE_WEIGHT);
+        byte[] data = read(MSG_ITEM_CODE_WEIGHT);
+        return true;
     }
 
     /**
@@ -276,7 +314,8 @@ public class Protocol {
      * @throws ProtocalExcption
      */
     public static boolean readTichengfen() throws ProtocalExcption {
-        return read(MSG_ITEM_CODE_TICHENGFEN);
+        byte[] data = read(MSG_ITEM_CODE_TICHENGFEN);
+        return true;
     }
 
 
@@ -299,23 +338,53 @@ public class Protocol {
     }
 
     /**
+     * ery result
+     */
+    public static class QueryResult {
+        byte state;
+        byte[] data;
+
+        public void setState(byte state) {
+            this.state = state;
+        }
+
+        public byte getState() {
+            return state;
+        }
+
+        public byte[] getData() {
+            return data;
+        }
+
+        public void setData(byte[] data) {
+            this.data = data;
+        }
+
+        public short getShortFromData() {
+            if (data == null || data.length == 0)
+                return 0;
+
+            byte[] b;
+            b = Arrays.copyOfRange(getData(), 0, 2);
+            return (short) (ByteBuffer.wrap(b).order(BYTE_ORDER).getShort() & 0xFFFF);
+        }
+    }
+
+    /**
      * Query
      * @return
      * @throws ProtocalExcption
      */
-    private static boolean query(byte item) throws ProtocalExcption {
+    private static QueryResult query(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
-            return false;
+            throw new ProtocalExcption.UnkownExcetion();
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_QUERY, item, null));
-        if (!ret) {
-            Log.e(TAG, "send error");
-            return false;
-        }
+        if (!send(createCmd(MSG_CMD_QUERY, item, null)))
+            throw new ProtocalExcption.UnkownExcetion();
+
         // 2. recv msg
-        parseMsg(recv(), item, MSG_STATE_OK);
-        return true;
+        return parseQueryMsg(recv(), item);
     }
 
     /**
@@ -344,19 +413,19 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static boolean read(byte item) throws ProtocalExcption {
-        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
-            return false;
+    private static byte[] read(byte item) throws ProtocalExcption {
+        if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN) {
+            throw new ProtocalExcption.UnkownExcetion();
+        }
 
         // 1. send msg
         boolean ret = send(createCmd(MSG_CMD_READ, item, null));
         if (!ret) {
-            Log.e(TAG, "send error");
-            return false;
+            throw new ProtocalExcption.UnkownExcetion();
         }
+
         // 2. recv msg
-        parseMsg(recv(), item, MSG_STATE_OK);
-        return true;
+        return parseMsg(recv(), item, MSG_STATE_OK);
     }
 
 
@@ -380,20 +449,58 @@ public class Protocol {
         return true;
     }
 
+    private static final byte[] TEST_MSG_WEIGHT_TEST   = {(byte) 0xAA, 0x55, 0x05, (byte) 0xC2, 0x30, 0x00, 0x08, (byte) 0xA0};
+    private static byte[] sendMsg = null;
     private static boolean send(byte[] msg) {
         Log.i(TAG, "send msg: " + bytesToHex(msg));
+        sendMsg = new byte[msg.length];
+        System.arraycopy(msg, 0, sendMsg, 0, msg.length);
         return true;
     }
 
+    private static int times = 0;
     private static byte[] recv() {
-        return null;
+        byte[] ret = null;
+
+        if (Arrays.equals(sendMsg, TEST_MSG_WEIGHT_TEST)) {
+//            return Protocol.createResponse((byte)0x02, (byte)0x30, new byte[]{0x00, 0x00});
+        }
+
+        // query
+        if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT, null))) {
+            int weight;
+            byte state = MSG_STATE_WEIGHTING;
+            byte[] arr;
+            switch (times) {
+                case 1:
+                    weight = 728;
+                    break;
+                case 2:
+                    weight = 730;
+                    break;
+                case 3:
+                    weight = 729;
+                    state = MSG_STATE_DONE;
+                    times = 0;
+                    break;
+                default:
+                    weight = 0;
+                    break;
+            }
+
+            arr = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (weight & 0xFFFF)).array();
+            ret = Protocol.createResponse(state, MSG_ITEM_CODE_WEIGHT, arr);
+            times ++;
+        }
+        return ret;
     }
 
     /**
-     * @param msg response
-     * @return data
+     * @param msg Message
+     * @return QueryResult
      */
-    public static byte[] parseMsg(byte msg[], byte code, byte state) throws ProtocalExcption {
+    public static QueryResult parseQueryMsg(byte msg[], byte code) throws ProtocalExcption {
+        QueryResult qr = new QueryResult();
         byte[] b;
         byte[] ret;
         int tmpInt;
@@ -423,8 +530,7 @@ public class Protocol {
             Log.e(TAG, "parsePackage: response.length error");
             return null;
         }
-        b = Arrays.copyOfRange(msg, start, end);
-        length = ByteBuffer.wrap(b).order(BYTE_ORDER).getShort() & 0xFFFF;
+        length = msg[start];
 
         // 3. state
         start = MSG_STATE_START;
@@ -434,9 +540,7 @@ public class Protocol {
             return null;
         }
         tmpByte = msg[MSG_STATE_START];
-        if (tmpByte != state) {
-            parseErrorState(tmpByte);
-        }
+        qr.setState(tmpByte);
 
         // 4. CODE
         start = MSG_ITEM_CODE_START;
@@ -465,12 +569,12 @@ public class Protocol {
             Log.e(TAG, "parsePackage: response.length error");
             return null;
         }
-        ret = Arrays.copyOfRange(msg, start, end);
+        qr.setData(Arrays.copyOfRange(msg, start, end));
 
         // 8. Package crc
         int startSum = MSG_HEAD_START;
         int endSum = startSum + (tmpInt - MSG_CRC_LENGTH) ;
-        start = MSG_CRC_START;
+        start = MSG_DATA_START + dataLength;
         end = start + MSG_CRC_LENGTH;
         if (msg.length < end) {
             Log.e(TAG, "parsePackage: response.length error");
@@ -479,12 +583,28 @@ public class Protocol {
         b = Arrays.copyOfRange(msg, start, end);
         byte[] sum = calcCRC(Arrays.copyOfRange(msg, startSum, endSum));
         if (!Arrays.equals(b, sum)) {
-            Log.e(TAG, "parsePackage: RESPONSE_SUM error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )");
+            Log.e(TAG, "parsePackage: MSG_CRC error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )");
             return null;
         }
 
         //Log.e(TAG, "parsePackage: " + bytesToHex(ret));
-        return ret;
+        return qr;
+    }
+
+    /**
+     * @param msg response
+     * @return data
+     */
+    public static byte[] parseMsg(byte msg[], byte code, byte state) throws ProtocalExcption {
+        QueryResult qr = parseQueryMsg(msg, code);
+        if (qr == null)
+            return null;
+
+        if (qr.getState() != state) {
+            parseErrorState(qr.getState());
+            return null;
+        }
+        return qr.getData();
     }
 
     public static void parseErrorState(byte state) throws ProtocalExcption {
@@ -529,6 +649,9 @@ public class Protocol {
         }
 
         public static class TichengfenTestExcetion extends ProtocalExcption {
+        }
+
+        public static class UnkownExcetion extends ProtocalExcption {
         }
     }
 
