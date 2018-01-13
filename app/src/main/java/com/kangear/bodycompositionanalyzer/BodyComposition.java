@@ -45,6 +45,11 @@ public class BodyComposition {
     public final Third 总能耗       = new Third(198, 2, 1);
     public final List<Third> mList = new ArrayList<Third>();
 
+    public static final int LEVEL_LOW    = 0;
+    public static final int LEVEL_NORMAL = 1;
+    public static final int LEVEL_HIGH   = 2;
+
+
 
     /**
      * 数据类
@@ -181,8 +186,25 @@ public class BodyComposition {
             }
             rate = position / range;
             percent = (int) (rate * 100);
-            Log.i(LOG_TAG, "getProgressLength percent: " + percent + " rate: " + rate + " position: " + position + " range: " + range);
+            // Log.i(LOG_TAG, "getProgressLength percent: " + percent + " rate: " + rate + " position: " + position + " range: " + range);
             return percent;
+        }
+
+        /**
+         * @return level
+         */
+        public int getLevel() {
+            float cur = getCur();
+            float min = getMin();
+            float max = getMax();
+
+            if (cur < min) {
+                return LEVEL_LOW;
+            } else if (cur > max){
+                return LEVEL_HIGH;
+            } else {
+                return LEVEL_NORMAL;
+            }
         }
 
         @Override
