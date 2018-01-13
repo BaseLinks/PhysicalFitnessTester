@@ -73,9 +73,9 @@ public class TestActivity extends AppCompatActivity {
     private TextView mTextView;
     private View mButtonsView;
     private View mProgressView;
-    private static final int LOW            = 1;
-    private static final int NORMAL         = 2;
-    private static final int HIGH           = 3;
+    private static final int LOW            = BodyComposition.LEVEL_LOW;
+    private static final int NORMAL         = BodyComposition.LEVEL_NORMAL;
+    private static final int HIGH           = BodyComposition.LEVEL_HIGH;
     private int shentizhiliangzhishuLevel   = LOW;
     private int tizhibaifenbiLevel          = HIGH;
     private double tizhibaifenbi            = 32.7;
@@ -336,27 +336,33 @@ public class TestActivity extends AppCompatActivity {
 
                 case SHOW_TIZHIFANG_DONE: // show 身体质量指数(BMI)
                     curValue = mBodyComposition.BMI.getCur();
-                    progress = mBodyComposition.BMI.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+                    progress = mBodyComposition.BMI.getLevel();
                     updateFeipangchengfen(curValue,
                             1,
                             mShentizhiliangzhishuRadioGroup,
-                            getShentizhiliangzhishuRadioButtonResId(shentizhiliangzhishuLevel),
+                            getShentizhiliangzhishuRadioButtonResId(progress),
                             msg.what,
                             SHOW_SHENTIZHILIANGZHISHU_DONE,
                             mShentizhiliangzhishuTextView);
                     break;
+
+
                 case SHOW_SHENTIZHILIANGZHISHU_DONE: // show 体脂百分比
-                    updateFeipangchengfen(tizhibaifenbi,
+                    curValue = mBodyComposition.体脂百分比.getCur();
+                    progress = mBodyComposition.体脂百分比.getLevel();
+                    updateFeipangchengfen(curValue,
                             1,
                             mTizhibaifenbiRadioGroup,
-                            getTizhibaifenbiRadioButtonResId(tizhibaifenbiLevel),
+                            getTizhibaifenbiRadioButtonResId(progress),
                             msg.what,
                             SHOW_TIZHIFANG_BAIFENGBI_DONE,
                             mTizhibaifenbiTextView);
                     break;
-                case SHOW_TIZHIFANG_BAIFENGBI_DONE: // show 体脂百分比
+
+                case SHOW_TIZHIFANG_BAIFENGBI_DONE: // show 基础代谢量
+                    curValue = mBodyComposition.基础代谢.getCur();
                     mJichudaixieliangTextView.startAnimation(AnimationUtils.loadAnimation(TestActivity.this, R.anim.test_textview));
-                    mJichudaixieliangTextView.setText(String.valueOf((int)jichudaixieliang));
+                    mJichudaixieliangTextView.setText(String.format(FORMAT_WEIGHT, curValue));
                     mHandler.sendEmptyMessageDelayed(SHOW_JICHUDAIXIELIANG_DONE, 2 * 1000);
                     break;
 
