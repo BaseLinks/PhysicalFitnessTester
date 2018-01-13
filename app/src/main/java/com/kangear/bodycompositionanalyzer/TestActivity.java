@@ -362,7 +362,7 @@ public class TestActivity extends AppCompatActivity {
                 case SHOW_TIZHIFANG_BAIFENGBI_DONE: // show 基础代谢量
                     curValue = mBodyComposition.基础代谢.getCur();
                     mJichudaixieliangTextView.startAnimation(AnimationUtils.loadAnimation(TestActivity.this, R.anim.test_textview));
-                    mJichudaixieliangTextView.setText(String.format(FORMAT_WEIGHT, curValue));
+                    mJichudaixieliangTextView.setText("" + (int)curValue);
                     mHandler.sendEmptyMessageDelayed(SHOW_JICHUDAIXIELIANG_DONE, 2 * 1000);
                     break;
 
