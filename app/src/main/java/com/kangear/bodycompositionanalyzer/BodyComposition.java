@@ -40,16 +40,15 @@ public class BodyComposition {
     public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1);
     public final Third 腰臀比      = new Third(177, 178, 179, 1, 2);
     public final Third 内脏指数     = new Third(185, 2, 1);
-    public final Third 评分        = new Third(187, 2, 0);
+    public final Third 评分        = new Third(187, 2, 1);
     public final Third 基础代谢     = new Third(196, 2, 0);
     public final Third 总能耗       = new Third(198, 2, 1);
+    public final Third 去脂体重     = new Third(81, 83, 85, 2, 1);
     public final List<Third> mList = new ArrayList<Third>();
 
     public static final int LEVEL_LOW    = 0;
     public static final int LEVEL_NORMAL = 1;
     public static final int LEVEL_HIGH   = 2;
-
-
 
     /**
      * 数据类
@@ -96,10 +95,7 @@ public class BodyComposition {
 
         //直接还原真实的值
         public float getCur() {
-            float ret = cur;
-            if (dot != 0)
-                ret = cur / (dot * 10);
-            return ret;
+            return (float) (cur / Math.pow(10, dot));
         }
 
         public void setCur(float cur) {
@@ -107,10 +103,7 @@ public class BodyComposition {
         }
 
         public float getMin() {
-            float ret = min;
-            if (dot != 0)
-                ret = min / (dot * 10);
-            return ret;
+            return (float) (min / Math.pow(10, dot));
         }
 
         public void setMin(int min) {
@@ -118,10 +111,7 @@ public class BodyComposition {
         }
 
         public float getMax() {
-            float ret = max;
-            if (dot != 0)
-                ret = max / (dot * 10);
-            return ret;
+            return (float) (max / Math.pow(10, dot));
         }
 
         public void setMax(int max) {
@@ -219,6 +209,24 @@ public class BodyComposition {
                     ", length=" + length +
                     '}';
         }
+    }
+
+    /**
+     * 脂肪调整量
+     * @return
+     */
+    public float getZhifangAdjustment() {
+        float ret = 体脂肪量.getCur() - 体脂肪量.getMin();
+        return ret > 0 ? ret : 0;
+    }
+
+    /**
+     * 肌肉调整量
+     * @return
+     */
+    public float getJirouAdjustment() {
+        float ret = 骨骼肌.getMax() - 骨骼肌.getCur();
+        return ret > 0 ? ret : 0;
     }
 
     /* 位置 */
@@ -845,6 +853,7 @@ public class BodyComposition {
         mList.add(评分);
         mList.add(基础代谢);
         mList.add(总能耗);
+        mList.add(去脂体重);
 
         int i = 0;
         for (Third t : mList) {

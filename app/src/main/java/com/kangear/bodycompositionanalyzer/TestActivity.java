@@ -253,6 +253,7 @@ public class TestActivity extends AppCompatActivity {
                                 setProgress2(90);
                                 Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
                                 mBodyComposition = new BodyComposition(qr.getData());
+                                WelcomeActivity.setBodyComposition(mBodyComposition);
                                 setProgress2(100);
                                 mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
                                 isRun = false;
