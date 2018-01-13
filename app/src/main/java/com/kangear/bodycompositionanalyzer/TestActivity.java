@@ -113,6 +113,12 @@ public class TestActivity extends AppCompatActivity {
 
     private Record mRecord;
     private Context mContext;
+    private BodyComposition mBodyComposition;
+
+    // |_(低于)_|_(正常)_|_(超过)_| from UI
+    private static final float 低于_WIDTH_PX = 110;
+    private static final float 正常_WIDTH_PX = 110;
+    private static final float 超过_WIDTH_PX = 140;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,7 +263,7 @@ public class TestActivity extends AppCompatActivity {
                                 // 进度条走到100%
                                 setProgress2(90);
                                 Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
-                                BodyComposition bc = new BodyComposition(qr.getData());
+                                mBodyComposition = new BodyComposition(qr.getData());
                                 setProgress2(100);
                                 mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
                                 isRun = false;
@@ -275,6 +281,8 @@ public class TestActivity extends AppCompatActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            float curValue;
+            int progress;
             switch (msg.what) {
                 case SHOW_CLEAN: // show weight
                     mWeightProgressBar.setProgress(0);
@@ -314,15 +322,29 @@ public class TestActivity extends AppCompatActivity {
 //                        sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
 //                    }
                     break;
+
+
                 case SHOW_TEST_DONE: // show weight
-                    update(weightProgress, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
+                    progress = mBodyComposition.体重.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+                    curValue = mBodyComposition.体重.getCur() / 10f;
+                    update(progress, curValue, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
                     break;
+
+
                 case SHOW_WEIGHT_DONE: // show gugeji
-                    update(gugejiProgress, mGugejiProgressBar, msg.what, SHOW_GUGEJI_DONE, mGugejiTextView);
+                    curValue = mBodyComposition.骨骼肌.getCur() / 10f;
+                    progress = mBodyComposition.骨骼肌.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+                    update(progress, curValue, mGugejiProgressBar, msg.what, SHOW_GUGEJI_DONE, mGugejiTextView);
                     break;
+
+
                 case SHOW_GUGEJI_DONE: // show tizhifang
-                    update(tizhifangProgress, mTizhifangProgressBar, msg.what, SHOW_TIZHIFANG_DONE, mTizhifangTextView);
+                    curValue = mBodyComposition.体脂肪量.getCur() / 10f;
+                    progress = mBodyComposition.体脂肪量.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+                    update(progress, curValue, mTizhifangProgressBar, msg.what, SHOW_TIZHIFANG_DONE, mTizhifangTextView);
                     break;
+
+
                 case SHOW_TIZHIFANG_DONE: // show 身体质量指数
                     updateFeipangchengfen(shentizhiliangzhishu,
                             1,
@@ -388,13 +410,13 @@ public class TestActivity extends AppCompatActivity {
         return ret;
     }
 
-    private void update(double max, ProgressBar pb, int curWhat, int nextWhat, TextView tv) {
+    private void update(double maxProgress, double curValule, ProgressBar pb, int curWhat, int nextWhat, TextView tv) {
         progress ++;
-        if (progress <= max) {
+        if (progress <= maxProgress) {
             pb.setProgress(progress);
             mHandler.sendEmptyMessageDelayed(curWhat, 20);
         } else {
-            tv.setText(String.format(FORMAT_WEIGHT, max));
+            tv.setText(String.format(FORMAT_WEIGHT, curValule));
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
             progress = 0;
             mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
