@@ -374,6 +374,24 @@ public class Protocol {
     }
 
     /**
+     * @param data
+     * @param start
+     * @return
+     */
+    public static short getShortFromData(byte[] data, int start) {
+        if (data == null || data.length < 2)
+            return 0;
+
+        if (start > (data.length - 2)) {
+            return 0;
+        }
+
+        byte[] b;
+        b = Arrays.copyOfRange(data, start, start + 2);
+        return (short) (ByteBuffer.wrap(b).order(BYTE_ORDER).getShort() & 0xFFFF);
+    }
+
+    /**
      * Query
      * @return
      * @throws ProtocalExcption

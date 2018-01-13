@@ -18,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kangear.common.utils.ByteArrayUtils;
+
 import org.xutils.ex.DbException;
 
 import java.text.DateFormat;
@@ -253,6 +255,9 @@ public class TestActivity extends AppCompatActivity {
                                 break;
                             case MSG_STATE_DONE:
                                 // 进度条走到100%
+                                setProgress2(90);
+                                Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
+                                BodyComposition bc = new BodyComposition(qr.getData());
                                 setProgress2(100);
                                 mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
                                 isRun = false;
