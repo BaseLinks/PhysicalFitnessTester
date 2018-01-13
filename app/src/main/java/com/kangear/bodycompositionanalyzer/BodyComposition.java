@@ -40,8 +40,8 @@ public class BodyComposition {
     public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1);
     public final Third 腰臀比      = new Third(177, 178, 179, 1, 2);
     public final Third 内脏指数     = new Third(185, 2, 1);
-    public final Third 评分        = new Third(187, 2, 1);
-    public final Third 基础代谢     = new Third(196, 2, 1);
+    public final Third 评分        = new Third(187, 2, 0);
+    public final Third 基础代谢     = new Third(196, 2, 0);
     public final Third 总能耗       = new Third(198, 2, 1);
     public final List<Third> mList = new ArrayList<Third>();
 
