@@ -76,11 +76,7 @@ public class TestActivity extends AppCompatActivity {
     private static final int LOW            = 1;
     private static final int NORMAL         = 2;
     private static final int HIGH           = 3;
-    private double weightProgress           = 67.4;
-    private double gugejiProgress           = 36.3;
-    private double tizhifangProgress        = 46.1;
     private int shentizhiliangzhishuLevel   = LOW;
-    private double shentizhiliangzhishu     = 30.1;
     private int tizhibaifenbiLevel          = HIGH;
     private double tizhibaifenbi            = 32.7;
     private double jichudaixieliang         = 1787;
@@ -169,13 +165,6 @@ public class TestActivity extends AppCompatActivity {
         mHeadHeightTextView.setText(String.valueOf(record.getHeight()));
 
         mWeightTextView.setText(String.valueOf(record.getWeight()));
-        weightProgress         = record.getWeight();
-        gugejiProgress         = DEFAULT_GUGEJI;
-        tizhifangProgress      = DEFAULT_TIZHIFANG;
-        shentizhiliangzhishu   = DEFAULT_SHENTIZHILIANGZHISHU;
-        tizhibaifenbi          = DEFAULT_TIZHIBAIFENBI;
-        jichudaixieliang       = DEFAULT_JICHUDAIXIELIANG;
-
     }
 
     private void setProgress2(final int progress) {
@@ -326,27 +315,29 @@ public class TestActivity extends AppCompatActivity {
 
                 case SHOW_TEST_DONE: // show weight
                     progress = mBodyComposition.体重.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
-                    curValue = mBodyComposition.体重.getCur() / 10f;
+                    curValue = mBodyComposition.体重.getCur();
                     update(progress, curValue, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
                     break;
 
 
                 case SHOW_WEIGHT_DONE: // show gugeji
-                    curValue = mBodyComposition.骨骼肌.getCur() / 10f;
+                    curValue = mBodyComposition.骨骼肌.getCur();
                     progress = mBodyComposition.骨骼肌.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
                     update(progress, curValue, mGugejiProgressBar, msg.what, SHOW_GUGEJI_DONE, mGugejiTextView);
                     break;
 
 
                 case SHOW_GUGEJI_DONE: // show tizhifang
-                    curValue = mBodyComposition.体脂肪量.getCur() / 10f;
+                    curValue = mBodyComposition.体脂肪量.getCur();
                     progress = mBodyComposition.体脂肪量.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
                     update(progress, curValue, mTizhifangProgressBar, msg.what, SHOW_TIZHIFANG_DONE, mTizhifangTextView);
                     break;
 
 
-                case SHOW_TIZHIFANG_DONE: // show 身体质量指数
-                    updateFeipangchengfen(shentizhiliangzhishu,
+                case SHOW_TIZHIFANG_DONE: // show 身体质量指数(BMI)
+                    curValue = mBodyComposition.BMI.getCur();
+                    progress = mBodyComposition.BMI.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+                    updateFeipangchengfen(curValue,
                             1,
                             mShentizhiliangzhishuRadioGroup,
                             getShentizhiliangzhishuRadioButtonResId(shentizhiliangzhishuLevel),

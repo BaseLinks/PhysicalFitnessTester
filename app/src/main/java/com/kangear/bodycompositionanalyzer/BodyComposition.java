@@ -14,35 +14,35 @@ import bodycompositionanalyzer.Protocol;
 public class BodyComposition {
     private static final String LOG_TAG = "BodyComposition";
 
-    public final Third 性别        = new Third(20, 1);
-    public final Third 年龄        = new Third(21, 1);
-    public final Third 身高        = new Third(22, 2);
-    public final Third 体重        = new Third(24, 53, 55, 2);
-    public final Third _5k电阻     = new Third(26, 2);
-    public final Third _50k电阻    = new Third(28, 2);
-    public final Third _250k电阻   = new Third(44, 2);
-    public final Third 体脂肪量    = new Third(63, 65, 67, 2);
-    public final Third 骨骼肌      = new Third(75, 77, 79, 2);
-    public final Third 身体水分    = new Third(81, 83, 85, 2);
-    public final Third 蛋白质      = new Third(87, 89, 91, 2);
-    public final Third 无机盐      = new Third(93, 94, 95, 1);
-    public final Third 左上肢肌肉量 = new Third(109, 110, 111, 1);
-    public final Third 右上肢肌肉量 = new Third(112, 113, 114, 1);
-    public final Third 躯干肌肉量   = new Third(115, 117, 119, 2);
-    public final Third 左下肌肉量   = new Third(121, 123, 125, 2);
-    public final Third 右下肌肉量   = new Third(127, 129, 131, 2);
-    public final Third 左上脂肪量   = new Third(133, 134, 135, 1);
-    public final Third 右上脂肪量   = new Third(136, 137, 138, 1);
-    public final Third 躯干脂肪量   = new Third(139, 141, 143, 2);
-    public final Third 左下脂肪量   = new Third(145, 146, 147, 1);
-    public final Third 右下脂肪量   = new Third(148, 149, 150, 1);
-    public final Third BMI        = new Third(157, 159, 161, 2);
-    public final Third 体脂百分比   = new Third(163, 165, 167, 2);
-    public final Third 腰臀比      = new Third(177, 178, 179, 1);
-    public final Third 内脏指数     = new Third(185, 2);
-    public final Third 评分        = new Third(187, 2);
-    public final Third 基础代谢     = new Third(196, 2);
-    public final Third 总能耗       = new Third(198, 2);
+    public final Third 性别        = new Third(20, 1, 0);
+    public final Third 年龄        = new Third(21, 1, 0);
+    public final Third 身高        = new Third(22, 2, 1);
+    public final Third 体重        = new Third(24, 53, 55, 2, 1);
+    public final Third _5k电阻     = new Third(26, 2, 1);
+    public final Third _50k电阻    = new Third(28, 2, 1);
+    public final Third _250k电阻   = new Third(44, 2, 1);
+    public final Third 体脂肪量    = new Third(63, 65, 67, 2, 1);
+    public final Third 骨骼肌      = new Third(75, 77, 79, 2, 1);
+    public final Third 身体水分    = new Third(81, 83, 85, 2, 1);
+    public final Third 蛋白质      = new Third(87, 89, 91, 2, 1);
+    public final Third 无机盐      = new Third(93, 94, 95, 1, 1);
+    public final Third 左上肢肌肉量 = new Third(109, 110, 111, 1, 1);
+    public final Third 右上肢肌肉量 = new Third(112, 113, 114, 1, 1);
+    public final Third 躯干肌肉量   = new Third(115, 117, 119, 2, 1);
+    public final Third 左下肌肉量   = new Third(121, 123, 125, 2, 1);
+    public final Third 右下肌肉量   = new Third(127, 129, 131, 2, 1);
+    public final Third 左上脂肪量   = new Third(133, 134, 135, 1, 1);
+    public final Third 右上脂肪量   = new Third(136, 137, 138, 1, 1);
+    public final Third 躯干脂肪量   = new Third(139, 141, 143, 2, 1);
+    public final Third 左下脂肪量   = new Third(145, 146, 147, 1, 1);
+    public final Third 右下脂肪量   = new Third(148, 149, 150, 1, 1);
+    public final Third BMI        = new Third(157, 159, 161, 2, 1);
+    public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1);
+    public final Third 腰臀比      = new Third(177, 178, 179, 1, 2);
+    public final Third 内脏指数     = new Third(185, 2, 1);
+    public final Third 评分        = new Third(187, 2, 1);
+    public final Third 基础代谢     = new Third(196, 2, 1);
+    public final Third 总能耗       = new Third(198, 2, 1);
     public final List<Third> mList = new ArrayList<Third>();
 
 
@@ -50,48 +50,73 @@ public class BodyComposition {
      * 数据类
      */
     public static class Third {
-        int cur;
-        int min;
-        int max;
+        float cur;
+        float min;
+        float max;
         int curStart;
         int minStart;
         int maxStart;
         int length;
+        int dot;
 
-        public Third(int curStart, int minStart, int maxStart, int length) {
+        /**
+         * @param curStart
+         * @param minStart
+         * @param maxStart
+         * @param length
+         * @param dot　小数点几位
+         */
+        public Third(int curStart, int minStart, int maxStart, int length, int dot) {
             this.curStart = curStart;
             this.minStart = minStart;
             this.maxStart = maxStart;
             this.length = length;
+            this.dot = dot;
         }
 
-        public Third(int curStart, int length) {
+        /**
+         * @param curStart
+         * @param length
+         * @param dot　小数点几位
+         */
+        public Third(int curStart, int length, int dot) {
             this.curStart = curStart;
             this.length = length;
+            this.dot = dot;
         }
 
         public int getCurStart() {
             return curStart;
         }
 
-        public int getCur() {
-            return cur;
+        //直接还原真实的值
+        public float getCur() {
+            float ret = cur;
+            if (dot != 0)
+                ret = cur / (dot * 10);
+            return ret;
         }
 
-        public void setCur(int cur) {
+        public void setCur(float cur) {
             this.cur = cur;
         }
 
-        public int getMin() {
-            return min;
+        public float getMin() {
+            float ret = min;
+            if (dot != 0)
+                ret = min / (dot * 10);
+            return ret;
         }
 
         public void setMin(int min) {
             this.min = min;
         }
 
-        public int getMax() {
-            return max;
+        public float getMax() {
+            float ret = max;
+            if (dot != 0)
+                ret = max / (dot * 10);
+            return ret;
         }
 
         public void setMax(int max) {
@@ -137,9 +162,9 @@ public class BodyComposition {
             float rate;
             int percent;
             float[] P_temp = new float[2];
-            int Data_Test = getCur();
-            int Data_Min = getMin();
-            int Data_Max = getMax();
+            float Data_Test = getCur();
+            float Data_Min = getMin();
+            float Data_Max = getMax();
 
             P_temp[0] = Data_Min - ((Data_Max - Data_Min) * lessWidth / normalWidth);     //坐标最小值, 600
             P_temp[1] = Data_Max + ((Data_Max - Data_Min) * moreWidth / normalWidth);     //坐标最大值,1500
@@ -163,9 +188,9 @@ public class BodyComposition {
         @Override
         public String toString() {
             return "Third{" +
-                    "cur=" + String.format("%02X", cur) +
-                    ", min=" + String.format("%02X", min) +
-                    ", max=" + String.format("%02X", max) +
+                    "cur=" + String.format("%02X", (int)cur) +
+                    ", min=" + String.format("%02X", (int)min) +
+                    ", max=" + String.format("%02X", (int)max) +
                     ", curStart=" + curStart +
                     ", minStart=" + minStart +
                     ", maxStart=" + maxStart +
