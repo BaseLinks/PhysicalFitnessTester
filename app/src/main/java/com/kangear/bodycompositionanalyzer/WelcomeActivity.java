@@ -80,6 +80,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static final String CONST_ACTION_TOUCHID_OK = "CONST_ACTION_TOUCHID_OK";
 
+    private static BodyComposition mBodyComposition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,22 +123,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mDb = x.getDb(daoConfig);
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
-
-//        Protocol.createResponse((byte)0x10, (byte)0x30, new byte[]{0x00, 0x00});
-
-//        try {
-//            Protocol.startTichengfen((byte)0x00, (byte)0x08, (short)900, (short)100);
-//            boolean ret = Protocol.startWeight();
-//            if (!ret) {
-//                Toast.makeText(this, "体重测试失败，请重新测试", Toast.LENGTH_LONG).show();
-//                return;
-//            }
-//
-//            Protocol.QueryResult qr = Protocol.qeuryWeight();
-//            if (qr.getState() == )
-//        } catch (Protocol.ProtocalExcption protocalExcption) {
-//            protocalExcption.printStackTrace();
-//        }
     }
 
     // This snippet hides the system bars.
@@ -164,6 +150,14 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mTimeUtils.stop();
+    }
+
+    public static BodyComposition getBodyComposition() {
+        return mBodyComposition;
+    }
+
+    public static void setBodyComposition(BodyComposition mBodyComposition) {
+        WelcomeActivity.mBodyComposition = mBodyComposition;
     }
 
     public void onClick(View v) {
