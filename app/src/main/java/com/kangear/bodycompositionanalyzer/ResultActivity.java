@@ -1,11 +1,13 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -129,7 +131,134 @@ public class ResultActivity extends AppCompatActivity {
         // -- TODO: 总能耗
         ((EditText)findViewById(R.id.zongnenghao_zhengchang_edittext)).setText(String.format(FLOAT_1_FORMAT, mBodyComposition.总能耗.getCur()));
 
+        // -- 阶段脂肪
+        fillYelloMan(
+                new YelloMan(
+                        "阶段脂肪",
+                        mBodyComposition.左上脂肪量,
+                        mBodyComposition.左下脂肪量,
+                        mBodyComposition.右上脂肪量,
+                        mBodyComposition.右下脂肪量,
+                        mBodyComposition.躯干脂肪量
+                ),
+                findViewById(R.id.zhifang_yellow_human)
+
+        );
+
+        // -- 阶段肌肉
+        fillYelloMan(
+                new YelloMan(
+                        "阶段肌肉",
+                        mBodyComposition.左上肢肌肉量,
+                        mBodyComposition.左下肌肉量,
+                        mBodyComposition.右上肢肌肉量,
+                        mBodyComposition.右下肌肉量,
+                        mBodyComposition.躯干肌肉量
+                ),
+                findViewById(R.id.jirou_yellow_human)
+
+        );
+
         page(FIRST_PAGE_NUMBER);
+    }
+
+    private class YelloMan {
+        String leftArmLevel;
+        String leftArm;
+        String leftLegeLevel;
+        String leftLege;
+
+        String rightArmLevel;
+        String rightArm;
+        String rightLegeLevel;
+        String rightLege;
+
+        String quganLevel;
+        String qugan;
+
+        String title;
+
+        public YelloMan(String title,
+                        BodyComposition.Third la,
+                        BodyComposition.Third ll,
+                        BodyComposition.Third ra,
+                        BodyComposition.Third rl,
+                        BodyComposition.Third qg) {
+            this.title = title;
+            this.leftArmLevel = la.getLevelAsChinese();
+            this.leftArm = String.format(FLOAT_1_FORMAT, la.getCur());
+            this.leftLegeLevel = ll.getLevelAsChinese();
+            this.leftLege = String.format(FLOAT_1_FORMAT, ll.getCur());
+            this.rightArmLevel = ra.getLevelAsChinese();
+            this.rightArm = String.format(FLOAT_1_FORMAT, ra.getCur());
+            this.rightLegeLevel = rl.getLevelAsChinese();
+            this.rightLege = String.format(FLOAT_1_FORMAT, rl.getCur());
+            this.quganLevel = qg.getLevelAsChinese();
+            this.qugan = String.format(FLOAT_1_FORMAT, qg.getCur());
+        }
+
+        public String getLeftArmLevel() {
+            return leftArmLevel;
+        }
+
+        public String getLeftArm() {
+            return leftArm;
+        }
+
+        public String getLeftLegeLevel() {
+            return leftLegeLevel;
+        }
+
+        public String getLeftLege() {
+            return leftLege;
+        }
+
+        public String getRightArmLevel() {
+            return rightArmLevel;
+        }
+
+        public String getRightArm() {
+            return rightArm;
+        }
+
+        public String getRightLegeLevel() {
+            return rightLegeLevel;
+        }
+
+        public String getRightLege() {
+            return rightLege;
+        }
+
+        public String getQuganLevel() {
+            return quganLevel;
+        }
+
+        public String getQugan() {
+            return qugan;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+    }
+
+    private void fillYelloMan(YelloMan yelloMan, View ym) {
+        if (yelloMan == null || ym == null)
+            return;
+
+        ((TextView) ym.findViewById(R.id.yellowhuman_title_textview)).setText(yelloMan.getTitle());
+
+        ((EditText) ym.findViewById(R.id.la_level_edittext)).setText(yelloMan.getLeftArmLevel());
+        ((EditText) ym.findViewById(R.id.ll_level_edittext)).setText(yelloMan.getLeftLegeLevel());
+        ((EditText) ym.findViewById(R.id.qugan_level_edittext)).setText(yelloMan.getQuganLevel());
+        ((EditText) ym.findViewById(R.id.ra_level_edittext)).setText(yelloMan.getRightArmLevel());
+        ((EditText) ym.findViewById(R.id.rl_level_edittext)).setText(yelloMan.getRightLegeLevel());
+
+        ((EditText) ym.findViewById(R.id.la_edittext)).setText(yelloMan.getLeftArm());
+        ((EditText) ym.findViewById(R.id.ll_edittext)).setText(yelloMan.getLeftLege());
+        ((EditText) ym.findViewById(R.id.qugan_edittext)).setText(yelloMan.getQugan());
+        ((EditText) ym.findViewById(R.id.ra_edittext)).setText(yelloMan.getRightArm());
+        ((EditText) ym.findViewById(R.id.rl_edittext)).setText(yelloMan.getRightLege());
     }
 
 

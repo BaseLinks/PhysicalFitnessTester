@@ -197,6 +197,23 @@ public class BodyComposition {
             }
         }
 
+        /**
+         * 低标准 正常 高标准
+         * @return
+         */
+        public String getLevelAsChinese() {
+            switch (getLevel()) {
+                case LEVEL_LOW:
+                    return "低标准";
+                case LEVEL_NORMAL:
+                    return "正常";
+                case LEVEL_HIGH:
+                    return "高标准";
+
+            }
+            return "正常";
+        }
+
         @Override
         public String toString() {
             return "Third{" +
