@@ -1,13 +1,10 @@
 package com.kangear.bodycompositionanalyzer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,10 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.xutils.ex.DbException;
-
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.getBodyComposition;
@@ -101,8 +95,8 @@ public class ResultActivity extends AppCompatActivity {
         // ---肌肉调整量
         ((EditText)findViewById(R.id.jiroutiaozheng_edittext)).setText(String.format(FLOAT_JIROU_TIAOZHENGLIANG_FORMAT, mBodyComposition.getJirouAdjustment()));
 
-        // ---内脏指数
-        fillOne(R.id.neizangzhishu_edittext, mBodyComposition.内脏指数, FLOAT_1_FORMAT);
+        // ---内脏面积
+        fillOne(R.id.neizangmianji_edittext, mBodyComposition.内脏面积, FLOAT_1_FORMAT);
 
         // ---健康指数(评分)
         fillOne(R.id.jiankangzhishu_edittext, mBodyComposition.评分, FLOAT_1_FORMAT);
@@ -129,7 +123,7 @@ public class ResultActivity extends AppCompatActivity {
         fillYingYangPingGu(R.id.danbaizhi_buzu_edittext, R.id.danbaizhi_zhengchang_edittext, R.id.danbaizhi_guoliang_edittext, mBodyComposition.蛋白质);
         fillYingYangPingGu(R.id.wujiyan_buzu_edittext, R.id.wujiyan_zhengchang_edittext, R.id.wujiyan_guoliang_edittext, mBodyComposition.无机盐);
         // -- TODO: 总能耗
-        ((EditText)findViewById(R.id.zongnenghao_zhengchang_edittext)).setText(String.format(FLOAT_1_FORMAT, mBodyComposition.总能耗.getCur()));
+        ((EditText)findViewById(R.id.zongnenghao_edittext)).setText(String.format(FLOAT_0_FORMAT, mBodyComposition.总能耗.getCur()));
 
         // -- 阶段脂肪
         fillYelloMan(

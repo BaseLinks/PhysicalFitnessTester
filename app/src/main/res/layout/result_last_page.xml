@@ -36,22 +36,6 @@
         app:layout_constraintTop_toTopOf="@+id/danbaizhi_zhengchang_edittext" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zongnenghao_guoliang_edittext"
-        style="@style/resultEditText"
-        android:layout_width="72px"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/zongnenghao_zhengchang_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/zongnenghao_zhengchang_edittext"
-        app:layout_constraintVertical_bias="0.529" />
-
-    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/wujiyan_guoliang_edittext"
         style="@style/resultEditText"
         android:layout_width="72px"
@@ -93,35 +77,17 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zongnenghao_zhengchang_edittext"
+        android:id="@+id/zongnenghao_edittext"
         style="@style/resultEditText"
-        android:layout_width="70px"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/zongnenghao_buzu_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintHorizontal_bias="0.687"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/zongnenghao_buzu_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zongnenghao_buzu_edittext"
-        style="@style/resultEditText"
-        android:layout_width="74px"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:maxLines="1"
         app:backgroundTint="#777777"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.687"
         app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/danbaizhi_zhengchang_edittext"

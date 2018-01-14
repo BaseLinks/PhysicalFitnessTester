@@ -3,7 +3,6 @@ package com.kangear.bodycompositionanalyzer;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import bodycompositionanalyzer.Protocol;
@@ -21,6 +20,7 @@ public class BodyComposition {
     public final Third _5k电阻     = new Third(26, 2, 1);
     public final Third _50k电阻    = new Third(28, 2, 1);
     public final Third _250k电阻   = new Third(44, 2, 1);
+    public final Third 去脂体重     = new Third(57, 59, 61, 2, 1);
     public final Third 体脂肪量    = new Third(63, 65, 67, 2, 1);
     public final Third 骨骼肌      = new Third(75, 77, 79, 2, 1);
     public final Third 身体水分    = new Third(81, 83, 85, 2, 1);
@@ -39,11 +39,10 @@ public class BodyComposition {
     public final Third BMI        = new Third(157, 159, 161, 2, 1);
     public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1);
     public final Third 腰臀比      = new Third(177, 178, 179, 1, 2);
-    public final Third 内脏指数     = new Third(185, 2, 1);
+    public final Third 内脏面积     = new Third(185, 2, 1);
     public final Third 评分        = new Third(187, 2, 1);
     public final Third 基础代谢     = new Third(196, 2, 0);
-    public final Third 总能耗       = new Third(198, 2, 1);
-    public final Third 去脂体重     = new Third(81, 83, 85, 2, 1);
+    public final Third 总能耗       = new Third(198, 2, 0);
     public final List<Third> mList = new ArrayList<Third>();
 
     public static final int LEVEL_LOW    = 0;
@@ -866,7 +865,7 @@ public class BodyComposition {
         mList.add(BMI);
         mList.add(体脂百分比);
         mList.add(腰臀比);
-        mList.add(内脏指数);
+        mList.add(内脏面积);
         mList.add(评分);
         mList.add(基础代谢);
         mList.add(总能耗);

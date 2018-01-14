@@ -9,11 +9,11 @@
 
     <!-- 中间黑块 -->
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/neizangzhishu_edittext"
+        android:id="@+id/neizangmianji_edittext"
+        style="@style/resultEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        style="@style/resultEditText"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_edittext"
@@ -187,7 +187,7 @@
         android:id="@+id/textView9"
         style="@style/resultmiddleItemLabel"
         android:layout_marginTop="5dp"
-        android:text="内脏指数"
+        android:text="内脏面积"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />

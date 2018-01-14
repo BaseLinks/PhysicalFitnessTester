@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/_70_human" />
 
     <EditText
-        android:id="@+id/qugan_edittext"
+        android:id="@+id/qugan_level_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -35,11 +35,11 @@
         android:text="高标准"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/qugan_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/qugan_level_edittext" />
+        app:layout_constraintEnd_toEndOf="@+id/qugan_edittext"
+        app:layout_constraintStart_toStartOf="@+id/qugan_edittext" />
 
     <EditText
-        android:id="@+id/qugan_level_edittext"
+        android:id="@+id/qugan_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/ra_level_edittext"
+        android:id="@+id/ra_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
@@ -68,13 +68,13 @@
         android:inputType="text"
         android:text="高标准"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/la_level_edittext"
+        app:layout_constraintBottom_toBottomOf="@+id/la_edittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/la_level_edittext"
+        app:layout_constraintTop_toTopOf="@+id/la_edittext"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/ra_edittext"
+        android:id="@+id/ra_level_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -84,26 +84,10 @@
         android:inputType="text"
         android:text="高标准"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/la_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/ra_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/ra_level_edittext"
-        app:layout_constraintTop_toTopOf="@+id/la_edittext" />
-
-    <EditText
-        android:id="@+id/rl_level_edittext"
-        style="@style/yelloHumanItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="text"
-        android:text="高标准"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ll_level_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/ra_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/ra_level_edittext"
-        app:layout_constraintTop_toTopOf="@+id/ll_level_edittext" />
+        app:layout_constraintBottom_toBottomOf="@+id/la_level_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
+        app:layout_constraintTop_toTopOf="@+id/la_level_edittext" />
 
     <EditText
         android:id="@+id/rl_edittext"
@@ -117,12 +101,28 @@
         android:text="高标准"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/ll_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/ra_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/ra_level_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
         app:layout_constraintTop_toTopOf="@+id/ll_edittext" />
 
     <EditText
-        android:id="@+id/ll_level_edittext"
+        android:id="@+id/rl_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_level_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
+        app:layout_constraintTop_toTopOf="@+id/ll_level_edittext" />
+
+    <EditText
+        android:id="@+id/ll_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -135,11 +135,11 @@
         android:text="高标准"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/la_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/la_level_edittext" />
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
 
     <EditText
-        android:id="@+id/ll_edittext"
+        android:id="@+id/ll_level_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -152,11 +152,11 @@
         android:text="高标准"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/la_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/la_level_edittext" />
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
 
     <EditText
-        android:id="@+id/la_edittext"
+        android:id="@+id/la_level_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -168,11 +168,11 @@
         android:text="高标准"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/la_level_edittext"
-        app:layout_constraintStart_toStartOf="@+id/la_level_edittext" />
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
 
     <EditText
-        android:id="@+id/la_level_edittext"
+        android:id="@+id/la_edittext"
         style="@style/yelloHumanItem"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
