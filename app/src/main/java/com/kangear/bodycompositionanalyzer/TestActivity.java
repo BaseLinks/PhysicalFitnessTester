@@ -186,7 +186,7 @@ public class TestActivity extends AppCompatActivity {
             public void run() {
                 boolean ret = false;
                 try {
-                    ret = Protocol.startTichengfen(gender, age, height, weight);
+                    ret = UartBca.getInstance(mContext).startTichengfen(gender, age, height, weight);
                 } catch (Protocol.ProtocalExcption protocalExcption) {
                     protocalExcption.printStackTrace();
                     ret = false;
@@ -211,7 +211,7 @@ public class TestActivity extends AppCompatActivity {
                 while(isRun) {
                     try {
                         sleep(20);
-                        Protocol.QueryResult qr = Protocol.qeuryTichengfen();
+                        UartBca.QueryResult qr = UartBca.getInstance(mContext).qeuryTichengfen();
                         if (qr == null) {
                             continue;
                         }

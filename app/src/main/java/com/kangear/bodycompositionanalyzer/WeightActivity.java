@@ -70,7 +70,7 @@ public class WeightActivity extends AppCompatActivity {
     private void startTest() {
         startView.setVisibility(View.VISIBLE);
         stopView.setVisibility(View.GONE);
-        mTextView.setText("");
+        mTextView.setText("0.0");
 
         // star phread
         new Thread() {
@@ -78,7 +78,7 @@ public class WeightActivity extends AppCompatActivity {
             public void run() {
                 boolean ret = false;
                 try {
-                    ret = Protocol.startWeight();
+                    ret = UartBca.getInstance(mContext).startWeight();
                 } catch (Protocol.ProtocalExcption protocalExcption) {
                     protocalExcption.printStackTrace();
                     ret = false;
@@ -102,7 +102,7 @@ public class WeightActivity extends AppCompatActivity {
                 while(true) {
                     try {
                         sleep(500);
-                        Protocol.QueryResult qr = Protocol.qeuryWeight();
+                        Protocol.QueryResult qr = UartBca.getInstance(mContext).qeuryWeight();
                         if (qr == null) {
                             continue;
                         }

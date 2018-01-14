@@ -14,7 +14,7 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
  * Created by tony on 18-1-11.
  */
 
-public class Protocol {
+public class Protocol implements IProtocol {
     private static final String TAG = "Protocol";
 
     // 一.接口参数 接口参数—115200,8N1. 232 串口通讯
@@ -203,7 +203,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static boolean stop(byte item) throws ProtocalExcption {
+    private boolean stop(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
@@ -223,7 +223,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean stopWeight() throws ProtocalExcption {
+    public boolean stopWeight() throws ProtocalExcption {
         return stop(MSG_ITEM_CODE_WEIGHT);
     }
 
@@ -232,7 +232,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean stopTichengfen() throws ProtocalExcption {
+    public boolean stopTichengfen() throws ProtocalExcption {
         return stop(MSG_ITEM_CODE_TICHENGFEN);
     }
 
@@ -241,7 +241,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean startWeight() throws ProtocalExcption {
+    public boolean startWeight() throws ProtocalExcption {
         return start(MSG_ITEM_CODE_WEIGHT, null);
     }
 
@@ -255,7 +255,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean startTichengfen(byte gender, byte age, short height, short weight) throws ProtocalExcption {
+    public boolean startTichengfen(byte gender, byte age, short height, short weight) throws ProtocalExcption {
         // 判断Gender
         if (gender != 0x01 && gender != 0x00) {
             throw new ProtocalExcption.GenderExcetion("need 0->1, but arg is: " + gender);
@@ -285,7 +285,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static QueryResult qeuryWeight() throws ProtocalExcption {
+    public QueryResult qeuryWeight() throws ProtocalExcption {
         return query(MSG_ITEM_CODE_WEIGHT);
     }
 
@@ -294,7 +294,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static QueryResult qeuryTichengfen() throws ProtocalExcption {
+    public QueryResult qeuryTichengfen() throws ProtocalExcption {
         return query(MSG_ITEM_CODE_TICHENGFEN);
     }
 
@@ -303,7 +303,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean readWeight() throws ProtocalExcption {
+    public boolean readWeight() throws ProtocalExcption {
         byte[] data = read(MSG_ITEM_CODE_WEIGHT);
         return true;
     }
@@ -313,7 +313,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean readTichengfen() throws ProtocalExcption {
+    public boolean readTichengfen() throws ProtocalExcption {
         byte[] data = read(MSG_ITEM_CODE_TICHENGFEN);
         return true;
     }
@@ -324,7 +324,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean writeWeight() throws ProtocalExcption {
+    public boolean writeWeight() throws ProtocalExcption {
         return write(MSG_ITEM_CODE_WEIGHT);
     }
 
@@ -333,8 +333,18 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    public static boolean writeTichengfen() throws ProtocalExcption {
+    public boolean writeTichengfen() throws ProtocalExcption {
         return write(MSG_ITEM_CODE_TICHENGFEN);
+    }
+
+    @Override
+    public boolean send(byte[] buf, int timeout) {
+        return false;
+    }
+
+    @Override
+    public byte[] recv(int timeout) {
+        return new byte[0];
     }
 
     /**
@@ -393,7 +403,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static QueryResult query(byte item) throws ProtocalExcption {
+    private QueryResult query(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             throw new ProtocalExcption.UnkownExcetion();
 
@@ -410,7 +420,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static boolean start(byte item, byte[] data) throws ProtocalExcption {
+    private boolean start(byte item, byte[] data) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
@@ -431,7 +441,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static byte[] read(byte item) throws ProtocalExcption {
+    private byte[] read(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN) {
             throw new ProtocalExcption.UnkownExcetion();
         }
@@ -452,7 +462,7 @@ public class Protocol {
      * @return
      * @throws ProtocalExcption
      */
-    private static boolean write(byte item) throws ProtocalExcption {
+    private boolean write(byte item) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
@@ -492,15 +502,23 @@ public class Protocol {
     private static byte[] sendMsg = null;
 
 
-    private static boolean send(byte[] msg) {
-        Log.i(TAG, "send msg: " + bytesToHex(msg));
-        sendMsg = new byte[msg.length];
-        System.arraycopy(msg, 0, sendMsg, 0, msg.length);
+    private boolean send(byte[] msg) {
+        if (false) {
+            Log.i(TAG, "send msg: " + bytesToHex(msg));
+            sendMsg = new byte[msg.length];
+            System.arraycopy(msg, 0, sendMsg, 0, msg.length);
+        } else {
+            return send(msg, 1000);
+        }
         return true;
     }
 
     private static int times = 0;
-    private static byte[] recv() {
+    private byte[] recv() {
+        if (true) {
+            return recv(1 * 1000);
+        }
+
         byte[] ret = null;
 
         if (Arrays.equals(sendMsg, TEST_MSG_WEIGHT_TEST)) {

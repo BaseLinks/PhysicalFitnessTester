@@ -113,6 +113,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mDb = x.getDb(daoConfig);
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
+
+        UartBca.getInstance(this);
     }
 
     // This snippet hides the system bars.

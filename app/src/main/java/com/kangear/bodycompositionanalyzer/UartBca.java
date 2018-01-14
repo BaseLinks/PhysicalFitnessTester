@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 
@@ -16,20 +17,25 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
  * Created by tony on 18-1-14.
  */
 
-public class UartBca implements IProtocol {
+public class UartBca extends Protocol {
     private static final boolean DEBUG = true;
     private static final String LOG_TAG = "UartBca";
 
     /** 串口相关 */
     private static final int BAUDRATE = 115200;
     private static final String DEV_NODE = "/dev/ttyS0";
-    private final SerialHelper serialCtrl       = new SerialControl();
+    private static final String TAG = LOG_TAG;
+    private final SerialHelper serialCtrl = new SerialControl();
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
      */
     private volatile static UartBca singleton = null;
     private final Context mContext;
+    private static final int BYTE_BUFFER_ALLOCATE = 1024;
+    private ByteBuffer mByteBuffer = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
+    private volatile byte[] mCache = {};
+    private volatile boolean hasData = false;
 
     public static UartBca getInstance(Context context)   {
         if (singleton== null)  {
@@ -45,8 +51,6 @@ public class UartBca implements IProtocol {
     private UartBca(Context context) {
         this.mContext = context;
         initMachine();
-
-        serialCtrl.send(new byte[]{0x01, 0x01, 0x00});
     }
 
     private class SerialControl extends SerialHelper {
@@ -57,10 +61,17 @@ public class UartBca implements IProtocol {
 
         /** 处理接收到串口数据事件 */
         private synchronized void handleRecData(final ComBean ComRecData) {
-            if (DEBUG) Log.i(LOG_TAG, "handleRecData:" + new String(ComRecData.bRec));
-			/* 判断是否有换行符 */
             if (DEBUG) Log.i(LOG_TAG, "STX:" + bytesToHex(ComRecData.bRec));
-//            parseData(ComRecData.bRec);
+            mByteBuffer.put(ComRecData.bRec);
+            mByteBuffer.limit(mByteBuffer.remaining());
+            mByteBuffer.rewind();
+            /* 提取 */
+            mCache = new byte[BYTE_BUFFER_ALLOCATE - mByteBuffer.remaining()];
+            mByteBuffer.get(mCache);
+		    /* 将byteBuffer清理 */
+            mByteBuffer.clear();
+            hasData = true;
+            if (DEBUG) Log.i(LOG_TAG, "mCache:" + bytesToHex(ComRecData.bRec));
         }
     }
 
@@ -123,11 +134,20 @@ public class UartBca implements IProtocol {
 
     @Override
     public boolean send(byte[] buf, int timeout) {
-        return false;
+        Log.i(TAG, "send");
+        while(hasData){}
+        serialCtrl.send(buf);
+        return true;
     }
 
     @Override
     public byte[] recv(int timeout) {
-        return new byte[0];
+        Log.i(TAG, "recv");
+        while(!hasData){}
+        Log.i(TAG, "recv: " + bytesToHex(mCache));
+        byte[] ret = Arrays.copyOfRange(mCache, 0, mCache.length);
+        hasData = false;
+        return ret;
+//        new byte[]{0x55, (byte) 0xAA, 0x07, 0x02, 0x30, 0x00, (byte) 0xD9, 0x02, 0x4D, (byte) 0x9A};
     }
 }
