@@ -32,12 +32,7 @@ public class UartBca extends Protocol {
      */
     private volatile static UartBca singleton = null;
     private final Context mContext;
-    private static final int BYTE_BUFFER_ALLOCATE = 1024;
-    private ByteBuffer mByteBuffer = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
     private volatile boolean hasData = false;
-    private volatile long mLastTime;
-    private volatile boolean hasHead = false;
-    private volatile int curPackLength = 0;
     private volatile byte[] mCache;
 
     public static UartBca getInstance(Context context)   {
@@ -66,65 +61,12 @@ public class UartBca extends Protocol {
         private void handleRecData(final ComBean ComRecData) {
             byte[] b = ComRecData.bRec;
             if (DEBUG) Log.i(LOG_TAG, "STX:" + b.length + " : " + bytesToHex(b));
-            connectData(b);
+            mCache = connectData(b);
+            if (mCache != null)
+                hasData = true;
         }
     }
 
-    /**
-     * 将数据连接
-     * @param b
-     */
-    synchronized  void connectData(byte[] b) {
-        // 获取目前长度
-        mByteBuffer.put(b);
-        int len = BYTE_BUFFER_ALLOCATE - mByteBuffer.remaining();
-        Log.i(TAG, "connectData 1 len: " + len);
-
-        // 获取head length 字节(3)
-        if (len < 3) {
-            return;
-
-        }
-        Log.i(TAG, "connectData 2");
-        // 获取长度
-        if (curPackLength == 0) {
-            mByteBuffer.limit(mByteBuffer.remaining());
-            mByteBuffer.rewind();
-            byte[] headAndLength = new byte[len];
-            mByteBuffer.get(headAndLength);
-            if ((headAndLength[0] == (byte)0x55) && (headAndLength[1] == (byte)0xAA)) {
-                curPackLength = (headAndLength[2] & 0xFF);
-            } else {
-                mByteBuffer.clear();
-                return;
-            }
-            Log.i(TAG, "" + bytesToHex(headAndLength));
-        }
-        Log.i(TAG, "connectData 3 curPackLength: " + curPackLength);
-
-        // 总长度不符合
-        if (len < (curPackLength + 3)) {
-            return;
-        }
-
-        Log.i(TAG, "connectData 4");
-        mByteBuffer.limit(mByteBuffer.remaining());
-        mByteBuffer.rewind();
-        /* 提取 */
-        Log.i(TAG, "connectData 5");
-        mCache = new byte[curPackLength + 3];
-        mByteBuffer.get(mCache);
-
-        Log.i(TAG, "mCache: " + mCache.length + " : " + bytesToHex(mCache));
-
-        Log.i(TAG, "connectData 6");
-        /* 将byteBuffer清理 */
-        mByteBuffer.clear();
-        Log.i(TAG, "connectData 7");
-
-        hasData = true;
-        curPackLength = 0;
-    }
 
     /** 处理错误 */
     @SuppressWarnings("unused")

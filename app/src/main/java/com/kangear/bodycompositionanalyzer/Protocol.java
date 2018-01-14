@@ -688,6 +688,59 @@ public class Protocol implements IProtocol {
         return qr;
     }
 
+    private static final int BYTE_BUFFER_ALLOCATE = 1024;
+    private ByteBuffer mByteBuffer = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
+    /**
+     * 将数据连接
+     * @param b
+     */
+    public synchronized byte[] connectData(byte[] b) {
+        // 获取目前长度
+        mByteBuffer.put(b);
+        int len = BYTE_BUFFER_ALLOCATE - mByteBuffer.remaining();
+        mByteBuffer.limit(mByteBuffer.remaining());
+        mByteBuffer.rewind();
+        byte[] msg = new byte[len];
+        mByteBuffer.get(msg);
+
+        // 获取head length 字节(3)
+        // 1. Package Head check
+        int start = MSG_HEAD_START;
+        int end = start + MSG_HEAD_LENGTH;
+        if (msg.length < end)
+            return null;
+        b = Arrays.copyOfRange(msg, start, end);
+        if (!Arrays.equals(b, RECV_HEAD)) {
+            Log.e(TAG, "parsePackage: RESPONSE_PACK_HEAD error");
+            mByteBuffer.clear();
+            return null;
+        }
+
+        // 2. Package Length
+        start = MSG_LENGTH_START;
+        end = start + MSG_LENGTH_LENGTH;
+        if (msg.length < end) {
+            Log.e(TAG, "parsePackage: response.length error");
+            return null;
+        }
+        int length = msg[start] & 0xFF;
+        int totalLength = length + MSG_HEAD_LENGTH + MSG_LENGTH_LENGTH;
+
+        // 总长度不符合
+        if (len < totalLength) {
+            return null;
+        }
+
+        mByteBuffer.limit(mByteBuffer.remaining());
+        mByteBuffer.rewind();
+        /* 提取 */
+        byte[] mCache = new byte[totalLength];
+        mByteBuffer.get(mCache);
+        /* 将byteBuffer清理 */
+        mByteBuffer.clear();
+        return mCache;
+    }
+
     /**
      * @param msg response
      * @return data
