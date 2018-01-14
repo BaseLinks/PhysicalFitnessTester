@@ -47,8 +47,8 @@ public class ResultActivity extends AppCompatActivity {
     public static final String FLOAT_2_FORMAT                      = "%.2f";
     public static final String FLOAT_1_FORMAT                      = "%.1f";
     public static final String FLOAT_0_FORMAT                      = "%.0f";
-    public static final String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT;
-    public static final String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT ;
+    public String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT;
+    public String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,9 @@ public class ResultActivity extends AppCompatActivity {
         mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
         mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
+        FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
+        FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
+
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
         if (recordId != INVALID_RECORD_ID) {
             mRecord = RecordBean.getInstance(this).query(recordId);
@@ -76,17 +79,12 @@ public class ResultActivity extends AppCompatActivity {
             mRecord = DEFAULT_RECORD;
         }
 
-        EditText et;
-        EditText et2;
-        float tmpFloat;
-        String tmpStr;
-
         // -Page 1
         // --基本信息
         ((EditText)findViewById(R.id.id_edittext)).setText(mRecord.getName());
-        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mRecord.getAge()));
-        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mRecord.getHeight()));
-        ((EditText)findViewById(R.id.gender_edittext)).setText(mRecord.getGender());
+        ((EditText)findViewById(R.id.age_edittext)).setText(String.valueOf(mRecord.getAge()) + mBodyComposition.年龄.getUnit());
+        ((EditText)findViewById(R.id.height_edittext)).setText(String.valueOf(mRecord.getHeight()) + mBodyComposition.身高.getUnit());
+        ((EditText)findViewById(R.id.gender_edittext)).setText(mRecord.getGender() + mBodyComposition.性别.getUnit());
 
         // --综合评价
         // ---脂肪调整量
@@ -122,8 +120,10 @@ public class ResultActivity extends AppCompatActivity {
         // -- 蛋白质 无机盐
         fillYingYangPingGu(R.id.danbaizhi_buzu_edittext, R.id.danbaizhi_zhengchang_edittext, R.id.danbaizhi_guoliang_edittext, mBodyComposition.蛋白质);
         fillYingYangPingGu(R.id.wujiyan_buzu_edittext, R.id.wujiyan_zhengchang_edittext, R.id.wujiyan_guoliang_edittext, mBodyComposition.无机盐);
-        // -- TODO: 总能耗
-        ((EditText)findViewById(R.id.zongnenghao_edittext)).setText(String.format(FLOAT_0_FORMAT, mBodyComposition.总能耗.getCur()));
+        // -- 总能耗
+        ((EditText)findViewById(R.id.zongnenghao_edittext)).setText(
+                String.format(FLOAT_0_FORMAT + mBodyComposition.总能耗.getUnit(),
+                        mBodyComposition.总能耗.getCur()));
 
         // -- 阶段脂肪
         fillYelloMan(
@@ -180,15 +180,15 @@ public class ResultActivity extends AppCompatActivity {
                         BodyComposition.Third qg) {
             this.title = title;
             this.leftArmLevel = la.getLevelAsChinese();
-            this.leftArm = String.format(FLOAT_1_FORMAT, la.getCur());
+            this.leftArm = String.format(FLOAT_1_FORMAT + la.getUnit(), la.getCur());
             this.leftLegeLevel = ll.getLevelAsChinese();
-            this.leftLege = String.format(FLOAT_1_FORMAT, ll.getCur());
+            this.leftLege = String.format(FLOAT_1_FORMAT + ll.getUnit(), ll.getCur());
             this.rightArmLevel = ra.getLevelAsChinese();
-            this.rightArm = String.format(FLOAT_1_FORMAT, ra.getCur());
+            this.rightArm = String.format(FLOAT_1_FORMAT + ra.getUnit(), ra.getCur());
             this.rightLegeLevel = rl.getLevelAsChinese();
-            this.rightLege = String.format(FLOAT_1_FORMAT, rl.getCur());
+            this.rightLege = String.format(FLOAT_1_FORMAT + rl.getUnit(), rl.getCur());
             this.quganLevel = qg.getLevelAsChinese();
-            this.qugan = String.format(FLOAT_1_FORMAT, qg.getCur());
+            this.qugan = String.format(FLOAT_1_FORMAT + qg.getUnit(), qg.getCur());
         }
 
         public String getLeftArmLevel() {
@@ -258,14 +258,14 @@ public class ResultActivity extends AppCompatActivity {
 
     private void fillOne(int curId, BodyComposition.Third t, String format) {
         EditText et = findViewById(curId);
-        et.setText(String.format(format, t.getCur()));
+        et.setText(String.format(format + t.getUnit(), t.getCur()));
     }
 
     private void fillTwo(int curId, int norId, BodyComposition.Third t, String format) {
         EditText et = findViewById(curId);
         EditText et2 = findViewById(norId);
-        et.setText(String.format(format, t.getCur()));
-        et2.setText(String.format(format,t.getMin()) + "-" + String.format(format,t.getMax()));
+        et.setText(String.format(format + t.getUnit(), t.getCur()));
+        et2.setText(String.format(format,t.getMin()) + "-" + String.format(format, t.getMax()));
     }
 
     private void fillYingYangPingGu(int minId, int curId, int maxId, BodyComposition.Third t) {
@@ -273,7 +273,7 @@ public class ResultActivity extends AppCompatActivity {
         EditText etCur = findViewById(curId);
         EditText etMax = findViewById(maxId);
 
-        String valueStr = String.format(FLOAT_1_FORMAT, t.getCur());
+        String valueStr = String.format(FLOAT_1_FORMAT + t.getUnit(), t.getCur());
         String minStr = "";
         String curStr = "";
         String maxStr = "";
