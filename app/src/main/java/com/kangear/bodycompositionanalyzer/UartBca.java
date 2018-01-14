@@ -34,8 +34,11 @@ public class UartBca extends Protocol {
     private final Context mContext;
     private static final int BYTE_BUFFER_ALLOCATE = 1024;
     private ByteBuffer mByteBuffer = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
-    private volatile byte[] mCache = {};
     private volatile boolean hasData = false;
+    private volatile long mLastTime;
+    private volatile boolean hasHead = false;
+    private volatile int curPackLength = 0;
+    private volatile byte[] mCache;
 
     public static UartBca getInstance(Context context)   {
         if (singleton== null)  {
@@ -60,19 +63,67 @@ public class UartBca extends Protocol {
         }
 
         /** 处理接收到串口数据事件 */
-        private synchronized void handleRecData(final ComBean ComRecData) {
-            if (DEBUG) Log.i(LOG_TAG, "STX:" + bytesToHex(ComRecData.bRec));
-            mByteBuffer.put(ComRecData.bRec);
+        private void handleRecData(final ComBean ComRecData) {
+            byte[] b = ComRecData.bRec;
+            if (DEBUG) Log.i(LOG_TAG, "STX:" + b.length + " : " + bytesToHex(b));
+            connectData(b);
+        }
+    }
+
+    /**
+     * 将数据连接
+     * @param b
+     */
+    synchronized  void connectData(byte[] b) {
+        // 获取目前长度
+        mByteBuffer.put(b);
+        int len = BYTE_BUFFER_ALLOCATE - mByteBuffer.remaining();
+        Log.i(TAG, "connectData 1 len: " + len);
+
+        // 获取head length 字节(3)
+        if (len < 3) {
+            return;
+
+        }
+        Log.i(TAG, "connectData 2");
+        // 获取长度
+        if (curPackLength == 0) {
             mByteBuffer.limit(mByteBuffer.remaining());
             mByteBuffer.rewind();
-            /* 提取 */
-            mCache = new byte[BYTE_BUFFER_ALLOCATE - mByteBuffer.remaining()];
-            mByteBuffer.get(mCache);
-		    /* 将byteBuffer清理 */
-            mByteBuffer.clear();
-            hasData = true;
-            if (DEBUG) Log.i(LOG_TAG, "mCache:" + bytesToHex(ComRecData.bRec));
+            byte[] headAndLength = new byte[len];
+            mByteBuffer.get(headAndLength);
+            if ((headAndLength[0] == (byte)0x55) && (headAndLength[1] == (byte)0xAA)) {
+                curPackLength = (headAndLength[2] & 0xFF);
+            } else {
+                mByteBuffer.clear();
+                return;
+            }
+            Log.i(TAG, "" + bytesToHex(headAndLength));
         }
+        Log.i(TAG, "connectData 3 curPackLength: " + curPackLength);
+
+        // 总长度不符合
+        if (len < (curPackLength + 3)) {
+            return;
+        }
+
+        Log.i(TAG, "connectData 4");
+        mByteBuffer.limit(mByteBuffer.remaining());
+        mByteBuffer.rewind();
+        /* 提取 */
+        Log.i(TAG, "connectData 5");
+        mCache = new byte[curPackLength + 3];
+        mByteBuffer.get(mCache);
+
+        Log.i(TAG, "mCache: " + mCache.length + " : " + bytesToHex(mCache));
+
+        Log.i(TAG, "connectData 6");
+        /* 将byteBuffer清理 */
+        mByteBuffer.clear();
+        Log.i(TAG, "connectData 7");
+
+        hasData = true;
+        curPackLength = 0;
     }
 
     /** 处理错误 */
@@ -135,19 +186,16 @@ public class UartBca extends Protocol {
     @Override
     public boolean send(byte[] buf, int timeout) {
         Log.i(TAG, "send");
-        while(hasData){}
         serialCtrl.send(buf);
         return true;
     }
 
     @Override
     public byte[] recv(int timeout) {
-        Log.i(TAG, "recv");
-        while(!hasData){}
-        Log.i(TAG, "recv: " + bytesToHex(mCache));
-        byte[] ret = Arrays.copyOfRange(mCache, 0, mCache.length);
+        Log.e(TAG, "recv: start =========================================== ");
+        while (!hasData){}
         hasData = false;
-        return ret;
-//        new byte[]{0x55, (byte) 0xAA, 0x07, 0x02, 0x30, 0x00, (byte) 0xD9, 0x02, 0x4D, (byte) 0x9A};
+        Log.e(TAG, "recv: end =====================================================");
+        return mCache;
     }
 }

@@ -16,6 +16,7 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 public class Protocol implements IProtocol {
     private static final String TAG = "Protocol";
+    private static final boolean FAKE_DATA = false;
 
     // 一.接口参数 接口参数—115200,8N1. 232 串口通讯
     public static final int RATE = 115200;
@@ -503,20 +504,20 @@ public class Protocol implements IProtocol {
 
 
     private boolean send(byte[] msg) {
-        if (false) {
+        if (FAKE_DATA) {
             Log.i(TAG, "send msg: " + bytesToHex(msg));
             sendMsg = new byte[msg.length];
             System.arraycopy(msg, 0, sendMsg, 0, msg.length);
         } else {
-            return send(msg, 1000);
+            return send(msg, 10 * 1000);
         }
         return true;
     }
 
     private static int times = 0;
     private byte[] recv() {
-        if (true) {
-            return recv(1 * 1000);
+        if (!FAKE_DATA) {
+            return recv(10 * 1000);
         }
 
         byte[] ret = null;
