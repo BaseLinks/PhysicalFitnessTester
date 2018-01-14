@@ -5,44 +5,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kangear.common.utils.ByteArrayUtils;
 
-import org.xutils.ex.DbException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import bodycompositionanalyzer.Protocol;
-
-import static bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
-import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
-import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
-import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_3;
-import static bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
-import static bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
-import static bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
-import static bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_3;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
+import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
+import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_GUGEJI;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_JICHUDAIXIELIANG;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_SHENTIZHILIANGZHISHU;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIBAIFENBI;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_TIZHIFANG;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 

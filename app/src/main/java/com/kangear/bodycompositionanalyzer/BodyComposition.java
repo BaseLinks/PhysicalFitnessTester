@@ -6,8 +6,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import bodycompositionanalyzer.Protocol;
-
 /**
  * Created by tony on 16-6-22.
  */

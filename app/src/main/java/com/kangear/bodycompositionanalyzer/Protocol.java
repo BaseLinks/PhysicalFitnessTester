@@ -1,4 +1,4 @@
-package bodycompositionanalyzer;
+package com.kangear.bodycompositionanalyzer;
 
 import android.util.Log;
 
@@ -6,10 +6,7 @@ import com.kangear.common.utils.ByteArrayUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
