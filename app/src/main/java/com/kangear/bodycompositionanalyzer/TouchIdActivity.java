@@ -67,13 +67,13 @@ public class TouchIdActivity extends Com2Activity {
                 break;
             case PAGE_FAIL:
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_red);
+                tryTime--;
                 if (tryTime <= 0) {
                     Toast.makeText(this, "识别失败", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 1 * 1000);
                 } else {
                     Toast.makeText(this, "识别失败，请再试", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_NORMAL, 2000);
-                    tryTime--;
                 }
                 break;
             case PAGE_SUCCESS_EXIT:
