@@ -448,7 +448,41 @@
             app:srcCompat="@drawable/_70_human" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext"
+            android:id="@+id/zhifang_qugan_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="177dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jieduanzhifang_human_imageview"
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_qugan_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_qugan_level_edittext" />
+
+        <EditText
+            android:id="@+id/zhifang_qugan_level_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="201dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jieduanzhifang_human_imageview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/zhifang_ra_level_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
@@ -459,13 +493,13 @@
             android:inputType="text"
             android:text="高标准"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/left_arm_level_edittext"
+            app:layout_constraintBottom_toBottomOf="@+id/zhifang_la_level_edittext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/left_arm_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/zhifang_la_level_edittext"
             app:layout_constraintVertical_bias="1.0" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext2"
+            android:id="@+id/zhifang_ra_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
@@ -475,43 +509,45 @@
             android:inputType="text"
             android:text="高标准"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/right_arm_level_edittext"
-            app:layout_constraintStart_toStartOf="@+id/right_arm_level_edittext"
-            tools:layout_editor_absoluteY="85dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/zhifang_la_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/zhifang_la_edittext" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext8"
+            android:id="@+id/zhifang_rl_level_edittext"
             style="@style/yelloHumanItem"
-            android:layout_width="70dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:background="@null"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
             android:text="高标准"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/right_arm_level_edittext"
-            tools:layout_editor_absoluteY="289dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/zhifang_ll_level_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/zhifang_ll_level_edittext" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext7"
+            android:id="@+id/zhifang_rl_edittext"
             style="@style/yelloHumanItem"
-            android:layout_width="70dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:background="@null"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
             android:text="高标准"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="323dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/zhifang_ll_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/zhifang_ll_edittext" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext6"
+            android:id="@+id/zhifang_ll_level_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -524,11 +560,11 @@
             android:text="高标准"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/jieduanzhifang_human_imageview"
-            app:layout_constraintEnd_toEndOf="@+id/left_arm_level_edittext"
-            app:layout_constraintStart_toStartOf="@+id/left_arm_level_edittext" />
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_la_level_edittext" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext5"
+            android:id="@+id/zhifang_ll_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -541,11 +577,11 @@
             android:text="高标准"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/jieduanzhifang_human_imageview"
-            app:layout_constraintEnd_toEndOf="@+id/left_arm_level_edittext"
-            app:layout_constraintStart_toStartOf="@+id/left_arm_level_edittext" />
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_la_level_edittext" />
 
         <EditText
-            android:id="@+id/left_arm_edittext"
+            android:id="@+id/zhifang_la_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -557,11 +593,11 @@
             android:text="高标准"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/jieduanzhifang_human_imageview"
-            app:layout_constraintEnd_toEndOf="@+id/left_arm_level_edittext"
-            app:layout_constraintStart_toStartOf="@+id/left_arm_level_edittext" />
+            app:layout_constraintEnd_toEndOf="@+id/zhifang_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/zhifang_la_level_edittext" />
 
         <EditText
-            android:id="@+id/left_arm_level_edittext"
+            android:id="@+id/zhifang_la_level_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
@@ -604,19 +640,167 @@
             app:srcCompat="@drawable/_70_human" />
 
         <EditText
-            android:id="@+id/right_arm_level_edittext9"
+            android:id="@+id/jirou_la_level_edittext"
             style="@style/yelloHumanItem"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="299dp"
+            android:layout_marginStart="14dp"
             android:background="@null"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
             android:text="高标准"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/jirou_la_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="270dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_la_level_edittext" />
+
+        <EditText
+            android:id="@+id/jirou_ra_level_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jirou_la_level_edittext"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="289dp" />
+            app:layout_constraintTop_toTopOf="@+id/jirou_la_level_edittext" />
+
+        <EditText
+            android:id="@+id/jirou_ra_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jirou_la_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/jirou_la_edittext" />
+
+        <EditText
+            android:id="@+id/jirou_ll_level_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_la_level_edittext" />
+
+        <EditText
+            android:id="@+id/jirou_ll_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_la_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_la_level_edittext" />
+
+        <EditText
+            android:id="@+id/jirou_rl_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jirou_ll_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/jirou_ll_edittext" />
+
+        <EditText
+            android:id="@+id/right_arm_level_edittext11"
+            style="@style/yelloHumanItem"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginBottom="201dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jieduanjirou_human_imageview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/right_arm_level_edittext10"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="177dp"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jieduanjirou_human_imageview"
+            app:layout_constraintEnd_toEndOf="@+id/right_arm_level_edittext11"
+            app:layout_constraintStart_toStartOf="@+id/right_arm_level_edittext11" />
+
+        <EditText
+            android:id="@+id/jirou_rl_level_edittext"
+            style="@style/yelloHumanItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:text="高标准"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/jirou_ll_level_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintStart_toStartOf="@+id/jirou_ra_level_edittext"
+            app:layout_constraintTop_toTopOf="@+id/jirou_ll_level_edittext" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
