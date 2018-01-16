@@ -21,10 +21,6 @@ import java.util.Date;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
@@ -108,7 +104,7 @@ public class MemRegActivity extends Com2Activity {
         public void afterTextChanged(Editable s) {
             try {
                 int val = Integer.parseInt(s.toString());
-                if(val >= MIN_AGE && val <= MAX_AGE) {
+                if(WelcomeActivity.checkAge(val)) {
                     mAgeEditText.setTextColor(Color.BLACK);
                 } else {
                     mAgeEditText.setTextColor(Color.RED);
@@ -133,7 +129,7 @@ public class MemRegActivity extends Com2Activity {
         public void afterTextChanged(Editable s) {
             try {
                 int val = Integer.parseInt(s.toString());
-                if(val >= MIN_HEIGHT && val <= MAX_HEIGHT) {
+                if(WelcomeActivity.checkHeight(val)) {
                     mHeightEditText.setTextColor(Color.BLACK);
                 } else {
                     mHeightEditText.setTextColor(Color.RED);
@@ -268,7 +264,7 @@ public class MemRegActivity extends Com2Activity {
             hefa = false;
         } else {
             int height = Integer.valueOf(mHeightEditText.getText().toString());
-            if (height < MIN_HEIGHT || height > MAX_HEIGHT)
+            if (!WelcomeActivity.checkHeight(height))
                 hefa = false;
         }
 
@@ -277,7 +273,7 @@ public class MemRegActivity extends Com2Activity {
             hefa = false;
         } else {
             int age = Integer.valueOf(mAgeEditText.getText().toString());
-            if (age < MIN_AGE || age > MAX_AGE)
+            if (!WelcomeActivity.checkAge(age))
                 hefa = false;
         }
         mNextButton.setEnabled(hefa);

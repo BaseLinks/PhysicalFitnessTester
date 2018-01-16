@@ -23,25 +23,11 @@ import org.xutils.x;
  */
 public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "WelcomeActivity";
-    public static final int MIN_HEIGHT = 1;
-    public static final int MAX_HEIGHT = 250;
-    public static final int MIN_AGE = 7;
-    public static final int MAX_AGE = 99;
     public static final int INVALID_FINGER_ID = -1;
     public static final int INVALID_RECORD_ID = -1;
     public static final String CONST_FINGER_ID = "CONST_FINGER_ID";
-    public static final String CONST_PERSON = "PERSON";
-    public static final String CONST_WEIGHT = "WEIGHT";
-    public static final String CONST_ID     = "ID";
-    public static final String CONST_HEIGHT = "HEIGHT";
-    public static final String CONST_AGE    = "AGE";
     public static final String CONST_RECORD_ID = "CONST_RECORD_ID";
     private static final int REQUEST_CODE_VIP_REGISTE = 1;
-    private static final int REQUEST_CODE_VIP_TEST    = 2;
-    private static final int REQUEST_CODE_NEW_TEST    = 3;
-    private static final int REQUEST_CODE_ID          = 4;
-    private static final int REQUEST_CODE_AGE         = 5;
-    private static final int REQUEST_CODE_HEIGHT      = 6;
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
     public static final int PERSON_ID_INVALID         = -1;
@@ -71,6 +57,12 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final String CONST_ACTION_TOUCHID_OK = "CONST_ACTION_TOUCHID_OK";
 
     private static BodyComposition mBodyComposition;
+    private static int mAgeMin;
+    private static int mAgeMax;
+    private static int mHeightMax;
+    private static int mHeightMin;
+    private static int mWeightMax;
+    private static int mWeightMin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +107,46 @@ public class WelcomeActivity extends AppCompatActivity {
         TouchID.getInstance(this.getApplicationContext());
 
         UartBca.getInstance(this);
+
+        mAgeMin = getResources().getInteger(R.integer.age_min);
+        mAgeMax = getResources().getInteger(R.integer.age_max);
+        mHeightMin = getResources().getInteger(R.integer.height_min);
+        mHeightMax = getResources().getInteger(R.integer.height_min);
+        mWeightMin = getResources().getInteger(R.integer.weight_min);
+        mWeightMin = getResources().getInteger(R.integer.weight_min);
     }
+
+    /**
+     * 判断年龄是否合法
+     * @param age
+     * @return
+     */
+    public static boolean checkAge(int age) {
+        return age >= mAgeMin && age <= mAgeMax;
+    }
+
+    /**
+     * 判断身高是否合法
+     * @param height cm
+     * @return
+     */
+    public static boolean checkHeight(int height) {
+        // 转换成mm
+        height = height * 10;
+        return height >= mHeightMin && height <= mHeightMax;
+    }
+
+    /**
+     * 判断体重是否合法
+     * @param weight kg
+     * @return
+     */
+    public static boolean checkWeight(int weight) {
+        // 转换成mm
+        weight = weight * 10;
+        return weight >= mWeightMin && weight <= mWeightMax;
+    }
+
 
     // This snippet hides the system bars.
     public static void hideSystemUI(View v) {

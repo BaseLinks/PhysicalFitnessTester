@@ -9,8 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_HEIGHT;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_HEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
 /**
@@ -48,7 +46,7 @@ public class HeightActivity extends Com2Activity {
         public void afterTextChanged(Editable s) {
             try {
                 int val = Integer.parseInt(s.toString());
-                if(val >= MIN_HEIGHT && val <= MAX_HEIGHT) {
+                if(WelcomeActivity.checkHeight(val)) {
                     mEditText.setTextColor(Color.parseColor("#F39801"));
                     mNextButton.setEnabled(true);
                 } else {

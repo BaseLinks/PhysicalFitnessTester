@@ -11,8 +11,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MAX_AGE;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.MIN_AGE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 
 /**
@@ -53,7 +51,7 @@ public class AgeActivity extends Com2Activity {
         public void afterTextChanged(Editable s) {
             try {
                 int val = Integer.parseInt(s.toString());
-                if(val >= MIN_AGE && val <= MAX_AGE) {
+                if(WelcomeActivity.checkAge(val)) {
                     mEditText.setTextColor(Color.parseColor("#F39801"));
                     mNextButton.setEnabled(true);
                 } else {
