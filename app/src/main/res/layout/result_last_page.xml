@@ -22,59 +22,18 @@
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/danbaizhi_guoliang_edittext"
+        android:id="@+id/wujiyan_zhengchang_edittext"
         style="@style/resultEditText"
-        android:layout_width="72px"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:maxLines="1"
         app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/danbaizhi_zhengchang_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/danbaizhi_zhengchang_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/wujiyan_guoliang_edittext"
-        style="@style/resultEditText"
-        android:layout_width="72px"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/wujiyan_zhengchang_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/wujiyan_buzu_edittext"
-        style="@style/resultEditText"
-        android:layout_width="74px"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView14" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/wujiyan_zhengchang_edittext"
-        style="@style/resultEditText"
-        android:layout_width="70px"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_buzu_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/wujiyan_buzu_edittext"
-        app:layout_constraintVertical_bias="0.312" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/zongnenghao_edittext"
@@ -92,28 +51,14 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/danbaizhi_zhengchang_edittext"
         style="@style/resultEditText"
-        android:layout_width="70px"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/danbaizhi_buzu_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/danbaizhi_buzu_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/danbaizhi_buzu_edittext"
-        style="@style/resultEditText"
-        android:layout_width="74px"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:maxLines="1"
         app:backgroundTint="#777777"
         app:layout_constraintBottom_toBottomOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="@+id/textView14" />
 
     <android.support.v7.widget.AppCompatEditText
@@ -408,4 +353,54 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/sdf"
+        android:layout_width="2px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/textView15"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+
+    <View
+        android:id="@+id/sdf2"
+        android:layout_width="2px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+
+    <ProgressBar
+        android:id="@+id/wujiyan_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+    <ProgressBar
+        android:id="@+id/danbaizhi_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/zhifangtiaozheng_textview" />
+
+
+
 </android.support.constraint.ConstraintLayout>

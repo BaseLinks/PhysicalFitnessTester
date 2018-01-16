@@ -249,6 +249,11 @@ public class TestActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, R.string.error_tip, Toast.LENGTH_LONG).show();
+                            }
+                        });
                         break;
                     }
                 }
@@ -445,7 +450,7 @@ public class TestActivity extends AppCompatActivity {
                 break;
             case R.id.detail_button:
                 intent = new Intent(this, ResultActivity.class);
-                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
+//                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
                 startActivity(intent);
                 break;
             case R.id.print_button:

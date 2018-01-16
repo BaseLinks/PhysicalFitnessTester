@@ -50,6 +50,10 @@ public class ResultActivity extends AppCompatActivity {
     public String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT;
     public String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
 
+    private static final int YINGYANGPINGGU_LESS_LEVEL_WIDTH = 74 + 2;
+    private static final int YINGYANGPINGGU_NOMAL_LEVEL_WIDTH = 70 + 2;
+    private static final int YINGYANGPINGGU_MORE_LEVEL_WIDTH = 72 + 2;
+
     /**
      * 这里的Record入口应该是Record对象，因为像临时测试是不存数据库，读数据库并不适合
      * @param savedInstanceState
@@ -125,8 +129,14 @@ public class ResultActivity extends AppCompatActivity {
         fillOne(R.id.jichudaixie_edittext, mBodyComposition.基础代谢, FLOAT_0_FORMAT);
 
         // -- 蛋白质 无机盐
-        fillYingYangPingGu(R.id.danbaizhi_buzu_edittext, R.id.danbaizhi_zhengchang_edittext, R.id.danbaizhi_guoliang_edittext, mBodyComposition.蛋白质);
-        fillYingYangPingGu(R.id.wujiyan_buzu_edittext, R.id.wujiyan_zhengchang_edittext, R.id.wujiyan_guoliang_edittext, mBodyComposition.无机盐);
+        fillYingYangPingGu(
+                R.id.danbaizhi_zhengchang_edittext,
+                R.id.danbaizhi_progressbar,
+                mBodyComposition.蛋白质);
+        fillYingYangPingGu(
+                R.id.wujiyan_zhengchang_edittext,
+                R.id.wujiyan_progressbar,
+                mBodyComposition.无机盐);
         // -- 总能耗
         ((EditText)findViewById(R.id.zongnenghao_edittext)).setText(
                 String.format(FLOAT_0_FORMAT + mBodyComposition.总能耗.getUnit(),
@@ -275,12 +285,13 @@ public class ResultActivity extends AppCompatActivity {
         et2.setText(String.format(format,t.getMin()) + "-" + String.format(format, t.getMax()));
     }
 
-    private void fillYingYangPingGu(int minId, int curId, int maxId, BodyComposition.Third t) {
-        EditText etMin = findViewById(minId);
+    private void fillYingYangPingGu(int curId, int progressid, BodyComposition.Third t) {
+//        EditText etMin = findViewById(minId);
         EditText etCur = findViewById(curId);
-        EditText etMax = findViewById(maxId);
+//        EditText etMax = findViewById(maxId);
+        ProgressBar pb = findViewById(progressid);
 
-        String valueStr = String.format(FLOAT_1_FORMAT + t.getUnit(), t.getCur());
+        String valueStr = String.format(FLOAT_1_FORMAT, t.getCur()) + t.getUnit();
         String minStr = "";
         String curStr = "";
         String maxStr = "";
@@ -298,9 +309,10 @@ public class ResultActivity extends AppCompatActivity {
                 break;
         }
 
-        etMin.setText(minStr);
-        etCur.setText(curStr);
-        etMax.setText(maxStr);
+//        etMin.setText(minStr);
+        etCur.setText(valueStr);
+//        etMax.setText(maxStr);
+        pb.setProgress(t.getProgress(YINGYANGPINGGU_LESS_LEVEL_WIDTH, YINGYANGPINGGU_NOMAL_LEVEL_WIDTH, YINGYANGPINGGU_MORE_LEVEL_WIDTH));
     }
 
 

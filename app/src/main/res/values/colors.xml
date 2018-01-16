@@ -14,4 +14,5 @@
     <color name="colorProgressBackground">#00000000</color>
     <color name="colorTestProgress">#f9b552</color>
     <color name="testHeadLineColor">#c9c9c9</color>
+    <color name="line">#777777</color>
 </resources>
