@@ -50,6 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static DbManager mDb;
 
+
     public static DbManager getDB() {
         return mDb;
     }
@@ -63,6 +64,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private static int mHeightMin;
     private static int mWeightMax;
     private static int mWeightMin;
+    private static int mGenderMin;
+    private static int mGenderMax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +114,21 @@ public class WelcomeActivity extends AppCompatActivity {
         mAgeMin = getResources().getInteger(R.integer.age_min);
         mAgeMax = getResources().getInteger(R.integer.age_max);
         mHeightMin = getResources().getInteger(R.integer.height_min);
-        mHeightMax = getResources().getInteger(R.integer.height_min);
+        mHeightMax = getResources().getInteger(R.integer.height_max);
         mWeightMin = getResources().getInteger(R.integer.weight_min);
-        mWeightMin = getResources().getInteger(R.integer.weight_min);
+        mWeightMax = getResources().getInteger(R.integer.weight_max);
+        mGenderMin = getResources().getInteger(R.integer.gender_min);
+        mGenderMax = getResources().getInteger(R.integer.gender_max);
+    }
+
+
+    /**
+     * 判断性别是否合法
+     * @param gender
+     * @return
+     */
+    public static boolean checkGender(int gender) {
+        return gender == mGenderMax || gender == mGenderMin;
     }
 
     /**
@@ -122,7 +137,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @return
      */
     public static boolean checkAge(int age) {
-        return age >= mAgeMin && age <= mAgeMax;
+        return ((age >= mAgeMin) && (age <= mAgeMax));
     }
 
     /**

@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
+import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 /**
@@ -258,19 +259,19 @@ public class Protocol implements IProtocol {
      */
     public boolean startTichengfen(byte gender, byte age, short height, short weight) throws ProtocalExcption {
         // 判断Gender
-        if (gender != 0x01 && gender != 0x00) {
+        if (!WelcomeActivity.checkGender(gender)) {
             throw new ProtocalExcption.GenderExcetion("need 0->1, but arg is: " + gender);
         }
 
-        if (age < 7 || age > 99) {
+        if (!WelcomeActivity.checkAge(age)) {
             throw new ProtocalExcption.AgeExcetion("need 7->99, but arg is: " + age);
         }
 
-        if (height < 900 || height > 2200) {
+        if (!WelcomeActivity.checkHeight(height/10)) {
             throw new ProtocalExcption.HeightExcetion("need 900->2200, but arg is: " + height);
         }
 
-        if (weight < 100 || weight > 2000) {
+        if (!WelcomeActivity.checkWeight(weight/10)) {
             throw new ProtocalExcption.WeightExcetion("need 100->2000, but arg is: " + weight);
         }
 

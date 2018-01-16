@@ -156,7 +156,8 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
         if (mEditText != null && tmp.length() <= 4) {
             mEditText.setText(tmp);
             // 将光标调到末尾
-            mEditText.setSelection(tmp.length());
+            // 使用tmp.length()是err
+            mEditText.setSelection(mEditText.getText().toString().length());
         }
     }
 
