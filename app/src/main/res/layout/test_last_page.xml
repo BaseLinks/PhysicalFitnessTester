@@ -138,15 +138,46 @@
             android:layout_height="72px"
             android:paddingTop="2px">
 
-            <TextView
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="194px"
-                android:layout_height="match_parent"
-                android:background="#434343"
-                android:gravity="center"
-                android:text="身体质量指数"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
-                android:textSize="27sp" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="身体质量指数"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/sdfsdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="BMI"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="219px"
@@ -171,7 +202,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <RadioGroup
                     android:id="@+id/shentizhiliangzhishu_radiogroup"
@@ -227,15 +257,46 @@
             android:layout_height="72px"
             android:paddingTop="2px">
 
-            <TextView
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="194px"
-                android:layout_height="match_parent"
-                android:alpha="100"
-                android:textColor="#F8B551"
-                android:gravity="center"
-                android:text="体脂百分比"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="27sp" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tizhibaifenbi_title_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="体脂百分比"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tizhibaifenbi_title2_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="FAT%"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tizhibaifenbi_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_title_textview" />
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="219px"
@@ -244,22 +305,49 @@
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="815dp">
 
-                <TextView
-                    android:id="@+id/tizhibaifenbi_result_textview"
-                    android:layout_width="0dp"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="72px"
-                    android:alpha="100"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:lineSpacingExtra="0dp"
-                    android:padding="0dp"
-                    android:text="30.1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
-                    android:textSize="45px"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/tizhibaifenbi_constraintlayout">
+
+                    <TextView
+                        android:id="@+id/tizhibaifenbi_result_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"
+                        android:padding="0dp"
+                        android:text="67.4"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/white"
+                        android:textSize="45px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tizhibaifenbi_result_unit_textview"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tizhibaifenbi_result_unit_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginEnd="9dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"
+                        android:padding="0dp"
+                        android:text="%"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
 
                 <RadioGroup
@@ -273,7 +361,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_result_textview">
+                    app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_constraintlayout">
 
                     <RadioButton
                         android:id="@+id/tizhibaifenbi_low_radiobutton"
@@ -321,27 +409,90 @@
             android:layout_height="72px"
             android:paddingTop="2px">
 
-            <TextView
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="194px"
-                android:layout_height="72px"
-                android:alpha="100"
-                android:gravity="center"
-                android:text="基础代谢量"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
-                android:textSize="27sp" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/jichudaixie_result_textview"
+                <TextView
+                    android:id="@+id/jichudaixieliang_title_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="基础代谢量"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/jichudaixieliang_title2_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="BM"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/jichudaixieliang_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/jichudaixieliang_title_textview" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="160px"
                 android:layout_height="72px"
-                android:layout_marginStart="2px"
-                android:alpha="100"
-                android:gravity="center"
-                android:text="46.1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white"
-                android:textSize="45px" />
+                android:layout_marginStart="2px">
+
+                <TextView
+                    android:id="@+id/jichudaixie_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/jichudaixie_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/jichudaixie_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kcal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
         </TableRow>
 
     </TableLayout>
@@ -431,7 +582,7 @@
                 android:gravity="center"
                 android:text="体重"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
+                android:textColor="@color/test_result_title_text_color"
                 android:textSize="27sp" />
 
             <TextView
@@ -463,19 +614,49 @@
                 android:textColor="@android:color/white"
                 android:textSize="27sp" />
 
-            <TextView
-                android:id="@+id/weight_result_textview"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="160px"
-                android:layout_height="72px"
-                android:layout_marginStart="2px"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:lineSpacingExtra="0dp"
-                android:padding="0dp"
-                android:text="67.4"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white"
-                android:textSize="45px" />
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/weight_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/weight_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/weight_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
         </TableRow>
 
         <TableRow
@@ -490,7 +671,7 @@
                 android:gravity="center"
                 android:text="骨骼肌"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
+                android:textColor="@color/test_result_title_text_color"
                 android:textSize="27sp" />
 
             <TextView
@@ -520,16 +701,48 @@
                 android:textColor="@android:color/white"
                 android:textSize="27sp" />
 
-            <TextView
-                android:id="@+id/gugeji_result_textview"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="160px"
-                android:layout_height="72px"
-                android:layout_marginStart="2px"
-                android:gravity="center"
-                android:text="36.3"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white"
-                android:textSize="45px" />
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/gugeji_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gugeji_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/gugeji_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
         </TableRow>
 
         <TableRow
@@ -544,7 +757,7 @@
                 android:gravity="center"
                 android:text="体脂肪"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#F8B551"
+                android:textColor="@color/test_result_title_text_color"
                 android:textSize="27sp" />
 
             <TextView
@@ -574,16 +787,48 @@
                 android:textColor="@android:color/white"
                 android:textSize="27sp" />
 
-            <TextView
-                android:id="@+id/tizhifang_result_textview"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="160px"
-                android:layout_height="72px"
-                android:layout_marginStart="2px"
-                android:gravity="center"
-                android:text="46.1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white"
-                android:textSize="45px" />
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/tizhifang_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tizhifang_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tizhifang_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
         </TableRow>
     </TableLayout>
 
