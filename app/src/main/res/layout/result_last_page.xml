@@ -130,18 +130,6 @@
         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_normal_edittext"
-        style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/jichudaixie_edittext"
-        app:layout_constraintStart_toEndOf="@+id/jichudaixie_edittext"
-        app:layout_constraintTop_toTopOf="@+id/jichudaixie_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/yaotunbi_normal_edittext"
         style="@style/resultEditText"
         android:layout_width="95px"

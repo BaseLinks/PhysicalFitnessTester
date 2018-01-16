@@ -16,7 +16,7 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 public class Protocol implements IProtocol {
     private static final String TAG = "Protocol";
-    private static final boolean FAKE_DATA = false;
+    private static final boolean FAKE_DATA = true;
 
     // 一.接口参数 接口参数—115200,8N1. 232 串口通讯
     public static final int RATE = 115200;

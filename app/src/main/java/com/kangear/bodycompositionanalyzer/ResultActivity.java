@@ -50,6 +50,10 @@ public class ResultActivity extends AppCompatActivity {
     public String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT;
     public String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
 
+    /**
+     * 这里的Record入口应该是Record对象，因为像临时测试是不存数据库，读数据库并不适合
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +73,16 @@ public class ResultActivity extends AppCompatActivity {
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
         FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
+//
+//        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
+//        if (recordId != INVALID_RECORD_ID) {
+//            mRecord = RecordBean.getInstance(this).query(recordId);
+//        }
 
-        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
-        if (recordId != INVALID_RECORD_ID) {
-            mRecord = RecordBean.getInstance(this).query(recordId);
-        }
-
+        mRecord = WelcomeActivity.getRecord();
         if (mRecord == null) {
             mRecord = DEFAULT_RECORD;
+            Toast.makeText(this, "获取记录异常", Toast.LENGTH_SHORT).show();
         }
 
         // -Page 1
@@ -116,7 +122,8 @@ public class ResultActivity extends AppCompatActivity {
         fillTwo(R.id.bmi_edittext, R.id.bmi_normal_edittext, mBodyComposition.BMI, FLOAT_1_FORMAT);
         fillTwo(R.id.tizhibi_edittext, R.id.tizhibi_normal_edittext, mBodyComposition.体脂百分比, FLOAT_1_FORMAT);
         fillTwo(R.id.yaotunbi_edittext, R.id.yaotunbi_normal_edittext, mBodyComposition.腰臀比, FLOAT_2_FORMAT);
-        fillTwo(R.id.jichudaixie_edittext, R.id.jichudaixie_normal_edittext, mBodyComposition.基础代谢, FLOAT_0_FORMAT);
+        fillOne(R.id.jichudaixie_edittext, mBodyComposition.基础代谢, FLOAT_0_FORMAT);
+
         // -- 蛋白质 无机盐
         fillYingYangPingGu(R.id.danbaizhi_buzu_edittext, R.id.danbaizhi_zhengchang_edittext, R.id.danbaizhi_guoliang_edittext, mBodyComposition.蛋白质);
         fillYingYangPingGu(R.id.wujiyan_buzu_edittext, R.id.wujiyan_zhengchang_edittext, R.id.wujiyan_guoliang_edittext, mBodyComposition.无机盐);
@@ -264,7 +271,7 @@ public class ResultActivity extends AppCompatActivity {
     private void fillTwo(int curId, int norId, BodyComposition.Third t, String format) {
         EditText et = findViewById(curId);
         EditText et2 = findViewById(norId);
-        et.setText(String.format(format + t.getUnit(), t.getCur()));
+        et.setText(String.format(format, t.getCur()) + t.getUnit());
         et2.setText(String.format(format,t.getMin()) + "-" + String.format(format, t.getMax()));
     }
 

@@ -19,6 +19,7 @@ public class BodyComposition {
     public static final String UNIT_CM     = "cm";
     public static final String UNIT_EMPTY  = "";
     public static final String UNIT_R      = "欧";
+    public static final String UNIT_PERCENT= "%";
 
     public final Third 性别        = new Third(20, 1, 0, UNIT_EMPTY);
     public final Third 年龄        = new Third(21, 1, 0, UNIT_AGE);
@@ -43,9 +44,9 @@ public class BodyComposition {
     public final Third 躯干脂肪量   = new Third(139, 141, 143, 2, 1, UNIT_KG);
     public final Third 左下脂肪量   = new Third(145, 146, 147, 1, 1, UNIT_KG);
     public final Third 右下脂肪量   = new Third(148, 149, 150, 1, 1, UNIT_KG);
-    public final Third BMI        = new Third(157, 159, 161, 2, 1, UNIT_KG);
-    public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1, UNIT_KG);
-    public final Third 腰臀比      = new Third(177, 178, 179, 1, 2, UNIT_KG);
+    public final Third BMI        = new Third(157, 159, 161, 2, 1, UNIT_EMPTY);
+    public final Third 体脂百分比   = new Third(163, 165, 167, 2, 1, UNIT_PERCENT);
+    public final Third 腰臀比      = new Third(177, 178, 179, 1, 2, UNIT_EMPTY);
     public final Third 内脏面积     = new Third(185, 2, 1, UNIT_CM2);
     public final Third 评分        = new Third(187, 2, 1, UNIT_SCORE);
     public final Third 基础代谢     = new Third(196, 2, 0, UNIT_KCAL);
