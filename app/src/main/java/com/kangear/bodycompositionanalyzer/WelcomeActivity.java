@@ -5,9 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
+import android.os.Environment;
+import android.print.PrintAttributes;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +22,10 @@ import com.kangear.common.utils.TimeUtils;
 
 import org.xutils.DbManager;
 import org.xutils.x;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -119,6 +129,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mWeightMax = getResources().getInteger(R.integer.weight_max);
         mGenderMin = getResources().getInteger(R.integer.gender_min);
         mGenderMax = getResources().getInteger(R.integer.gender_max);
+
+//        onClick2(null);
     }
 
 
@@ -217,6 +229,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 break;
             case R.id.settings_imageview:
                 startSettings(this);
+                onClick2(v);
                 break;
         }
     }
@@ -368,5 +381,46 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static void unkownError(Activity activity) {
         Toast.makeText(activity, "未知错误，请联系厂家", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClick2(View v) {
+        // create a new document
+        PdfDocument document = new PdfDocument();
+
+        // crate a page description
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
+                PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+                PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
+                .create();
+
+        // start a page
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        // draw something on the page
+//        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+//        View content = li.inflate(R.layout.activity_welcome, null);
+        View content = findViewById(R.id.pdf_20180115);
+        Canvas canvas = page.getCanvas();
+        Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
+        content.draw(canvas);
+
+        // finish the page
+        document.finishPage(page);
+        // add more pages
+        // write the document content
+        FileOutputStream os = null;
+        try {
+            String string = "/sdcard/test.pdf";
+            Log.i(TAG, "String:" + string);
+            os = new FileOutputStream(string);
+            document.writeTo(os);
+            os.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            // close the document
+            document.close();
+        }
     }
 }
