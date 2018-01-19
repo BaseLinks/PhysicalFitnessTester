@@ -13,10 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.getBodyComposition;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -26,7 +23,7 @@ public class ResultActivity extends AppCompatActivity {
     private static final String TAG = "ResultActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
-    private static final Record DEFAULT_RECORD = new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, "20180101");
+    private static final Record DEFAULT_RECORD = new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0);
     private Button mPreButton;
     private Button mNextButton;
     private View mFirstPage;
@@ -65,7 +62,7 @@ public class ResultActivity extends AppCompatActivity {
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        mBodyComposition = getBodyComposition();
+
         mPreButton = findViewById(R.id.previous_page_button);
         mNextButton = findViewById(R.id.next_page_button);
         mFirstPage = findViewById(R.id.result_first_page);
@@ -84,6 +81,7 @@ public class ResultActivity extends AppCompatActivity {
 //        }
 
         mRecord = WelcomeActivity.getRecord();
+        mBodyComposition = mRecord.getBodyComposition();
         if (mRecord == null) {
             mRecord = DEFAULT_RECORD;
             Toast.makeText(this, "获取记录异常", Toast.LENGTH_SHORT).show();

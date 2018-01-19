@@ -67,7 +67,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static final String CONST_ACTION_TOUCHID_OK = "CONST_ACTION_TOUCHID_OK";
 
-    private static BodyComposition mBodyComposition;
     private static int mAgeMin;
     private static int mAgeMax;
     private static int mHeightMax;
@@ -202,14 +201,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mTimeUtils.stop();
     }
 
-    public static BodyComposition getBodyComposition() {
-        return mBodyComposition;
-    }
-
-    public static void setBodyComposition(BodyComposition mBodyComposition) {
-        WelcomeActivity.mBodyComposition = mBodyComposition;
-    }
-
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
@@ -219,9 +210,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:
+                getRecord().setTime(System.currentTimeMillis());
                 startVipTest(this);
                 break;
             case R.id.start_new_test_imageview:
+                getRecord().setTime(System.currentTimeMillis());
                 startTmpTest(this);
                 break;
             case R.id.history_imageview:
@@ -229,7 +222,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 break;
             case R.id.settings_imageview:
                 startSettings(this);
-                onClick2(v);
+//                onClick2(v);
                 break;
         }
     }
@@ -362,7 +355,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, SettingsActivity.class));
+        actvity.startActivity(new Intent(actvity, PdfActivity.class));
     }
 
     /**
@@ -382,45 +375,45 @@ public class WelcomeActivity extends AppCompatActivity {
     public static void unkownError(Activity activity) {
         Toast.makeText(activity, "未知错误，请联系厂家", Toast.LENGTH_SHORT).show();
     }
-
-    public void onClick2(View v) {
-        // create a new document
-        PdfDocument document = new PdfDocument();
-
-        // crate a page description
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
-                PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
-                PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
-                .create();
-
-        // start a page
-        PdfDocument.Page page = document.startPage(pageInfo);
-
-        // draw something on the page
-//        LayoutInflater li = LayoutInflater.from(getApplicationContext());
-//        View content = li.inflate(R.layout.activity_welcome, null);
-        View content = findViewById(R.id.pdf_20180115);
-        Canvas canvas = page.getCanvas();
-        Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
-        content.draw(canvas);
-
-        // finish the page
-        document.finishPage(page);
-        // add more pages
-        // write the document content
-        FileOutputStream os = null;
-        try {
-            String string = "/sdcard/test.pdf";
-            Log.i(TAG, "String:" + string);
-            os = new FileOutputStream(string);
-            document.writeTo(os);
-            os.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            // close the document
-            document.close();
-        }
-    }
+//
+//    public void onClick2(View v) {
+//        // create a new document
+//        PdfDocument document = new PdfDocument();
+//
+//        // crate a page description
+//        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
+//                PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+//                PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
+//                .create();
+//
+//        // start a page
+//        PdfDocument.Page page = document.startPage(pageInfo);
+//
+//        // draw something on the page
+////        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+////        View content = li.inflate(R.layout.activity_welcome, null);
+//        View content = findViewById(R.id.pdf_20180115);
+//        Canvas canvas = page.getCanvas();
+//        Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
+//        content.draw(canvas);
+//
+//        // finish the page
+//        document.finishPage(page);
+//        // add more pages
+//        // write the document content
+//        FileOutputStream os = null;
+//        try {
+//            String string = "/sdcard/test.pdf";
+//            Log.i(TAG, "String:" + string);
+//            os = new FileOutputStream(string);
+//            document.writeTo(os);
+//            os.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } finally {
+//            // close the document
+//            document.close();
+//        }
+//    }
 }

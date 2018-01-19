@@ -16,6 +16,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 
@@ -47,8 +48,17 @@ public class PdfActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         List<Record> mRecords = new ArrayList<>();
-        mRecords.add(new Record());
-        mAdapter = new RecordPdfAdapter(new String[]{"中国", "日本", "米国"});
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
+        mAdapter = new RecordPdfAdapter(mRecords);
         mRecyclerView.setAdapter(mAdapter);
     }
 }

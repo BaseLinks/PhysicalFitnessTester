@@ -39,6 +39,9 @@ public class Record {
      */
     @Column(name = "date")
     private String date;
+    @Column(name = "time")
+    private long time;
+    private BodyComposition bodyComposition;
 
     public Record() {
 
@@ -80,7 +83,7 @@ public class Record {
         this.date = date;
     }
 
-    public Record(int id, int personId, String name, int age, float height, String gender, float weight, String date) {
+    public Record(int id, int personId, String name, int age, float height, String gender, float weight, long time) {
         this.id = id;
         this.personId = personId;
         this.name = name;
@@ -88,7 +91,7 @@ public class Record {
         this.height = height;
         this.gender = gender;
         this.weight = weight;
-        this.date = date;
+        this.time = time;
     }
 
     public String getName() {
@@ -154,5 +157,21 @@ public class Record {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    public BodyComposition getBodyComposition() {
+        return bodyComposition;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public void setBodyComposition(BodyComposition bodyComposition) {
+        this.bodyComposition = bodyComposition;
     }
 }

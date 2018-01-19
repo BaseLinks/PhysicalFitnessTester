@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<Record> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -28,7 +30,7 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecordPdfAdapter(String[] myDataset) {
+    public RecordPdfAdapter(List<Record> myDataset) {
         mDataset = myDataset;
     }
 
@@ -49,15 +51,21 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mWeightTextView.setText(mDataset[position]);
-        holder.mGugejiTextView.setText(mDataset[position]);
-        holder.mTizhibaifenbiTextView.setText(mDataset[position]);
-        holder.mTestDate.setText(mDataset[position]);
+        Record record = mDataset.get(position);
+        if (record != null) {
+            BodyComposition bc = record.getBodyComposition();
+            if (bc != null) {
+                holder.mWeightTextView.setText(String.format("%.1kg", bc.体重.getCur()));
+                holder.mGugejiTextView.setText(String.format("%.1kg", bc.骨骼肌.getCur()));
+                holder.mTizhibaifenbiTextView.setText(String.format("%.1", bc.骨骼肌.getCur()) + bc.骨骼肌.getUnit());
+                holder.mTestDate.setText(String.format("%.1kg", record.getDate()));
+            }
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pdf_20180118"
-    android:layout_width="50px"
+    android:layout_width="47px"
     android:layout_height="140px">
 
     <TextView
