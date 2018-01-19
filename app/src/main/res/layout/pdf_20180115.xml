@@ -9,6 +9,7 @@
     tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
 
     <include
+        android:visibility="invisible"
         android:id="@+id/history_view"
         layout="@layout/pdf_20180115_history"
         android:layout_width="46dp"
