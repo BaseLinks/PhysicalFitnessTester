@@ -114,29 +114,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/age_guidline" />
 
-    <TextView
-        android:id="@+id/company_textview"
-        style="@style/pdf_text"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="218dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="360dp"
-        android:layout_marginTop="20dp"
-        android:text="北京一二三健身俱乐部"
-        android:textAlignment="textStart"
+        android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/number_textview"
-        style="@style/pdf_text"
-        android:layout_width="219dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="360dp"
-        android:layout_marginTop="2dp"
-        android:text="联系方式:1235455655"
-        android:textAlignment="textStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/company_textview" />
+        <TextView
+            android:id="@+id/company_textview"
+            style="@style/pdf_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="北京一二三健身俱乐部"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/number_textview"
+            style="@style/pdf_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="1235455655"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="@+id/number_label_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/number_label_textview"
+            app:layout_constraintTop_toTopOf="@+id/number_label_textview" />
+
+        <TextView
+            android:id="@+id/number_label_textview"
+            style="@style/pdf_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="联系方式:"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/company_textview" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/height_textview"
@@ -701,48 +723,51 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="732dp" />
 
-    <ProgressBar
+    <include
         android:id="@+id/danbaizhi_progressbar"
-        style="@style/CustomProgressBar"
+        layout="@layout/pdf_yingyangpinggu_progress"
         android:layout_height="3px"
         android:layout_marginTop="1dp"
+        android:layout_width="0dp"
         app:layout_constraintEnd_toStartOf="@+id/yingyangpinggu_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/yingyangpinggu_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/danbaizhi_guidline" />
 
-    <ProgressBar
+    <include
         android:id="@+id/wujiyan_progressbar"
-        style="@style/CustomProgressBar"
+        layout="@layout/pdf_yingyangpinggu_progress"
         android:layout_height="3px"
         android:layout_marginTop="1dp"
+        android:layout_width="0dp"
         app:layout_constraintEnd_toStartOf="@+id/yingyangpinggu_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/yingyangpinggu_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/wujiyan_guidline" />
 
-    <ProgressBar
-        android:id="@+id/wujiyan_progressbar2"
-        style="@style/CustomProgressBar"
-        android:layout_height="9px"
-        android:layout_marginTop="8dp"
+    <include
+        android:id="@+id/weight_progressbar"
+        layout="@layout/pdf_tichengfenfenxi_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         app:layout_constraintBottom_toTopOf="@+id/weight_guidline"
         app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/weight_guidline" />
 
-    <ProgressBar
-        android:id="@+id/wujiyan_progressbar4"
-        style="@style/CustomProgressBar"
-        android:layout_height="9px"
-        android:layout_marginTop="8dp"
+    <include
+        android:id="@+id/tizhifang_progressbar"
+        layout="@layout/pdf_tichengfenfenxi_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         app:layout_constraintBottom_toTopOf="@+id/tizhifang_guidline"
         app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/tizhifang_guidline" />
 
-    <ProgressBar
-        android:id="@+id/wujiyan_progressbar3"
-        style="@style/CustomProgressBar"
-        android:layout_height="9px"
+    <include
+        android:id="@+id/gugeji_progressbar"
+        layout="@layout/pdf_tichengfenfenxi_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         app:layout_constraintBottom_toTopOf="@+id/gugeji_guidline"
         app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"

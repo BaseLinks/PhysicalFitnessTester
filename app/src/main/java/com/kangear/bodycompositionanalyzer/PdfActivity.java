@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +37,12 @@ public class PdfActivity extends AppCompatActivity {
     private static final String JIBENXINXI_TIME_FORMAT  = "hh:mm";
 //    public static final String DATE_FORMAT  = "yy.MM.dd";
     public static final String DATE_FORMAT  = "hh.mm.ss";
-    private float YINGYANGPINGGU_LESS_LEVEL_WIDTH;
-    private float YINGYANGPINGGU_NOMAL_LEVEL_WIDTH;
-    private float YINGYANGPINGGU_MORE_LEVEL_WIDTH;
+    private static float TICHENGFENFENXI_LESS_WIDTH = 78;
+    private static float TICHENGFENFENXI_NOMAL_WIDTH = 40;
+    private static float TICHENGFENFENXI_MORE_WIDTH = 90;
+    private static float YINGYANGPINGGU_LESS_WIDTH = 25;
+    private static float YINGYANGPINGGU_NOMAL_WIDTH = 25;
+    private static float YINGYANGPINGGU_MORE_WIDTH = 25;
 
     public String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT;
     public String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
@@ -52,7 +55,8 @@ public class PdfActivity extends AppCompatActivity {
 
         personId = getIntent().getIntExtra(CONST_PERSON_ID, PERSON_ID_INVALID);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.history_recyclerview);
+        mRecyclerView = findViewById(R.id.history_recyclerview);
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -120,6 +124,10 @@ public class PdfActivity extends AppCompatActivity {
         fillRange(bc.体重, R.id.weight_range_textview, false, FLOAT_1_FORMAT);
         fillRange(bc.骨骼肌, R.id.gugeji_range_textview, false, FLOAT_1_FORMAT);
         fillRange(bc.体脂肪量, R.id.tizhifang_range_textview, false, FLOAT_1_FORMAT);
+        setProgressOfTichengfenfenxi(bc.体重, findViewById(R.id.weight_progressbar));
+        setProgressOfTichengfenfenxi(bc.骨骼肌, findViewById(R.id.gugeji_progressbar));
+        setProgressOfTichengfenfenxi(bc.体脂肪量, findViewById(R.id.tizhifang_progressbar));
+
         // -身体水分
         fillCurAndRange(bc.身体水分, R.id.shentishuifen_textview, true, FLOAT_1_FORMAT);
         // -去脂体重
@@ -127,10 +135,11 @@ public class PdfActivity extends AppCompatActivity {
 
         // 营养评估
         // -蛋白质 无机盐 总能耗
-//        ((ProgressBar)findViewById(R.id.danbaizhi_progressbar)).setProgress(bc.蛋白质.getProgress());
         fillOne(bc.蛋白质, R.id.danbaizhi_textview, true, FLOAT_1_FORMAT);
         fillOne(bc.无机盐, R.id.wujiyan_textview, true, FLOAT_1_FORMAT);
         fillOne(bc.总能耗, R.id.zongnenghao_textview, true, FLOAT_0_FORMAT);
+        setProgressOfYingYangPingGu(bc.蛋白质, findViewById(R.id.danbaizhi_progressbar));
+        setProgressOfYingYangPingGu(bc.无机盐, findViewById(R.id.wujiyan_progressbar));
 
         // 肥胖分析
         fillCurAndRange(bc.BMI, R.id.bmi_textview, R.id.bmi_range_textview, true, FLOAT_1_FORMAT);
@@ -240,32 +249,35 @@ public class PdfActivity extends AppCompatActivity {
     }
 
     private void fillYingYangPingGu(int curId, int progressid, BodyComposition.Third t) {
-//        EditText etMin = findViewById(minId);
-        EditText etCur = findViewById(curId);
-//        EditText etMax = findViewById(maxId);
+        TextView etCur = findViewById(curId);
         ProgressBar pb = findViewById(progressid);
+        etCur.setText(String.format(FLOAT_1_FORMAT, t.getCur()) + t.getUnit());
+        pb.setProgress(t.getProgress(YINGYANGPINGGU_LESS_WIDTH, YINGYANGPINGGU_NOMAL_WIDTH, YINGYANGPINGGU_MORE_WIDTH));
+    }
 
-        String valueStr = String.format(FLOAT_1_FORMAT, t.getCur()) + t.getUnit();
-        String minStr = "";
-        String curStr = "";
-        String maxStr = "";
 
-        int level = t.getLevel();
-        switch (level) {
-            case BodyComposition.LEVEL_LOW:
-                minStr = valueStr;
-                break;
-            case BodyComposition.LEVEL_NORMAL:
-                curStr = valueStr;
-                break;
-            case BodyComposition.LEVEL_HIGH:
-                maxStr = valueStr;
-                break;
-        }
+    private void setProgressOfTichengfenfenxi(BodyComposition.Third t, View view) {
+        final int PECENT_MAX = 100;
+        final int HUMAN_HIGH = 208; // 208px
+        final float TWO_GE = (float) (20.8 * 2);
+        final float BILI = HUMAN_HIGH / PECENT_MAX;
+        final int progress = t.getProgress(TICHENGFENFENXI_LESS_WIDTH, TICHENGFENFENXI_NOMAL_WIDTH, TICHENGFENFENXI_MORE_WIDTH);
+        final ImageView progressView = view.findViewById(R.id.shentichengfenfenxi_frontgound_imageview);
+        final TextView textView = view.findViewById(R.id.progress_textview);
+        progressView.setVisibility(View.VISIBLE);
+        progressView.getLayoutParams().width = (int) (((PECENT_MAX - progress) * BILI) + TWO_GE);
+        progressView.requestLayout();
+        textView.setText(String.format(FORMAT_WEIGHT, t.getCur()) + t.getUnit());
+    }
 
-//        etMin.setText(minStr);
-        etCur.setText(valueStr);
-//        etMax.setText(maxStr);
-        pb.setProgress(t.getProgress(YINGYANGPINGGU_LESS_LEVEL_WIDTH, YINGYANGPINGGU_NOMAL_LEVEL_WIDTH, YINGYANGPINGGU_MORE_LEVEL_WIDTH));
+    private void setProgressOfYingYangPingGu(BodyComposition.Third t, View view) {
+        final int PECENT_MAX = 100;
+        final float total = YINGYANGPINGGU_LESS_WIDTH + YINGYANGPINGGU_NOMAL_WIDTH + YINGYANGPINGGU_MORE_WIDTH;
+        final float BILI = total / PECENT_MAX;
+        final int progress = t.getProgress(YINGYANGPINGGU_LESS_WIDTH, YINGYANGPINGGU_NOMAL_WIDTH, YINGYANGPINGGU_MORE_WIDTH);
+        final View progressView = view.findViewById(R.id.progress);
+        progressView.setVisibility(View.VISIBLE);
+        progressView.getLayoutParams().width = (int) ((PECENT_MAX - progress) * BILI);
+        progressView.requestLayout();
     }
 }
