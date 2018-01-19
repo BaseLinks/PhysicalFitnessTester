@@ -9,7 +9,8 @@ import org.xutils.ex.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kangear.bodycompositionanalyzer.Record.PERSON_ID;
+import static com.kangear.bodycompositionanalyzer.Record.DB_COL_PERSON_ID;
+import static com.kangear.bodycompositionanalyzer.Record.DB_COL_TIME;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_ANONYMOUS;
 
@@ -54,7 +55,7 @@ public class RecordBean {
                 mRecords = mDbManager.selector(Record.class).findAll();
             else {
                 Log.i(TAG, "PersonId: " + mPersonId);
-                mRecords = mDbManager.selector(Record.class).where(PERSON_ID, "=", mPersonId).findAll();
+                mRecords = mDbManager.selector(Record.class).where(DB_COL_PERSON_ID, "=", mPersonId).findAll();
             }
             if (mRecords != null) {
                 Log.i(TAG, "mRecords.size(): " + mRecords.size());
@@ -96,23 +97,20 @@ public class RecordBean {
     }
 
     /**
-     * @param pageNumber 当前页面
      * @param itemsPerPage  页面长度
      * @return
      */
-    public List<Record>  getRecordListByPersonId(int personId, int pageNumber, int itemsPerPage) {
-        Log.i(TAG, "pageNumber: " + pageNumber + " itemsPerPage: " + itemsPerPage);
+    public List<Record>  getRecordListByPersonId(int personId, int itemsPerPage) {
+        Log.i(TAG, "itemsPerPage: " + itemsPerPage);
         List<Record> records = new ArrayList<>();
-        Record record;
-
-        if (pageNumber < 0 || itemsPerPage < 1 || mRecords == null || mRecords.size() == 0) {
+        if (itemsPerPage < 1 || mRecords == null || mRecords.size() == 0) {
             return records;
         }
-        for (int i = pageNumber * itemsPerPage; i < (pageNumber + 1) * itemsPerPage; i++) {
-            if (i < mRecords.size()) {
-                record = mRecords.get(i);
-                if (record != null && record.getPersonId() == personId) {
-                    records.add(mRecords.get(i));
+        for(Record record : mRecords) {
+            if (record != null && record.getPersonId() == personId) {
+                records.add(record);
+                if (records.size() >= itemsPerPage) {
+                    break;
                 }
             }
         }
@@ -247,5 +245,19 @@ public class RecordBean {
             //Log.i(TAG, "KANGEARALL: " + mRecords.toString());
         }
         return ret;
+    }
+
+    List<Record> findRecentlyListById(int personId, final int num) {
+        List<Record> list = null;
+        try {
+            list = mDbManager.selector(Record.class)
+                    .where(DB_COL_PERSON_ID, "=", personId)
+                    .orderBy(DB_COL_TIME, true)
+                    .limit(num) //只查询两条记录
+                    .findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

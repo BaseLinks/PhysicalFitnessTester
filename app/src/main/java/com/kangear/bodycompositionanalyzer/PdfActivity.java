@@ -12,8 +12,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_PERSON_ID;
@@ -30,7 +32,8 @@ public class PdfActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private int personId;
-    public static final String DATE_FORMAT  = "yy.MM.dd";
+//    public static final String DATE_FORMAT  = "yy.MM.dd";
+    public static final String DATE_FORMAT  = "hh.mm.ss";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,8 @@ public class PdfActivity extends AppCompatActivity {
             mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
             mRecords.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
         } else {
-            mRecords = RecordBean.getInstance(this).getRecordListByPersonId(personId, 0, 10);
+            mRecords = RecordBean.getInstance(this).findRecentlyListById(personId, 10);
+            Collections.reverse(mRecords);
             // parse BodyComposition
             for (Record record : mRecords) {
                 byte[] data = record.getData();
@@ -74,6 +78,7 @@ public class PdfActivity extends AppCompatActivity {
             }
         }
         Log.i(TAG, "mRecords: " + mRecords.size());
+        Toast.makeText(this, "历史记录数:"+mRecords.size(), Toast.LENGTH_LONG).show();
         mAdapter = new RecordPdfAdapter(mRecords);
         mRecyclerView.setAdapter(mAdapter);
     }

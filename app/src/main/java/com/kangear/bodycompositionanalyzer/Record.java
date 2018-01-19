@@ -12,14 +12,15 @@ import org.xutils.db.annotation.Table;
 @Table(name = "record")
 public class Record {
     public static final String ID = "id";
-    public static final String PERSON_ID = "personId";
+    public static final String DB_COL_PERSON_ID = "personId";
+    public static final String DB_COL_TIME = "time";
 
     /**
      * database table's id
      */
     @Column(name = ID, isId = true)
     private int id;
-    @Column(name = PERSON_ID)
+    @Column(name = DB_COL_PERSON_ID)
     private int personId;    // 外键表id
     /**
      * UI's `ID`
