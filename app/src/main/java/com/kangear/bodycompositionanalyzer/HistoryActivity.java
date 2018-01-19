@@ -77,7 +77,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void page(int page) {
-        int mTotalNumber = RecordBean.getInstance(this).getVipTotalPageNumber(COUNTS_PER_PAGE) + 1;
+        int mTotalNumber = RecordBean.getInstance(this).getVipTotalPageNumber(COUNTS_PER_PAGE);
+        if (mTotalNumber == 0) {
+            mTotalNumber = PAGE_NUMBER_MIN;
+        }
         mDeleteButton.setEnabled(false);
         mCheckButton.setEnabled(false);
 
