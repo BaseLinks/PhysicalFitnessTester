@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/history_guidline" />
 
     <include
-        android:id="@+id/jieduanzhifang_view"
+        android:id="@+id/zhifang_yellow_human"
         layout="@layout/pdf_yellow_human"
         android:layout_width="129dp"
         android:layout_height="140px"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/jieduanjirou_view"
+        android:id="@+id/jirou_yellow_human"
         layout="@layout/pdf_yellow_human"
         android:layout_width="129dp"
         android:layout_height="140px"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/score_textview"
+        android:id="@+id/jibenxinxi_jiankangzhishu_textview"
         style="@style/pdf_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="@+id/jiankangzhishu_guidline" />
 
     <TextView
-        android:id="@+id/date_textview"
+        android:id="@+id/jibenxinxi_date_textview"
         style="@style/pdf_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
     <TextView
         android:id="@+id/zhifangtiaozheng_textview"
         style="@style/pdf_text"
-        android:layout_width="39dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -493,7 +493,7 @@
         app:layout_constraintTop_toTopOf="@+id/gugeji_guidline" />
 
     <TextView
-        android:id="@+id/weight_range_textview2"
+        android:id="@+id/weight_range_textview"
         style="@style/pdf_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

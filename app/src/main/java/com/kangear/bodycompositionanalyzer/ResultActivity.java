@@ -175,7 +175,7 @@ public class ResultActivity extends AppCompatActivity {
         page(FIRST_PAGE_NUMBER);
     }
 
-    private class YelloMan {
+    public static class YelloMan {
         String leftArmLevel;
         String leftArm;
         String leftLegeLevel;
@@ -255,11 +255,12 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    private void fillYelloMan(YelloMan yelloMan, View ym) {
+    public static void fillYelloMan(YelloMan yelloMan, View ym) {
         if (yelloMan == null || ym == null)
             return;
 
-        ((TextView) ym.findViewById(R.id.yellowhuman_title_textview)).setText(yelloMan.getTitle());
+        if (yelloMan.getTitle() != null)
+            ((TextView) ym.findViewById(R.id.yellowhuman_title_textview)).setText(yelloMan.getTitle());
 
         ((EditText) ym.findViewById(R.id.la_level_edittext)).setText(yelloMan.getLeftArmLevel());
         ((EditText) ym.findViewById(R.id.ll_level_edittext)).setText(yelloMan.getLeftLegeLevel());
