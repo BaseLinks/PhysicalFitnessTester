@@ -1,17 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,7 +22,6 @@ import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_PERSON_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 
 /**
@@ -137,7 +130,7 @@ public class PdfActivity extends AppCompatActivity {
 //        ((ProgressBar)findViewById(R.id.danbaizhi_progressbar)).setProgress(bc.蛋白质.getProgress());
         fillOne(bc.蛋白质, R.id.danbaizhi_textview, true, FLOAT_1_FORMAT);
         fillOne(bc.无机盐, R.id.wujiyan_textview, true, FLOAT_1_FORMAT);
-        fillOne(bc.总能耗, R.id.zongnenghao_textview, true, FLOAT_1_FORMAT);
+        fillOne(bc.总能耗, R.id.zongnenghao_textview, true, FLOAT_0_FORMAT);
 
         // 肥胖分析
         fillCurAndRange(bc.BMI, R.id.bmi_textview, R.id.bmi_range_textview, true, FLOAT_1_FORMAT);

@@ -32,9 +32,9 @@
         android:id="@+id/zhifang_yellow_human"
         layout="@layout/pdf_yellow_human"
         android:layout_width="129dp"
-        android:layout_height="140px"
+        android:layout_height="139dp"
         android:layout_marginStart="300dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="355dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,11 +42,11 @@
         android:id="@+id/jirou_yellow_human"
         layout="@layout/pdf_yellow_human"
         android:layout_width="129dp"
-        android:layout_height="140px"
+        android:layout_height="0dp"
         android:layout_marginStart="452dp"
-        android:layout_marginTop="360dp"
+        app:layout_constraintBottom_toBottomOf="@+id/zhifang_yellow_human"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/zhifang_yellow_human" />
 
     <TextView
         android:id="@+id/jibenxinxi_jiankangzhishu_textview"
@@ -118,9 +118,9 @@
         android:id="@+id/company_textview"
         style="@style/pdf_text"
         android:layout_width="218dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="360dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="北京一二三健身俱乐部"
         android:textAlignment="textStart"
         app:layout_constraintStart_toStartOf="parent"
@@ -333,7 +333,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="563dp"
+        android:layout_marginTop="560dp"
         android:text="5k:"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/dianzu_label_guidline"

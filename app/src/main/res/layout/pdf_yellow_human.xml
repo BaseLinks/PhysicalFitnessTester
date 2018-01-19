@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,12 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:background="@null"
-        android:ems="10"
         android:gravity="center"
         android:text="高标准"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qugan_textview" />
@@ -24,17 +22,14 @@
     <TextView
         android:id="@+id/qugan_textview"
         style="@style/pdf_text"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
-        android:background="@null"
-        android:ems="10"
         android:gravity="center"
-        android:inputType="text"
         android:text="24.7kg"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +37,7 @@
     <TextView
         android:id="@+id/ra_textview"
         style="@style/pdf_text"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -51,7 +46,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="24.7kg"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/arm_guideline"
         app:layout_constraintEnd_toStartOf="@+id/feipangfenxi_cur_guidline"
         app:layout_constraintStart_toStartOf="@+id/feipangfenxi_cur_guidline" />
@@ -59,7 +54,7 @@
     <TextView
         android:id="@+id/ra_level_textview"
         style="@style/pdf_text"
-        android:layout_width="72dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -68,7 +63,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="高标准"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/ra_textview"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="@+id/ra_textview"
@@ -86,7 +81,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="24.7kg"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/leg_guideline"
         app:layout_constraintEnd_toStartOf="@+id/feipangfenxi_cur_guidline"
         app:layout_constraintHorizontal_bias="0.532"
@@ -104,9 +99,8 @@
         android:gravity="center"
         android:inputType="text"
         android:text="高标准"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/ra_textview"
-        app:layout_constraintHorizontal_bias="0.629"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/feipangfenxi_cur_guidline"
         app:layout_constraintStart_toStartOf="@+id/feipangfenxi_cur_guidline"
         app:layout_constraintTop_toTopOf="@+id/leg_guideline" />
 
@@ -120,7 +114,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="24.7kg"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/leg_guideline"
         app:layout_constraintEnd_toStartOf="@+id/left_guidline"
         app:layout_constraintStart_toStartOf="@+id/left_guidline" />
@@ -137,7 +131,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="高标准"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/left_guidline"
         app:layout_constraintStart_toStartOf="@+id/left_guidline"
         app:layout_constraintTop_toTopOf="@+id/leg_guideline" />
@@ -152,7 +146,7 @@
         android:gravity="center"
         android:inputType="text"
         android:text="高标准"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/la_textview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/la_textview"
@@ -162,12 +156,13 @@
         android:id="@+id/la_textview"
         style="@style/pdf_text"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:gravity="center"
         android:text="24.7kg"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/arm_guideline"
         app:layout_constraintEnd_toStartOf="@+id/left_guidline"
         app:layout_constraintStart_toStartOf="@+id/left_guidline" />
@@ -185,7 +180,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="25dp"
+        app:layout_constraintGuide_end="20dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
@@ -200,7 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="20dp" />
+        app:layout_constraintGuide_end="15dp" />
 
 
 </android.support.constraint.ConstraintLayout>
