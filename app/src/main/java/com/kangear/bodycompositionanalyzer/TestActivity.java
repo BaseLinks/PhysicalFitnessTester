@@ -457,7 +457,7 @@ public class TestActivity extends AppCompatActivity {
                 break;
             case R.id.detail_button:
                 intent = new Intent(this, ResultActivity.class);
-//                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
+                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
                 startActivity(intent);
                 break;
             case R.id.print_button:

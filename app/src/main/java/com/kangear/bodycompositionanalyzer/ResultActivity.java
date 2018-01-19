@@ -13,7 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -63,6 +66,9 @@ public class ResultActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        mRecord = WelcomeActivity.getRecord();
+        mBodyComposition = mRecord.getBodyComposition();
+
         mPreButton = findViewById(R.id.previous_page_button);
         mNextButton = findViewById(R.id.next_page_button);
         mFirstPage = findViewById(R.id.result_first_page);
@@ -74,14 +80,12 @@ public class ResultActivity extends AppCompatActivity {
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
         FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
-//
+
 //        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
 //        if (recordId != INVALID_RECORD_ID) {
 //            mRecord = RecordBean.getInstance(this).query(recordId);
 //        }
 
-        mRecord = WelcomeActivity.getRecord();
-        mBodyComposition = mRecord.getBodyComposition();
         if (mRecord == null) {
             mRecord = DEFAULT_RECORD;
             Toast.makeText(this, "获取记录异常", Toast.LENGTH_SHORT).show();
@@ -386,6 +390,7 @@ public class ResultActivity extends AppCompatActivity {
                 break;
             case R.id.print_button:
                 Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
+                startPdf(this, mRecord.getPersonId());
                 break;
         }
     }

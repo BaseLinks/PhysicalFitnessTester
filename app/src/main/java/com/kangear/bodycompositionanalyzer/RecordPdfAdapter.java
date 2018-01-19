@@ -62,7 +62,7 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
             if (bc != null) {
                 holder.mWeightTextView.setText(String.format(FLOAT_1_FORMAT, bc.体重.getCur()));
                 holder.mGugejiTextView.setText(String.format(FLOAT_1_FORMAT, bc.骨骼肌.getCur()));
-                holder.mTizhibaifenbiTextView.setText(String.format(FLOAT_1_FORMAT, bc.骨骼肌.getCur()) + bc.骨骼肌.getUnit());
+                holder.mTizhibaifenbiTextView.setText(String.format(FLOAT_1_FORMAT, bc.体脂百分比.getCur()) + bc.体脂百分比.getUnit());
                 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                 Date resultdate = new Date(record.getTime());
                 holder.mTestDate.setText(sdf.format(resultdate));
