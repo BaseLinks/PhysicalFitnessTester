@@ -205,6 +205,7 @@ public class WeightActivity extends AppCompatActivity {
                     Person p = PersonBean.getInstance(this).queryByFingerId(fingerId);
                     if (p != null) {
                         WelcomeActivity.getRecord().setPerson(p);
+                        WelcomeActivity.getRecord().setPersonId(p.getId());
                         doVipTest(this);
                         finish();
                     } else {

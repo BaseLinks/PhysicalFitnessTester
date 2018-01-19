@@ -45,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
     public static final int PERSON_ID_INVALID         = -1;
-    public static final int PERSON_ID_ANONYMOUS       = 1; // for tmp test
+    public static final int PERSON_ID_ANONYMOUS       = 0; // for tmp test
     public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;

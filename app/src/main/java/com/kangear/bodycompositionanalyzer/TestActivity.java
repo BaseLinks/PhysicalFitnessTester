@@ -167,9 +167,11 @@ public class TestActivity extends AppCompatActivity {
                     if (mRecord.getPersonId() != PERSON_ID_INVALID) {
                         if (mRecord.getPersonId() != PERSON_ID_ANONYMOUS) {
                             RecordBean.getInstance(mContext).insert(mRecord);
+                            Toast.makeText(mContext, "会员测试保存成功", Toast.LENGTH_LONG).show();
                         } else {
                             mRecord.setId(RECORD_ID_ANONYMOUS);
                             RecordBean.getInstance(mContext).update(mRecord);
+                            Toast.makeText(mContext, "临时测试保存成功", Toast.LENGTH_LONG).show();
                         }
                     }
                 } else {
