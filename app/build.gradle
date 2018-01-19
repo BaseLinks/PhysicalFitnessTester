@@ -39,4 +39,5 @@ dependencies {
     implementation project(':trineaandroidcommon-debug')
     implementation project(':d2xx')
     implementation project(':javaapk.com-comassistant')
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
 }
