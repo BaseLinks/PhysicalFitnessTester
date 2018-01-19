@@ -66,7 +66,10 @@ public class ResultActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        mRecord = WelcomeActivity.getRecord();
+        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
+        if (recordId != INVALID_RECORD_ID) {
+            mRecord = RecordBean.getInstance(this).query(recordId);
+        }
         mBodyComposition = mRecord.getBodyComposition();
 
         mPreButton = findViewById(R.id.previous_page_button);
@@ -80,11 +83,6 @@ public class ResultActivity extends AppCompatActivity {
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
         FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
-
-//        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
-//        if (recordId != INVALID_RECORD_ID) {
-//            mRecord = RecordBean.getInstance(this).query(recordId);
-//        }
 
         if (mRecord == null) {
             mRecord = DEFAULT_RECORD;

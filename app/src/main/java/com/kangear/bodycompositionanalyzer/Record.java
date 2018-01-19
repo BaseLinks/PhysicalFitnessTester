@@ -171,6 +171,8 @@ public class Record {
     }
 
     public BodyComposition getBodyComposition() {
+        if (bodyComposition == null)
+            bodyComposition = new BodyComposition(getData());
         return bodyComposition;
     }
 
