@@ -122,5 +122,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleDialog">
         </activity>
+        <activity
+            android:name=".PdfActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 </manifest>

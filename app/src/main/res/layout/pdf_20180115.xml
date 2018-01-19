@@ -11,10 +11,21 @@
     <include
         android:id="@+id/history_view"
         layout="@layout/pdf_20180115_history"
-        android:layout_width="wrap_content"
+        android:layout_width="46dp"
         android:layout_height="133dp"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="667dp" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/history_guidline"
+        app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"
+        app:layout_constraintTop_toTopOf="@+id/history_guidline" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/history_recyclerview"
+        android:layout_width="468dp"
+        android:layout_height="133dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/history_guidline"
+        app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"
+        app:layout_constraintTop_toTopOf="@+id/history_guidline" />
 
     <include
         android:id="@+id/jieduanzhifang_view"
