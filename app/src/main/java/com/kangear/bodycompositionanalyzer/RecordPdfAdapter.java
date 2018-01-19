@@ -6,7 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import static com.kangear.bodycompositionanalyzer.PdfActivity.DATE_FORMAT;
+import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 
 public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.ViewHolder> {
     private List<Record> mDataset;
@@ -55,10 +60,12 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
         if (record != null) {
             BodyComposition bc = record.getBodyComposition();
             if (bc != null) {
-                holder.mWeightTextView.setText(String.format("%.1kg", bc.体重.getCur()));
-                holder.mGugejiTextView.setText(String.format("%.1kg", bc.骨骼肌.getCur()));
-                holder.mTizhibaifenbiTextView.setText(String.format("%.1", bc.骨骼肌.getCur()) + bc.骨骼肌.getUnit());
-                holder.mTestDate.setText(String.format("%.1kg", record.getDate()));
+                holder.mWeightTextView.setText(String.format(FLOAT_1_FORMAT, bc.体重.getCur()));
+                holder.mGugejiTextView.setText(String.format(FLOAT_1_FORMAT, bc.骨骼肌.getCur()));
+                holder.mTizhibaifenbiTextView.setText(String.format(FLOAT_1_FORMAT, bc.骨骼肌.getCur()) + bc.骨骼肌.getUnit());
+                SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+                Date resultdate = new Date(record.getTime());
+                holder.mTestDate.setText(sdf.format(resultdate));
             }
         }
     }

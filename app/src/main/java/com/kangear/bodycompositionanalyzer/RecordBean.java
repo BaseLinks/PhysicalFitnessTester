@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.Record.PERSON_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_ANONYMOUS;
 
 /**
  * Created by tony on 18-1-1.
@@ -20,6 +21,7 @@ public class RecordBean {
     private static final String TAG = "RecordBean";
     private volatile static RecordBean singleton = null;
     private List<Record> mRecords = new ArrayList<>();
+    private List<Record> mVipRecords = new ArrayList<>();
     private static final int TEST_RECORD_MAX = 100;
     private Context mContext;
     private DbManager mDbManager;
@@ -57,6 +59,12 @@ public class RecordBean {
             if (mRecords != null) {
                 Log.i(TAG, "mRecords.size(): " + mRecords.size());
                 Log.i(TAG, "mRecords: " + mRecords.toString());
+                mVipRecords.clear();
+                for (Record record : mRecords) {
+                    if (record.getId() != RECORD_ID_ANONYMOUS) {
+                        mVipRecords.add(record);
+                    }
+                }
             }
         } catch (DbException e) {
             e.printStackTrace();
@@ -81,6 +89,54 @@ public class RecordBean {
                 record = mRecords.get(i);
                 if (record != null) {
                     records.add(mRecords.get(i));
+                }
+            }
+        }
+        return records;
+    }
+
+    /**
+     * @param pageNumber 当前页面
+     * @param itemsPerPage  页面长度
+     * @return
+     */
+    public List<Record>  getRecordListByPersonId(int personId, int pageNumber, int itemsPerPage) {
+        Log.i(TAG, "pageNumber: " + pageNumber + " itemsPerPage: " + itemsPerPage);
+        List<Record> records = new ArrayList<>();
+        Record record;
+
+        if (pageNumber < 0 || itemsPerPage < 1 || mRecords == null || mRecords.size() == 0) {
+            return records;
+        }
+        for (int i = pageNumber * itemsPerPage; i < (pageNumber + 1) * itemsPerPage; i++) {
+            if (i < mRecords.size()) {
+                record = mRecords.get(i);
+                if (record != null && record.getPersonId() == personId) {
+                    records.add(mRecords.get(i));
+                }
+            }
+        }
+        return records;
+    }
+
+    /**
+     * @param pageNumber 当前页面
+     * @param itemsPerPage  页面长度
+     * @return
+     */
+    public List<Record>  getVipRecordList(int pageNumber, int itemsPerPage) {
+        Log.i(TAG, "pageNumber: " + pageNumber + " itemsPerPage: " + itemsPerPage);
+        List<Record> records = new ArrayList<>();
+        Record record;
+
+        if (pageNumber < 0 || itemsPerPage < 1 || mVipRecords == null || mVipRecords.size() == 0) {
+            return records;
+        }
+        for (int i = pageNumber * itemsPerPage; i < (pageNumber + 1) * itemsPerPage; i++) {
+            if (i < mVipRecords.size()) {
+                record = mVipRecords.get(i);
+                if (record != null) {
+                    records.add(mVipRecords.get(i));
                 }
             }
         }
@@ -125,6 +181,23 @@ public class RecordBean {
         return i;
     }
 
+
+    /**
+     * 获取总数量
+     * @param itemsPerPage
+     * @return
+     */
+    public int getVipTotalPageNumber (int itemsPerPage) {
+        if (mVipRecords == null)
+            return 0;
+
+        int i = mVipRecords.size() / itemsPerPage;
+        if (mVipRecords.size() % itemsPerPage > 0) {
+            i ++;
+        }
+        return i;
+    }
+
     /**
      * 插入新记录
      * @param record
@@ -153,5 +226,26 @@ public class RecordBean {
     public void setPersonId(int personId) {
         mPersonId = personId;
         init();
+    }
+
+    /**
+     * update新记录
+     * @param record
+     * @return
+     */
+    public boolean update(Record record) {
+        boolean ret = false;
+        try {
+            //Log.i(TAG, "KANGEARALL: " + record.toString());
+            mDbManager.saveOrUpdate(record);
+            ret = true;
+            init(); // 这里需要date
+        } catch (DbException e) {
+            e.printStackTrace();
+            //Log.e(TAG, "mDbManager.save(mRecord); error!!!");
+        } finally {
+            //Log.i(TAG, "KANGEARALL: " + mRecords.toString());
+        }
+        return ret;
     }
 }

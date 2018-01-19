@@ -32,7 +32,10 @@ import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_ANONYMOUS;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -162,9 +165,12 @@ public class TestActivity extends AppCompatActivity {
                     mHumanProgress.setVisibility(View.INVISIBLE);
                     // 测试完成
                     if (mRecord.getPersonId() != PERSON_ID_INVALID) {
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        mRecord.setDate(dateFormat.format(new Date()));
-                        RecordBean.getInstance(mContext).insert(mRecord);
+                        if (mRecord.getPersonId() != PERSON_ID_ANONYMOUS) {
+                            RecordBean.getInstance(mContext).insert(mRecord);
+                        } else {
+                            mRecord.setId(RECORD_ID_ANONYMOUS);
+                            RecordBean.getInstance(mContext).update(mRecord);
+                        }
                     }
                 } else {
                     mHumanProgress.setVisibility(View.VISIBLE);
@@ -242,6 +248,7 @@ public class TestActivity extends AppCompatActivity {
                                 Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
                                 mBodyComposition = new BodyComposition(qr.getData());
                                 mRecord.setBodyComposition(mBodyComposition);
+                                mRecord.setData(qr.getData());
                                 setProgress2(100);
                                 mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
                                 isRun = false;
@@ -455,6 +462,7 @@ public class TestActivity extends AppCompatActivity {
                 break;
             case R.id.print_button:
                 Toast.makeText(this, "打印机未连接", Toast.LENGTH_SHORT).show();
+                startPdf(this, mRecord.getPersonId());
                 break;
         }
     }

@@ -26,6 +26,9 @@ import org.xutils.x;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -37,10 +40,13 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int INVALID_RECORD_ID = -1;
     public static final String CONST_FINGER_ID = "CONST_FINGER_ID";
     public static final String CONST_RECORD_ID = "CONST_RECORD_ID";
+    public static final String CONST_PERSON_ID = "CONST_PERSON_ID";
     private static final int REQUEST_CODE_VIP_REGISTE = 1;
     public static final int REQUEST_CODE_TOUCHID      = 7;
     public static final int REQUEST_CODE_DELETE       = 8;
     public static final int PERSON_ID_INVALID         = -1;
+    public static final int PERSON_ID_ANONYMOUS       = 1; // for tmp test
+    public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
     private static Record mCurRecord;
@@ -115,6 +121,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     }
                 });
         mDb = x.getDb(daoConfig);
+        // id 1 for ANONYMOUS
+        Record tmp = RecordBean.getInstance(this).query(RECORD_ID_ANONYMOUS);
+        if (tmp == null) {
+            tmp = new Record();
+            tmp.setId(RECORD_ID_ANONYMOUS);
+            tmp.setPersonId(PERSON_ID_ANONYMOUS);
+            RecordBean.getInstance(this).insert(tmp);
+        }
+
         // 启动指纹
         TouchID.getInstance(this.getApplicationContext());
 
@@ -278,15 +293,25 @@ public class WelcomeActivity extends AppCompatActivity {
         return mCurRecord;
     }
 
+    // pre test
+    private static void startPreTest() {
+        // 时间
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        getRecord().setDate(dateFormat.format(new Date()));
+        getRecord().setTime(System.currentTimeMillis());
+    }
 
     private static void startTmpTest(Context context) {
-        getRecord().setPersonId(PERSON_ID_INVALID);
+        startPreTest();
+        // for tmp
+        getRecord().setPersonId(PERSON_ID_ANONYMOUS);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
     }
 
     private static void startVipTest(Context context) {
+        startPreTest();
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_VIP_TEST);
         context.startActivity(intent);
@@ -355,7 +380,18 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, PdfActivity.class));
+        actvity.startActivity(new Intent(actvity, SettingsActivity.class));
+    }
+
+
+    /**
+     * 12. Pdf
+     * @param actvity
+     */
+    public static void startPdf(Activity actvity, int personId) {
+        Intent intent = new Intent(actvity, PdfActivity.class);
+        intent.putExtra(CONST_PERSON_ID, personId);
+        actvity.startActivity(intent);
     }
 
     /**

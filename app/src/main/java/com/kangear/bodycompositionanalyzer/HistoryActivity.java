@@ -77,7 +77,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void page(int page) {
-        int mTotalNumber = RecordBean.getInstance(this).getTotalPageNumber(COUNTS_PER_PAGE) + 1;
+        int mTotalNumber = RecordBean.getInstance(this).getVipTotalPageNumber(COUNTS_PER_PAGE) + 1;
         mDeleteButton.setEnabled(false);
         mCheckButton.setEnabled(false);
 
@@ -110,7 +110,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         mPageNumber.setText(mCurPageNumber + "/" + mTotalNumber);
         LayoutInflater inflater = getLayoutInflater();
-        mData = RecordBean.getInstance(this).getRecordList(mCurPageNumber - 1, COUNTS_PER_PAGE);
+        mData = RecordBean.getInstance(this).getVipRecordList(mCurPageNumber - 1, COUNTS_PER_PAGE);
         //创建自定义Adapter的对象
         mAdapter = new RecordAdapter(inflater, mData);
         //将布局添加到ListView中

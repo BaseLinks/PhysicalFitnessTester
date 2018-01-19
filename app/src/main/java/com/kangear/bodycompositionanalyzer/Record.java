@@ -41,10 +41,20 @@ public class Record {
     private String date;
     @Column(name = "time")
     private long time;
+    @Column(name = "data")
+    private byte[] data;
     private BodyComposition bodyComposition;
 
     public Record() {
 
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public int getAge() {
