@@ -361,7 +361,7 @@ public class Protocol implements IProtocol {
      * @throws ProtocalExcption
      */
     public boolean writeWeight() throws ProtocalExcption {
-        return write(MSG_ITEM_CODE_WEIGHT);
+        return write(MSG_ITEM_CODE_WEIGHT, null);
     }
 
     /**
@@ -369,8 +369,18 @@ public class Protocol implements IProtocol {
      * @return
      * @throws ProtocalExcption
      */
-    public boolean writeTichengfen() throws ProtocalExcption {
-        return write(MSG_ITEM_CODE_TICHENGFEN);
+    public void writeTichengfen(Radio radio) throws ProtocalExcption {
+        if (radio == null)
+            throw new ProtocalExcption("radio can not be null");
+        // create data
+        byte[] tmpWeightRadio = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (radio.getWeigthRatio() & 0xFFFF)).array();
+        byte[] tmpTare = ByteBuffer.allocate(MSG_CRC_LENGTH).order(BYTE_ORDER).putShort((short) (radio.getTare() & 0xFFFF)).array();
+
+        byte[] data = {tmpWeightRadio[0], tmpWeightRadio[1], tmpTare[0], tmpTare[1]};
+
+        if (!write(MSG_ITEM_CODE_TICHENGFEN, data)) {
+            throw new ProtocalExcption("write error!");
+        }
     }
 
     @Override
@@ -498,12 +508,12 @@ public class Protocol implements IProtocol {
      * @return
      * @throws ProtocalExcption
      */
-    private boolean write(byte item) throws ProtocalExcption {
+    private boolean write(byte item, byte[] data) throws ProtocalExcption {
         if (item != MSG_ITEM_CODE_WEIGHT && item != MSG_ITEM_CODE_TICHENGFEN)
             return false;
 
         // 1. send msg
-        boolean ret = send(createCmd(MSG_CMD_WRITE, item, null));
+        boolean ret = send(createCmd(MSG_CMD_WRITE, item, data));
         if (!ret) {
             Log.e(TAG, "send error");
             return false;

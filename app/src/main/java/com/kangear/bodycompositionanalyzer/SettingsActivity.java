@@ -131,6 +131,16 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.test_button:
                 WelcomeActivity.startWeightTest(this, mWeightTextView, null);
                 break;
+            case R.id.calibrate_radio_button:
+                try {
+                    Protocol.Radio radio = new Protocol.Radio(Integer.valueOf(mRadioEditText.getText().toString()), 0x00);
+                    UartBca.getInstance(mContext).writeTichengfen(radio);
+                    Toast.makeText(this, "写入系数成功", Toast.LENGTH_SHORT).show();
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    Toast.makeText(this, "写入系数失败", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
