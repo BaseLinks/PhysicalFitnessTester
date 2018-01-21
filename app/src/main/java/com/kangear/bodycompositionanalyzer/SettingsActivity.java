@@ -47,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView mRadioTextView;
     private EditText mRadioEditText;
     private Button mCalibrateRadioButton;
+    private TextView mWeightTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
         mRadioTextView = findViewById(R.id.radio_textview);
         mRadioEditText = findViewById(R.id.radio_edittext);
         mCalibrateRadioButton = findViewById(R.id.calibrate_radio_button);
+        mWeightTextView = findViewById(R.id.weight_textview);
         mRadioTextView.setText("");
         mRadioEditText.setText("");
         mCalibrateRadioButton.setEnabled(false);
@@ -189,6 +191,9 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
             case R.id.ad_text_setting:
                 startActivity(new Intent(this, AdDialogActivity.class));
+                break;
+            case R.id.test_button:
+                WelcomeActivity.startWeightTest(this, mWeightTextView, null);
                 break;
         }
     }

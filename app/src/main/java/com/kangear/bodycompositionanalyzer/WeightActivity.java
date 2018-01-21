@@ -17,6 +17,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_STOP;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
@@ -32,7 +33,6 @@ public class WeightActivity extends AppCompatActivity {
     private View stopView;
     private TextView mTextView;
     private static final int WEIGHT_ACTIVITY = 1;
-    private static final int WEIGHT_STOP = 2;
     private int bootTag;
     private Context mContext;
 
@@ -47,106 +47,17 @@ public class WeightActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.weight_textview);
 
         bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
-        startTest();
+        startView.setVisibility(View.VISIBLE);
+        stopView.setVisibility(View.GONE);
+
+        WelcomeActivity.startWeightTest(this, mTextView, mHandler);
         Log.i(TAG, "onCreate bootTag: " + bootTag);
     }
-
-    /**
-     * 开始
-     */
-    private void startTest() {
-        startView.setVisibility(View.VISIBLE);
-        stopView.setVisibility(View.GONE);
-        mTextView.setText("0.0");
-
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                boolean ret = false;
-                try {
-                    ret = UartBca.getInstance(mContext).startWeight();
-                } catch (Protocol.ProtocalExcption protocalExcption) {
-                    protocalExcption.printStackTrace();
-                    ret = false;
-                } finally {
-                    if (!ret) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(mContext, "体重测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return;
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(mContext, "体重测试开始成功", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                }
-
-                while(true) {
-                    try {
-                        sleep(500);
-                        Protocol.QueryResult qr = UartBca.getInstance(mContext).qeuryWeight();
-                        if (qr == null) {
-                            continue;
-                        }
-                        byte state = qr.getState();
-                        weight = qr.getShortFromData() / (float)10;
-                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        Log.d(TAG, "weight: " + weight);
-                        if (state == Protocol.MSG_STATE_DONE) {
-                            mHandler.sendEmptyMessage(WEIGHT_STOP);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
-    /**
-     * 开始
-     */
-    float weight = 0;
-    private void startFakeTest() {
-        startView.setVisibility(View.VISIBLE);
-        stopView.setVisibility(View.GONE);
-        mTextView.setText("");
-
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        sleep(1);
-                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        weight += 0.1;
-                        if (weight >= DEFAULT_WEIGHT) {
-                            mHandler.sendEmptyMessage(WEIGHT_STOP);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-                case WEIGHT_ACTIVITY:
-                    mTextView.setText("" + String.format(FORMAT_WEIGHT, weight));
-                    break;
                 case WEIGHT_STOP:
                     stopTest();
                     break;

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
+import android.os.Handler;
 import android.print.PrintAttributes;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int PERSON_ID_INVALID         = -1;
     public static final int PERSON_ID_ANONYMOUS       = 0; // for tmp test
     public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
+    public static final int WEIGHT_STOP               = 100;
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
     private static Record mCurRecord;
@@ -215,6 +217,68 @@ public class WelcomeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    /**
+     * 开始
+     */
+    public static void startWeightTest(final Activity activity, final TextView weightTextView, final Handler handler) {
+        weightTextView.setText("0.0");
+        // star phread
+        new Thread() {
+            @Override
+            public void run() {
+                boolean ret = false;
+                float weight = 0;
+                try {
+                    ret = UartBca.getInstance(activity).startWeight();
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    ret = false;
+                } finally {
+                    if (!ret) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity, "体重测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity, "体重测试开始成功", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
+                while(true) {
+                    try {
+                        sleep(500);
+                        final Protocol.QueryResult qr = UartBca.getInstance(activity).qeuryWeight();
+                        if (qr == null) {
+                            continue;
+                        }
+                        byte state = qr.getState();
+                        weight = qr.getShortFromData() / (float)10;
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                weightTextView.setText(String.format(FORMAT_WEIGHT, qr.getShortFromData() / (float)10));
+                            }
+                        });
+                        Log.d(TAG, "weight: " + weight);
+                        if (state == Protocol.MSG_STATE_DONE) {
+                            if (handler != null)
+                                handler.sendEmptyMessage(WEIGHT_STOP);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 
     @Override
