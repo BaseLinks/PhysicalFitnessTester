@@ -156,7 +156,7 @@ public class WelcomeActivity extends AppCompatActivity {
         mRadioMax = getResources().getInteger(R.integer.radio_max);
 
 //        onClick2(null);
-//        selfCheck(mContext);
+        selfCheck(mContext);
         hideNavigation(this);
     }
 
@@ -398,6 +398,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
         MemRegActivity.checkMem(context);
+
         // 2. device connect
         ret = UartBca.getInstance(context).selfCheck();
         if (!ret) {
@@ -500,7 +501,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, SettingsActivity.class));
+        actvity.startActivity(new Intent(actvity, AdminPasswordDialogActivity.class));
     }
 
     /**
