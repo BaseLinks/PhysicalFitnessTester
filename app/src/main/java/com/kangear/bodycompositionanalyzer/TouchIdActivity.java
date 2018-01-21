@@ -20,7 +20,10 @@ import java.net.URL;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_14_VIP_TOUCH_ID_DONE;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_15_VIP_TOUCH_ID_FAIL;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.play;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
 /**
@@ -63,15 +66,17 @@ public class TouchIdActivity extends Com2Activity {
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_yellow);
                 // 停止
                 // TODO: send 1 miao finish
-                mHandler.sendEmptyMessageDelayed(PAGE_SUCCESS_EXIT, 1 * 1000);
+                play(SOUND_14_VIP_TOUCH_ID_DONE);
+                mHandler.sendEmptyMessageDelayed(PAGE_SUCCESS_EXIT, 2 * 1000);
                 break;
             case PAGE_FAIL:
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_red);
                 tryTime--;
                 if (tryTime <= 0) {
                     Toast.makeText(this, "识别失败", Toast.LENGTH_LONG).show();
-                    mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 1 * 1000);
+                    mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 5 * 1000);
                 } else {
+                    play(SOUND_15_VIP_TOUCH_ID_FAIL);
                     Toast.makeText(this, "识别失败，请再试", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_NORMAL, 2000);
                 }
@@ -118,20 +123,6 @@ public class TouchIdActivity extends Com2Activity {
 
         protected void onPostExecute(int result) {
         }
-    }
-
-    // This snippet hides the system bars.
-    public static void hideSystemUI(View v) {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        v.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private Handler mHandler = new Handler() {

@@ -22,7 +22,10 @@ import java.util.Date;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_31_LOG_UP_TOUCH_ID_DONE;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_32_LOG_UP_TOUCH_ID_FAIL;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.play;
 
 /**
  * 本页面不显示logo
@@ -192,9 +195,11 @@ public class MemRegActivity extends Com2Activity {
         switch (resultCode) {
             case RESULT_CANCELED:
                 mFingerButton.setEnabled(true);
+                play(SOUND_32_LOG_UP_TOUCH_ID_FAIL);
                 break;
             case RESULT_OK:
                 mFingerButton.setEnabled(false);
+                play(SOUND_31_LOG_UP_TOUCH_ID_DONE);
                 onContentChanged();
                 break;
         }

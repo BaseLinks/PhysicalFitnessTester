@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.print.PrintAttributes;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kangear.common.utils.ByteArrayUtils;
 import com.kangear.common.utils.TimeUtils;
 
 import org.xutils.DbManager;
@@ -31,6 +35,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_3;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
+import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,7 +61,29 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int PERSON_ID_INVALID         = -1;
     public static final int PERSON_ID_ANONYMOUS       = 0; // for tmp test
     public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
-    public static final int WEIGHT_STOP               = 100;
+
+    public static final int HANDLE_EVENT_WEIGHT_STOP                = 100;
+    public static final int HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS = 101;
+
+    public static final int SOUND_01_NEW_TEST             =  1;
+    public static final int SOUND_02_VIP_TEST             =  2;
+    public static final int SOUND_03_WEIGHT_DONE          =  3;
+    public static final int SOUND_04_ID                   =  4;
+    public static final int SOUND_05_AGE                  =  5;
+    public static final int SOUND_06_GENDER               =  6;
+    public static final int SOUND_07_HEIGHT               =  7;
+    public static final int SOUND_08_TEST_START           =  8;
+    public static final int SOUND_09_TEST_20              =  9;
+    public static final int SOUND_10_TEST_100             = 10;
+    public static final int SOUND_11_TEST_FAIL            = 11;
+    public static final int SOUND_12_PRINT                = 12;
+    public static final int SOUND_13_VIP_TOUCH_ID         = 13;
+    public static final int SOUND_14_VIP_TOUCH_ID_DONE    = 14;
+    public static final int SOUND_15_VIP_TOUCH_ID_FAIL    = 15;
+    public static final int SOUND_30_LOG_UP               = 30;
+    public static final int SOUND_31_LOG_UP_TOUCH_ID_DONE = 31;
+    public static final int SOUND_32_LOG_UP_TOUCH_ID_FAIL = 32;
+
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
     private static Record mCurRecord;
@@ -88,6 +122,10 @@ public class WelcomeActivity extends AppCompatActivity {
     private static int mRadioMax;
     private Context mContext;
     private static ProgressDialog mSelfCheckProgressDialog;
+    //定义一个HashMap用于存放音频流的ID
+    private static HashMap<Integer, Integer> mMusicId =new HashMap<Integer, Integer>();
+    //创建一个SoundPool对象
+    private static SoundPool mSoundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +194,28 @@ public class WelcomeActivity extends AppCompatActivity {
         mRadioMax = getResources().getInteger(R.integer.radio_max);
 
 //        onClick2(null);
+
+        //初始化soundPool,设置可容纳12个音频流，音频流的质量为5，
+        mSoundPool = new SoundPool(20, AudioManager.STREAM_MUSIC,0);
+        mMusicId.put(SOUND_01_NEW_TEST, mSoundPool.load(this, R.raw._01_new_test, 1));
+        mMusicId.put(SOUND_02_VIP_TEST, mSoundPool.load(this, R.raw._02_vip_test, 1));
+        mMusicId.put(SOUND_03_WEIGHT_DONE, mSoundPool.load(this, R.raw._03_weight_done, 1));
+        mMusicId.put(SOUND_04_ID, mSoundPool.load(this, R.raw._04_id, 1));
+        mMusicId.put(SOUND_05_AGE, mSoundPool.load(this, R.raw._05_age, 1));
+        mMusicId.put(SOUND_06_GENDER, mSoundPool.load(this, R.raw._06_gender, 1));
+        mMusicId.put(SOUND_07_HEIGHT, mSoundPool.load(this, R.raw._07_height, 1));
+        mMusicId.put(SOUND_08_TEST_START, mSoundPool.load(this, R.raw._08_test_start, 1));
+        mMusicId.put(SOUND_09_TEST_20, mSoundPool.load(this, R.raw._09_test_progress_20, 1));
+        mMusicId.put(SOUND_10_TEST_100, mSoundPool.load(this, R.raw._10_test_progress_100, 1));
+        mMusicId.put(SOUND_11_TEST_FAIL, mSoundPool.load(this, R.raw._11_test_fail, 1));
+        mMusicId.put(SOUND_12_PRINT, mSoundPool.load(this, R.raw._12_print, 1));
+        mMusicId.put(SOUND_13_VIP_TOUCH_ID, mSoundPool.load(this, R.raw._13_vip_touch_id, 1));
+        mMusicId.put(SOUND_14_VIP_TOUCH_ID_DONE, mSoundPool.load(this, R.raw._14_vip_touch_id_done, 1));
+        mMusicId.put(SOUND_15_VIP_TOUCH_ID_FAIL, mSoundPool.load(this, R.raw._15_vip_touch_id_fail, 1));
+        mMusicId.put(SOUND_30_LOG_UP, mSoundPool.load(this, R.raw._30_log_up, 1));
+        mMusicId.put(SOUND_31_LOG_UP_TOUCH_ID_DONE, mSoundPool.load(this, R.raw._31_log_up_touch_id_done, 1));
+        mMusicId.put(SOUND_32_LOG_UP_TOUCH_ID_FAIL, mSoundPool.load(this, R.raw._32_log_up_touch_id_fail, 1));
+
         selfCheck(mContext);
         hideNavigation(this);
     }
@@ -314,8 +374,9 @@ public class WelcomeActivity extends AppCompatActivity {
                         });
                         Log.d(TAG, "weight: " + weight);
                         if (state == Protocol.MSG_STATE_DONE) {
+                            play(SOUND_03_WEIGHT_DONE);
                             if (handler != null)
-                                handler.sendEmptyMessage(WEIGHT_STOP);
+                                handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_STOP);
                             break;
                         }
                     } catch (Exception e) {
@@ -344,6 +405,7 @@ public class WelcomeActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.vip_register_imageview:
                 // TODO：获取一个id以及一个fingerId
+                play(SOUND_30_LOG_UP);
                 intent = new Intent(this, MemRegActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
@@ -429,10 +491,17 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
+        play(SOUND_01_NEW_TEST);
+    }
+
+    public static void play(int number) {
+        mSoundPool.autoPause();
+        mSoundPool.play(mMusicId.get(number),1,1, 0, 0, 1);
     }
 
     private static void startVipTest(Context context) {
         startPreTest();
+        play(SOUND_02_VIP_TEST);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_VIP_TEST);
         context.startActivity(intent);
@@ -441,6 +510,7 @@ public class WelcomeActivity extends AppCompatActivity {
     // 临时测试需要将personId设置成INVALID
     public static void doTmpTest(Context context) {
         startId(context);
+        play(SOUND_04_ID);
     }
 
     public static void doVipTest(Context context) {
@@ -461,6 +531,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startAge(Context context) {
         context.startActivity(new Intent(context, AgeActivity.class));
+        play(SOUND_05_AGE);
     }
 
     /**
@@ -469,6 +540,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startGender(Context context) {
         context.startActivity(new Intent(context, GenderActivity.class));
+        play(SOUND_06_GENDER);
     }
 
     /**
@@ -477,6 +549,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startHeight(Context context) {
         context.startActivity(new Intent(context, HeightActivity.class));
+        play(SOUND_07_HEIGHT);
     }
 
     /**
@@ -492,6 +565,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startTouchId(Activity actvity) {
+        play(SOUND_13_VIP_TOUCH_ID);
         actvity.startActivityForResult(new Intent(actvity, TouchIdActivity.class), REQUEST_CODE_TOUCHID);
     }
 
@@ -521,6 +595,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(actvity, PdfActivity.class);
         intent.putExtra(CONST_PERSON_ID, personId);
         actvity.startActivity(intent);
+        play(SOUND_12_PRINT);
     }
 
     /**
@@ -547,6 +622,108 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static void unkownError(Activity activity) {
         Toast.makeText(activity, "未知错误，请联系厂家", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 开始
+     */
+    public static void startTichengfenTest(final Activity activity, final Handler handler,
+                                           final byte gender, final byte age,
+                                           final short height, final short weight) {
+        // star phread
+        play(SOUND_08_TEST_START);
+        new Thread() {
+            @Override
+            public void run() {
+                boolean ret = false;
+                try {
+                    ret = UartBca.getInstance(activity).startTichengfen(gender, age, height, weight);
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    ret = false;
+                } finally {
+                    if (!ret) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    } else {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity, "体成分测试开始成功", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
+                boolean isRun = true;
+                while(isRun) {
+                    try {
+                        sleep(20);
+                        UartBca.QueryResult qr = UartBca.getInstance(activity).qeuryTichengfen();
+                        if (qr == null) {
+                            continue;
+                        }
+                        Message msg = new Message();
+                        switch (qr.getState()) {
+                            case MSG_STATE_WAIT:
+                                // 进度条走到0%
+                                break;
+                            case MSG_STATE_TESTING_1:
+                                // 进度条走到20%
+//                                handler.sendEmptyMessage(SHOW_TEST);
+//                                setProgress2(20);
+                                msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
+                                msg.arg1 = 20;
+                                handler.sendMessage(msg);
+                                play(SOUND_09_TEST_20);
+                                break;
+                            case MSG_STATE_TESTING_2:
+                                // 进度条走到40%
+                                msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
+                                msg.arg1 = 40;
+                                handler.sendMessage(msg);
+                                break;
+                            case MSG_STATE_TESTING_3:
+                                // 进度条走到60%
+                                msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
+                                msg.arg1 = 60;
+                                handler.sendMessage(msg);
+                                break;
+                            case MSG_STATE_TESTING_4:
+                                // 进度条走到80%
+                                msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
+                                msg.arg1 = 80;
+                                handler.sendMessage(msg);
+                                break;
+                            case MSG_STATE_DONE:
+                                // 进度条走到100%
+                                Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
+                                BodyComposition bc = new BodyComposition(qr.getData());
+                                getRecord().setBodyComposition(bc);
+                                getRecord().setData(qr.getData());
+                                msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
+                                msg.arg1 = 100;
+                                handler.sendMessage(msg);
+                                isRun = false;
+                                play(SOUND_10_TEST_100);
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        play(SOUND_11_TEST_FAIL);
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity, R.string.error_tip, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }.start();
     }
 //
 //    public void onClick2(View v) {

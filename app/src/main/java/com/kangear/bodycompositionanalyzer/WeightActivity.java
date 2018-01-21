@@ -16,11 +16,14 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_13_VIP_TOUCH_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_14_VIP_TOUCH_ID_DONE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_STOP;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_STOP;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.play;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
 
 /**
@@ -47,6 +50,16 @@ public class WeightActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.weight_textview);
 
         bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
+        switch (bootTag) {
+            case WEIGHT_VIP_TEST:
+//                startTouchId(this);
+//                getSoundPool().play(mMusicId.get(1),1,1, 0, 0, 1);
+                break;
+            case WEIGHT_NEW_TEST:
+//                WelcomeActivity.doTmpTest(this);
+                break;
+        }
+
         startView.setVisibility(View.VISIBLE);
         stopView.setVisibility(View.GONE);
 
@@ -58,7 +71,7 @@ public class WeightActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
-                case WEIGHT_STOP:
+                case HANDLE_EVENT_WEIGHT_STOP:
                     stopTest();
                     break;
             }

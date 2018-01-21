@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,10 +33,13 @@ import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_ANONYMOUS;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTichengfenTest;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -158,118 +162,6 @@ public class TestActivity extends AppCompatActivity {
         mWeightTextView.setText(String.valueOf(record.getWeight()));
     }
 
-    private void setProgress2(final int progress) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                if (progress == DEFAULT_TEST_PROGRESS_MAX) {
-                    mHumanProgress.setVisibility(View.INVISIBLE);
-                    // 测试完成
-                    if (mRecord.getPersonId() != PERSON_ID_INVALID) {
-                        if (mRecord.getPersonId() != PERSON_ID_ANONYMOUS) {
-                            RecordBean.getInstance(mContext).insert(mRecord);
-                            Toast.makeText(mContext, "会员测试保存成功", Toast.LENGTH_LONG).show();
-                        } else {
-                            mRecord.setId(RECORD_ID_ANONYMOUS);
-                            RecordBean.getInstance(mContext).update(mRecord);
-                            Toast.makeText(mContext, "临时测试保存成功", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                } else {
-                    mHumanProgress.setVisibility(View.VISIBLE);
-                    mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
-                    mHumanProgress.requestLayout();
-                }
-                mTextView.setText("分析中..." + progress + "%");
-            }
-        });
-    }
-
-    /**
-     * 开始
-     */
-    private void startTest(final byte gender, final byte age, final short height, final short weight) {
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                boolean ret = false;
-                try {
-                    ret = UartBca.getInstance(mContext).startTichengfen(gender, age, height, weight);
-                } catch (Protocol.ProtocalExcption protocalExcption) {
-                    protocalExcption.printStackTrace();
-                    ret = false;
-                } finally {
-                    if (!ret) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(mContext, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return;
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(mContext, "体成分测试开始成功", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                }
-
-                boolean isRun = true;
-                while(isRun) {
-                    try {
-                        sleep(20);
-                        UartBca.QueryResult qr = UartBca.getInstance(mContext).qeuryTichengfen();
-                        if (qr == null) {
-                            continue;
-                        }
-                        switch (qr.getState()) {
-                            case MSG_STATE_WAIT:
-                                // 进度条走到0%
-                                break;
-                            case MSG_STATE_TESTING_1:
-                                // 进度条走到20%
-                                mHandler.sendEmptyMessage(SHOW_TEST);
-                                setProgress2(20);
-                                break;
-                            case MSG_STATE_TESTING_2:
-                                // 进度条走到40%
-                                setProgress2(40);
-                                break;
-                            case MSG_STATE_TESTING_3:
-                                // 进度条走到60%
-                                setProgress2(60);
-                                break;
-                            case MSG_STATE_TESTING_4:
-                                // 进度条走到80%
-                                setProgress2(80);
-                                break;
-                            case MSG_STATE_DONE:
-                                // 进度条走到100%
-                                setProgress2(90);
-                                Log.d(TAG, "ALLDATA: " + ByteArrayUtils.bytesToHex(qr.getData()));
-                                mBodyComposition = new BodyComposition(qr.getData());
-                                mRecord.setBodyComposition(mBodyComposition);
-                                mRecord.setData(qr.getData());
-                                setProgress2(100);
-                                mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
-                                isRun = false;
-                                break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(mContext, R.string.error_tip, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        break;
-                    }
-                }
-            }
-        }.start();
-    }
-
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -300,7 +192,7 @@ public class TestActivity extends AppCompatActivity {
                     byte age = (byte)(mRecord.getAge() & 0xFF);
                     short height = (short) (((int)mRecord.getHeight() & 0xFFFF) * 10);
                     short weight = (short) (((int)mRecord.getWeight() & 0xFFFF) * 10);
-                    startTest(gender, age, height, weight);
+                    startTichengfenTest((Activity) mContext, mHandler, gender, age, height, weight);
                     break;
                 case SHOW_TEST: // 测试中界面 界面
                     mWaitView.setVisibility(View.GONE);
@@ -315,8 +207,8 @@ public class TestActivity extends AppCompatActivity {
 //                    }
                     break;
 
-
                 case SHOW_TEST_DONE: // show weight
+                    mBodyComposition = mRecord.getBodyComposition();
                     progress = mBodyComposition.体重.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
                     curValue = mBodyComposition.体重.getCur();
                     update(progress, curValue, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
@@ -373,6 +265,40 @@ public class TestActivity extends AppCompatActivity {
                     // 显示buttons
                     mButtonsView.setVisibility(View.VISIBLE);
                     mProgressView.setVisibility(View.GONE);
+                    break;
+
+                case HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS:
+                    progress = msg.arg1;
+                    mTextView.setText("分析中..." + progress + "%");
+                    switch (progress) {
+                        case 20:
+                            mWaitView.setVisibility(View.GONE);
+                            mTestView.setVisibility(View.VISIBLE);
+                            mHumanProgress.setVisibility(View.VISIBLE);
+                            mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
+                            mHumanProgress.requestLayout();
+                            break;
+                        case 100:
+                            mHumanProgress.setVisibility(View.INVISIBLE);
+                            // 测试完成
+                            if (mRecord.getPersonId() != PERSON_ID_INVALID) {
+                                if (mRecord.getPersonId() != PERSON_ID_ANONYMOUS) {
+                                    RecordBean.getInstance(mContext).insert(mRecord);
+                                    Toast.makeText(mContext, "会员测试保存成功", Toast.LENGTH_LONG).show();
+                                } else {
+                                    mRecord.setId(RECORD_ID_ANONYMOUS);
+                                    RecordBean.getInstance(mContext).update(mRecord);
+                                    Toast.makeText(mContext, "临时测试保存成功", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            mHandler.sendEmptyMessageDelayed(SHOW_TEST_DONE, PROGRESS_STEP_TIME);
+                            break;
+                        default:
+                            mHumanProgress.setVisibility(View.VISIBLE);
+                            mHumanProgress.getLayoutParams().height = (int) ((PECENT_MAX - progress) * BILI);
+                            mHumanProgress.requestLayout();
+                            break;
+                    }
                     break;
             }
         }
@@ -435,20 +361,6 @@ public class TestActivity extends AppCompatActivity {
             progress = 0;
             mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
         }
-    }
-
-    // This snippet hides the system bars.
-    public static void hideSystemUI(View v) {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        v.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     public void onClick(View v) {
