@@ -1,17 +1,16 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +22,9 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.checkRadio;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -46,6 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
     private Button mVolumeAdd;
     private Button mVolumeSub;
     private Context mContext;
+    private TextView mRadioTextView;
+    private EditText mRadioEditText;
+    private Button mCalibrateRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +61,45 @@ public class SettingsActivity extends AppCompatActivity {
 //        startView = findViewById(R.id.weight_start);
 //        stopView = findViewById(R.id.weight_stop);
 //        mTextView = findViewById(R.id.weight_textview);
+        mRadioTextView = findViewById(R.id.radio_textview);
+        mRadioEditText = findViewById(R.id.radio_edittext);
+        mCalibrateRadioButton = findViewById(R.id.calibrate_radio_button);
+        mRadioTextView.setText("");
+        mRadioEditText.setText("");
+        mCalibrateRadioButton.setEnabled(false);
+        mRadioEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                try {
+                    int val = Integer.parseInt(editable.toString());
+                    if(WelcomeActivity.checkRadio(val)) {
+                        mRadioEditText.setTextColor(Color.WHITE);
+                        mCalibrateRadioButton.setEnabled(true);
+                    } else {
+                        mRadioEditText.setTextColor(Color.RED);
+                        mCalibrateRadioButton.setEnabled(false);
+                    }
+                } catch (NumberFormatException ex) {
+                    // Do something
+                    mRadioEditText.setTextColor(Color.RED);
+                    mCalibrateRadioButton.setEnabled(false);
+                }
+            }
+        });
 //
 //        bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
 //        startTest();
 //        Log.i(TAG, "onCreate bootTag: " + bootTag);
-    }
-
-    // This snippet hides the system bars.
-    public static void hideSystemUI(View v) {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        v.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     /**
@@ -135,6 +157,18 @@ public class SettingsActivity extends AppCompatActivity {
     public void onClick(View v) {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
+            case R.id.read_radio_button:
+                try {
+                    Protocol.Radio radio = UartBca.getInstance(mContext).readTichengfen();
+                    if (radio != null)
+                        mRadioTextView.setText(String.valueOf(radio.getWeigthRatio()));
+                    else
+                        Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
+                } catch (Protocol.ProtocalExcption protocalExcption) {
+                    protocalExcption.printStackTrace();
+                    Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.back_button:
                 finish();
                 break;

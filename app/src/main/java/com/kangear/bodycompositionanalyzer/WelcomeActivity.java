@@ -81,6 +81,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private static int mWeightMin;
     private static int mGenderMin;
     private static int mGenderMax;
+    private static int mRadioMin;
+    private static int mRadioMax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +145,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mWeightMax = getResources().getInteger(R.integer.weight_max);
         mGenderMin = getResources().getInteger(R.integer.gender_min);
         mGenderMax = getResources().getInteger(R.integer.gender_max);
+        mRadioMin = getResources().getInteger(R.integer.radio_min);
+        mRadioMax = getResources().getInteger(R.integer.radio_max);
 
 //        onClick2(null);
     }
@@ -186,6 +190,16 @@ public class WelcomeActivity extends AppCompatActivity {
         // 转换成mm
         weight = weight * 10;
         return weight >= mWeightMin && weight <= mWeightMax;
+    }
+
+    /**
+     * 判断体重是否合法
+     * @param value kg
+     * @return
+     */
+    public static boolean checkRadio(int value) {
+        // 转换成mm
+        return value >= mRadioMin && value <= mRadioMax;
     }
 
 
@@ -380,7 +394,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, AdminPasswordDialogActivity.class));
+        actvity.startActivity(new Intent(actvity, SettingsActivity.class));
     }
 
     /**

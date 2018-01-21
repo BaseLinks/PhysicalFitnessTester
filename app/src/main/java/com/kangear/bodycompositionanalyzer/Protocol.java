@@ -310,13 +310,48 @@ public class Protocol implements IProtocol {
     }
 
     /**
+     * 系数
+     */
+    public static class Radio {
+        /**
+         * 体重系数
+         */
+        int weigthRatio;
+        /**
+         * 皮重
+         */
+        int tare;
+
+        public Radio(int weigthRatio, int tare) {
+            this.weigthRatio = weigthRatio;
+            this.tare = tare;
+        }
+
+        public int getWeigthRatio() {
+            return weigthRatio;
+        }
+
+        public int getTare() {
+            return tare;
+        }
+    }
+
+    /**
      * 开始体成分测试
      * @return
      * @throws ProtocalExcption
      */
-    public boolean readTichengfen() throws ProtocalExcption {
+    public Radio readTichengfen() throws ProtocalExcption {
         byte[] data = read(MSG_ITEM_CODE_TICHENGFEN);
-        return true;
+        Radio radio = null;
+        if (data != null && data.length == 4) {
+            int weigthRatio = getShortFromData(data, 0);
+            int tare = getShortFromData(data, 2);
+            radio = new Radio(weigthRatio, tare);
+        } else {
+            throw new ProtocalExcption.UnkownExcetion();
+        }
+        return radio;
     }
 
 
@@ -588,6 +623,11 @@ public class Protocol implements IProtocol {
             }
 
             ret = Protocol.createResponse(state, MSG_ITEM_CODE_TICHENGFEN, data);
+        }
+
+        else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_READ, MSG_ITEM_CODE_TICHENGFEN, null))) {
+            byte[] data = new byte[]{0x54, 0x0B, 0x00, 0x00};
+            ret = Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_TICHENGFEN, data);
         }
         return ret;
     }

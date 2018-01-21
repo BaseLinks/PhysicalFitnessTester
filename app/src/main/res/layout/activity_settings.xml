@@ -24,7 +24,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/read_xishu_textview"
+        android:id="@+id/read_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -38,8 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/jiaozhuntizhong_button"
+    <Button
+        android:id="@+id/calibrate_radio_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -49,9 +49,9 @@
         android:text="校准体重"
         android:textColor="#434343"
         android:textSize="65sp"
-        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
-        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
-        app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
+        app:layout_constraintEnd_toEndOf="@+id/read_radio_button"
+        app:layout_constraintStart_toStartOf="@+id/read_radio_button"
+        app:layout_constraintTop_toBottomOf="@+id/read_radio_button" />
 
     <TextView
         android:id="@+id/test_button"
@@ -64,10 +64,10 @@
         android:text="测　试"
         android:textColor="#434343"
         android:textSize="65sp"
-        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintEnd_toEndOf="@+id/read_radio_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
-        app:layout_constraintTop_toBottomOf="@+id/jiaozhuntizhong_button" />
+        app:layout_constraintStart_toStartOf="@+id/read_radio_button"
+        app:layout_constraintTop_toBottomOf="@+id/calibrate_radio_button" />
 
 
     <TextView
@@ -81,9 +81,9 @@
         android:text="时间设置"
         android:textColor="#434343"
         android:textSize="65sp"
-        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintEnd_toEndOf="@+id/read_radio_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintStart_toStartOf="@+id/read_radio_button"
         app:layout_constraintTop_toBottomOf="@+id/test_button" />
 
     <TextView
@@ -96,9 +96,9 @@
         android:text="音量设置"
         android:textColor="#434343"
         android:textSize="65sp"
-        app:layout_constraintEnd_toEndOf="@+id/read_xishu_textview"
+        app:layout_constraintEnd_toEndOf="@+id/read_radio_button"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintStart_toStartOf="@+id/read_radio_button"
         app:layout_constraintTop_toBottomOf="@+id/time_setting_button" />
 
     <include
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/editText"
+        android:id="@+id/radio_textview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="38dp"
@@ -121,17 +121,16 @@
         android:background="@drawable/_120_settings_data_background"
         android:ems="10"
         android:gravity="center"
-        android:inputType="textPersonName"
         android:text="Name"
         android:textColor="#FFFFFF"
         android:textSize="65sp"
-        app:layout_constraintBottom_toBottomOf="@+id/read_xishu_textview"
+        app:layout_constraintBottom_toBottomOf="@+id/read_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/read_xishu_textview"
-        app:layout_constraintTop_toTopOf="@+id/read_xishu_textview" />
+        app:layout_constraintStart_toEndOf="@+id/read_radio_button"
+        app:layout_constraintTop_toTopOf="@+id/read_radio_button" />
 
-    <TextView
-        android:id="@+id/editText2"
+    <EditText
+        android:id="@+id/radio_edittext"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -141,14 +140,16 @@
         android:background="@drawable/_120_settings_data_background"
         android:ems="10"
         android:gravity="center"
-        android:inputType="textPersonName"
+        android:hint="0-5000"
+        android:maxLength="4"
+        android:inputType="numberDecimal"
         android:text="Name"
         android:textColor="#FFFFFF"
         android:textSize="65sp"
-        app:layout_constraintBottom_toBottomOf="@+id/jiaozhuntizhong_button"
+        app:layout_constraintBottom_toBottomOf="@+id/calibrate_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/jiaozhuntizhong_button"
-        app:layout_constraintTop_toTopOf="@+id/jiaozhuntizhong_button" />
+        app:layout_constraintStart_toEndOf="@+id/calibrate_radio_button"
+        app:layout_constraintTop_toTopOf="@+id/calibrate_radio_button" />
 
     <Button
         android:id="@+id/ad_text_setting"
@@ -159,8 +160,8 @@
         android:text="广告文本设置"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/test_button"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/radio_textview"
+        app:layout_constraintStart_toStartOf="@+id/radio_textview"
         app:layout_constraintTop_toTopOf="@+id/test_button" />
 
     <Button
@@ -179,8 +180,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/volume_setting"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/radio_textview"
+        app:layout_constraintStart_toStartOf="@+id/radio_textview"
         app:layout_constraintTop_toTopOf="@+id/volume_setting">
 
         <Button
