@@ -49,7 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         mContext = this;
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mVolumeTextView = findViewById(R.id.volume_textview);
         mVolumeAdd = findViewById(R.id.volume_add);
         mVolumeSub = findViewById(R.id.volume_jian);
@@ -170,6 +169,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideSystemUI(getWindow().getDecorView());
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         updateVolume();
     }
 
