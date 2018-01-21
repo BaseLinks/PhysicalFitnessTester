@@ -1,28 +1,36 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'platform'
+            keyPassword '7660454'
+            storeFile file('/home/tony/Work/03_nutstore/host/app.jks')
+            storePassword '7660454'
+        }
+    }
     compileSdkVersion 26
-
-
-
     defaultConfig {
         applicationId "com.kangear.bodycompositionanalyzer"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
+        versionCode 2
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        signingConfig signingConfigs.config
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
-
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -38,6 +46,6 @@ dependencies {
     compile 'org.xutils:xutils:3.5.0'
     implementation project(':trineaandroidcommon-debug')
     implementation project(':d2xx')
-    implementation project(':javaapk.com-comassistant')
     implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation project(':javaapk.com-comassistant')
 }
