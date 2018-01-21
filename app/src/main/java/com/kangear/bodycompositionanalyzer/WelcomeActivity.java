@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -85,19 +86,23 @@ public class WelcomeActivity extends AppCompatActivity {
     private static int mGenderMax;
     private static int mRadioMin;
     private static int mRadioMax;
+    private Context mContext;
+    private static ProgressDialog mSelfCheckProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        mContext = this;
+        mSelfCheckProgressDialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_DARK);
+        mSelfCheckProgressDialog.setTitle("开机自检");
+        mSelfCheckProgressDialog.setMessage("自检请稍候");
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
                 (TextView)findViewById(R.id.date_textview));
 
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-                MemRegActivity.checkMem(getApplicationContext());
             }
         }, new IntentFilter(CONST_ACTION_TOUCHID_OK));
 
@@ -151,10 +156,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mRadioMax = getResources().getInteger(R.integer.radio_max);
 
 //        onClick2(null);
-
+//        selfCheck(mContext);
         hideNavigation(this);
-
-        startErrorDialog(this);
     }
 
 
@@ -362,42 +365,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.e(TAG, "onActivityResult requestCode: " + requestCode + " resultCode: " + resultCode);
-//        int weight;
-//        switch (requestCode) {
-//            case REQUEST_CODE_VIP_REGISTE:
-//                if (resultCode == RESULT_OK) {
-//                    mCurPersion = Person.fromJson(data.getStringExtra(CONST_PERSON));
-//                    Log.d(TAG, "onActivityResult: person " + mCurPersion.toString());
-//                    // 将Person写入数据库中
-//                    mPersons.add(mCurPersion);
-//                }
-//                break;
-//            case REQUEST_CODE_VIP_TEST: // 2.1. WEIGHT
-//                if (resultCode == RESULT_OK) {
-//                    weight = data.getIntExtra(CONST_WEIGHT, 0);
-//                    Log.d(TAG, "onActivityResult: weight " + weight);
-//                    mCurPersion = new Person();
-//                    mCurPersion.setWeight(weight);
-//
-//                    Intent intent = new Intent(this, TouchIdActivity.class);
-//                    startActivityForResult(intent, REQUEST_CODE_TOUCHID);
-//                }
-//                break;
-//            case REQUEST_CODE_NEW_TEST: { // 1.1 WEIGHT
-//                if (resultCode == RESULT_OK) {
-//                    weight = data.getIntExtra(CONST_WEIGHT, 0);
-//                    Log.d(TAG, "onActivityResult: weight " + weight);
-//                    startId(this);
-//                }
-//                break;
-//            }
-//        }
-//    }
-
     public static Person getPerson() {
         if (mCurPersion == null) {
             mCurPersion = new Person();
@@ -411,6 +378,39 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         return mCurRecord;
+    }
+
+  /**
+     * 自检查
+     * @param context
+     */
+    private static void selfCheck(Context context) {
+        mSelfCheckProgressDialog.show();
+
+        boolean ret = false;
+        // 1. Finger module
+        ret = TouchID.getInstance(context).selfCheck();
+        if (!ret) {
+            Toast.makeText(context, "指纹模块异常", Toast.LENGTH_SHORT).show();
+            mSelfCheckProgressDialog.dismiss();
+            startErrorDialog(context);
+            return;
+        }
+        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+        MemRegActivity.checkMem(context);
+        // 2. device connect
+        ret = UartBca.getInstance(context).selfCheck();
+        if (!ret) {
+            Toast.makeText(context, "体成分分析仪异常", Toast.LENGTH_SHORT).show();
+            mSelfCheckProgressDialog.dismiss();
+            startErrorDialog(context);
+            return;
+        }
+
+
+        mSelfCheckProgressDialog.dismiss();
+      // 3. database
+        // 4. other
     }
 
     // pre test

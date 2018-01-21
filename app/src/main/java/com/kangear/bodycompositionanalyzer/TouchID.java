@@ -610,4 +610,21 @@ public class TouchID {
 
         return ret;
     }
+
+    public boolean selfCheck() {
+        // GR_ReadSysPara
+        FingerUSB fu = mFingerUsb;
+        byte[] b;
+        boolean ret = false;
+        // 1. GR_Empty
+        try {
+            ret = fu.send(TouchID.cmdPackage(TouchID.GR_ReadSysPara, ARGE_NONE));
+            if (!ret) {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
 }

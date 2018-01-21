@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.kangear.common.utils.ByteArrayUtils;
@@ -956,4 +957,14 @@ public class Protocol implements IProtocol {
 //        }
 //        return (crc);
 //    }
+
+    public boolean selfCheck() {
+        boolean ret = false;
+        try {
+            ret = stop(MSG_ITEM_CODE_WEIGHT);
+        } catch (ProtocalExcption protocalExcption) {
+            protocalExcption.printStackTrace();
+        }
+        return ret;
+    }
 }
