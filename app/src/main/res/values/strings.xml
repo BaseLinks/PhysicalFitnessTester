@@ -25,4 +25,6 @@
     <string name="age_hint_gray"><font size="30" color="gray">可输入7-99岁</font></string>
     <string name="height_hint_gray"><font size="30" color="gray">可输入范围90-220</font></string>
     <string name="error_tip">测试未完成，请检查后重新测试</string>
+
+    <string name="admin_passwd">qinlaoban</string>
 </resources>

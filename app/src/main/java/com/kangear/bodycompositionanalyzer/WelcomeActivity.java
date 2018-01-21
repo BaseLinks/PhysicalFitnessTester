@@ -242,9 +242,9 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
 //        Log.e(TAG, "onActivityResult requestCode: " + requestCode + " resultCode: " + resultCode);
 //        int weight;
 //        switch (requestCode) {
@@ -276,7 +276,7 @@ public class WelcomeActivity extends AppCompatActivity {
 //                break;
 //            }
 //        }
-    }
+//    }
 
     public static Person getPerson() {
         if (mCurPersion == null) {
@@ -380,6 +380,14 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
+        actvity.startActivity(new Intent(actvity, AdminPasswordDialogActivity.class));
+    }
+
+    /**
+     * 11. Settings
+     * @param actvity
+     */
+    public static void doSettings(Activity actvity) {
         actvity.startActivity(new Intent(actvity, SettingsActivity.class));
     }
 
