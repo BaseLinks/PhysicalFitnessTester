@@ -153,6 +153,8 @@ public class WelcomeActivity extends AppCompatActivity {
 //        onClick2(null);
 
         hideNavigation(this);
+
+        startErrorDialog(this);
     }
 
 
@@ -526,6 +528,14 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startHistory(Context context) {
         context.startActivity(new Intent(context, HistoryActivity.class));
+    }
+
+    /**
+     * 系统错误
+     * @param context
+     */
+    public static void startErrorDialog(Context context) {
+        context.startActivity(new Intent(context, DeviceErrorDialogActivity.class));
     }
 
     public static void exitAsFail(Activity activity) {
