@@ -151,6 +151,8 @@ public class WelcomeActivity extends AppCompatActivity {
         mRadioMax = getResources().getInteger(R.integer.radio_max);
 
 //        onClick2(null);
+
+        hideNavigation(this);
     }
 
 
@@ -217,6 +219,44 @@ public class WelcomeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    /*隐藏虚拟按键*/
+    public static boolean hideNavigation(Context context){
+        boolean ishide;
+        try
+        {
+            String command;
+            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib service call activity 42 s16 com.android.systemui";
+            Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
+            proc.waitFor();
+            ishide = true;
+        }
+        catch(Exception ex)
+        {
+            Toast.makeText(context.getApplicationContext(), ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            ishide = false;
+        }
+        return ishide;
+    }
+
+    /*显示虚拟按键*/
+    public static boolean showNavigation(Context context){
+        boolean isshow;
+        try
+        {
+            String command;
+            command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib am startservice -n com.android.systemui/.SystemUIService";
+            Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
+            proc.waitFor();
+            isshow = true;
+        }
+        catch (Exception e){
+            isshow = false;
+            e.printStackTrace();
+        }
+        return isshow;
     }
 
     /**
