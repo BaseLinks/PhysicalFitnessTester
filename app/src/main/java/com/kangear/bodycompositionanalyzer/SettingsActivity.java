@@ -32,12 +32,6 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
  */
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "SettingsActivity";
-    private View startView;
-    private View stopView;
-    private TextView mTextView;
-    private static final int WEIGHT_ACTIVITY = 1;
-    private static final int WEIGHT_STOP = 2;
-    private int bootTag;
     private AudioManager mAudioManager;
     private TextView mVolumeTextView;
     private int mMaxVolume;
@@ -59,15 +53,13 @@ public class SettingsActivity extends AppCompatActivity {
         mVolumeSub = findViewById(R.id.volume_jian);
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-//        startView = findViewById(R.id.weight_start);
-//        stopView = findViewById(R.id.weight_stop);
-//        mTextView = findViewById(R.id.weight_textview);
         mRadioTextView = findViewById(R.id.radio_textview);
         mRadioEditText = findViewById(R.id.radio_edittext);
         mCalibrateRadioButton = findViewById(R.id.calibrate_radio_button);
         mWeightTextView = findViewById(R.id.weight_textview);
         mRadioTextView.setText("");
         mRadioEditText.setText("");
+        mWeightTextView.setText("");
         mCalibrateRadioButton.setEnabled(false);
         mRadioEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -98,62 +90,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
-//
-//        bootTag = getIntent().getIntExtra(WelcomeActivity.CONST_WEIGHT_TAG, WelcomeActivity.WEIGHT_INVALIDE);
-//        startTest();
-//        Log.i(TAG, "onCreate bootTag: " + bootTag);
-    }
-
-    /**
-     * 开始
-     */
-    float weight = 0;
-    private void startTest() {
-        startView.setVisibility(View.VISIBLE);
-        stopView.setVisibility(View.GONE);
-        mTextView.setText("");
-
-        // star phread
-        new Thread() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        sleep(1);
-                        mHandler.sendEmptyMessage(WEIGHT_ACTIVITY);
-                        weight += 0.1;
-                        if (weight >= DEFAULT_WEIGHT) {
-                            mHandler.sendEmptyMessage(WEIGHT_STOP);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case WEIGHT_ACTIVITY:
-                    mTextView.setText("" + String.format(FORMAT_WEIGHT, weight));
-                    break;
-                case WEIGHT_STOP:
-                    stopTest();
-                    break;
-            }
-        }
-    };
-
-    /**
-     * 开始
-     */
-    private void stopTest() {
-        startView.setVisibility(View.GONE);
-        stopView.setVisibility(View.VISIBLE);
     }
 
     public void onClick(View v) {
