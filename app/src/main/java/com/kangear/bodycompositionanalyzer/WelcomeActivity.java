@@ -395,6 +395,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private void preInit() {
         hideNavigation(this);
+
         mLogoImageView = findViewById(R.id.logo_imageview);
         mLogoImageView.setOnClickListener(new View.OnClickListener() {
             long[] mHits = new long[3];
@@ -481,6 +482,12 @@ public class WelcomeActivity extends AppCompatActivity {
         // 3. database
         // 4. other
         mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        TouchID.getInstance(this).unInit();
     }
 
     // pre test

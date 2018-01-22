@@ -627,4 +627,8 @@ public class TouchID {
         }
         return ret;
     }
+
+    public void unInit() {
+        mFingerUsb.unInit(mContext);
+    }
 }

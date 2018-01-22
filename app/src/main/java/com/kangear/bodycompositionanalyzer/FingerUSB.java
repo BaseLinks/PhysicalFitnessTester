@@ -117,6 +117,7 @@ public class FingerUSB {
         return length > 0;
     }
 
+    private IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
     private final BroadcastReceiver mUsbPermissionActionReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -211,7 +212,6 @@ public class FingerUSB {
             return false;
         }
 
-        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         context.registerReceiver(mUsbPermissionActionReceiver, filter);
         tryGetUsbPermission(context, mManager, device, intf);
         return true;
@@ -229,6 +229,10 @@ public class FingerUSB {
             }
         }
         return null;
+    }
+
+    public void unInit(Context context) {
+        context.unregisterReceiver(mUsbPermissionActionReceiver);
     }
 
     public void getMaxLnu(Context context) {
