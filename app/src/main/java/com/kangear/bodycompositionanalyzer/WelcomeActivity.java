@@ -394,6 +394,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * 初始化
      */
     private void preInit() {
+        hideNavigation(this);
         mLogoImageView = findViewById(R.id.logo_imageview);
         mLogoImageView.setOnClickListener(new View.OnClickListener() {
             long[] mHits = new long[3];
@@ -446,8 +447,6 @@ public class WelcomeActivity extends AppCompatActivity {
             tmp.setPersonId(PERSON_ID_ANONYMOUS);
             RecordBean.getInstance(mContext).insert(tmp);
         }
-
-        //        hideNavigation(this);
     }
 
     /**

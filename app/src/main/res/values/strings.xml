@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Body Composition Analyzer</string>
+    <string name="app_name">人体成分分析仪</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
