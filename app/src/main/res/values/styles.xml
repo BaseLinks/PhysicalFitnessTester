@@ -12,6 +12,11 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppTheme.Boot" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="NoTitleDialog" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="android:background">#01000000</item>

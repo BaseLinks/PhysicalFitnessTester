@@ -1,5 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import org.xutils.ex.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_11_TEST_FAIL;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 
 /**
@@ -123,7 +125,7 @@ public class PersonBean {
         return p;
     }
 
-    public void check() {
+    public void check(Activity activity) {
         Other o1 = OtherBean.getInstance(mContext).queryByName(Other.FIRST_TIME);
         String c = o1 == null ? "" : o1.getStrValue();
         String txt = "第一次启动: false";
@@ -134,8 +136,13 @@ public class PersonBean {
                 OtherBean.getInstance(mContext).insert(new Other(Other.FIRST_TIME, Other.FIRST_TIME_FALSE));
             txt = "第一次启动: true 清理指纹库: " + ret;
         }
+        final String msg = txt;
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+            }
+        });
 
-        Toast.makeText(mContext, txt, Toast.LENGTH_LONG).show();
         // check invalid person
 //        try {
 //            Person p = WelcomeActivity.getDB().selector(Person.class).findFirst();

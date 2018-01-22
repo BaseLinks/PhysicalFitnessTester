@@ -550,8 +550,8 @@ public class Protocol implements IProtocol {
 
 
     private boolean send(byte[] msg) {
+        Log.i(TAG, "send msg: " + bytesToHex(msg));
         if (FAKE_DATA) {
-            Log.i(TAG, "send msg: " + bytesToHex(msg));
             sendMsg = new byte[msg.length];
             System.arraycopy(msg, 0, sendMsg, 0, msg.length);
         } else {
@@ -962,7 +962,7 @@ public class Protocol implements IProtocol {
     public boolean selfCheck() {
         boolean ret = false;
         try {
-            ret = stop(MSG_ITEM_CODE_WEIGHT);
+            ret = stopTichengfen();
         } catch (ProtocalExcption protocalExcption) {
             protocalExcption.printStackTrace();
         }

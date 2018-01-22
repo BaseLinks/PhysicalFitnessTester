@@ -6,10 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -28,12 +24,10 @@ import com.kangear.common.utils.TimeUtils;
 import org.xutils.DbManager;
 import org.xutils.x;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_01_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_02_VIP_TEST;
@@ -74,6 +68,10 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int PERSON_ID_ANONYMOUS       = 0; // for tmp test
     public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
 
+    public static final int HANDLE_EVENT_INIT                       = 96;
+    public static final int HANDLE_EVENT_AUTO_TEST_START            = 97;
+    public static final int HANDLE_EVENT_AUTO_TEST_DONE             = 98;
+    public static final int HANDLE_EVENT_AUTO_TEST_ERROR            = 99;
     public static final int HANDLE_EVENT_WEIGHT_STOP                = 100;
     public static final int HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS = 101;
 
@@ -96,7 +94,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static DbManager mDb;
 
-
     public static DbManager getDB() {
         return mDb;
     }
@@ -114,7 +111,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static int mRadioMin;
     private static int mRadioMax;
     private static Context mContext;
-    private static ProgressDialog mSelfCheckProgressDialog;
+    private ProgressDialog mSelfCheckProgressDialog;
     //创建一个SoundPool对象
     private ImageView mLogoImageView;
 
@@ -124,84 +121,9 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         mContext = this;
 
-        mLogoImageView = findViewById(R.id.logo_imageview);
-        mLogoImageView.setOnClickListener(new View.OnClickListener() {
-            long[] mHits = new long[3];
-            @Override
-            public void onClick(View arg0) {
-                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
-                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 4000)) {
-                    Arrays.fill(mHits, 0);
-                    showNavigation(mContext);
-                    Toast.makeText(mContext, "虚拟按键已启用", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        preInit();
 
-        mSelfCheckProgressDialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_DARK);
-        mSelfCheckProgressDialog.setTitle("开机自检");
-        mSelfCheckProgressDialog.setMessage("自检请稍候");
-        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview),
-                (TextView)findViewById(R.id.date_textview));
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-            }
-        }, new IntentFilter(CONST_ACTION_TOUCHID_OK));
-
-        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbName("test2.db")
-                // 不设置dbDir时, 默认存储在app的私有目录.
-                .setDbDir(getFilesDir()) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
-                .setDbVersion(2)
-                .setDbOpenListener(new DbManager.DbOpenListener() {
-                    @Override
-                    public void onDbOpened(DbManager db) {
-                        // 开启WAL, 对写入加速提升巨大
-                        db.getDatabase().enableWriteAheadLogging();
-                    }
-                })
-                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
-                    @Override
-                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
-                        // TODO: ...
-                        // db.addColumn(...);
-                        // db.dropTable(...);
-                        // ...
-                        // or
-                        // db.dropDb();
-                    }
-                });
-        mDb = x.getDb(daoConfig);
-        // id 1 for ANONYMOUS
-        Record tmp = RecordBean.getInstance(this).query(RECORD_ID_ANONYMOUS);
-        if (tmp == null) {
-            tmp = new Record();
-            tmp.setId(RECORD_ID_ANONYMOUS);
-            tmp.setPersonId(PERSON_ID_ANONYMOUS);
-            RecordBean.getInstance(this).insert(tmp);
-        }
-
-        // 启动指纹
-        TouchID.getInstance(this.getApplicationContext());
-
-        UartBca.getInstance(this);
-
-        mAgeMin = getResources().getInteger(R.integer.age_min);
-        mAgeMax = getResources().getInteger(R.integer.age_max);
-        mHeightMin = getResources().getInteger(R.integer.height_min);
-        mHeightMax = getResources().getInteger(R.integer.height_max);
-        mWeightMin = getResources().getInteger(R.integer.weight_min);
-        mWeightMax = getResources().getInteger(R.integer.weight_max);
-        mGenderMin = getResources().getInteger(R.integer.gender_min);
-        mGenderMax = getResources().getInteger(R.integer.gender_max);
-        mRadioMin = getResources().getInteger(R.integer.radio_min);
-        mRadioMax = getResources().getInteger(R.integer.radio_max);
-
-        selfCheck(mContext);
-//        hideNavigation(this);
+        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
     }
 
 
@@ -428,38 +350,138 @@ public class WelcomeActivity extends AppCompatActivity {
         return mCurRecord;
     }
 
-  /**
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case HANDLE_EVENT_AUTO_TEST_START:
+                    mSelfCheckProgressDialog.show();
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            selfCheck(mContext);
+                        }
+                    }.start();
+                    break;
+                case HANDLE_EVENT_AUTO_TEST_DONE:
+                    mSelfCheckProgressDialog.dismiss();
+                    // 启动指纹
+                    TouchID.getInstance(mContext.getApplicationContext());
+                    UartBca.getInstance(mContext);
+                    mAgeMin = getResources().getInteger(R.integer.age_min);
+                    mAgeMax = getResources().getInteger(R.integer.age_max);
+                    mHeightMin = getResources().getInteger(R.integer.height_min);
+                    mHeightMax = getResources().getInteger(R.integer.height_max);
+                    mWeightMin = getResources().getInteger(R.integer.weight_min);
+                    mWeightMax = getResources().getInteger(R.integer.weight_max);
+                    mGenderMin = getResources().getInteger(R.integer.gender_min);
+                    mGenderMax = getResources().getInteger(R.integer.gender_max);
+                    mRadioMin = getResources().getInteger(R.integer.radio_min);
+                    mRadioMax = getResources().getInteger(R.integer.radio_max);
+                    break;
+                case HANDLE_EVENT_AUTO_TEST_ERROR:
+                    mSelfCheckProgressDialog.dismiss();
+                    startErrorDialog(mContext);
+                    break;
+            }
+        }
+    };
+
+
+    /**
+     * 初始化
+     */
+    private void preInit() {
+        mLogoImageView = findViewById(R.id.logo_imageview);
+        mLogoImageView.setOnClickListener(new View.OnClickListener() {
+            long[] mHits = new long[3];
+            @Override
+            public void onClick(View arg0) {
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 4000)) {
+                    Arrays.fill(mHits, 0);
+                    showNavigation(mContext);
+                    Toast.makeText(mContext, "虚拟按键已启用", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mSelfCheckProgressDialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_DARK);
+        mSelfCheckProgressDialog.setTitle("开机自检");
+        mSelfCheckProgressDialog.setMessage("自检请稍候");
+        mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview), (TextView)findViewById(R.id.date_textview));
+
+        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
+                .setDbName("test2.db")
+                // 不设置dbDir时, 默认存储在app的私有目录.
+                .setDbDir(getFilesDir()) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
+                .setDbVersion(2)
+                .setDbOpenListener(new DbManager.DbOpenListener() {
+                    @Override
+                    public void onDbOpened(DbManager db) {
+                        // 开启WAL, 对写入加速提升巨大
+                        db.getDatabase().enableWriteAheadLogging();
+                    }
+                })
+                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                    @Override
+                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                        // TODO: ...
+                        // db.addColumn(...);
+                        // db.dropTable(...);
+                        // ...
+                        // or
+                        // db.dropDb();
+                    }
+                });
+        mDb = x.getDb(daoConfig);
+        // id 1 for ANONYMOUS
+        Record tmp = RecordBean.getInstance(mContext).query(RECORD_ID_ANONYMOUS);
+        if (tmp == null) {
+            tmp = new Record();
+            tmp.setId(RECORD_ID_ANONYMOUS);
+            tmp.setPersonId(PERSON_ID_ANONYMOUS);
+            RecordBean.getInstance(mContext).insert(tmp);
+        }
+
+        //        hideNavigation(this);
+    }
+
+    /**
      * 自检查
      * @param context
      */
-    private static void selfCheck(Context context) {
-        mSelfCheckProgressDialog.show();
-
-        boolean ret = false;
+    private void selfCheck(final Context context) {
         // 1. Finger module
-        ret = TouchID.getInstance(context).selfCheck();
+        boolean ret = false;
+        Message msg = new Message();
+        ret = TouchID.getInstance(mContext).selfCheck();
         if (!ret) {
-            Toast.makeText(context, "指纹模块异常", Toast.LENGTH_SHORT).show();
-            mSelfCheckProgressDialog.dismiss();
-            startErrorDialog(context);
+            msg.obj = "指纹模块异常";
+            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+            mHandler.sendMessage(msg);
             return;
         }
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-        MemRegActivity.checkMem(context);
+        MemRegActivity.checkMem(this);
 
         // 2. device connect
-        ret = UartBca.getInstance(context).selfCheck();
+        ret = UartBca.getInstance(mContext).selfCheck();
         if (!ret) {
-            Toast.makeText(context, "体成分分析仪异常", Toast.LENGTH_SHORT).show();
-            mSelfCheckProgressDialog.dismiss();
-            startErrorDialog(context);
+            String ms = "体成分分析仪异常";
+            msg.obj = ms;
+            Log.i(TAG, ms);
+            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+            mHandler.sendMessage(msg);
             return;
         }
 
-
-        mSelfCheckProgressDialog.dismiss();
-      // 3. database
+        // 3. database
         // 4. other
+        mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
     }
 
     // pre test
