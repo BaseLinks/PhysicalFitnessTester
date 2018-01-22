@@ -17,7 +17,7 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 public class Protocol implements IProtocol {
     private static final String TAG = "Protocol";
-    private static final boolean FAKE_DATA = false;
+    private static final boolean FAKE_DATA = true;
 
     // 一.接口参数 接口参数—115200,8N1. 232 串口通讯
     public static final int RATE = 115200;
@@ -524,7 +524,6 @@ public class Protocol implements IProtocol {
         return true;
     }
 
-    private static final byte[] TEST_MSG_WEIGHT_TEST   = {(byte) 0xAA, 0x55, 0x05, (byte) 0xC2, 0x30, 0x00, 0x08, (byte) 0xA0};
     private static final byte[] tmpdata = {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -560,6 +559,19 @@ public class Protocol implements IProtocol {
         return true;
     }
 
+    public static boolean equals(byte[] a, byte[] a2, int length) {
+        if (a==a2)
+            return true;
+        if (a==null || a2==null)
+            return false;
+
+        for (int i=0; i<length; i++)
+            if (a[i] != a2[i])
+                return false;
+
+        return true;
+    }
+
     private static int times = 0;
     private byte[] recv() {
         if (!FAKE_DATA) {
@@ -568,12 +580,13 @@ public class Protocol implements IProtocol {
 
         byte[] ret = null;
 
-        if (Arrays.equals(sendMsg, TEST_MSG_WEIGHT_TEST)) {
-//            return Protocol.createResponse((byte)0x02, (byte)0x30, new byte[]{0x00, 0x00});
+        // start weight test
+        if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_START, MSG_ITEM_CODE_WEIGHT, null))) {
+            return Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_WEIGHT, null);
         }
 
         // query weight
-        if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT, null))) {
+        else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_QUERY, MSG_ITEM_CODE_WEIGHT, null))) {
             int weight;
             byte state = MSG_STATE_WEIGHTING;
             byte[] arr;
@@ -639,6 +652,20 @@ public class Protocol implements IProtocol {
         else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_READ, MSG_ITEM_CODE_TICHENGFEN, null))) {
             byte[] data = new byte[]{0x54, 0x0B, 0x00, 0x00};
             ret = Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_TICHENGFEN, data);
+        }
+
+        else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_TICHENGFEN, null))) {
+            ret = Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_TICHENGFEN, null);
+        }
+
+        else {
+            // start tichengfen test
+            int length = 6; // 只比前６位
+            byte[] tmp1 = Protocol.createCmd(MSG_CMD_START, MSG_ITEM_CODE_TICHENGFEN, new byte[]{0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
+            Log.i(TAG, "create: " + bytesToHex(tmp1));
+            if (equals(sendMsg, tmp1, length)) {
+                return Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_TICHENGFEN, null);
+            }
         }
         return ret;
     }
