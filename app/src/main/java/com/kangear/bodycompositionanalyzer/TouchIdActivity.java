@@ -17,14 +17,11 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.URL;
 
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_14_VIP_TOUCH_ID_DONE;
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_15_VIP_TOUCH_ID_FAIL;
+import static com.kangear.bodycompositionanalyzer.MusicService.play;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_14_VIP_TOUCH_ID_DONE;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_15_VIP_TOUCH_ID_FAIL;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.play;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 
 /**
  * 本页面不显示logo
@@ -66,7 +63,7 @@ public class TouchIdActivity extends Com2Activity {
                 mFingerImageView.setBackgroundResource(R.drawable._80_finger_yellow);
                 // 停止
                 // TODO: send 1 miao finish
-                play(SOUND_14_VIP_TOUCH_ID_DONE);
+                play(this, SOUND_14_VIP_TOUCH_ID_DONE);
                 mHandler.sendEmptyMessageDelayed(PAGE_SUCCESS_EXIT, 2 * 1000);
                 break;
             case PAGE_FAIL:
@@ -76,7 +73,7 @@ public class TouchIdActivity extends Com2Activity {
                     Toast.makeText(this, "识别失败", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_FAIL_EXIT, 5 * 1000);
                 } else {
-                    play(SOUND_15_VIP_TOUCH_ID_FAIL);
+                    play(this, SOUND_15_VIP_TOUCH_ID_FAIL);
                     Toast.makeText(this, "识别失败，请再试", Toast.LENGTH_LONG).show();
                     mHandler.sendEmptyMessageDelayed(PAGE_NORMAL, 2000);
                 }

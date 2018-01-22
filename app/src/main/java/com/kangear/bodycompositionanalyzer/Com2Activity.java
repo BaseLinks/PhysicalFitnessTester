@@ -212,6 +212,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
 
     @Override
     public void onBackButtonClick() {
+        MusicService.stop(this);
     }
 
     @Override

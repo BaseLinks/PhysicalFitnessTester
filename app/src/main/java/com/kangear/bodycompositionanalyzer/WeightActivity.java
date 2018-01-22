@@ -2,9 +2,11 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,14 +18,11 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_13_VIP_TOUCH_ID;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.SOUND_14_VIP_TOUCH_ID_DONE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_STOP;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
-import static com.kangear.bodycompositionanalyzer.WelcomeActivity.play;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
 
 /**
@@ -89,6 +88,7 @@ public class WeightActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
+                MusicService.stop(this);
                 finish();
                 break;
             case R.id.next_button:

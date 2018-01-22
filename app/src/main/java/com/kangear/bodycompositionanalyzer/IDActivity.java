@@ -1,7 +1,9 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
