@@ -1,11 +1,16 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,6 +52,25 @@ public class PdfActivity extends AppCompatActivity {
     public String FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT;
     public String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
 
+    /** 使用自定义字体：宋体 */
+    private Typeface mFontTypeface;
+
+    public static void changeFonts(ViewGroup root, Activity act, Typeface typeface) {
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View v = root.getChildAt(i);
+            if (v instanceof TextView) {
+                ((TextView) v).setTypeface(typeface);
+            } else if (v instanceof Button) {
+                ((Button) v).setTypeface(typeface);
+            } else if (v instanceof EditText) {
+                ((EditText) v).setTypeface(typeface);
+            } else if (v instanceof ViewGroup) {
+                changeFonts((ViewGroup) v, act, typeface);
+            }
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +78,8 @@ public class PdfActivity extends AppCompatActivity {
         hideSystemUI(getWindow().getDecorView());
 
         personId = getIntent().getIntExtra(CONST_PERSON_ID, PERSON_ID_INVALID);
+        mFontTypeface = Typeface.createFromAsset(getAssets(), "fonts/changchengchangsongti.ttf");
+        changeFonts((ViewGroup)getWindow().getDecorView(), this, mFontTypeface);
 
         mRecyclerView = findViewById(R.id.history_recyclerview);
 

@@ -115,10 +115,10 @@
         app:layout_constraintTop_toTopOf="@+id/age_guidline" />
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="218dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="360dp"
-        android:layout_marginTop="18dp"
+        android:layout_width="226dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="354dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -127,8 +127,12 @@
             style="@style/pdf_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
             android:text="北京一二三健身俱乐部"
             android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/number_label_textview"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,6 +141,7 @@
             style="@style/pdf_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
             android:layout_marginStart="2dp"
             android:text="1235455655"
             android:textAlignment="textStart"
@@ -150,9 +155,11 @@
             style="@style/pdf_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:text="联系方式:"
             android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/company_textview" />
 
