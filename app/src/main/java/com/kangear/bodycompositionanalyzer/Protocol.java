@@ -658,17 +658,17 @@ public class Protocol implements IProtocol {
         byte tmpByte;
 
         if (msg == null)
-            return null;
+            throw new ProtocalExcption("parsePackage: msg can not be null");
 
         // 1. Package Head check
         start = MSG_HEAD_START;
         end = start + MSG_HEAD_LENGTH;
         if (msg.length < end)
-            return null;
+            throw new ProtocalExcption("parsePackage: msg.length < end error");
         b = Arrays.copyOfRange(msg, start, end);
         if (!Arrays.equals(b, RECV_HEAD)) {
             Log.e(TAG, "parsePackage: RESPONSE_PACK_HEAD error");
-            return null;
+            throw new ProtocalExcption("parsePackage: RESPONSE_PACK_HEAD error");
         }
 
         // 2. Package Length
@@ -676,7 +676,7 @@ public class Protocol implements IProtocol {
         end = start + MSG_LENGTH_LENGTH;
         if (msg.length < end) {
             Log.e(TAG, "parsePackage: response.length error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error");
         }
         length = msg[start] & 0xFF;
 
@@ -685,7 +685,7 @@ public class Protocol implements IProtocol {
         end = start + MSG_STATE_LENGTH;
         if (msg.length < end) {
             Log.e(TAG, "parsePackage: response.length error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error");
         }
         tmpByte = msg[MSG_STATE_START];
         qr.setState(tmpByte);
@@ -695,7 +695,7 @@ public class Protocol implements IProtocol {
         end = start + MSG_ITEM_CODE_LENGTH;
         if ((msg.length < end) || (msg[MSG_ITEM_CODE_START]  != code)) {
             Log.e(TAG, "parsePackage: response.length error or code error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error or code error");
         }
 
         // 5. ADDR
@@ -703,7 +703,7 @@ public class Protocol implements IProtocol {
         end = start + MSG_ITEM_ADDR_LENGTH;
         if ((msg.length < end) || (msg[MSG_ITEM_ADDR_START]  != MSG_ITEM_ADDR)) {
             Log.e(TAG, "parsePackage: response.length error or MSG_ITEM_ADDR error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error or MSG_ITEM_ADDR error");
         }
 
         // 6. Package Data
@@ -715,7 +715,7 @@ public class Protocol implements IProtocol {
         end = start + dataLength;
         if (msg.length < end) {
             Log.e(TAG, "parsePackage: response.length error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error");
         }
         qr.setData(Arrays.copyOfRange(msg, start, end));
 
@@ -726,13 +726,14 @@ public class Protocol implements IProtocol {
         end = start + MSG_CRC_LENGTH;
         if (msg.length < end) {
             Log.e(TAG, "parsePackage: response.length error");
-            return null;
+            throw new ProtocalExcption("parsePackage: response.length error");
         }
         b = Arrays.copyOfRange(msg, start, end);
         byte[] sum = calcCRC(Arrays.copyOfRange(msg, startSum, endSum));
         if (!Arrays.equals(b, sum)) {
-            Log.e(TAG, "parsePackage: MSG_CRC error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )");
-            return null;
+            String m = "parsePackage: MSG_CRC error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )";
+            Log.e(TAG, m);
+            throw new ProtocalExcption(m);
         }
 
         //Log.e(TAG, "parsePackage: " + bytesToHex(ret));

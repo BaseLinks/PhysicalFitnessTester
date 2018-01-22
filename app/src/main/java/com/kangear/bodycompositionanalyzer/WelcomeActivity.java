@@ -331,6 +331,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 Toast.makeText(activity, "体重测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
                             }
                         });
+                        MusicService.play(mContext, SOUND_11_TEST_FAIL);
                         return;
                     } else {
                         activity.runOnUiThread(new Runnable() {
@@ -365,6 +366,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        MusicService.play(mContext, SOUND_11_TEST_FAIL);
                     }
                 }
             }
@@ -626,6 +628,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(activity, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
+                                MusicService.play(mContext, SOUND_11_TEST_FAIL);
                             }
                         });
                         return;
@@ -639,6 +642,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
 
                 boolean isRun = true;
+                boolean isFirst20 = true;
                 while(isRun) {
                     try {
                         sleep(20);
@@ -658,7 +662,10 @@ public class WelcomeActivity extends AppCompatActivity {
                                 msg.what = HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
                                 msg.arg1 = 20;
                                 handler.sendMessage(msg);
-                                MusicService.play(mContext, SOUND_09_TEST_20);
+                                if (isFirst20) {
+                                    isFirst20 = false;
+                                    MusicService.play(mContext, SOUND_09_TEST_20);
+                                }
                                 break;
                             case MSG_STATE_TESTING_2:
                                 // 进度条走到40%
