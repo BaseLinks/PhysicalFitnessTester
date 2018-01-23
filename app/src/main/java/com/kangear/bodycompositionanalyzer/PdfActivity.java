@@ -101,17 +101,20 @@ public class PdfActivity extends AppCompatActivity {
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, RECORD_ID_INVALID);
         if (recordId == RECORD_ID_INVALID) {
             Log.e(TAG, "recordId can not be RECORD_ID_INVALID");
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
         }
 
         Record curRecord = RecordBean.getInstance(this).query(recordId);
         if (curRecord == null) {
             Log.e(TAG, "curRecord can not be null");
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
         }
 
         if (curRecord.getBodyComposition() == null) {
             Log.e(TAG, "getBodyComposition can not be null");
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
         }
 
@@ -349,8 +352,9 @@ public class PdfActivity extends AppCompatActivity {
     }
 
 
-    private static void fillPdfView(Pdf pdf) {
+    private void fillPdfView(Pdf pdf) {
         if (pdf == null) {
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
         }
 
@@ -359,12 +363,15 @@ public class PdfActivity extends AppCompatActivity {
         List<Record> mRecords = pdf.getRecords();
         Record curRecord = pdf.getCurRecord();
 
-        if (activity == null || pdfView == null || mRecords == null || curRecord == null)
+        if (activity == null || pdfView == null || mRecords == null || curRecord == null) {
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
+        }
 
         BodyComposition bc = curRecord.getBodyComposition();
         if (bc == null) {
             Log.e(TAG, "BodyComposition can not be null");
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
         }
 
