@@ -375,7 +375,6 @@ public class TestActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.print_button:
-                Toast.makeText(this, "打印机未连接", Toast.LENGTH_SHORT).show();
                 startPdf(this, mRecord.getPersonId());
                 break;
         }
