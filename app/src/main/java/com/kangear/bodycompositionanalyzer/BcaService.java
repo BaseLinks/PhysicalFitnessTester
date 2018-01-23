@@ -59,9 +59,27 @@ public class BcaService extends Service {
     }
 
     // 安装字体
-    void installFont() {
-        // 将font.tar.gz解包
+    public static void installNotoFonts(Context context) throws Exception {
+        // 将printer.tar.gz解包
+        // 1. re
+        remount();
+
+        // 读取busybox 写入/system/bin/busybox
+        int count = -1;
+        // This will fail if the user didn't allow the permissions
+        File destDir = context.getCacheDir();
+        count = new AssetCopier(context)
+                .withFileScanning()
+                .copy("system/fonts", destDir);
+
+        ShellUtils.CommandResult cr;
+        String cmd = "busybox tar xvf " + context.getCacheDir() + "/NotoSourceChinese.tgz -C /";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
     }
+
 
     // 安装Printer Driver
     public static void installPrinterDriver(Context context) throws Exception {

@@ -36,6 +36,7 @@ import java.util.Date;
 
 import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBusybox;
+import static com.kangear.bodycompositionanalyzer.BcaService.installNotoFonts;
 import static com.kangear.bodycompositionanalyzer.BcaService.installPrinterDriver;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_01_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_02_VIP_TEST;
@@ -132,15 +133,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mContext = this;
 
         preInit();
-
-        try {
-            installBusybox(mContext);
-            installPrinterDriver(mContext);
-            installBootAnimation(mContext);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
     }
 
@@ -476,6 +468,16 @@ public class WelcomeActivity extends AppCompatActivity {
         // 1. Finger module
         boolean ret = false;
         Message msg = new Message();
+
+        try {
+            installBusybox(mContext);
+            installPrinterDriver(mContext);
+            installBootAnimation(mContext);
+            installNotoFonts(mContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ret = TouchID.getInstance(mContext).selfCheck();
         if (!ret) {
             msg.obj = "指纹模块异常";
