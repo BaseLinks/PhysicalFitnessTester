@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import bodycompositionanalyzer.GPIO;
 import cn.trinea.android.common.util.FileUtils;
 import cn.trinea.android.common.util.ShellUtils;
 
@@ -57,10 +56,6 @@ public class Printer {
     private final static String DEVICE_ID_HP_DESKJET_1112   = "MFG:HP;MDL:DeskJet 1110 series;CMD:PCL3GUI,PJL,Automatic,DW-PCL,DESKJET,DYN;CLS:PRINTER;DES:K7B87D;";
     private final static String DEVICE_ID_EPSON_R330        = "MFG:EPSON;CMD:ESCPL2,BDC,D4,D4PX;MDL:Epson Stylus Photo R330;CLS:PRINTER;DES:EPSON Epson Stylus Photo R330;CID:EpsonStd2;";
     private final static String DEVICE_ID_XEROX_PHASER_3020 = "MFG:Xerox;CMD:SPL,URF,FWV,EXT;MDL:Phaser 3020;CLS:PRINTER;CID:XR_GDI3_Class01_Mono;MODE:SPL3,R000105;";
-
-    public static final int PRINTER_STATE_GPIO = GPIO.GPIOB30;
-    public static final int PRINTER_CONNECTED = GPIO.LOW;
-    public static final int PRINTER_DISCONNECTED = GPIO.HIGH;
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -138,32 +133,8 @@ public class Printer {
         context.registerReceiver(mUsbReceiver, filter);
     }
 
-    public void initGpio() {
-        /** 导出、输出、高低电平 */
-        if(GPIO.getInstance(Printer.PRINTER_STATE_GPIO).activationPin()) {
-            int ret = GPIO.getInstance(Printer.PRINTER_STATE_GPIO).initPin(GPIO.DIRECTION_OUT);
-            if (ret < 0) {
-                Log.e(LOG_TAG, "initPin " + Printer.PRINTER_STATE_GPIO + " fail code:" + ret);
-            }
-        } else {
-            Log.e(LOG_TAG, "activationPin Gpio fail");
-        }
-    }
-
-    public void uninitGpio() {
-        /** 导出、输出、高低电平 */
-        if(!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).desactivationPin()) {
-            Log.e(LOG_TAG, "uninit Gpio fail");
-        }
-        if (mContext != null) {
-            mContext.unregisterReceiver(mUsbReceiver);
-        }
-
-    }
-
     public void init() {
         Log.i(LOG_TAG, "Printer#init");
-        initGpio();
 
         /* 只处理检测到的第一个打印机，其它不进行处理 */
         boolean hasPrinter = false;
@@ -201,9 +172,6 @@ public class Printer {
             setPrinterInterface(null, null);
             getContext().unregisterReceiver(mUsbReceiver);
         }
-
-		/* gpio */
-        uninitGpio();
     }
 
     /**
@@ -443,16 +411,10 @@ public class Printer {
 
     public static void handlePrinterAdd() {
         Log.i(LOG_TAG, "handlePrinterAdd");
-        if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_CONNECTED)) {
-            Log.e(LOG_TAG, "set gpio fail");
-        }
     }
 
     public static void handlePrinterRemove() {
         Log.i(LOG_TAG, "handlePrinterRemove");
-        if (!GPIO.getInstance(Printer.PRINTER_STATE_GPIO).setState(Printer.PRINTER_DISCONNECTED)) {
-            Log.e(LOG_TAG, "set gpio fail");
-        }
     }
 
     /**

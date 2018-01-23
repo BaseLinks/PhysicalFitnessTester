@@ -16,9 +16,6 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import bodycompositionanalyzer.BodyCompositionAnalyzer;
-import bodycompositionanalyzer.MyIntentService;
-
 /**
  * Created by tony on 18-1-22.
  */
