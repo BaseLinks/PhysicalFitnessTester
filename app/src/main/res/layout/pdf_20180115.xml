@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pdf_20180118"
     android:layout_width="595px"
     android:layout_height="842px"
-    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+    >
+    <!--android:background="@drawable/pdf_20180119"-->
 
     <include
         android:visibility="invisible"
@@ -487,7 +486,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="260dp"
-        android:text="1890kcal"
+        android:text="1890"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/yingyangpinggu_guideline"
         app:layout_constraintStart_toStartOf="@+id/yingyangpinggu_guideline"
@@ -553,7 +552,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="483dp"
+        app:layout_constraintGuide_end="484dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline

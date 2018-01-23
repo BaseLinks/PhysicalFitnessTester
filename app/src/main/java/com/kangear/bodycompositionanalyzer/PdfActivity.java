@@ -345,7 +345,7 @@ public class PdfActivity extends AppCompatActivity {
         // -蛋白质 无机盐 总能耗
         fillOne(pdfView, bc.蛋白质, R.id.danbaizhi_textview, true, FLOAT_1_FORMAT);
         fillOne(pdfView, bc.无机盐, R.id.wujiyan_textview, true, FLOAT_1_FORMAT);
-        fillOne(pdfView, bc.总能耗, R.id.zongnenghao_textview, true, FLOAT_0_FORMAT);
+        fillOne(pdfView, bc.总能耗, R.id.zongnenghao_textview, false, FLOAT_0_FORMAT);
         setProgressOfYingYangPingGu(bc.蛋白质, pdfView.findViewById(R.id.danbaizhi_progressbar));
         setProgressOfYingYangPingGu(bc.无机盐, pdfView.findViewById(R.id.wujiyan_progressbar));
 

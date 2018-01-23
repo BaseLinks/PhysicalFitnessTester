@@ -20,8 +20,8 @@
 
     <include
         android:id="@+id/pdf"
-        layout="@layout/pdf_20180115"
-        android:visibility="visible" />
+        layout="@layout/pdf"
+        android:visibility="invisible" />
 
     <include
         layout="@layout/dialog_printing"

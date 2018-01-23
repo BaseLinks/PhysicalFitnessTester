@@ -714,7 +714,7 @@ public class Printer {
         if(pm.equals(PrinterModel.HP_DESKJET_1112)) {
             ret = covertPdfToHp1112(rasterPath, pdf);
         } else if (pm.equals(PrinterModel.EPSON_330)) {
-            ret = covertPdfToEpson330(rasterPath, pdf);
+            ret = covertPdfToXerox3020(rasterPath, pdf);
         }
         return ret;
     }

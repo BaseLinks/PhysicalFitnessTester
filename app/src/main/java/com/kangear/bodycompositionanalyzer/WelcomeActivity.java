@@ -48,6 +48,7 @@ import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_11_TEST_FAI
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_12_PRINT;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_13_VIP_TOUCH_ID;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_30_LOG_UP;
+import static com.kangear.bodycompositionanalyzer.Printer.covertPdfToXerox3020;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
@@ -484,6 +485,8 @@ public class WelcomeActivity extends AppCompatActivity {
             mHandler.sendMessage(msg);
             return;
         }
+
+        Printer.getInstance(this).init();
 
         // 3. database
         // 4. other
