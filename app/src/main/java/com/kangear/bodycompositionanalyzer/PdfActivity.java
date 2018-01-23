@@ -125,7 +125,7 @@ public class PdfActivity extends AppCompatActivity {
         Message msg = new Message();
         msg.what = HANDLE_EVENT_FILL;
         msg.obj = pdf;
-        mHandler.sendMessageDelayed(msg, 1000);
+        mHandler.sendMessageDelayed(msg, 1);
     }
 
     class Pdf {
@@ -169,7 +169,7 @@ public class PdfActivity extends AppCompatActivity {
                     Message m = new Message();
                     m.what = HANDLE_EVENT_PRINT;
                     m.obj = msg.obj;
-                    mHandler.sendMessageDelayed(m, 100);
+                    mHandler.sendMessageDelayed(m, 1);
                     break;
                 case HANDLE_EVENT_PRINT:
                     Pdf pdf = (Pdf) msg.obj;
