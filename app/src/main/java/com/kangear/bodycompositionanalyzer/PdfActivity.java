@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static com.kangear.bodycompositionanalyzer.Printer.covertPdfToXerox3020;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_0_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_PERSON_ID;
@@ -79,6 +81,7 @@ public class PdfActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_print);
         hideSystemUI(getWindow().getDecorView());
+        mContext = this;
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, RECORD_ID_INVALID);
         if (recordId == RECORD_ID_INVALID) {
@@ -159,6 +162,7 @@ public class PdfActivity extends AppCompatActivity {
 
     }
 
+    private Context mContext;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -174,6 +178,11 @@ public class PdfActivity extends AppCompatActivity {
                 case HANDLE_EVENT_PRINT:
                     Pdf pdf = (Pdf) msg.obj;
                     createPdfFromView(pdf.getPdfView());
+                    try {
+                        Printer.getInstance(mContext).printPdf("/sdcard/xerox3020.bin", "/sdcard/test.pdf");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }

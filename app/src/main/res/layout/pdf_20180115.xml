@@ -5,7 +5,6 @@
     android:id="@+id/pdf_20180118"
     android:layout_width="595px"
     android:layout_height="842px"
-    android:background="@drawable/pdf_20180119"
     tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
 
     <include
