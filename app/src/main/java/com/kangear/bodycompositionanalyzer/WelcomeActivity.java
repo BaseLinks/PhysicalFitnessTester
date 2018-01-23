@@ -6,9 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.print.PrintAttributes;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +27,8 @@ import com.kangear.common.utils.TimeUtils;
 import org.xutils.DbManager;
 import org.xutils.x;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -66,6 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_DELETE       = 8;
     public static final int PERSON_ID_INVALID         = -1;
     public static final int PERSON_ID_ANONYMOUS       = 0; // for tmp test
+    public static final int RECORD_ID_INVALID         = -1; // for tmp test
     public static final int RECORD_ID_ANONYMOUS       = 1; // for tmp test
 
     public static final int HANDLE_EVENT_INIT                       = 96;
@@ -600,9 +606,9 @@ public class WelcomeActivity extends AppCompatActivity {
      * 12. Pdf
      * @param actvity
      */
-    public static void startPdf(Activity actvity, int personId) {
+    public static void startPdf(Activity actvity, int recordId) {
         Intent intent = new Intent(actvity, PdfActivity.class);
-        intent.putExtra(CONST_PERSON_ID, personId);
+        intent.putExtra(CONST_RECORD_ID, recordId);
         actvity.startActivity(intent);
         MusicService.play(mContext, SOUND_12_PRINT);
     }
@@ -740,45 +746,44 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }.start();
     }
-//
-//    public void onClick2(View v) {
-//        // create a new document
-//        PdfDocument document = new PdfDocument();
-//
-//        // crate a page description
-//        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
-//                PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
-//                PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
-//                .create();
-//
-//        // start a page
-//        PdfDocument.Page page = document.startPage(pageInfo);
-//
-//        // draw something on the page
-////        LayoutInflater li = LayoutInflater.from(getApplicationContext());
-////        View content = li.inflate(R.layout.activity_welcome, null);
-//        View content = findViewById(R.id.pdf_20180115);
-//        Canvas canvas = page.getCanvas();
-//        Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
-//        content.draw(canvas);
-//
-//        // finish the page
-//        document.finishPage(page);
-//        // add more pages
-//        // write the document content
-//        FileOutputStream os = null;
-//        try {
-//            String string = "/sdcard/test.pdf";
-//            Log.i(TAG, "String:" + string);
-//            os = new FileOutputStream(string);
-//            document.writeTo(os);
-//            os.close();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } finally {
-//            // close the document
-//            document.close();
-//        }
-//    }
+
+    public static void createPdfFromView(View content) {
+        // create a new document
+        PdfDocument document = new PdfDocument();
+
+        // crate a page description
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
+                PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+                PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000, 1)
+                .create();
+
+        // start a page
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        // draw something on the page
+//        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+//        View content = li.inflate(R.layout.activity_welcome, null);
+        Canvas canvas = page.getCanvas();
+        Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
+        content.draw(canvas);
+
+        // finish the page
+        document.finishPage(page);
+        // add more pages
+        // write the document content
+        FileOutputStream os = null;
+        try {
+            String string = "/sdcard/test.pdf";
+            Log.i(TAG, "String:" + string);
+            os = new FileOutputStream(string);
+            document.writeTo(os);
+            os.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            // close the document
+            document.close();
+        }
+    }
 }

@@ -133,7 +133,7 @@
             android:name=".PdfActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar">
         </activity>
         <activity
             android:name=".AdminPasswordDialogActivity"

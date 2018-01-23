@@ -270,7 +270,7 @@ public class BodyComposition {
      * @return
      */
     boolean parse(Third t, byte[] data) {
-        if (t == null) {
+        if (t == null || data == null) {
             return false;
         }
 

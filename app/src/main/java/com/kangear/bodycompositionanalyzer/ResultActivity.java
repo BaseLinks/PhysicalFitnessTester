@@ -38,7 +38,6 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar mGugejiProgressBar;
     private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
-    private Record mRecord;
     private BodyComposition mBodyComposition;
     private static final int LESS_LEVEL_WIDTH = 149;
     private static final int NOMAL_LEVEL_WIDTH = 78;
@@ -53,6 +52,8 @@ public class ResultActivity extends AppCompatActivity {
     private static final int YINGYANGPINGGU_LESS_LEVEL_WIDTH = 74 + 2;
     private static final int YINGYANGPINGGU_NOMAL_LEVEL_WIDTH = 70 + 2;
     private static final int YINGYANGPINGGU_MORE_LEVEL_WIDTH = 72 + 2;
+
+    private Record mRecord = null;
 
     /**
      * 这里的Record入口应该是Record对象，因为像临时测试是不存数据库，读数据库并不适合
@@ -69,6 +70,10 @@ public class ResultActivity extends AppCompatActivity {
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
         if (recordId != INVALID_RECORD_ID) {
             mRecord = RecordBean.getInstance(this).query(recordId);
+        }
+
+        if (mRecord == null) {
+            return;
         }
         mBodyComposition = mRecord.getBodyComposition();
 
@@ -388,8 +393,8 @@ public class ResultActivity extends AppCompatActivity {
                 page(FIRST_PAGE_NUMBER);
                 break;
             case R.id.print_button:
-                Toast.makeText(this, "打印机未连接", Toast.LENGTH_LONG).show();
-                startPdf(this, mRecord.getPersonId());
+                if (mRecord != null)
+                    startPdf(this, mRecord.getId());
                 break;
         }
     }
