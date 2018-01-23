@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBusybox;
 import static com.kangear.bodycompositionanalyzer.BcaService.installPrinterDriver;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_01_NEW_TEST;
@@ -135,6 +136,7 @@ public class WelcomeActivity extends AppCompatActivity {
         try {
             installBusybox(mContext);
             installPrinterDriver(mContext);
+            installBootAnimation(mContext);
         } catch (Exception e) {
             e.printStackTrace();
         }

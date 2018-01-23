@@ -31,8 +31,31 @@ public class BcaService extends Service {
     // /system/media/bootanimation.zip
     // drwxr-x--x root     root              2018-01-21 19:13 local
     // 需要root cmd实现
-    void installBootAnimation() {
+    public static void installBootAnimation(Context context) throws Exception {
+        // 将printer.tar.gz解包
+        // 1. re
+        remount();
 
+        // 读取busybox 写入/system/bin/busybox
+        int count = -1;
+        // This will fail if the user didn't allow the permissions
+        File destDir = context.getCacheDir();
+        count = new AssetCopier(context)
+                .withFileScanning()
+                .copy("system/bootanimation", destDir);
+
+        ShellUtils.CommandResult cr;
+        String cmd = "busybox cp " + context.getCacheDir() + "/bootanimation.zip /data/local/";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+
+        cmd = "busybox chmod 777 /data/local/bootanimation.zip";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
     }
 
     // 安装字体
@@ -41,8 +64,7 @@ public class BcaService extends Service {
     }
 
     // 安装Printer Driver
-    public static boolean installPrinterDriver(Context context) throws Exception {
-        boolean ret = false;
+    public static void installPrinterDriver(Context context) throws Exception {
         // 将printer.tar.gz解包
         // 1. re
         remount();
@@ -61,8 +83,6 @@ public class BcaService extends Service {
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
         }
-
-        return ret;
     }
 
     /**
