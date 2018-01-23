@@ -48,4 +48,5 @@ dependencies {
     implementation project(':d2xx')
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation project(':javaapk.com-comassistant')
+    compile 'com.github.flipagram:android-assetcopier:0.1.1'
 }
