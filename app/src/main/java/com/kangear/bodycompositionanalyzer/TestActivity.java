@@ -375,7 +375,7 @@ public class TestActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.print_button:
-                startPdf(this, mRecord.getPersonId());
+                startPdf(this, mRecord.getId());
                 break;
         }
     }
