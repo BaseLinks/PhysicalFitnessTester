@@ -12,6 +12,7 @@ import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbRequest;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import cn.trinea.android.common.util.ShellUtils;
 public class Printer {
     private static final String LOG_TAG = "Printer";
     private static final boolean USB_EVENT_DEBUG = false;
+    public static final String PRINT_DONE = "Print_done";
     private static PrinterModel mPrinterModel;
     private static Context mContext;
     private UsbManager mManager;
@@ -592,6 +594,8 @@ public class Printer {
                     e.printStackTrace();
                 }
             }
+
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(PRINT_DONE));
         }
     }
 

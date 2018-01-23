@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <include
+        android:id="@+id/print_fail_view"
         layout="@layout/dialog_print_error"
         android:layout_width="546px"
         android:layout_height="328px"
@@ -24,6 +25,7 @@
         android:visibility="invisible" />
 
     <include
+        android:id="@+id/printing_view"
         layout="@layout/dialog_printing"
         android:layout_width="546px"
         android:layout_height="195px"

@@ -1,11 +1,15 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,8 +61,14 @@ public class PdfActivity extends AppCompatActivity {
     public static String FLOAT_JIROU_TIAOZHENGLIANG_FORMAT;
 
     /** 使用自定义字体：宋体 */
-    private static final int HANDLE_EVENT_FILL = 1;
-    private static final int HANDLE_EVENT_PRINT = 2;
+    private static final int HANDLE_EVENT_PRE_FILL   = 0;
+    private static final int HANDLE_EVENT_FILL       = 1;
+    private static final int HANDLE_EVENT_PRINT      = 2;
+    private static final int HANDLE_EVENT_PRINT_DONE = 3;
+    private static final int HANDLE_EVENT_PRINT_FAIL = 4;
+
+    private View mFailView;
+    private View mPrintingView;
 
     public static void changeFonts(ViewGroup root, Activity act, Typeface typeface) {
         for (int i = 0; i < root.getChildCount(); i++) {
@@ -82,6 +92,11 @@ public class PdfActivity extends AppCompatActivity {
         setContentView(R.layout.dialog_print);
         hideSystemUI(getWindow().getDecorView());
         mContext = this;
+        mFailView = findViewById(R.id.print_fail_view);
+        mPrintingView = findViewById(R.id.printing_view);
+
+        mFailView.setVisibility(View.GONE);
+        mPrintingView.setVisibility(View.VISIBLE);
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, RECORD_ID_INVALID);
         if (recordId == RECORD_ID_INVALID) {
@@ -126,9 +141,26 @@ public class PdfActivity extends AppCompatActivity {
         Pdf pdf = new Pdf(curRecord, findViewById(R.id.pdf), this, records);
 
         Message msg = new Message();
-        msg.what = HANDLE_EVENT_FILL;
+        msg.what = HANDLE_EVENT_PRE_FILL;
         msg.obj = pdf;
         mHandler.sendMessageDelayed(msg, 1);
+
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(mBroadcastReceiver, mPrintDoneFilter);
+    }
+
+    private final IntentFilter mPrintDoneFilter = new IntentFilter(Printer.PRINT_DONE);
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i(TAG, "mBroadcastReceiver");
+            mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_DONE);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mBroadcastReceiver);
     }
 
     class Pdf {
@@ -167,8 +199,27 @@ public class PdfActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            final Pdf pdf = (Pdf) msg.obj;
+
             switch (msg.what) {
+                case HANDLE_EVENT_PRE_FILL:
+                    Log.d(TAG, "HANDLE_EVENT_PRE_FILL: " + System.currentTimeMillis() / 1000);
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            for (Record r : pdf.getRecords()) {
+                                r.getBodyComposition();
+                            }
+                            Message msg = new Message();
+                            msg.what = HANDLE_EVENT_FILL;
+                            msg.obj = pdf;
+                            mHandler.sendMessageDelayed(msg, 1);
+                        }
+                    }.start();
+                    break;
                 case HANDLE_EVENT_FILL:
+                    Log.d(TAG, "HANDLE_EVENT_FILL: " + System.currentTimeMillis() / 1000);
                     fillPdfView((Pdf) msg.obj);
                     Message m = new Message();
                     m.what = HANDLE_EVENT_PRINT;
@@ -176,17 +227,44 @@ public class PdfActivity extends AppCompatActivity {
                     mHandler.sendMessageDelayed(m, 1);
                     break;
                 case HANDLE_EVENT_PRINT:
-                    Pdf pdf = (Pdf) msg.obj;
-                    createPdfFromView(pdf.getPdfView());
-                    try {
-                        Printer.getInstance(mContext).printPdf("/sdcard/xerox3020.bin", "/sdcard/test.pdf");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Log.d(TAG, "HANDLE_EVENT_PRINT:1 " + System.currentTimeMillis() / 1000);
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            try {
+                                final String PDF_PATH = "/sdcard/test.pdf";
+                                final String RASTER_PATH = "/sdcard/xerox3020.bin";
+                                createPdfFromView(pdf.getPdfView(), PDF_PATH);
+                                Log.d(TAG, "HANDLE_EVENT_PRINT:2 " + System.currentTimeMillis() / 1000);
+                                Printer.getInstance(mContext).printPdf(RASTER_PATH, PDF_PATH);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
+                            }
+                        }
+                    }.start();
+                    break;
+                case HANDLE_EVENT_PRINT_DONE:
+                    Log.d(TAG, "HANDLE_EVENT_PRINT_DONE: " + System.currentTimeMillis() / 1000);
+                    finish();
+                    break;
+                case HANDLE_EVENT_PRINT_FAIL:
+                    Log.d(TAG, "HANDLE_EVENT_PRINT_FAIL: " + System.currentTimeMillis() / 1000);
+                    mFailView.setVisibility(View.VISIBLE);
+                    mPrintingView.setVisibility(View.GONE);
                     break;
             }
         }
     };
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.yes_button:
+                finish();
+                break;
+        }
+    }
 
     // 单个框
     private static void fillOne(View v, final BodyComposition.Third t, final int textviewId,

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="595px"
     android:layout_height="842px"
+    android:background="@drawable/pdf_20180119"
     >
     <!--android:background="@drawable/pdf_20180119"-->
 

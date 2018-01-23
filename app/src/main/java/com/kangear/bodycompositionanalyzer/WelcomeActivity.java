@@ -750,10 +750,10 @@ public class WelcomeActivity extends AppCompatActivity {
         }.start();
     }
 
-    public static void createPdfFromView(View content) {
+    public static void createPdfFromView(View content, final String pdfPath) {
         // create a new document
         PdfDocument document = new PdfDocument();
-
+        Log.d(TAG, "FUCK0: " + System.currentTimeMillis() / 1000);
         // crate a page description
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
                 PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
@@ -768,18 +768,22 @@ public class WelcomeActivity extends AppCompatActivity {
 //        View content = li.inflate(R.layout.activity_welcome, null);
         Canvas canvas = page.getCanvas();
         Log.i(TAG, "canvas: " + (canvas == null ? "null" : "!null"));
+        Log.d(TAG, "FUCK1: " + System.currentTimeMillis() / 1000);
         content.draw(canvas);
+        Log.d(TAG, "FUCK2: " + System.currentTimeMillis() / 1000);
 
         // finish the page
         document.finishPage(page);
+        Log.d(TAG, "FUCK3: " + System.currentTimeMillis() / 1000);
         // add more pages
         // write the document content
         FileOutputStream os = null;
         try {
-            String string = "/sdcard/test.pdf";
-            Log.i(TAG, "String:" + string);
-            os = new FileOutputStream(string);
+            Log.i(TAG, "String:" + pdfPath);
+            os = new FileOutputStream(pdfPath);
+            Log.d(TAG, "FUCK4: " + System.currentTimeMillis() / 1000);
             document.writeTo(os);
+            Log.d(TAG, "FUCK5: " + System.currentTimeMillis() / 1000);
             os.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -788,5 +792,6 @@ public class WelcomeActivity extends AppCompatActivity {
             // close the document
             document.close();
         }
+        Log.d(TAG, "FUCK6: " + System.currentTimeMillis() / 1000);
     }
 }
