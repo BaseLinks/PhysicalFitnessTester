@@ -404,7 +404,8 @@ public class WelcomeActivity extends AppCompatActivity {
      * 初始化
      */
     private void preInit() {
-        hideNavigation(this);
+        if (!BuildConfig.DEBUG)
+            hideNavigation(this);
 
         mLogoImageView = findViewById(R.id.logo_imageview);
         mLogoImageView.setOnClickListener(new View.OnClickListener() {
@@ -473,7 +474,7 @@ public class WelcomeActivity extends AppCompatActivity {
             installBusybox(mContext);
             installPrinterDriver(mContext);
             installBootAnimation(mContext);
-            installNotoFonts(mContext);
+            //installNotoFonts(mContext);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -485,8 +486,12 @@ public class WelcomeActivity extends AppCompatActivity {
             mHandler.sendMessage(msg);
             return;
         }
+
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
         MemRegActivity.checkMem(this);
+
+        Printer.getInstance(this).init();
+
 
         // 2. device connect
         ret = UartBca.getInstance(mContext).selfCheck();
@@ -498,8 +503,6 @@ public class WelcomeActivity extends AppCompatActivity {
             mHandler.sendMessage(msg);
             return;
         }
-
-        Printer.getInstance(this).init();
 
         // 3. database
         // 4. other
