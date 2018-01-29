@@ -118,7 +118,7 @@ public class FingerUSB {
     }
 
     private IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-    private final BroadcastReceiver mUsbPermissionActionReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver mUsbPermissionActionReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (ACTION_USB_PERMISSION.equals(action)) {
@@ -232,7 +232,10 @@ public class FingerUSB {
     }
 
     public void unInit(Context context) {
-        context.unregisterReceiver(mUsbPermissionActionReceiver);
+        if (mUsbPermissionActionReceiver!=null) {
+            context.unregisterReceiver(mUsbPermissionActionReceiver);
+            mUsbPermissionActionReceiver=null;
+        }
     }
 
     public void getMaxLnu(Context context) {
