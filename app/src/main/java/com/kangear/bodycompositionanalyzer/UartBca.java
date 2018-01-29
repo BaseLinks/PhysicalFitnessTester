@@ -48,6 +48,12 @@ public class UartBca extends Protocol {
 
     private UartBca(Context context) {
         this.mContext = context;
+        if (BuildConfig.DEBUG) {
+            // do something for a debug build
+            FAKE_DATA = true;
+        } else {
+            FAKE_DATA = false;
+        }
         initMachine();
     }
 
