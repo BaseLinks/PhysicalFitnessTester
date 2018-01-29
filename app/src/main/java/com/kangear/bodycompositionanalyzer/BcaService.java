@@ -60,6 +60,9 @@ public class BcaService extends Service {
 
     // 安装字体
     public static void installNotoFonts(Context context) throws Exception {
+        if (true)
+            return;
+
         // 将printer.tar.gz解包
         // 1. re
         remount();
