@@ -146,12 +146,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleDialog">
         </activity>
-        <receiver
-            android:name=".OnBootBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
         <service
             android:name=".MusicService"
             android:exported="false">
