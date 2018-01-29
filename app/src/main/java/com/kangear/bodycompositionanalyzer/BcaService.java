@@ -119,7 +119,7 @@ public class BcaService extends Service {
         File destDir = context.getCacheDir();
         count = new AssetCopier(context)
                 .withFileScanning()
-                .copy("system/bin", destDir);
+                .copy("system/xbin", destDir);
 
         ShellUtils.CommandResult cr;
         String cmd = "cp " + context.getCacheDir() + "/busybox" + " /system/bin";
