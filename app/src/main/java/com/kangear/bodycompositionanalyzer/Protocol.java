@@ -63,8 +63,8 @@ public class Protocol implements IProtocol {
     // 8. CRC 校验 CRC--指对前面的整个数据包（不含 CRC 字符）做 16 位 CRC
     public static final int MSG_CRC                   = 0x00;
 
-    public static final byte PROTOCAL_GENDER_FEMALE   = 0x00;
-    public static final byte PROTOCAL_GENDER_MALE     = 0x01;
+    public static final byte PROTOCAL_GENDER_FEMALE   = 0x00; //女
+    public static final byte PROTOCAL_GENDER_MALE     = 0x01; //男
 
     // 四.命令说明
     // 1， 0XC0： 停止命令，使下位机停止当前工作，回到空闲等待状态
@@ -600,7 +600,7 @@ public class Protocol implements IProtocol {
                     times ++;
                     break;
                 case 3:
-                    weight = 729;
+                    weight = 1205;
                     state = MSG_STATE_DONE;
                     times = 0;
                     break;
