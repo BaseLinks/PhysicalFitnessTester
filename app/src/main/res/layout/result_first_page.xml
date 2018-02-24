@@ -363,25 +363,47 @@
         app:layout_constraintTop_toTopOf="@+id/textView20"
         app:srcCompat="@drawable/_70_result_biaochi" />
 
-    <ProgressBar
+    <!--<com.daimajia.numberprogressbar.NumberProgressBar-->
+        <!--android:id="@+id/weight_progressbar"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView19"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/imageView3"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/imageView3"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView19"-->
+        <!--app:progress_max="100"-->
+        <!--app:progress_current="80"-->
+        <!--app:progress_unreached_bar_height="0dp"-->
+        <!--app:progress_reached_bar_height="20dp"-->
+        <!--app:progress_reached_color="@color/colorProgress"-->
+        <!--app:progress_text_color="@android:color/white"-->
+        <!--app:progress_text_size="20sp"-->
+        <!--/>-->
+    <include
         android:id="@+id/weight_progressbar"
-        style="@style/CustomProgressBar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/textView19" />
 
-    <ProgressBar
+    <include
         android:id="@+id/gugeji_progressbar"
-        style="@style/CustomProgressBar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
-    <ProgressBar
+    <include
         android:id="@+id/tizhifang_progressbar"
-        style="@style/CustomProgressBar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView20"

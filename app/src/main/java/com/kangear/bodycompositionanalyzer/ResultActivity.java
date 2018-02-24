@@ -9,11 +9,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.numberprogressbar.NumberProgressBar;
+
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
@@ -34,14 +38,11 @@ public class ResultActivity extends AppCompatActivity {
     private int WEIGHT_PROGRESS = 70;
     private int TIZHIFANG_PROGRESS = 35;
     private int GUGEJI_PROGRESS = 90;
-    private ProgressBar mWeightProgressBar;
-    private ProgressBar mGugejiProgressBar;
-    private ProgressBar mTizhifangProgressBar;
     private int progress = 0;
     private BodyComposition mBodyComposition;
     private static final int LESS_LEVEL_WIDTH = 149;
     private static final int NOMAL_LEVEL_WIDTH = 78;
-    private static final int MORE_LEVEL_WIDTH  = 255;
+    private static final int MORE_LEVEL_WIDTH  = 255 - 55;
 
     public static final String FLOAT_2_FORMAT                      = "%.2f";
     public static final String FLOAT_1_FORMAT                      = "%.1f";
@@ -54,6 +55,20 @@ public class ResultActivity extends AppCompatActivity {
     private static final int YINGYANGPINGGU_MORE_LEVEL_WIDTH = 72 + 2;
 
     private Record mRecord = null;
+
+    private static void setProgressOfTichengfenfenxi(BodyComposition.Third t, View view) {
+        final int PECENT_MAX = 100;
+        final int HUMAN_HIGH = LESS_LEVEL_WIDTH + NOMAL_LEVEL_WIDTH + MORE_LEVEL_WIDTH; // 208px
+        final float TWO_GE = (float) (50.8 * 2);
+        final float BILI = HUMAN_HIGH / PECENT_MAX;
+        final int progress = t.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH);
+        final ImageView progressView = view.findViewById(R.id.shentichengfenfenxi_frontgound_imageview);
+        final TextView textView = view.findViewById(R.id.progress_textview);
+        progressView.setVisibility(View.VISIBLE);
+        progressView.getLayoutParams().width = (int) (((PECENT_MAX - progress) * BILI) + TWO_GE);
+        progressView.requestLayout();
+        textView.setText(String.format(FORMAT_WEIGHT, t.getCur()) + t.getUnit());
+    }
 
     /**
      * 这里的Record入口应该是Record对象，因为像临时测试是不存数据库，读数据库并不适合
@@ -81,10 +96,6 @@ public class ResultActivity extends AppCompatActivity {
         mNextButton = findViewById(R.id.next_page_button);
         mFirstPage = findViewById(R.id.result_first_page);
         mLastPage = findViewById(R.id.result_last_page);
-
-        mWeightProgressBar = findViewById(R.id.weight_progressbar);
-        mGugejiProgressBar = findViewById(R.id.gugeji_progressbar);
-        mTizhifangProgressBar = findViewById(R.id.tizhifang_progressbar);
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
         FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
@@ -115,9 +126,13 @@ public class ResultActivity extends AppCompatActivity {
         fillOne(R.id.jiankangzhishu_edittext, mBodyComposition.评分, FLOAT_1_FORMAT);
 
         // ---体重 骨骼肌 体脂肪量
-        mWeightProgressBar.setProgress(mBodyComposition.体重.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
-        mGugejiProgressBar.setProgress(mBodyComposition.骨骼肌.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
-        mTizhifangProgressBar.setProgress(mBodyComposition.体脂肪量.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
+//        mWeightProgressBar.setProgress(mBodyComposition.体重.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
+//        mGugejiProgressBar.setProgress(mBodyComposition.骨骼肌.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
+//        mTizhifangProgressBar.setProgress(mBodyComposition.体脂肪量.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
+//        fillProgress(mWeightProgressBar, mBodyComposition.体重);
+        setProgressOfTichengfenfenxi(mBodyComposition.体重, findViewById(R.id.weight_progressbar));
+        setProgressOfTichengfenfenxi(mBodyComposition.骨骼肌, findViewById(R.id.gugeji_progressbar));
+        setProgressOfTichengfenfenxi(mBodyComposition.体脂肪量, findViewById(R.id.tizhifang_progressbar));
 
         // ---身体水分
         fillOne(R.id.shentishuifen_edittext, mBodyComposition.身体水分, FLOAT_1_FORMAT);
@@ -320,32 +335,6 @@ public class ResultActivity extends AppCompatActivity {
 //        etMax.setText(maxStr);
         pb.setProgress(t.getProgress(YINGYANGPINGGU_LESS_LEVEL_WIDTH, YINGYANGPINGGU_NOMAL_LEVEL_WIDTH, YINGYANGPINGGU_MORE_LEVEL_WIDTH));
     }
-
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-//            switch (msg.what){
-//                case WEIGHT_ACTIVITY:
-//                    progress ++;
-//                    break;
-//                case WEIGHT_STOP:
-//                    stopTest();
-//                    break;
-//            }
-
-
-            mWeightProgressBar.setProgress(progress < WEIGHT_PROGRESS ? progress : WEIGHT_PROGRESS);
-            mGugejiProgressBar.setProgress(progress < GUGEJI_PROGRESS ? progress : GUGEJI_PROGRESS);
-            mTizhifangProgressBar.setProgress(progress < TIZHIFANG_PROGRESS ? progress : TIZHIFANG_PROGRESS);
-            progress ++;
-            if (progress <= 100) {
-                sendEmptyMessageDelayed(0, 20);
-            } else {
-                progress = 0;
-            }
-        }
-    };
 
     private void page(int page) {
         switch (page) {
