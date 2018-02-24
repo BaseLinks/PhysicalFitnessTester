@@ -73,6 +73,9 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand");
+        if (intent == null)
+            return START_STICKY;
+
         int number = intent.getIntExtra(CONST_MUSIC_ID, INVALID_MUSIC_ID);
         if (number == INVALID_MUSIC_ID) {
             return START_STICKY;
