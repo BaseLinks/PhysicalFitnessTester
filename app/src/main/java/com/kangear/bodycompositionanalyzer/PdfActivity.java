@@ -33,6 +33,7 @@ import java.util.List;
 import static com.kangear.bodycompositionanalyzer.Printer.covertPdfToXerox3020;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_0_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
+import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_2_FORMAT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_PERSON_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
@@ -443,7 +444,7 @@ public class PdfActivity extends AppCompatActivity {
         // 肥胖分析
         fillCurAndRange(pdfView, bc.BMI, R.id.bmi_textview, R.id.bmi_range_textview, true, FLOAT_1_FORMAT);
         fillCurAndRange(pdfView, bc.体脂百分比, R.id.tizhibaifenbi_textview, R.id.tizhibaifenbi_range_textview, true, FLOAT_1_FORMAT);
-        fillCurAndRange(pdfView, bc.腰臀比, R.id.yaotunbi_textview, R.id.yaotunbi_range_textview, true, FLOAT_1_FORMAT);
+        fillCurAndRange(pdfView, bc.腰臀比, R.id.yaotunbi_textview, R.id.yaotunbi_range_textview, true, FLOAT_2_FORMAT);
         fillOne(pdfView, bc.基础代谢, R.id.jichudaixie_textview, true, FLOAT_0_FORMAT);
 
         // zonghepingjia
