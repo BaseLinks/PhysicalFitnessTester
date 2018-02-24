@@ -2,17 +2,14 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +33,6 @@ import java.util.Date;
 
 import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBusybox;
-import static com.kangear.bodycompositionanalyzer.BcaService.installNotoFonts;
 import static com.kangear.bodycompositionanalyzer.BcaService.installPrinterDriver;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_01_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_02_VIP_TEST;
@@ -52,7 +48,6 @@ import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_11_TEST_FAI
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_12_PRINT;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_13_VIP_TOUCH_ID;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_30_LOG_UP;
-import static com.kangear.bodycompositionanalyzer.Printer.covertPdfToXerox3020;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
@@ -85,6 +80,8 @@ public class WelcomeActivity extends AppCompatActivity {
     public static final int HANDLE_EVENT_AUTO_TEST_ERROR            = 99;
     public static final int HANDLE_EVENT_WEIGHT_STOP                = 100;
     public static final int HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS = 101;
+    public static final int HANDLE_EVENT_WEIGHT_ERROR               = 102;
+    public static final int HANDLE_EVENT_TICHENGFEN_ERROR           = 103;
 
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
@@ -243,8 +240,11 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * 开始
      */
-    public static void startWeightTest(final Activity activity, final TextView weightTextView, final Handler handler) {
+    public static void startWeightTest(final Activity activity,
+                                       final TextView weightTextView,
+                                       final Handler handler) {
         weightTextView.setText("0.0");
+
         // star phread
         new Thread() {
             @Override
@@ -263,7 +263,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                 Toast.makeText(activity, "体重测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
                             }
                         });
+
                         MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        if (handler != null) {
+                            handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_ERROR);
+                        }
                         return;
                     } else {
                         activity.runOnUiThread(new Runnable() {
@@ -273,6 +277,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         });
                     }
                 }
+
 
                 while(true) {
                     try {
@@ -299,6 +304,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                         MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        if (handler != null) {
+                            handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_ERROR);
+                        }
                     }
                 }
             }
@@ -466,6 +474,11 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param context
      */
     private void selfCheck(final Context context) {
+//        if (BuildConfig.DEBUG) {
+//            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+//            return;
+//        }
+
         // 1. Finger module
         boolean ret = false;
         Message msg = new Message();
@@ -550,6 +563,15 @@ public class WelcomeActivity extends AppCompatActivity {
     public static void doVipTest(Context context) {
         doTest(context);
     }
+
+    /**
+     * 1. ID
+     * @param context
+     */
+    public static void startWelcome(Context context) {
+        context.startActivity(new Intent(context, WelcomeActivity.class));
+    }
+
 
     /**
      * 1. ID
@@ -682,6 +704,9 @@ public class WelcomeActivity extends AppCompatActivity {
                             public void run() {
                                 Toast.makeText(activity, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
                                 MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                                if (handler != null) {
+                                    handler.sendEmptyMessage(HANDLE_EVENT_TICHENGFEN_ERROR);
+                                }
                             }
                         });
                         return;
@@ -754,6 +779,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                         MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        if (handler != null) {
+                            handler.sendEmptyMessage(HANDLE_EVENT_TICHENGFEN_ERROR);
+                        }
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(activity, R.string.error_tip, Toast.LENGTH_LONG).show();

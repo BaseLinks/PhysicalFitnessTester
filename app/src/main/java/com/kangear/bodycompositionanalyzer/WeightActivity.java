@@ -16,6 +16,7 @@ import android.widget.Toast;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_ERROR;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_TOUCHID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_NEW_TEST;
@@ -23,7 +24,9 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_W
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.WEIGHT_VIP_TEST;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startAge;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTouchId;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startWelcome;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -72,6 +75,10 @@ public class WeightActivity extends AppCompatActivity {
             switch (msg.what){
                 case HANDLE_EVENT_WEIGHT_STOP:
                     stopTest();
+                    break;
+                case HANDLE_EVENT_WEIGHT_ERROR:
+                    startWelcome(mContext);
+                    finish();
                     break;
             }
         }

@@ -33,6 +33,7 @@ import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_TICHENGFEN_ERROR;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
@@ -299,6 +300,9 @@ public class TestActivity extends AppCompatActivity {
                             mHumanProgress.requestLayout();
                             break;
                     }
+                    break;
+                case HANDLE_EVENT_TICHENGFEN_ERROR:
+                    finish();
                     break;
             }
         }
