@@ -220,7 +220,7 @@
         app:layout_constraintTop_toTopOf="@+id/bmi_guidline" />
 
     <TextView
-        android:id="@+id/tizhibaifenbi_textview"
+        android:id="@+id/pdf_tizhibaifenbi_textview"
         style="@style/pdf_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
