@@ -340,12 +340,12 @@ public class TestActivity extends AppCompatActivity {
         progress ++;
         if (progress <= maxProgress) {
             pb.setProgress(progress);
-            mHandler.sendEmptyMessageDelayed(curWhat, 20);
+            mHandler.sendEmptyMessageDelayed(curWhat, 10);
         } else {
             tv.setText(String.format(FORMAT_WEIGHT, curValule));
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
             progress = 0;
-            mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
+            mHandler.sendEmptyMessageDelayed(nextWhat, 10);
         }
     }
 
@@ -354,12 +354,12 @@ public class TestActivity extends AppCompatActivity {
         if (progress <= max) {
             tv.startAnimation(AnimationUtils.loadAnimation(this, R.anim.test_textview));
             tv.setText(String.format(FORMAT_WEIGHT, value));
-            mHandler.sendEmptyMessageDelayed(curWhat, 50);
+            mHandler.sendEmptyMessageDelayed(curWhat, 25);
         } else {
             if (rg != null)
                 rg.check(rb);
             progress = 0;
-            mHandler.sendEmptyMessageDelayed(nextWhat, 1 * 1000);
+            mHandler.sendEmptyMessageDelayed(nextWhat, 10);
         }
     }
 
