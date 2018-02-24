@@ -28,6 +28,7 @@ public class TimeActivity extends AppCompatActivity {
 
         mDatePicker = findViewById(R.id.datepicker);
         mTimePicker = findViewById(R.id.timepicker);
+        mTimePicker.setIs24HourView(true);
     }
 
     // This snippet hides the system bars.
