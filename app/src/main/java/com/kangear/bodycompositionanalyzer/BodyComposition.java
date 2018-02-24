@@ -276,18 +276,18 @@ public class BodyComposition {
 
         if (t.getLength() == 1) {
             if (t.getCurStart() != INVALID_POSIONT)
-                t.setCur(data[t.getCurStart()]);
+                t.setCur(data[t.getCurStart()] & 0xFF);
             if (t.getMinStart() != INVALID_POSIONT)
-                t.setMin(data[t.getMinStart()]);
+                t.setMin(data[t.getMinStart()] & 0xFF);
             if (t.getMaxStart() != INVALID_POSIONT)
-                t.setMax(data[t.getMaxStart()]);
+                t.setMax(data[t.getMaxStart()] & 0xFF);
         } else if (t.getLength() == 2) {
             if (t.getCurStart() != INVALID_POSIONT)
-                t.setCur(Protocol.getShortFromData(data, t.getCurStart()));
+                t.setCur(Protocol.getShortFromData(data, t.getCurStart()) & 0xFFFF);
             if (t.getMinStart() != INVALID_POSIONT)
-                t.setMin(Protocol.getShortFromData(data, t.getMinStart()));
+                t.setMin(Protocol.getShortFromData(data, t.getMinStart()) & 0xFFFF);
             if (t.getMaxStart() != INVALID_POSIONT)
-                t.setMax(Protocol.getShortFromData(data, t.getMaxStart()));
+                t.setMax(Protocol.getShortFromData(data, t.getMaxStart()) & 0xFFFF);
         } else {
             return false;
         }
