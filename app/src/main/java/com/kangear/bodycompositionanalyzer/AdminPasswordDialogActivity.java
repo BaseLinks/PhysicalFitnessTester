@@ -38,7 +38,7 @@ public class AdminPasswordDialogActivity extends AppCompatActivity {
                 break;
             case R.id.yes_button:
                 String passwd = mPasswordEditText.getText().toString();
-                if (passwd.equals(mPasswd)) {
+                if (passwd.equalsIgnoreCase(mPasswd)) {
                     doSettings(this);
                     finish();
                 } else
