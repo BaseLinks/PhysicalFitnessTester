@@ -351,12 +351,15 @@ public class BodyComposition {
 
         // 微调
         // 1. 女性基础代谢率=661+10.7*去脂体重(kg)+1.72*身高(cm)-4.7*年龄    * Math.pow(10, 基础代谢.dot)
+        // 男性基础代谢率=67+17.5*去脂体重(kg)+5*身高(cm)-6.9*年龄     * Math.pow(10, 基础代谢.dot)
         Log.i(TAG, "基础代谢1: " + 基础代谢.getCur());
+        float tmp = 0;
         if (性别.getCur() == Protocol.PROTOCAL_GENDER_FEMALE) {
-            基础代谢.setCur((float) ((661 + 10.7 * 去脂体重.getCur() + 1.72 * 身高.getCur() - 4.7 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot)));
+            tmp = (float) ((661 + 10.7 * 去脂体重.getCur() + 1.72 * 身高.getCur() - 4.7 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot));
         } else {
-            //
+            tmp = (float) ((67 + 17.5 * 去脂体重.getCur() + 5 * 身高.getCur() - 6.9 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot));
         }
+        基础代谢.setCur(tmp);
         Log.i(TAG, "基础代谢2: " + 基础代谢.getCur());
 
         // 2.评分=下位机传回评分x0.8+（骨骼肌映射20分）；
