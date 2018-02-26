@@ -41,6 +41,7 @@ public class MusicService extends Service {
     public static final int SOUND_30_LOG_UP               = 30;
     public static final int SOUND_31_LOG_UP_TOUCH_ID_DONE = 31;
     public static final int SOUND_32_LOG_UP_TOUCH_ID_FAIL = 32;
+    public static final int SOUND_33_PRINT_FAIL           = 33;
 
     private static final String CONST_MUSIC_ID = "CONST_MUSIC_ID";
     private static final int INVALID_MUSIC_ID = -1;
@@ -136,6 +137,9 @@ public class MusicService extends Service {
                 break;
             case SOUND_32_LOG_UP_TOUCH_ID_FAIL:
                 resId = R.raw._32_log_up_touch_id_fail;
+                break;
+            case SOUND_33_PRINT_FAIL:
+                resId = R.raw._33_print_fail;
                 break;
         }
 

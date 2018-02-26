@@ -32,6 +32,8 @@ import java.util.List;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_HIGH;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_LOW;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_NORMAL;
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_12_PRINT;
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_33_PRINT_FAIL;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_0_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_2_FORMAT;
@@ -256,6 +258,7 @@ public class PdfActivity extends AppCompatActivity {
                     }.start();
                     break;
                 case HANDLE_EVENT_PRINT_DONE:
+                    MusicService.play(mContext, SOUND_12_PRINT);
                     Log.d(TAG, "HANDLE_EVENT_PRINT_DONE: " + System.currentTimeMillis() / 1000);
                     finish();
                     break;
@@ -263,6 +266,7 @@ public class PdfActivity extends AppCompatActivity {
                     Log.d(TAG, "HANDLE_EVENT_PRINT_FAIL: " + System.currentTimeMillis() / 1000);
                     mFailView.setVisibility(View.VISIBLE);
                     mPrintingView.setVisibility(View.GONE);
+//                    MusicService.stop(mContext);
                     break;
             }
         }

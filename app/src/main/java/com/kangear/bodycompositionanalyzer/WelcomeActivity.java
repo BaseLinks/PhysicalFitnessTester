@@ -651,7 +651,6 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(actvity, PdfActivity.class);
         intent.putExtra(CONST_RECORD_ID, recordId);
         actvity.startActivity(intent);
-        MusicService.play(mContext, SOUND_12_PRINT);
     }
 
     /**
