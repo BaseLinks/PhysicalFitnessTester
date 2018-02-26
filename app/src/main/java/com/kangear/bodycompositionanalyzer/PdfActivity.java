@@ -281,18 +281,6 @@ public class PdfActivity extends AppCompatActivity {
     }
 
     // 单个框
-    private static void fillOneScore(View v, final BodyComposition bc, final int textviewId,
-                                final boolean isNeedUnit, final String format) {
-        float gugeji = getGugejiScore(bc);
-
-        BodyComposition.Third t = bc.评分;
-        String text = String.format(format, t.getCur() * 0.8 + gugeji);
-        if (isNeedUnit)
-            text += t.getUnit();
-        ((TextView)v.findViewById(textviewId)).setText(text);
-    }
-
-    // 单个框
     private static void fillOne(View v, final BodyComposition.Third t, final int textviewId,
                  final boolean isNeedUnit, final String format) {
         String text = String.format(format, t.getCur());
@@ -434,7 +422,7 @@ public class PdfActivity extends AppCompatActivity {
         //
         fillOne(pdfView, bc.身高, R.id.height_textview, true, FORMAT_WEIGHT);
         fillOne(pdfView, bc.年龄, R.id.age_textview, true, FLOAT_0_FORMAT);
-        fillOneScore(pdfView, bc, R.id.jibenxinxi_jiankangzhishu_textview, false, FLOAT_1_FORMAT);
+        fillOne(pdfView, bc.评分, R.id.jibenxinxi_jiankangzhishu_textview, false, FLOAT_1_FORMAT);
 
         // 身体成分分析
         fillRange(pdfView, bc.体重, R.id.weight_range_textview, false, FLOAT_1_FORMAT);

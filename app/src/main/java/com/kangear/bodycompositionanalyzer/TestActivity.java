@@ -31,6 +31,7 @@ import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
 import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
 import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
+import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_0_FORMAT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_TICHENGFEN_ERROR;
@@ -258,7 +259,7 @@ public class TestActivity extends AppCompatActivity {
                 case SHOW_TIZHIFANG_BAIFENGBI_DONE: // show 基础代谢量
                     curValue = mBodyComposition.基础代谢.getCur();
                     mJichudaixieliangTextView.startAnimation(AnimationUtils.loadAnimation(TestActivity.this, R.anim.test_textview));
-                    mJichudaixieliangTextView.setText("" + (int)curValue);
+                    mJichudaixieliangTextView.setText(String.format(FLOAT_0_FORMAT, curValue));
                     mHandler.sendEmptyMessageDelayed(SHOW_JICHUDAIXIELIANG_DONE, 2 * 1000);
                     break;
 

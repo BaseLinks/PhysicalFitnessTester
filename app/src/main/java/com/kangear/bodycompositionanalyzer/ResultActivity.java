@@ -42,9 +42,9 @@ public class ResultActivity extends AppCompatActivity {
     private int GUGEJI_PROGRESS = 90;
     private int progress = 0;
     private BodyComposition mBodyComposition;
-    private static final int LESS_LEVEL_WIDTH = 149;
-    private static final int NOMAL_LEVEL_WIDTH = 78;
-    private static final int MORE_LEVEL_WIDTH  = 255 - 55;
+    public static final int LESS_LEVEL_WIDTH = 149;
+    public static final int NOMAL_LEVEL_WIDTH = 78;
+    public static final int MORE_LEVEL_WIDTH  = 255 - 55;
 
     public static final String FLOAT_2_FORMAT                      = "%.2f";
     public static final String FLOAT_1_FORMAT                      = "%.1f";
@@ -78,19 +78,6 @@ public class ResultActivity extends AppCompatActivity {
             score = 0;
         Log.i(TAG, "骨骼肌 占的分数:  " + score);
         return score;
-    }
-
-    // 单个框
-    private static void fillOneScore(View v, final BodyComposition bc, final int textviewId,
-                                     final boolean isNeedUnit, final String format) {
-        // 获取 骨骼肌 占的分数
-        float gugeji = getGugejiScore(bc);
-
-        BodyComposition.Third t = bc.评分;
-        String text = String.format(format, t.getCur() * 0.8 + gugeji);
-        if (isNeedUnit)
-            text += t.getUnit();
-        ((EditText)v.findViewById(textviewId)).setText(text);
     }
 
     /**
@@ -146,8 +133,7 @@ public class ResultActivity extends AppCompatActivity {
         fillOne(R.id.neizangmianji_edittext, mBodyComposition.内脏面积, FLOAT_1_FORMAT);
 
         // ---健康指数(评分)
-//        fillOne(R.id.jiankangzhishu_edittext, mBodyComposition.评分, FLOAT_1_FORMAT);
-        fillOneScore(getWindow().getDecorView(), mBodyComposition, R.id.jiankangzhishu_edittext, false, FLOAT_1_FORMAT);
+        fillOne(R.id.jiankangzhishu_edittext, mBodyComposition.评分, FLOAT_1_FORMAT);
 
         // ---体重 骨骼肌 体脂肪量
 //        mWeightProgressBar.setProgress(mBodyComposition.体重.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));

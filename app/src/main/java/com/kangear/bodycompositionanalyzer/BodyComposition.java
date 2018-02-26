@@ -6,10 +6,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+import static com.kangear.bodycompositionanalyzer.ResultActivity.MORE_LEVEL_WIDTH;
+import static com.kangear.bodycompositionanalyzer.ResultActivity.NOMAL_LEVEL_WIDTH;
+
 /**
  * Created by tony on 16-6-22.
  */
 public class BodyComposition {
+    private static final String TAG = "BodyComposition";
     private static final String LOG_TAG = "BodyComposition";
     public static final String UNIT_KG     = "kg";
     public static final String UNIT_KCAL   = "kcal";
@@ -343,5 +348,25 @@ public class BodyComposition {
             Log.i(LOG_TAG, t.toString());
             i++;
         }
+
+        // 微调
+        // 1. 女性基础代谢率=661+10.7*去脂体重(kg)+1.72*身高(cm)-4.7*年龄    * Math.pow(10, 基础代谢.dot)
+        Log.i(TAG, "基础代谢1: " + 基础代谢.getCur());
+        if (性别.getCur() == Protocol.PROTOCAL_GENDER_FEMALE) {
+            基础代谢.setCur((float) ((661 + 10.7 * 去脂体重.getCur() + 1.72 * 身高.getCur() - 4.7 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot)));
+        } else {
+            //
+        }
+        Log.i(TAG, "基础代谢2: " + 基础代谢.getCur());
+
+        // 2.评分=下位机传回评分x0.8+（骨骼肌映射20分）；
+        // 骨骼肌映射20分：骨骼肌进度条在第一格的，计0分。然后第二格10分，第三格10分，根据进度线段按比例映射得出具体分数。
+        //  * Math.pow(10, 评分.dot)
+        Log.i(TAG, "评分1:  " + 评分.getCur());
+        float score = (float) (骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
+        if (骨骼肌.getLevel() == LEVEL_LOW)
+            score = 0;
+        评分.setCur((float) ((评分.getCur() * 0.8 + score) * Math.pow(10, 评分.dot)));
+        Log.i(TAG, "评分2:  " + 评分.getCur());
     }
 }
