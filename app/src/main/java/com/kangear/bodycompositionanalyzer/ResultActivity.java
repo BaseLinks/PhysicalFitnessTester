@@ -74,6 +74,8 @@ public class ResultActivity extends AppCompatActivity {
 
     public static float getGugejiScore(final BodyComposition bc) {
         float score = (float) (bc.骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
+        if (bc.骨骼肌.getLevel() == LEVEL_LOW)
+            score = 0;
         Log.i(TAG, "骨骼肌 占的分数:  " + score);
         return score;
     }
