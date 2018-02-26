@@ -190,11 +190,7 @@ public class TestActivity extends AppCompatActivity {
                     mWaitView.setVisibility(View.VISIBLE);
                     mTestView.setVisibility(View.GONE);
 //                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
-                    byte gender = (mRecord.getGender().equals(GENDER_MALE)) ? PROTOCAL_GENDER_MALE : PROTOCAL_GENDER_FEMALE;
-                    byte age = (byte)(mRecord.getAge() & 0xFF);
-                    short height = (short) (((int)mRecord.getHeight() & 0xFFFF) * 10);
-                    short weight = (short) (((int)mRecord.getWeight() & 0xFFFF) * 10);
-                    startTichengfenTest((Activity) mContext, mHandler, gender, age, height, weight);
+                    startTichengfenTest((Activity) mContext, mHandler, mRecord);
                     break;
                 case SHOW_TEST: // 测试中界面 界面
                     mWaitView.setVisibility(View.GONE);

@@ -48,12 +48,15 @@ import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_11_TEST_FAI
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_12_PRINT;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_13_VIP_TOUCH_ID;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_30_LOG_UP;
+import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_2;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_3;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
+import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
+import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -683,9 +686,15 @@ public class WelcomeActivity extends AppCompatActivity {
     /**
      * 开始
      */
-    public static void startTichengfenTest(final Activity activity, final Handler handler,
-                                           final byte gender, final byte age,
-                                           final short height, final short weight) {
+    public static void startTichengfenTest(final Activity activity,
+                                           final Handler handler,
+                                           Record mRecord) {
+
+        final byte gender = (mRecord.getGender().equals(GENDER_MALE)) ? PROTOCAL_GENDER_MALE : PROTOCAL_GENDER_FEMALE;
+        final byte age = (byte)((int)(mRecord.getAge() * Math.pow(10, BodyComposition.年龄.dot)) & 0xFF);
+        final short height = (short) (((int)(mRecord.getHeight() * Math.pow(10, BodyComposition.身高.dot)) & 0xFFFF));
+        final short weight = (short) (((int)(mRecord.getWeight() * Math.pow(10, BodyComposition.体重.dot)) & 0xFFFF));
+
         // star phread
         MusicService.play(mContext, SOUND_08_TEST_START);
         new Thread() {
