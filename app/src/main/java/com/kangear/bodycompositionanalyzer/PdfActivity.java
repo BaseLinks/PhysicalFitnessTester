@@ -51,9 +51,9 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 public class PdfActivity extends AppCompatActivity {
     private static final String TAG = "PdfActivity";
     private static final String JIBENXINXI_DATE_FORMAT  = "yyyy.MM.dd";
-    private static final String JIBENXINXI_TIME_FORMAT  = "hh:mm";
+    private static final String JIBENXINXI_TIME_FORMAT  = "HH:mm";
     public static final String DATE_FORMAT_DATE  = "yy.MM.dd";
-    public static final String DATE_FORMAT_TIME  = "hh.mm.ss"; // FOR DEBUG
+    public static final String DATE_FORMAT_TIME  = "HH.mm.ss"; // FOR DEBUG
     public static String DATE_FORMAT  = DATE_FORMAT_DATE;
     private static float TICHENGFENFENXI_LESS_WIDTH = 78;
     private static float TICHENGFENFENXI_NOMAL_WIDTH = 40;

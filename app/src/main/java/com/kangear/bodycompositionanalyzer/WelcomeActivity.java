@@ -290,6 +290,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             continue;
                         }
                         byte state = qr.getState();
+                        Protocol.parseErrorState(state);
                         weight = qr.getShortFromData() / (float)10;
                         activity.runOnUiThread(new Runnable() {
                             @Override
@@ -782,6 +783,9 @@ public class WelcomeActivity extends AppCompatActivity {
                                 handler.sendMessage(msg);
                                 isRun = false;
                                 MusicService.play(mContext, SOUND_10_TEST_100);
+                                break;
+                            default:
+                                Protocol.parseErrorState(qr.getState());
                                 break;
                         }
                     } catch (Exception e) {
