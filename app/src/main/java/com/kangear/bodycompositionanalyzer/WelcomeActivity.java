@@ -692,9 +692,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                            Record mRecord) {
 
         final byte gender = (mRecord.getGender().equals(GENDER_MALE)) ? PROTOCAL_GENDER_MALE : PROTOCAL_GENDER_FEMALE;
-        final byte age = (byte)((int)(mRecord.getAge() * Math.pow(10, BodyComposition.年龄.dot)) & 0xFF);
-        final short height = (short) (((int)(mRecord.getHeight() * Math.pow(10, BodyComposition.身高.dot)) & 0xFFFF));
-        final short weight = (short) (((int)(mRecord.getWeight() * Math.pow(10, BodyComposition.体重.dot)) & 0xFFFF));
+        final byte age = (byte)((int)(mRecord.getAge() * (float)Math.pow(10, BodyComposition.年龄.dot)) & 0xFF);
+        final short height = (short) (((int)(mRecord.getHeight() * (float)Math.pow(10, BodyComposition.身高.dot)) & 0xFFFF));
+        final short weight = (short) (((int)(mRecord.getWeight() * (float)Math.pow(10, BodyComposition.体重.dot)) & 0xFFFF));
+
+        Log.i(TAG,  "startTichengfenTest: gender: " + gender + " age: " + age + " height: " + height + " weight: " + weight);
 
         // star phread
         MusicService.play(mContext, SOUND_08_TEST_START);

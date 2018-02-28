@@ -111,7 +111,7 @@ public class BodyComposition {
 
         //直接还原真实的值
         public float getCur() {
-            return (float) (cur / Math.pow(10, dot));
+            return (float) (cur / (float)Math.pow(10, dot));
         }
 
         public void setCur(float cur) {
@@ -119,7 +119,7 @@ public class BodyComposition {
         }
 
         public float getMin() {
-            return (float) (min / Math.pow(10, dot));
+            return (float) (min / (float)Math.pow(10, dot));
         }
 
         public Third setMin(int min) {
@@ -128,7 +128,7 @@ public class BodyComposition {
         }
 
         public float getMax() {
-            return (float) (max / Math.pow(10, dot));
+            return (float) (max / (float)Math.pow(10, dot));
         }
 
         public Third setMax(int max) {
@@ -355,9 +355,9 @@ public class BodyComposition {
         Log.i(TAG, "基础代谢1: " + 基础代谢.getCur());
         float tmp = 0;
         if (性别.getCur() == Protocol.PROTOCAL_GENDER_FEMALE) {
-            tmp = (float) ((661 + 10.7 * 去脂体重.getCur() + 1.72 * 身高.getCur() - 4.7 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot));
+            tmp = (float) ((661 + 10.7 * 去脂体重.getCur() + 1.72 * 身高.getCur() - 4.7 * 年龄.getCur()) * (float)Math.pow(10, 基础代谢.dot));
         } else {
-            tmp = (float) ((67 + 17.5 * 去脂体重.getCur() + 5 * 身高.getCur() - 6.9 * 年龄.getCur()) * Math.pow(10, 基础代谢.dot));
+            tmp = (float) ((67 + 17.5 * 去脂体重.getCur() + 5 * 身高.getCur() - 6.9 * 年龄.getCur()) * (float)Math.pow(10, 基础代谢.dot));
         }
         基础代谢.setCur(tmp);
         Log.i(TAG, "基础代谢2: " + 基础代谢.getCur());
@@ -369,7 +369,7 @@ public class BodyComposition {
         float score = (float) (骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
         if (骨骼肌.getLevel() == LEVEL_LOW)
             score = 0;
-        评分.setCur((float) ((评分.getCur() * 0.8 + score) * Math.pow(10, 评分.dot)));
+        评分.setCur((float) ((评分.getCur() * 0.8 + score) * (float)Math.pow(10, 评分.dot)));
         Log.i(TAG, "评分2:  " + 评分.getCur());
     }
 }
