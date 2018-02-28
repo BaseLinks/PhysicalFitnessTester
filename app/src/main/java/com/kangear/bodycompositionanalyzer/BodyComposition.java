@@ -199,6 +199,9 @@ public class BodyComposition {
             rate = position / range;
             percent = (int) (rate * 100);
             // Log.i(LOG_TAG, "getProgressLength percent: " + percent + " rate: " + rate + " position: " + position + " range: " + range);
+            // 这里添加了进度条最小值补救
+            if (percent < 10)
+                percent = 10;
             return percent;
         }
 
