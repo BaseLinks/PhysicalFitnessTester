@@ -16,8 +16,8 @@
         android:id="@+id/read_xishu_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="38px"
+        android:layout_marginTop="40px"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
         android:text="性别"
@@ -35,7 +35,7 @@
         android:layout_marginTop="22dp"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
-        android:text="GENDER"
+        android:text="请选择您的性别 "
         android:textColor="#A0A0A0"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,16 +43,14 @@
 
     <RadioGroup
         android:id="@+id/sex_radiogroup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="580dp"
+        android:layout_marginBottom="55dp"
+        android:layout_marginStart="48dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include2">
+        app:layout_constraintBottom_toBottomOf="@+id/include2"
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/male_radiobutton"
@@ -75,12 +73,13 @@
 
     <com.kangear.bodycompositionanalyzer.NoImeEditText
         android:id="@+id/tizhibi_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="300dp"
+        android:layout_width="311dp"
+        android:layout_height="236dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="152dp"
+        android:gravity="center"
         android:background="@null"
-        android:gravity="right|center_vertical"
         android:hint="@string/age_hint"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
@@ -93,5 +92,6 @@
         android:textColor="#F39801"
         android:textSize="200sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/include2"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
