@@ -17,7 +17,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="124dp"
         android:background="@drawable/background"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintEnd_toEndOf="parent"

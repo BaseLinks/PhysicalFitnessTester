@@ -180,6 +180,7 @@
         android:onClick="onClick"
         android:text="广告文本设置"
         android:textSize="36sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/time_setting_button"
         app:layout_constraintEnd_toEndOf="@+id/radio_textview"
         app:layout_constraintHorizontal_bias="0.0"
