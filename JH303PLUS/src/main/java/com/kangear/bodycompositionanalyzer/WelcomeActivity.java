@@ -131,8 +131,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         mContext = this;
 
-//        preInit();
-//        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
+        preInit();
+        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
     }
 
 
@@ -389,7 +389,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 case HANDLE_EVENT_AUTO_TEST_DONE:
                     mSelfCheckProgressDialog.dismiss();
                     // 启动指纹
-                    TouchID.getInstance(mContext.getApplicationContext());
+//                    TouchID.getInstance(mContext.getApplicationContext());
                     UartBca.getInstance(mContext);
                     mAgeMin = getResources().getInteger(R.integer.age_min);
                     mAgeMax = getResources().getInteger(R.integer.age_max);
@@ -478,7 +478,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private void selfCheck(final Context context) {
 //        if (BuildConfig.DEBUG) {
-//            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
 //            return;
 //        }
 
@@ -486,43 +486,43 @@ public class WelcomeActivity extends AppCompatActivity {
         boolean ret = false;
         Message msg = new Message();
 
-        try {
-            installBusybox(mContext);
-            installPrinterDriver(mContext);
-            installBootAnimation(mContext);
-            //installNotoFonts(mContext);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        ret = TouchID.getInstance(mContext).selfCheck();
-        if (!ret) {
-            msg.obj = "指纹模块异常";
-            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
-            mHandler.sendMessage(msg);
-            return;
-        }
-
-        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-        MemRegActivity.checkMem(this);
-
-        Printer.getInstance(this).init();
-
-
-        // 2. device connect
-        ret = UartBca.getInstance(mContext).selfCheck();
-        if (!ret) {
-            String ms = "体成分分析仪异常";
-            msg.obj = ms;
-            Log.i(TAG, ms);
-            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
-            mHandler.sendMessage(msg);
-            return;
-        }
+//        try {
+//            installBusybox(mContext);
+//            installPrinterDriver(mContext);
+//            installBootAnimation(mContext);
+//            installNotoFonts(mContext);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        ret = TouchID.getInstance(mContext).selfCheck();
+//        if (!ret) {
+//            msg.obj = "指纹模块异常";
+//            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+//            mHandler.sendMessage(msg);
+//            return;
+//        }
+//
+//        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+//        MemRegActivity.checkMem(this);
+//
+//        Printer.getInstance(this).init();
+//
+//
+//        // 2. device connect
+//        ret = UartBca.getInstance(mContext).selfCheck();
+//        if (!ret) {
+//            String ms = "体成分分析仪异常";
+//            msg.obj = ms;
+//            Log.i(TAG, ms);
+//            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+//            mHandler.sendMessage(msg);
+//            return;
+//        }
 
         // 3. database
         // 4. other
-        mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+//        mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
     }
 
     @Override
