@@ -21,6 +21,7 @@
         android:background="#FFFFFF"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,7 @@
         android:layout_marginStart="15dp"
         android:background="#FFFFFF"
         android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintBottom_toBottomOf="@+id/datepicker"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/datepicker" />
