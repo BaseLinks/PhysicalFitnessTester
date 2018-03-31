@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <TextView
+        android:id="@+id/yellowhuman_title_textview"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="14dp"
+        android:text="阶段脂肪"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/yellowhuman_human_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/yellowhuman_title_textview"
+        app:srcCompat="@drawable/_70_human" />
+
+    <EditText
+        android:id="@+id/qugan_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="177dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintEnd_toEndOf="@+id/qugan_edittext"
+        app:layout_constraintStart_toStartOf="@+id/qugan_edittext" />
+
+    <EditText
+        android:id="@+id/qugan_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="201dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/ra_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/la_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/la_edittext"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/ra_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/la_level_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
+        app:layout_constraintTop_toTopOf="@+id/la_level_edittext" />
+
+    <EditText
+        android:id="@+id/rl_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
+        app:layout_constraintTop_toTopOf="@+id/ll_edittext" />
+
+    <EditText
+        android:id="@+id/rl_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_level_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/ra_edittext"
+        app:layout_constraintStart_toStartOf="@+id/ra_edittext"
+        app:layout_constraintTop_toTopOf="@+id/ll_level_edittext" />
+
+    <EditText
+        android:id="@+id/ll_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
+
+    <EditText
+        android:id="@+id/ll_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
+
+    <EditText
+        android:id="@+id/la_level_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="270dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="高标准"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintEnd_toEndOf="@+id/la_edittext"
+        app:layout_constraintStart_toStartOf="@+id/la_edittext" />
+
+    <EditText
+        android:id="@+id/la_edittext"
+        style="@style/yelloHumanItem"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="299dp"
+        android:layout_marginStart="14dp"
+        android:background="@null"
+        android:ems="10"
+        android:inputType="text"
+        android:text="高标准"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/yellowhuman_human_imageview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

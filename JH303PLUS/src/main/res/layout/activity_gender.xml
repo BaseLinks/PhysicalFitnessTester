@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/com2_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/read_xishu_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="200dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="性别"
+        android:textColor="#F39801"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jiaozhuntizhong_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="22dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="GENDER"
+        android:textColor="#A0A0A0"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
+
+    <RadioGroup
+        android:id="@+id/sex_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="580dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include2">
+
+        <RadioButton
+            android:id="@+id/male_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_60_gender_male"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center" />
+
+        <RadioButton
+            android:id="@+id/female_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/_60_gender_female"
+            android:button="@null"
+            android:gravity="center" />
+    </RadioGroup>
+
+    <com.kangear.bodycompositionanalyzer.NoImeEditText
+        android:id="@+id/tizhibi_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="300dp"
+        android:background="@null"
+        android:gravity="right|center_vertical"
+        android:hint="@string/age_hint"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="0dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        android:text="男"
+        android:textColor="#F39801"
+        android:textSize="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

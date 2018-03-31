@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- 中间黑块 -->
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/yaotunbi_edittext"
+        style="@style/resultEditText"
+        android:layout_width="98dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/wujiyan_zhengchang_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/zongnenghao_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.687"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/danbaizhi_zhengchang_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView14" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/yaotunbi_normal_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/yaotunbi_edittext"
+        app:layout_constraintStart_toEndOf="@+id/yaotunbi_edittext"
+        app:layout_constraintTop_toTopOf="@+id/yaotunbi_edittext" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/tizhibi_normal_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/tizhibi_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintStart_toEndOf="@+id/tizhibi_edittext"
+        app:layout_constraintTop_toTopOf="@+id/tizhibi_edittext"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/tizhibi_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView26"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="382dp"
+        android:layout_marginTop="8dp"
+        android:text="营养评估"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/zhifangtiaozheng_textview"
+        style="@style/resultItemLabel"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="377dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="蛋白质"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bmi_textiview" />
+
+    <TextView
+        android:id="@+id/bmi_textiview"
+        style="@style/resultItemLabel"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="B.M.I"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="基础代谢"
+        style="@style/resultItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="体脂比"
+        style="@style/resultItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/bmi_textiview"
+        app:layout_constraintStart_toStartOf="@+id/bmi_textiview"
+        app:layout_constraintTop_toBottomOf="@+id/bmi_textiview" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="腰臀比"
+        style="@style/resultItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="总能耗"
+        style="@style/resultItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        style="@style/resultItemLabel"
+        android:text="无机盐"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
+
+    <TextView
+        android:id="@+id/textView22"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:text="肥胖分析"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/bmi_normal_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toBottomOf="@+id/bmi_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintStart_toEndOf="@+id/bmi_edittext"
+        app:layout_constraintTop_toTopOf="@+id/bmi_edittext"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/bmi_edittext"
+        style="@style/resultEditText"
+        android:layout_width="95px"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/bmi_textiview"
+        app:layout_constraintStart_toEndOf="@+id/bmi_textiview"
+        app:layout_constraintTop_toTopOf="@+id/bmi_textiview" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="95px"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:text="正常值"
+        style="@style/resultLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="72px"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        style="@style/resultLabel"
+        android:text="过量"
+        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="70px"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        style="@style/resultLabel"
+        android:text="正常"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/resultLabel"
+        android:layout_width="74px"
+        android:layout_height="30px"
+        android:layout_marginStart="497dp"
+        android:text="不足"
+        app:layout_constraintBottom_toTopOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="95px"
+        android:layout_height="30px"
+        style="@style/resultLabel"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="169dp"
+        android:text="测试值"
+        app:layout_constraintBottom_toTopOf="@+id/bmi_textiview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/jieduanzhifang_constraintlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="442dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/zhifang_yellow_human"
+            layout="@layout/yellow_human"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/jieduanjirou_constraintlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="442dp"
+        app:layout_constraintStart_toEndOf="@+id/jieduanzhifang_constraintlayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/jirou_yellow_human"
+            layout="@layout/yellow_human"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/sdf"
+        android:layout_width="2px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/textView15"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+
+    <View
+        android:id="@+id/sdf2"
+        android:layout_width="2px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/line"
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+
+    <ProgressBar
+        android:id="@+id/wujiyan_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+    <ProgressBar
+        android:id="@+id/danbaizhi_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/zhifangtiaozheng_textview" />
+
+
+
+</android.support.constraint.ConstraintLayout>

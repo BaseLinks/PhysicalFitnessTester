@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="610px"
+    android:layout_height="450px"
+    android:background="@drawable/_120_settings_admin_passwd_bg"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="520px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="22dp"
+        android:text="请输入密码"
+        android:textAlignment="center"
+        android:textColor="#448aca"
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="520px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="进入系统设置需要输入密码"
+        android:textAlignment="center"
+        android:textColor="#434343"
+        android:textSize="30px"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/passwd_edittext"
+        android:layout_width="520px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/_120_settings_admin_passwd_edittext_bg"
+        android:ellipsize="end"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingBottom="23px"
+        android:paddingEnd="22px"
+        android:paddingStart="22px"
+        android:paddingTop="20px"
+        android:singleLine="true"
+        android:text="woshimimawopashei"
+        android:textColor="@android:color/white"
+        android:textSize="30px"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="520px"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="205px"
+            android:layout_height="100px"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/_120_settings_admin_yes_button"
+            android:onClick="onClick"
+            android:text="确认"
+            android:textColor="@android:color/white"
+            android:textSize="58px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="205px"
+            android:layout_height="100px"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/_120_ad_button"
+            android:onClick="onClick"
+            android:text="取消"
+            android:textColor="#434343"
+            android:textSize="58px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

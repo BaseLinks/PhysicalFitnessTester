@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="710px"
+    android:layout_height="550px"
+    android:background="@drawable/layer"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="640px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="12dp"
+        android:text="公司信息"
+        android:textColor="@android:color/white"
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/company_edittext"
+        android:layout_width="640px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/_120_ad_text_company"
+        android:ems="10"
+        android:hint="公司名称"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:paddingBottom="20px"
+        android:paddingEnd="22px"
+        android:paddingStart="22px"
+        android:paddingTop="16px"
+        android:text="北京体育科技健身发展有限责任总公司"
+        android:textColor="@android:color/black"
+        android:textSize="35px"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="640px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="联系电话"
+        android:textColor="@android:color/white"
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/company_edittext" />
+
+    <EditText
+        android:id="@+id/number_edittext"
+        android:layout_width="640px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/_120_ad_text_company"
+        android:ems="10"
+        android:hint="请填写联系电话"
+        android:inputType="phone"
+        android:paddingBottom="23px"
+        android:paddingEnd="22px"
+        android:paddingStart="22px"
+        android:paddingTop="20px"
+        android:text="010-5111111"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="35px"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="640px"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="205px"
+            android:layout_height="100px"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="onClick"
+            android:text="确认"
+            android:textColor="#707070"
+            android:textSize="58px"
+            android:background="@drawable/_120_ad_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="205px"
+            android:layout_height="100px"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="onClick"
+            android:text="取消"
+            android:textColor="#707070"
+            android:textSize="58px"
+            android:background="@drawable/_120_ad_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

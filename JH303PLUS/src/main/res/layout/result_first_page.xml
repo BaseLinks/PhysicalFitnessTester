@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <!-- 中间黑块 -->
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/neizangmianji_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_edittext"
+        app:layout_constraintStart_toEndOf="@+id/textView9" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jiroutiaozheng_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        style="@style/resultEditText"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_edittext"
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jiankangzhishu_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        style="@style/resultEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_edittext"
+        app:layout_constraintStart_toEndOf="@+id/textView7" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/age_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        style="@style/resultEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/textView12" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/gender_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        style="@style/resultEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="362dp"
+        android:layout_marginTop="100dp"
+        android:text="综合评价"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/zhifangtiaozheng_textview"
+        style="@style/resultmiddleItemLabel"
+        android:layout_marginStart="362dp"
+        android:layout_marginTop="148dp"
+        android:text="脂肪调整"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bmi_textiview"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="I D"
+        style="@style/resultsmallItemLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="性 别"
+        style="@style/resultsmallItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_marginTop="5dp"
+        style="@style/resultlargeItemLabel"
+        android:text="骨骼肌"
+        app:layout_constraintEnd_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="8dp"
+        style="@style/resultlargeItemLabel"
+        android:text="去脂体重"
+        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_marginTop="5dp"
+        style="@style/resultlargeItemLabel"
+        android:text="身体水分"
+        app:layout_constraintEnd_toEndOf="@+id/textView20"
+        app:layout_constraintStart_toStartOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_marginTop="5dp"
+        style="@style/resultlargeItemLabel"
+        android:text="体脂肪"
+        app:layout_constraintEnd_toEndOf="@+id/textView17"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_marginTop="25dp"
+        android:text="体 重"
+        style="@style/resultlargeItemLabel"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/resultsmallItemLabel"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="年 龄"
+        app:layout_constraintEnd_toEndOf="@+id/bmi_textiview"
+        app:layout_constraintStart_toStartOf="@+id/bmi_textiview"
+        app:layout_constraintTop_toBottomOf="@+id/bmi_textiview" />
+
+    <TextView
+        android:id="@+id/textView13"
+        style="@style/resultsmallItemLabel"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/_70_result_label_black"
+        android:text="身 高"
+        app:layout_constraintEnd_toEndOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView7"
+        style="@style/resultmiddleItemLabel"
+        android:layout_marginTop="5dp"
+        android:text="健康指数"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView9"
+        style="@style/resultmiddleItemLabel"
+        android:layout_marginTop="5dp"
+        android:text="内脏面积"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="肌肉调整"
+        style="@style/resultmiddleItemLabel"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
+
+    <TextView
+        android:id="@+id/textView6"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="485dp"
+        android:text="身体成分分析"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView22"
+        style="@style/resultYelloItemLabel"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:text="基本信息"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/id_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        style="@style/resultEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/bmi_textiview"
+        app:layout_constraintEnd_toStartOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/bmi_textiview" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/zhifangtiaozheng_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/zhifangtiaozheng_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/zhifangtiaozheng_textview" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/height_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        style="@style/resultEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/shentishuifen_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toBottomOf="@+id/textView18"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintStart_toEndOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="255px"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="高于标准"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView24"
+        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_edittext"
+        app:layout_constraintStart_toEndOf="@+id/textView25"
+        app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="正常"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView24"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="147px"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="236dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="低于标准"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toTopOf="@+id/textView19"
+        app:srcCompat="@drawable/_70_result_biaochi" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:srcCompat="@drawable/_70_result_biaochi" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toTopOf="@+id/textView20"
+        app:srcCompat="@drawable/_70_result_biaochi" />
+
+    <!--<com.daimajia.numberprogressbar.NumberProgressBar-->
+        <!--android:id="@+id/weight_progressbar"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView19"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/imageView3"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/imageView3"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView19"-->
+        <!--app:progress_max="100"-->
+        <!--app:progress_current="80"-->
+        <!--app:progress_unreached_bar_height="0dp"-->
+        <!--app:progress_reached_bar_height="20dp"-->
+        <!--app:progress_reached_color="@color/colorProgress"-->
+        <!--app:progress_text_color="@android:color/white"-->
+        <!--app:progress_text_size="20sp"-->
+        <!--/>-->
+    <include
+        android:id="@+id/weight_progressbar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        app:layout_constraintBottom_toBottomOf="@+id/textView19"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+    <include
+        android:id="@+id/gugeji_progressbar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+    <include
+        android:id="@+id/tizhifang_progressbar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView20"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+</android.support.constraint.ConstraintLayout>
