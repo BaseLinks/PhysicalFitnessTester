@@ -131,8 +131,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         mContext = this;
 
-        preInit();
-        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
+//        preInit();
+//        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
     }
 
 
@@ -319,7 +319,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mTimeUtils.start();
+//        mTimeUtils.start();
         hideSystemUI(getWindow().getDecorView());
     }
 
