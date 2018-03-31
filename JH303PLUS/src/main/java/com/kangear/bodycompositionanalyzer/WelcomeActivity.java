@@ -478,7 +478,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private void selfCheck(final Context context) {
 //        if (BuildConfig.DEBUG) {
-            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+//            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
 //            return;
 //        }
 
@@ -486,14 +486,14 @@ public class WelcomeActivity extends AppCompatActivity {
         boolean ret = false;
         Message msg = new Message();
 
-//        try {
+        try {
 //            installBusybox(mContext);
 //            installPrinterDriver(mContext);
-//            installBootAnimation(mContext);
+            installBootAnimation(mContext);
 //            installNotoFonts(mContext);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //
 //        ret = TouchID.getInstance(mContext).selfCheck();
 //        if (!ret) {
@@ -522,7 +522,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // 3. database
         // 4. other
-//        mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+        mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
     }
 
     @Override
