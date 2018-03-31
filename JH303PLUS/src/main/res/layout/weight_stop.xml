@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:text="测试完成"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/black"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

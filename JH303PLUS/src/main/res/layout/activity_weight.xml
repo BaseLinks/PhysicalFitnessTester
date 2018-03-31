@@ -16,8 +16,8 @@
         android:id="@+id/read_xishu_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="40px"
+        android:layout_marginTop="40px"
         android:text="体重"
         android:textColor="#F39801"
         android:textSize="90sp"
@@ -34,14 +34,15 @@
         android:text="WEIGHT"
         android:textColor="#A0A0A0"
         android:textSize="30sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginTop="630dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginTop="288dp"
         android:text="kg"
         android:textColor="#F39801"
         android:textSize="55sp"
@@ -52,12 +53,14 @@
         android:id="@+id/weight_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="180dp"
-        android:layout_marginTop="532dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="160dp"
         android:text="73.2"
         android:textColor="#F39801"
         android:textSize="200sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -70,27 +73,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <include
-        android:id="@+id/weight_start"
-        layout="@layout/weight_start"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="772dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_height="231dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <include
-        android:id="@+id/weight_stop"
-        layout="@layout/weight_stop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="772dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/weight_start"
+            layout="@layout/weight_start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <include
+            android:id="@+id/weight_stop"
+            layout="@layout/weight_stop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
