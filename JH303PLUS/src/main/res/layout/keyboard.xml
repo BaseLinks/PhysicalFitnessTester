@@ -9,145 +9,143 @@
         android:id="@+id/kb_1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="567dp"
         android:background="@drawable/_50_kb"
-        android:text="1"
         android:onClick="onClick"
+        android:text="1"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/kb_6_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kb_2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="185dp"
-        android:layout_marginTop="567dp"
         android:background="@drawable/_50_kb"
-        android:text="2"
         android:onClick="onClick"
+        android:text="2"
         android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_1_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/kb_1_button" />
 
     <Button
         android:id="@+id/kb_3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
         android:layout_marginStart="321dp"
-        android:layout_marginTop="567dp"
         android:background="@drawable/_50_kb"
-        android:text="3"
         android:onClick="onClick"
+        android:text="3"
         android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_1_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/kb_1_button" />
 
     <Button
         android:id="@+id/kb_4_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
         android:layout_marginStart="456dp"
-        android:layout_marginTop="567dp"
         android:background="@drawable/_50_kb"
-        android:text="4"
         android:onClick="onClick"
+        android:text="4"
         android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_1_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/kb_1_button" />
 
     <Button
         android:id="@+id/kb_5_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="592dp"
-        android:layout_marginTop="567dp"
         android:background="@drawable/_50_kb"
-        android:text="5"
         android:onClick="onClick"
+        android:text="5"
         android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_1_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/kb_1_button" />
 
     <Button
         android:id="@+id/kb_6_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="703dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/_50_kb"
-        android:text="6"
         android:onClick="onClick"
+        android:text="6"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/kb_1_button"
+        app:layout_constraintStart_toStartOf="@+id/kb_1_button" />
 
     <Button
         android:id="@+id/kb_7_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="703dp"
         android:background="@drawable/_50_kb"
-        android:text="7"
         android:onClick="onClick"
+        android:text="7"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/kb_6_button"
+        app:layout_constraintEnd_toEndOf="@+id/kb_2_button"
+        app:layout_constraintStart_toStartOf="@+id/kb_2_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_6_button" />
 
     <Button
         android:id="@+id/kb_8_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="321dp"
-        android:layout_marginTop="703dp"
         android:background="@drawable/_50_kb"
-        android:text="8"
         android:onClick="onClick"
+        android:text="8"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/kb_6_button"
+        app:layout_constraintEnd_toEndOf="@+id/kb_3_button"
+        app:layout_constraintStart_toStartOf="@+id/kb_3_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_6_button" />
 
     <Button
         android:id="@+id/kb_9_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="456dp"
-        android:layout_marginTop="703dp"
         android:background="@drawable/_50_kb"
-        android:text="9"
         android:onClick="onClick"
+        android:text="9"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/kb_6_button"
+        app:layout_constraintEnd_toEndOf="@+id/kb_4_button"
+        app:layout_constraintStart_toStartOf="@+id/kb_4_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_6_button" />
 
     <Button
         android:id="@+id/kb_0_button"
-        android:layout_width="wrap_content"
+        android:layout_width="126dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="592dp"
-        android:layout_marginTop="703dp"
         android:background="@drawable/_50_kb"
-        android:text="0"
         android:onClick="onClick"
+        android:text="0"
         android:textSize="70sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/kb_6_button"
+        app:layout_constraintEnd_toEndOf="@+id/kb_5_button"
+        app:layout_constraintStart_toStartOf="@+id/kb_5_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_6_button" />
 
     <Button
         android:id="@+id/kb_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="840dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/_50_kb_back"
-        android:textSize="70sp"
         android:onClick="onClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_delete_button"
+        app:layout_constraintStart_toEndOf="@+id/kb_delete_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_delete_button" />
 
     <Button
         android:id="@+id/kb_dot_button"
@@ -158,6 +156,7 @@
         android:background="@drawable/_50_kb"
         android:text="."
         android:onClick="onClick"
+        android:visibility="gone"
         android:textSize="70sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -170,6 +169,7 @@
         android:layout_marginTop="840dp"
         android:background="@drawable/_50_kb_keyboard"
         android:onClick="onClick"
+        android:visibility="gone"
         android:textSize="70sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -178,24 +178,24 @@
         android:id="@+id/kb_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="321dp"
-        android:layout_marginTop="840dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/_50_kb_delete"
-        android:textSize="70sp"
         android:onClick="onClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_5_button"
+        app:layout_constraintStart_toEndOf="@+id/kb_5_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_5_button" />
 
     <Button
         android:id="@+id/kb_next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="456dp"
-        android:layout_marginTop="840dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/_50_kb_next"
-        android:textSize="70sp"
         android:onClick="onClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/kb_0_button"
+        app:layout_constraintStart_toEndOf="@+id/kb_0_button"
+        app:layout_constraintTop_toTopOf="@+id/kb_0_button" />
 
 </android.support.constraint.ConstraintLayout>

@@ -543,7 +543,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startPreTest();
         // for tmp
         getRecord().setPersonId(PERSON_ID_ANONYMOUS);
-        Intent intent = new Intent(context, WeightActivity.class);
+        Intent intent = new Intent(context, AgeActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
         MusicService.play(mContext, SOUND_01_NEW_TEST);
