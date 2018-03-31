@@ -7,15 +7,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/_02_constrainlayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="23dp"
-        android:layout_marginStart="23dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/_20_bannar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/_01_constrainlayout"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/_01_constrainlayout"
         app:layout_constraintTop_toBottomOf="@+id/_03_constrainlayout">
 
         <TextView
@@ -59,9 +57,9 @@
         android:id="@+id/_01_constrainlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="316dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="68px"
         android:background="@drawable/_20_bannar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -134,15 +132,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/_03_constrainlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="23dp"
-        android:layout_marginStart="23dp"
+        android:layout_width="0dp"
+        android:layout_height="118dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/_20_bannar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/_01_constrainlayout"
         app:layout_constraintHorizontal_bias="0.869"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/_01_constrainlayout"
         app:layout_constraintTop_toBottomOf="@+id/_01_constrainlayout">
 
         <TextView
@@ -182,27 +178,13 @@
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
-        android:text="测试准备"
-        android:textColor="@color/colorProgress"
-        android:textSize="45sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="194px"
         android:background="#12B5B2"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView

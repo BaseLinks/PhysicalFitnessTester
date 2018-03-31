@@ -94,7 +94,6 @@
         <activity
             android:name=".TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
         <activity
