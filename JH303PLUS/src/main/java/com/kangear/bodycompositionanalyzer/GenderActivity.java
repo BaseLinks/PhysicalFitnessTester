@@ -60,7 +60,7 @@ public class GenderActivity extends Com2Activity {
         };
 
         for (int res : reses) {
-            findViewById(res).setVisibility(View.GONE);
+            findViewById(res).setVisibility(View.INVISIBLE);
         }
     }
 
