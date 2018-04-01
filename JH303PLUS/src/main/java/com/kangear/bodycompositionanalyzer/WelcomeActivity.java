@@ -544,6 +544,8 @@ public class WelcomeActivity extends AppCompatActivity {
         // for tmp
         getRecord().setPersonId(PERSON_ID_ANONYMOUS);
         Intent intent = new Intent(context, WeightActivity.class);
+        // 这个很重要，否则
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
         MusicService.play(mContext, SOUND_01_NEW_TEST);

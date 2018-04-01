@@ -1,7 +1,12 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +22,12 @@ import android.widget.Toast;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_LOW;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_ERROR;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_STOP;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startWelcome;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -53,6 +62,7 @@ public class ResultActivity extends AppCompatActivity {
     private static final int YINGYANGPINGGU_MORE_LEVEL_WIDTH = 72 + 2;
 
     private Record mRecord = null;
+    private Context mContext;
 
     private static void setProgressOfTichengfenfenxi(BodyComposition.Third t, View view) {
         final int PECENT_MAX = 100;
@@ -84,6 +94,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        mContext = this;
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -394,6 +405,50 @@ public class ResultActivity extends AppCompatActivity {
                 if (mRecord != null)
                     startPdf(this, mRecord.getId());
                 break;
+            case R.id.quit_button:
+                showCustomViewDialog();
+                break;
         }
+    }
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case HANDLE_EVENT_WEIGHT_ERROR:
+                    startWelcome(mContext);
+                    finish();
+                    break;
+            }
+        }
+    };
+
+    private void showCustomViewDialog(){
+        AlertDialog.Builder  builder = new AlertDialog.Builder(mContext);
+        View loginDialog= getLayoutInflater().inflate(R.layout.dialog_quit,null);
+        builder.setView(loginDialog);
+        builder.setCancelable(true);
+        final AlertDialog dialog = builder.create();
+        Button noButton = loginDialog.findViewById(R.id.no_button);
+        Button yesButton = loginDialog.findViewById(R.id.yes_button);
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // back to welcome page
+                dialog.dismiss();
+            }
+        });
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // back to welcome page
+                dialog.dismiss();
+                mHandler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_ERROR);
+            }
+        });
+
+
+        dialog.show();
     }
 }

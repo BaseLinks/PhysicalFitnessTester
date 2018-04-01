@@ -360,6 +360,7 @@ public class TestActivity extends AppCompatActivity {
                 intent = new Intent(this, ResultActivity.class);
                 intent.putExtra(CONST_RECORD_ID, mRecord.getId());
                 startActivity(intent);
+                finish();
                 break;
             case R.id.print_button:
                 startPdf(this, mRecord.getId());
