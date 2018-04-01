@@ -47,6 +47,7 @@ import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_10_TEST_100
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_11_TEST_FAIL;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_13_VIP_TOUCH_ID;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_30_LOG_UP;
+import static com.kangear.bodycompositionanalyzer.MusicService.play;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_DONE;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_1;
@@ -266,7 +267,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             }
                         });
 
-                        MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        play(mContext, SOUND_11_TEST_FAIL);
                         if (handler != null) {
                             handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_ERROR);
                         }
@@ -299,14 +300,14 @@ public class WelcomeActivity extends AppCompatActivity {
                         });
                         Log.d(TAG, "weight: " + weight);
                         if (state == Protocol.MSG_STATE_DONE) {
-                            MusicService.play(mContext, SOUND_03_WEIGHT_DONE);
+                            play(mContext, SOUND_03_WEIGHT_DONE);
                             if (handler != null)
                                 handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_STOP);
                             break;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        play(mContext, SOUND_11_TEST_FAIL);
                         if (handler != null) {
                             handler.sendEmptyMessage(HANDLE_EVENT_WEIGHT_ERROR);
                         }
@@ -334,7 +335,7 @@ public class WelcomeActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.vip_register_imageview:
                 // TODO：获取一个id以及一个fingerId
-                MusicService.play(mContext, SOUND_30_LOG_UP);
+                play(mContext, SOUND_30_LOG_UP);
                 intent = new Intent(this, MemRegActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
@@ -548,12 +549,12 @@ public class WelcomeActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
         context.startActivity(intent);
-        MusicService.play(mContext, SOUND_01_NEW_TEST);
+        play(mContext, SOUND_01_NEW_TEST);
     }
 
     private static void startVipTest(Context context) {
         startPreTest();
-        MusicService.play(mContext, SOUND_02_VIP_TEST);
+        play(mContext, SOUND_02_VIP_TEST);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_VIP_TEST);
         context.startActivity(intent);
@@ -591,7 +592,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startAge(Context context) {
         context.startActivity(new Intent(context, AgeActivity.class));
-        MusicService.play(mContext, SOUND_05_AGE);
+        play(mContext, SOUND_05_AGE);
     }
 
     /**
@@ -600,7 +601,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startGender(Context context) {
         context.startActivity(new Intent(context, GenderActivity.class));
-        MusicService.play(mContext, SOUND_06_GENDER);
+        play(mContext, SOUND_06_GENDER);
     }
 
     /**
@@ -609,7 +610,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public static void startHeight(Context context) {
         context.startActivity(new Intent(context, HeightActivity.class));
-        MusicService.play(mContext, SOUND_07_HEIGHT);
+        play(mContext, SOUND_07_HEIGHT);
     }
 
     /**
@@ -625,7 +626,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startTouchId(Activity actvity) {
-        MusicService.play(mContext, SOUND_13_VIP_TOUCH_ID);
+        play(mContext, SOUND_13_VIP_TOUCH_ID);
         actvity.startActivityForResult(new Intent(actvity, TouchIdActivity.class), REQUEST_CODE_TOUCHID);
     }
 
@@ -699,7 +700,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Log.i(TAG,  "startTichengfenTest: gender: " + gender + " age: " + age + " height: " + height + " weight: " + weight);
 
         // star phread
-        MusicService.play(mContext, SOUND_08_TEST_START);
+        play(mContext, SOUND_08_TEST_START);
         new Thread() {
             @Override
             public void run() {
@@ -714,7 +715,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(activity, "体成分测试开始失败，请重新测试", Toast.LENGTH_LONG).show();
-                                MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                                play(mContext, SOUND_11_TEST_FAIL);
                                 if (handler != null) {
                                     handler.sendEmptyMessage(HANDLE_EVENT_TICHENGFEN_ERROR);
                                 }
@@ -753,7 +754,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 handler.sendMessage(msg);
                                 if (isFirst20) {
                                     isFirst20 = false;
-                                    MusicService.play(mContext, SOUND_09_TEST_20);
+                                    play(mContext, SOUND_09_TEST_20);
                                 }
                                 break;
                             case MSG_STATE_TESTING_2:
@@ -784,7 +785,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 msg.arg1 = 100;
                                 handler.sendMessage(msg);
                                 isRun = false;
-                                MusicService.play(mContext, SOUND_10_TEST_100);
+                                play(mContext, SOUND_10_TEST_100);
                                 break;
                             default:
                                 Protocol.parseErrorState(qr.getState());
@@ -792,7 +793,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        MusicService.play(mContext, SOUND_11_TEST_FAIL);
+                        play(mContext, SOUND_11_TEST_FAIL);
                         if (handler != null) {
                             handler.sendEmptyMessage(HANDLE_EVENT_TICHENGFEN_ERROR);
                         }

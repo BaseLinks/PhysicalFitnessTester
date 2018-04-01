@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation project(':javaapk.com-comassistant')
     compile 'com.github.flipagram:android-assetcopier:0.1.1'
+    compile 'com.google.zxing:core:3.3.0'
 }

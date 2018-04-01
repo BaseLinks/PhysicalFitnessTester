@@ -140,6 +140,8 @@ public class MusicService extends Service {
             case SOUND_33_PRINT_FAIL:
                 resId = R.raw._33_print_fail;
                 break;
+            default:
+                return START_STICKY;
         }
 
 //        stop(this);

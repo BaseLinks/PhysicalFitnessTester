@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -109,8 +110,12 @@ public class ResultActivity extends AppCompatActivity {
         }
         mBodyComposition = mRecord.getBodyComposition();
 
-        if (true)
+        if (true) {
+            ImageView mImageView = (ImageView) findViewById(R.id.qr_imageview);
+            Bitmap mBitmap = QRCodeUtil.createQRCodeBitmap("https://www.baidu.com", 480, 480);
+            mImageView.setImageBitmap(mBitmap);
             return;
+        }
 
         mPreButton = findViewById(R.id.previous_page_button);
         mNextButton = findViewById(R.id.next_page_button);
