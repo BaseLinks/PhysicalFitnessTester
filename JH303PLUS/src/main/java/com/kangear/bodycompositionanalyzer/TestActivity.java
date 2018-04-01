@@ -246,8 +246,9 @@ public class TestActivity extends AppCompatActivity {
 
                 case SHOW_JICHUDAIXIELIANG_DONE:
                     // 显示buttons
-                    mButtonsView.setVisibility(View.VISIBLE);
-                    mProgressView.setVisibility(View.GONE);
+//                    mButtonsView.setVisibility(View.VISIBLE);
+//                    mProgressView.setVisibility(View.GONE);
+                    onClick(findViewById(R.id.detail_button));
                     break;
 
                 case HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS:

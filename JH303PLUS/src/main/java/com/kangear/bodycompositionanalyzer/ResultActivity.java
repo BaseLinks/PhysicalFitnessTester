@@ -98,6 +98,9 @@ public class ResultActivity extends AppCompatActivity {
         }
         mBodyComposition = mRecord.getBodyComposition();
 
+        if (true)
+            return;
+
         mPreButton = findViewById(R.id.previous_page_button);
         mNextButton = findViewById(R.id.next_page_button);
         mFirstPage = findViewById(R.id.result_first_page);

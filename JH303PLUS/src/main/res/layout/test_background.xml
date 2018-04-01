@@ -52,15 +52,13 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="身高"
         android:textColor="#434343"
         android:textSize="33sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/textView29"
+        app:layout_constraintBottom_toTopOf="@+id/height_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView29" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView30"
@@ -73,6 +71,7 @@
         android:textColor="#434343"
         android:textSize="33sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView29" />
@@ -87,6 +86,7 @@
         android:textColor="#434343"
         android:textSize="33sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,6 +96,7 @@
         android:layout_height="105px"
         android:layout_marginStart="483dp"
         android:layout_marginTop="27dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/testHeadLineColor" />
@@ -106,6 +107,7 @@
         android:layout_height="105px"
         android:layout_marginStart="620dp"
         android:layout_marginTop="27dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/testHeadLineColor" />
@@ -116,6 +118,7 @@
         android:layout_height="105px"
         android:layout_marginStart="337dp"
         android:layout_marginTop="27dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/testHeadLineColor" />
@@ -126,6 +129,7 @@
         android:layout_height="105px"
         android:layout_marginStart="174dp"
         android:layout_marginTop="27dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/testHeadLineColor" />
@@ -136,13 +140,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
         android:text="男"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/height_textview"
         app:layout_constraintEnd_toEndOf="@+id/textView28"
         app:layout_constraintStart_toStartOf="@+id/textView28"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        app:layout_constraintTop_toTopOf="@+id/height_textview" />
 
     <TextView
         android:id="@+id/age_textview"
@@ -150,27 +154,27 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
         android:text="37"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/height_textview"
         app:layout_constraintEnd_toEndOf="@+id/textView32"
         app:layout_constraintStart_toStartOf="@+id/textView32"
-        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+        app:layout_constraintTop_toTopOf="@+id/height_textview" />
 
     <TextView
         android:id="@+id/height_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
         android:text="175"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView31"
-        app:layout_constraintStart_toStartOf="@+id/textView31"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+        app:layout_constraintStart_toStartOf="@+id/textView31" />
 
     <TextView
         android:id="@+id/weight_textview"
@@ -182,6 +186,7 @@
         android:text="67.4"
         android:textColor="#434343"
         android:textSize="33sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textView30"
         app:layout_constraintStart_toStartOf="@+id/textView30"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
@@ -196,6 +201,7 @@
         android:text="012"
         android:textColor="#434343"
         android:textSize="33sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textView29"
         app:layout_constraintStart_toStartOf="@+id/textView29"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />

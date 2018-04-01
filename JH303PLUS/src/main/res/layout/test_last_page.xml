@@ -9,11 +9,13 @@
         android:id="@+id/progress_constrainlayout"
         android:layout_width="221px"
         android:layout_height="421px"
-        android:layout_marginBottom="78dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/human_background_imageview"
@@ -22,10 +24,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
+            android:background="@drawable/_90_human_frontgound"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/_90_human_frontgound" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/human_frontgound_imageview"
@@ -68,7 +70,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/_50_kb_print"
             android:onClick="onClick"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <Button
             android:id="@+id/detail_button"
@@ -99,6 +101,7 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/_90_feipangchengfen_table"
         android:padding="2px"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rentifenxi_tablelayout">
@@ -221,8 +224,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
-                        android:text="低"
                         android:clickable="false"
+                        android:text="低"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -232,8 +235,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
-                        android:text="正常"
                         android:clickable="false"
+                        android:text="正常"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -243,8 +246,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
-                        android:text="高"
                         android:clickable="false"
+                        android:text="高"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -306,9 +309,9 @@
                 tools:layout_editor_absoluteY="815dp">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tizhibaifenbi_constraintlayout"
                     android:layout_width="match_parent"
-                    android:layout_height="72px"
-                    android:id="@+id/tizhibaifenbi_constraintlayout">
+                    android:layout_height="72px">
 
                     <TextView
                         android:id="@+id/tizhibaifenbi_result_textview"
@@ -369,9 +372,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="低"
-                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -381,9 +384,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="正常"
-                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -393,9 +396,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="高"
-                        android:clickable="false"
                         android:textColor="@android:color/white"
                         android:textSize="26sp" />
 
@@ -505,6 +508,7 @@
         android:layout_marginTop="203dp"
         android:background="@drawable/_90_rentichengfen_table"
         android:padding="2px"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -528,9 +532,9 @@
                 android:layout_width="108px"
                 android:layout_height="47px"
                 android:layout_marginStart="2px"
+                android:alpha="100"
                 android:gravity="center"
                 android:text="低于"
-                android:alpha="100"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
                 android:textSize="27sp" />
