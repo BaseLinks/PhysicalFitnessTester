@@ -319,7 +319,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        mTimeUtils.start();
+        mTimeUtils.start();
         hideSystemUI(getWindow().getDecorView());
     }
 
