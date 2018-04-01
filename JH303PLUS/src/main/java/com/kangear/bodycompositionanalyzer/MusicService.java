@@ -143,7 +143,7 @@ public class MusicService extends Service {
         }
 
 //        stop(this);
-        String RES_PREFIX = "android.resource://com.kangear.bodycompositionanalyzer/";
+        String RES_PREFIX = "android.resource://com.kangear.bodycompositionanalyzer.qr/";
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource(this, Uri.parse(RES_PREFIX + resId));//设置文件路径

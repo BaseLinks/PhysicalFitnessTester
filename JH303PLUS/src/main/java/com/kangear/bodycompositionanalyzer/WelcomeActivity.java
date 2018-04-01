@@ -562,7 +562,6 @@ public class WelcomeActivity extends AppCompatActivity {
     // 临时测试需要将personId设置成INVALID
     public static void doTmpTest(Context context) {
         startAge(context);
-        MusicService.play(mContext, SOUND_04_ID);
     }
 
     public static void doVipTest(Context context) {
