@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/qr_imageview"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="75dp"
         android:text="测试完成!"
         android:textColor="#B3D465"
         android:textSize="50sp"

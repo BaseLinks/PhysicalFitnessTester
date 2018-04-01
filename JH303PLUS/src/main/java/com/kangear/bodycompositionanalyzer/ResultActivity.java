@@ -87,6 +87,14 @@ public class ResultActivity extends AppCompatActivity {
         return score;
     }
 
+    public static String bytesToHex(byte[] in) {
+        final StringBuilder builder = new StringBuilder();
+        for(byte b : in) {
+            builder.append(String.format("%02X", b));
+        }
+        return builder.toString();
+    }
+
     /**
      * 这里的Record入口应该是Record对象，因为像临时测试是不存数据库，读数据库并不适合
      * @param savedInstanceState
@@ -111,8 +119,8 @@ public class ResultActivity extends AppCompatActivity {
         mBodyComposition = mRecord.getBodyComposition();
 
         if (true) {
-            ImageView mImageView = (ImageView) findViewById(R.id.qr_imageview);
-            Bitmap mBitmap = QRCodeUtil.createQRCodeBitmap("https://www.baidu.com", 480, 480);
+            ImageView mImageView = findViewById(R.id.qr_imageview);
+            Bitmap mBitmap = QRCodeUtil.createQRCodeBitmap(bytesToHex(mRecord.getData()), 480, 480);
             mImageView.setImageBitmap(mBitmap);
             return;
         }
