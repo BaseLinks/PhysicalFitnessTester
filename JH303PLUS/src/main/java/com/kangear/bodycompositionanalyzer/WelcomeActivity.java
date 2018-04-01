@@ -636,7 +636,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, AdminPasswordDialogActivity.class));
+        actvity.startActivity(new Intent(actvity, AdminPasswdActivity.class));
     }
 
     /**
