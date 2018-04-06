@@ -510,16 +510,16 @@ public class WelcomeActivity extends AppCompatActivity {
 //        Printer.getInstance(this).init();
 //
 //
-//        // 2. device connect
-//        ret = UartBca.getInstance(mContext).selfCheck();
-//        if (!ret) {
-//            String ms = "体成分分析仪异常";
-//            msg.obj = ms;
-//            Log.i(TAG, ms);
-//            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
-//            mHandler.sendMessage(msg);
-//            return;
-//        }
+        // 2. device connect
+        ret = UartBca.getInstance(mContext).selfCheck();
+        if (!ret) {
+            String ms = "体成分分析仪异常";
+            msg.obj = ms;
+            Log.i(TAG, ms);
+            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+            mHandler.sendMessage(msg);
+            return;
+        }
 
         // 3. database
         // 4. other
@@ -529,7 +529,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        TouchID.getInstance(this).unInit();
+        //TouchID.getInstance(this).unInit();
     }
 
     // pre test
