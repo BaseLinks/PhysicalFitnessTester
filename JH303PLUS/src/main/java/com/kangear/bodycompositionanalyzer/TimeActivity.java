@@ -23,6 +23,7 @@ public class TimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_time);
         hideSystemUI(getWindow().getDecorView());
 
@@ -62,7 +63,7 @@ public class TimeActivity extends AppCompatActivity {
                 c.set(Calendar.YEAR, mDatePicker.getYear());
                 c.set(Calendar.MONTH, mDatePicker.getMonth());
                 c.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
-                c.set(Calendar.HOUR, mTimePicker.getCurrentHour());
+                c.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
                 c.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
                 long when = c.getTimeInMillis();
                 if (when / 1000 < Integer.MAX_VALUE) {
@@ -72,7 +73,7 @@ public class TimeActivity extends AppCompatActivity {
                     Toast.makeText(this, text, Toast.LENGTH_LONG).show();
                 }
 
-                String text = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day) + "-" + String.valueOf(hour) + "-" + String.valueOf(minute);
+                String text = String.valueOf(year) + "-" + String.valueOf(month + 1) + "-" + String.valueOf(day) + " " + String.valueOf(hour) + ":" + String.valueOf(minute);
                 Toast.makeText(this, text, Toast.LENGTH_LONG).show();
                 finish();
                 break;
