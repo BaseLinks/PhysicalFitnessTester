@@ -20,7 +20,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
+import static com.kangear.bodycompositionanalyzer.BodyComposition.BMI;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_LOW;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体脂百分比;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体脂肪量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体重;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.内脏面积;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.右下脂肪量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.基础代谢;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.左上肢肌肉量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.年龄;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.性别;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.总能耗;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.无机盐;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.腰臀比;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.评分;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.骨骼肌;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.HANDLE_EVENT_WEIGHT_ERROR;
@@ -80,8 +98,8 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public static float getGugejiScore(final BodyComposition bc) {
-        float score = (float) (bc.骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
-        if (bc.骨骼肌.getLevel() == LEVEL_LOW)
+        float score = (float) (骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
+        if (骨骼肌.getLevel() == LEVEL_LOW)
             score = 0;
         Log.i(TAG, "骨骼肌 占的分数:  " + score);
         return score;
@@ -120,7 +138,47 @@ public class ResultActivity extends AppCompatActivity {
 
         if (true) {
             ImageView mImageView = findViewById(R.id.qr_imageview);
-            Bitmap mBitmap = QRCodeUtil.createQRCodeBitmap(bytesToHex(mRecord.getData()), 480, 480);
+            byte[] qrData = mRecord.getData().clone();
+
+            int BYTE_BUFFER_ALLOCATE = 1024;
+            ByteBuffer target = ByteBuffer.allocate(1024);
+            target.put(Arrays.copyOfRange(qrData, 性别.getCurStart(), 体重.getCurStart() + 体重.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 体重.getMinStart(), 体重.getMaxStart() + 体重.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 体脂肪量.getCurStart(), 体脂肪量.getMaxStart() + 体脂肪量.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 骨骼肌.getCurStart(), 无机盐.getMaxStart() + 无机盐.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 左上肢肌肉量.getCurStart(), 右下脂肪量.getMaxStart() + 右下脂肪量.getLength()));
+            target.put(Arrays.copyOfRange(qrData, BMI.getCurStart(), 体脂百分比.getMaxStart() + 体脂百分比.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 腰臀比.getCurStart(), 腰臀比.getMaxStart() + 腰臀比.getLength()));
+            target.put(Arrays.copyOfRange(qrData, 内脏面积.getCurStart(), 内脏面积.getCurStart() + 内脏面积.getLength()));
+            target.put(Protocol.getDataFromShort((int) 内脏面积.getMinOriginal()));
+            target.put(Protocol.getDataFromShort((int) 内脏面积.getMaxOriginal()));
+            target.put(Protocol.getDataFromShort((int) 评分.getCurOriginal()));
+            target.put((byte) 20); // 身体年龄
+            target.put((byte) 0x00); //肌肉调整符号
+            target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
+            target.put((byte) 0x01); //脂肪调整符号
+            target.put(Protocol.getDataFromShort((int) (mBodyComposition.getZhifangAdjustment() * 10.0)));
+            target.put(Protocol.getDataFromShort((int) (基础代谢.getCurOriginal())));
+            target.put(Arrays.copyOfRange(qrData, 总能耗.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
+            target.limit(target.remaining());
+            target.rewind();
+		    /* 提取 */
+            byte[] byteArray = new byte[BYTE_BUFFER_ALLOCATE - target.remaining()];
+            target.get(byteArray);
+            /* 将byteBuffer清理 */
+            target.clear();
+
+            Log.i(TAG, bytesToHex(byteArray));
+
+            // 加密 -0xAA
+            for (int i=0; i<byteArray.length; i++) {
+                byteArray[i] -= (byte)0xAA;
+            }
+
+            String qrcontent = bytesToHex(byteArray);
+            Log.i(TAG, qrcontent);
+
+            Bitmap mBitmap = QRCodeUtil.createQRCodeBitmap(qrcontent, 480, 480);
             mImageView.setImageBitmap(mBitmap);
             return;
         }
@@ -131,7 +189,7 @@ public class ResultActivity extends AppCompatActivity {
         mLastPage = findViewById(R.id.result_last_page);
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
-        FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();
+        FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + 骨骼肌.getUnit();
 
         if (mRecord == null) {
             mRecord = DEFAULT_RECORD;
@@ -164,7 +222,7 @@ public class ResultActivity extends AppCompatActivity {
 //        mTizhifangProgressBar.setProgress(mBodyComposition.体脂肪量.getProgress(LESS_LEVEL_WIDTH, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH));
 //        fillProgress(mWeightProgressBar, mBodyComposition.体重);
         setProgressOfTichengfenfenxi(mBodyComposition.体重, findViewById(R.id.weight_progressbar));
-        setProgressOfTichengfenfenxi(mBodyComposition.骨骼肌, findViewById(R.id.gugeji_progressbar));
+        setProgressOfTichengfenfenxi(骨骼肌, findViewById(R.id.gugeji_progressbar));
         setProgressOfTichengfenfenxi(mBodyComposition.体脂肪量, findViewById(R.id.tizhifang_progressbar));
 
         // ---身体水分
@@ -176,9 +234,9 @@ public class ResultActivity extends AppCompatActivity {
         // -Page 2
         // --肥胖分析
         // ---BMI 体脂百分比 腰臀比 基础代谢
-        fillTwo(R.id.bmi_edittext, R.id.bmi_normal_edittext, mBodyComposition.BMI, FLOAT_1_FORMAT);
-        fillTwo(R.id.tizhibi_edittext, R.id.tizhibi_normal_edittext, mBodyComposition.体脂百分比, FLOAT_1_FORMAT);
-        fillTwo(R.id.yaotunbi_edittext, R.id.yaotunbi_normal_edittext, mBodyComposition.腰臀比, FLOAT_2_FORMAT);
+        fillTwo(R.id.bmi_edittext, R.id.bmi_normal_edittext, BMI, FLOAT_1_FORMAT);
+        fillTwo(R.id.tizhibi_edittext, R.id.tizhibi_normal_edittext, 体脂百分比, FLOAT_1_FORMAT);
+        fillTwo(R.id.yaotunbi_edittext, R.id.yaotunbi_normal_edittext, 腰臀比, FLOAT_2_FORMAT);
         fillOne(R.id.jichudaixie_edittext, mBodyComposition.基础代谢, FLOAT_0_FORMAT);
 
         // -- 蛋白质 无机盐
@@ -189,11 +247,11 @@ public class ResultActivity extends AppCompatActivity {
         fillYingYangPingGu(
                 R.id.wujiyan_zhengchang_edittext,
                 R.id.wujiyan_progressbar,
-                mBodyComposition.无机盐);
+                无机盐);
         // -- 总能耗
         ((EditText)findViewById(R.id.zongnenghao_edittext)).setText(
-                String.format(FLOAT_0_FORMAT + mBodyComposition.总能耗.getUnit(),
-                        mBodyComposition.总能耗.getCur()));
+                String.format(FLOAT_0_FORMAT + 总能耗.getUnit(),
+                        总能耗.getCur()));
 
         // -- 阶段脂肪
         fillYelloMan(
@@ -202,7 +260,7 @@ public class ResultActivity extends AppCompatActivity {
                         mBodyComposition.左上脂肪量,
                         mBodyComposition.左下脂肪量,
                         mBodyComposition.右上脂肪量,
-                        mBodyComposition.右下脂肪量,
+                        右下脂肪量,
                         mBodyComposition.躯干脂肪量
                 ),
                 findViewById(R.id.zhifang_yellow_human)
@@ -213,7 +271,7 @@ public class ResultActivity extends AppCompatActivity {
         fillYelloMan(
                 new YelloMan(
                         "阶段肌肉",
-                        mBodyComposition.左上肢肌肉量,
+                        左上肢肌肉量,
                         mBodyComposition.左下肌肉量,
                         mBodyComposition.右上肢肌肉量,
                         mBodyComposition.右下肌肉量,

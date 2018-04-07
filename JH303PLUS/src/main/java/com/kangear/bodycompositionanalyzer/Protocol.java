@@ -427,6 +427,15 @@ public class Protocol implements IProtocol {
     }
 
     /**
+     * 将short转换成data数组
+     * @param shortNumber
+     * @return
+     */
+    public static byte[] getDataFromShort(int shortNumber) {
+        return ByteBuffer.allocate(2).order(BYTE_ORDER).putShort((short) (shortNumber & 0xFFFF)).array();
+    }
+
+    /**
      * @param data
      * @param start
      * @return

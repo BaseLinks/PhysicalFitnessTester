@@ -113,6 +113,18 @@ public class BodyComposition {
             return (float) (cur / (float)Math.pow(10, dot));
         }
 
+        public float getCurOriginal() {
+            return cur;
+        }
+
+        public float getMaxOriginal() {
+            return max;
+        }
+
+        public float getMinOriginal() {
+            return min;
+        }
+
         public void setCur(float cur) {
             this.cur = cur;
         }
