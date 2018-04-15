@@ -38,6 +38,7 @@ import static com.kangear.bodycompositionanalyzer.BodyComposition.总能耗;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.无机盐;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.腰臀比;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.评分;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.身体年龄;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.骨骼肌;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
@@ -153,7 +154,8 @@ public class ResultActivity extends AppCompatActivity {
             target.put(Protocol.getDataFromShort((int) 内脏面积.getMinOriginal()));
             target.put(Protocol.getDataFromShort((int) 内脏面积.getMaxOriginal()));
             target.put(Protocol.getDataFromShort((int) 评分.getCurOriginal()));
-            target.put((byte) 20); // 身体年龄
+            target.put((byte) 身体年龄.getCurOriginal()); // 身体年龄
+            Log.i(TAG, "身体年龄: " + 身体年龄.getCurOriginal());
             target.put((byte) 0x00); //肌肉调整符号
             target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
             target.put((byte) 0x01); //脂肪调整符号

@@ -54,6 +54,7 @@ public class BodyComposition {
     public static final Third 腰臀比      = new Third(177, 178, 179, 1, 2, UNIT_EMPTY);
     public static final Third 内脏面积     = new Third(185, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM2);
     public static final Third 评分        = new Third(187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
+    public static final Third 身体年龄     = new Third(189, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_AGE);
     public static final Third 基础代谢     = new Third(196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
     public static final Third 总能耗       = new Third(198, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
     public final List<Third> mList = new ArrayList<Third>();
@@ -347,6 +348,7 @@ public class BodyComposition {
         mList.add(腰臀比);
         mList.add(内脏面积.setMin(0).setMax(800)); // hardcode number
         mList.add(评分);
+        mList.add(身体年龄);
         mList.add(基础代谢);
         mList.add(总能耗);
         mList.add(去脂体重);
