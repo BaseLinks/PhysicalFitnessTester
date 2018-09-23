@@ -26,7 +26,7 @@ public class Coordinate {
      * |
      * |_________
      */
-    public static double ORIGIN_X = 132 ;// 132 - 3; //133;
+    public static double ORIGIN_X = 132 - 3;// 132 - 3; //133;
     public static double ORIGIN_Y = 246 ;//138.5 + 2; //146;
 
     /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
