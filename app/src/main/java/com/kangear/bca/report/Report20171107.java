@@ -17,8 +17,8 @@ import android.text.TextPaint;
 import android.util.Log;
 
 import com.kangear.bca.BodyComposition;
-import com.kangear.bca.Position;
-import com.kangear.bodycompositionanalyzer.R;
+import com.kangear.bca.Coordinate;
+import com.kangear.bca.Coordinate.Position;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +27,7 @@ import java.io.InputStream;
 
 /**
  * 不处理数据，只接收BodyComposition对象
+ * 可以接收不同的Coordinate对象
  */
 public class Report20171107 {
  	private static final boolean DEBUG = true;
@@ -40,6 +41,9 @@ public class Report20171107 {
 	private static final int TEXT_SIZE_体型分析 = 20;
 	private static final String TEXT_TICK    = "√";
 	private static final String TEXT_体型分析 = "✔";
+
+	// 坐标系: 可以设置不现的坐标
+	private Coordinate mCd = new Coordinate();
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -56,6 +60,10 @@ public class Report20171107 {
         }
         return singleton;
     }
+
+    public void setCoordinate(Coordinate value) {
+		mCd = value;
+	}
 
     private Report20171107(Context context) {
         this.mContext = context;
@@ -208,88 +216,87 @@ public class Report20171107 {
 			textPaint.setTextSize(TEXT_SIZE_DEF);
 
 			// 01 写姓名/编号
-			drawSimple(paint, textPaint, canvas, bc.姓名, Position.姓名, FLOAT_0_FORMAT);
+			drawSimple(paint, textPaint, canvas, bc.姓名, mCd.姓名, FLOAT_0_FORMAT);
 
 			// 02 身高
-			drawSimple(paint, textPaint, canvas, bc.身高, Position.身高, FLOAT_0_FORMAT);
+			drawSimple(paint, textPaint, canvas, bc.身高, mCd.身高, FLOAT_0_FORMAT);
 
 			// 03 体重
-			drawSimple(paint, textPaint, canvas, bc.体重, Position.体重1, FLOAT_1_FORMAT);
+			drawSimple(paint, textPaint, canvas, bc.体重, mCd.体重1, FLOAT_1_FORMAT);
 
 			// 04 测试日期 (无法使用drawSimple)
 			tmpStr = String.valueOf(bc.测试时间.getUnit());
-			drawLineText(tmpStr, textPaint, canvas, Position.测试日期);
+			drawLineText(tmpStr, textPaint, canvas, mCd.测试日期);
 
 			// 05 年龄
-			drawSimple(paint, textPaint, canvas, bc.年龄, Position.年龄, FLOAT_0_FORMAT);
+			drawSimple(paint, textPaint, canvas, bc.年龄, mCd.年龄, FLOAT_0_FORMAT);
 
 			// 06 性别
-			// drawSimple(paint, textPaint, canvas, bc.性别, Position.性别);
 			tmpStr = String.valueOf(bc.性别.getUnit());
-			drawLineText(tmpStr, textPaint, canvas, Position.性别);
+			drawLineText(tmpStr, textPaint, canvas, mCd.性别);
 
 			/* 2x. 体成分结果 */
 			// 21 体重2
             textPaint.setTextSize(TEXT_SIZE_体成分结果);
-			drawRange(paint, textPaint, canvas, bc.体重, Position.体重2, FLOAT_1_FORMAT, true);
+			drawRange(paint, textPaint, canvas, bc.体重, mCd.体重2, FLOAT_1_FORMAT, true);
 
 			// 22 去脂肪体重
-			drawRange(paint, textPaint, canvas, bc.去脂体重, Position.去脂肪体重, FLOAT_1_FORMAT, true);
+			drawRange(paint, textPaint, canvas, bc.去脂体重, mCd.去脂肪体重, FLOAT_1_FORMAT, true);
 
 			// 23 肌肉量
-			drawRange(paint, textPaint, canvas, bc.肌肉量, Position.肌肉量, FLOAT_1_FORMAT, true);
+			drawRange(paint, textPaint, canvas, bc.肌肉量, mCd.肌肉量, FLOAT_1_FORMAT, true);
 
 			// 24 身体总水分
-			drawRange(paint, textPaint, canvas, bc.身体水分, Position.身体总水分, FLOAT_1_FORMAT, true);
+			drawRange(paint, textPaint, canvas, bc.身体水分, mCd.身体总水分, FLOAT_1_FORMAT, true);
 
 			// 25 细胞内液 okay
-			drawRange(paint, textPaint, canvas, bc.细胞内液含量, Position.细胞内液, FLOAT_1_FORMAT, false);
+			drawRange(paint, textPaint, canvas, bc.细胞内液含量, mCd.细胞内液, FLOAT_1_FORMAT, false);
 
 			// 26 细胞外液 okay
-			drawRange(paint, textPaint, canvas, bc.细胞外液含量, Position.细胞外液, FLOAT_1_FORMAT, false);
+			drawRange(paint, textPaint, canvas, bc.细胞外液含量, mCd.细胞外液, FLOAT_1_FORMAT, false);
 
 			// 27 蛋白质量 ok
-			drawRange(paint, textPaint, canvas, bc.蛋白质, Position.蛋白质量, FLOAT_1_FORMAT, false);
+			drawRange(paint, textPaint, canvas, bc.蛋白质, mCd.蛋白质量, FLOAT_1_FORMAT, false);
 
 			// 28 无机盐量 ok
-			drawRange(paint, textPaint, canvas, bc.无机盐, Position.无机盐量, FLOAT_1_FORMAT, false);
+			drawRange(paint, textPaint, canvas, bc.无机盐, mCd.无机盐量, FLOAT_1_FORMAT, false);
 
 			// 29 体脂肪量 ok
-			drawRange(paint, textPaint, canvas, bc.体脂肪量, Position.体脂肪量, FLOAT_1_FORMAT, false);
+			drawRange(paint, textPaint, canvas, bc.体脂肪量, mCd.体脂肪量, FLOAT_1_FORMAT, false);
 
 			/* 3x. 体成分分析　*/
             /* 31. 体重 */
-			drawJindutiao(paint, textPaint, canvas, bc.体重, Position.体成分分析_体重, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.体重, mCd.体成分分析_体重, defPaint);
 
             /* 32. 身体质量(BMI) */
-			drawJindutiao(paint, textPaint, canvas, bc.BMI, Position.体成分分析_身体质量, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.BMI, mCd.体成分分析_身体质量, defPaint);
 
             /* 33. 体脂肪率 */
-			drawJindutiao(paint, textPaint, canvas, bc.脂肪率, Position.体成分分析_体脂肪率, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.脂肪率, mCd.体成分分析_体脂肪率, defPaint);
 
             /* 34. 体脂肪量 */
-			drawJindutiao(paint, textPaint, canvas, bc.体脂肪量, Position.体成分分析_体脂肪量, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.体脂肪量, mCd.体成分分析_体脂肪量, defPaint);
 
             /* 35. 肌肉量 */
-			drawJindutiao(paint, textPaint, canvas, bc.肌肉量, Position.体成分分析_肌肉量, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.肌肉量, mCd.体成分分析_肌肉量, defPaint);
 
             /* 36. 身体水分 */
-			drawJindutiao(paint, textPaint, canvas, bc.身体水分, Position.体成分分析_身体水分, defPaint);
+			drawJindutiao(paint, textPaint, canvas, bc.身体水分, mCd.体成分分析_身体水分, defPaint);
 
             /* 37. 内脏脂肪 */
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(3f);
-            float xPos = Position.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength2(bc);
+            float xPos = mCd.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength2(bc);
             canvas.drawLine(
-                    Position.体成分分析_内脏脂肪.getXMils() / 1000,
-                    Position.体成分分析_内脏脂肪.getYMils() / 1000,
+					mCd.体成分分析_内脏脂肪.getXMils() / 1000,
+					mCd.体成分分析_内脏脂肪.getYMils() / 1000,
                     xPos,
-                    Position.体成分分析_内脏脂肪.getYMils() / 1000,
+					mCd.体成分分析_内脏脂肪.getYMils() / 1000,
                     paint);
             canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.内脏脂肪指数.getCur()),
 					xPos,
-					Position.体成分分析_内脏脂肪.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
+					mCd.体成分分析_内脏脂肪.getYMils() / 1000 + paint.getTextSize() / 2 - 2,
 					paint);
             // 还原
             paint.setStrokeWidth(defPaint.getStrokeWidth());
@@ -299,16 +306,16 @@ public class Report20171107 {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(String.format(FLOAT_1_FORMAT, bc.体重.getCur() + bc.体重调节.getCur()),
-					Position.体重_标准.getXMils() / 1000,
-					Position.体重_标准.getYMils() / 1000,
+					mCd.体重_标准.getXMils() / 1000,
+					mCd.体重_标准.getYMils() / 1000,
 					paint);
 			// 42 体重_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.体重.getCur()),
-					Position.体重_当前.getXMils() / 1000,
-					Position.体重_当前.getYMils() / 1000,
+					mCd.体重_当前.getXMils() / 1000,
+					mCd.体重_当前.getYMils() / 1000,
 					paint);
 			// 43 体重_调节量 okay
 			paint.setColor(Color.BLACK);
@@ -316,24 +323,24 @@ public class Report20171107 {
 			float tmpFloat = bc.体重调节.getCur();
 			canvas.drawText(
                     String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
-					Position.体重_调节量.getXMils() / 1000,
-					Position.体重_调节量.getYMils() / 1000,
+					mCd.体重_调节量.getXMils() / 1000,
+					mCd.体重_调节量.getYMils() / 1000,
 					paint);
 			// 44 身体脂肪量_标准 okay 注：身体脂肪量标准：取体脂肪标准值下界
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.体脂肪量.getMin()),
-					Position.身体脂肪量_标准.getXMils() / 1000,
-					Position.身体脂肪量_标准.getYMils() / 1000,
+					mCd.身体脂肪量_标准.getXMils() / 1000,
+					mCd.身体脂肪量_标准.getYMils() / 1000,
 					paint);
 			// 45 身体脂肪量_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.体脂肪量.getCur()),
-					Position.身体脂肪量_当前.getXMils() / 1000,
-					Position.身体脂肪量_当前.getYMils() / 1000,
+					mCd.身体脂肪量_当前.getXMils() / 1000,
+					mCd.身体脂肪量_当前.getYMils() / 1000,
 					paint);
 			// 46 身体脂肪量_调节量 okay
 			paint.setColor(Color.BLACK);
@@ -341,8 +348,8 @@ public class Report20171107 {
 			tmpFloat = bc.脂肪调节.getCur();
 			canvas.drawText(
 					String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
-					Position.身体脂肪量_调节量.getXMils() / 1000,
-					Position.身体脂肪量_调节量.getYMils() / 1000,
+					mCd.身体脂肪量_调节量.getXMils() / 1000,
+					mCd.身体脂肪量_调节量.getYMils() / 1000,
 					paint);
 
 			// 47 肌肉量_标准 okay 肌肉量标准：取标准值上界
@@ -350,16 +357,16 @@ public class Report20171107 {
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.肌肉量.getMax()),
-					Position.肌肉量_标准.getXMils() / 1000,
-					Position.肌肉量_标准.getYMils() / 1000,
+					mCd.肌肉量_标准.getXMils() / 1000,
+					mCd.肌肉量_标准.getYMils() / 1000,
 					paint);
 			// 48 肌肉量_当前 okay
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.肌肉量.getCur()),
-					Position.肌肉量_当前.getXMils() / 1000,
-					Position.肌肉量_当前.getYMils() / 1000,
+					mCd.肌肉量_当前.getXMils() / 1000,
+					mCd.肌肉量_当前.getYMils() / 1000,
 					paint);
 			// 49 肌肉量_调节量 okay
 			paint.setColor(Color.BLACK);
@@ -367,127 +374,127 @@ public class Report20171107 {
 			tmpFloat = bc.肌肉调节.getCur();
 			canvas.drawText(
 					String.format(FLOAT_1_FORMAT, bc.肌肉量.getMax()),
-					Position.肌肉量_调节量.getXMils() / 1000,
-					Position.肌肉量_调节量.getYMils() / 1000,
+					mCd.肌肉量_调节量.getXMils() / 1000,
+					mCd.肌肉量_调节量.getYMils() / 1000,
 					paint);
 
 			/* 5x 节段肌肉　镜像 */
 			// 51 左上肢肌肉量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左上肢肌肉量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左上肢肌肉含量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢肌肉含量);
 
 			// 52 左下肢肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左下肌肉量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左下肢肌肉含量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢肌肉含量);
 
 			// 53 右上肢肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右上肢肌肉量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右上肢肌肉含量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢肌肉含量);
 
 			// 54 右下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右下肌肉量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右下肢肌肉含量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢肌肉含量);
 
 			// 55 躯干肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.躯干肌肉量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.躯干肌肉含量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.躯干肌肉含量);
 
 			/* 6x 节段脂肪 */
 			// 61 左上肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左上脂肪量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左上肢脂肪量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢脂肪量);
 
 			// 62 左下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左下脂肪量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左下肢脂肪量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢脂肪量);
 
 			// 63 右上肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右上脂肪量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右上肢脂肪量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢脂肪量);
 
 			// 64 右下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右下脂肪量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右下肢脂肪量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢脂肪量);
 
 			// 65 躯干肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.躯干脂肪量.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.躯干肢脂肪量);
+			drawLineText(tmpStr, textPaint, canvas, mCd.躯干肢脂肪量);
 
 			/* 7x 节段电阻抗 */
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
 			// 71 频率 okay
 			tmpStr = "5k";
-			drawLineText(tmpStr, textPaint, canvas, Position.频率_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.频率_5k);
 
 			tmpStr = "50k";
-			drawLineText(tmpStr, textPaint, canvas, Position.频率_50k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.频率_50k);
 
 			tmpStr = "250k";
-			drawLineText(tmpStr, textPaint, canvas, Position.频率_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.频率_250k);
 
 			// 72 右上肢 okay
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._5k电阻RA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右上肢_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢_5k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._50k电阻RA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右上肢_50k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢_50k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻RA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右上肢_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢_250k);
 
 			// 73 左上肢 okay
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._5k电阻LA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左上肢_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢_5k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._50k电阻LA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左上肢_50k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢_50k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻LA.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左上肢_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢_250k);
 
 
 			// 74 躯干 okay
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._5k电阻TR.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.躯干_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.躯干_5k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._50k电阻TR.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.躯干_50k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.躯干_50k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻TR.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.躯干_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.躯干_250k);
 
 			// 75 右下肢 okay
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._5k电阻RL.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右下肢_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢_5k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._50k电阻RL.getCur());
-			drawLineText( tmpStr, textPaint, canvas, Position.右下肢_50k);
+			drawLineText( tmpStr, textPaint, canvas, mCd.右下肢_50k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻RL.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.右下肢_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢_250k);
 
 			// 76 左下肢 okay
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._5k电阻LL.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左下肢_5k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢_5k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._50k电阻LL.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左下肢_50k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢_50k);
 
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻LL.getCur());
-			drawLineText(tmpStr, textPaint, canvas, Position.左下肢_250k);
+			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢_250k);
 
 			// 8x 肥胖评估 体重 写「√」根据上下界判断
             // 81 体重
-            Position bcp = Position.肥胖评估_体重_正常;
+            Position bcp = mCd.肥胖评估_体重_正常;
             switch (bc.体重.getLevel()) {
 				case BodyComposition.LEVEL_LOW:
-					bcp = Position.肥胖评估_体重_不足;
+					bcp = mCd.肥胖评估_体重_不足;
 					break;
 				case BodyComposition.LEVEL_NORMAL:
-					bcp = Position.肥胖评估_体重_正常;
+					bcp = mCd.肥胖评估_体重_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = Position.肥胖评估_体重_过量;
+					bcp = mCd.肥胖评估_体重_过量;
 					break;
 			}
 //			textPaint.setTextSize(20); 不再加大字体了
@@ -497,13 +504,13 @@ public class Report20171107 {
             // 82.肥胖评估 脂肪量
 			switch (bc.体脂肪量.getLevel()) {
 				case BodyComposition.LEVEL_LOW:
-					bcp = Position.肥胖评估_脂肪量_不足;
+					bcp = mCd.肥胖评估_脂肪量_不足;
 					break;
 				case BodyComposition.LEVEL_NORMAL:
-					bcp = Position.肥胖评估_脂肪量_正常;
+					bcp = mCd.肥胖评估_脂肪量_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = Position.肥胖评估_脂肪量_过量;
+					bcp = mCd.肥胖评估_脂肪量_过量;
 					break;
 			}
 			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
@@ -511,13 +518,13 @@ public class Report20171107 {
             // 83.肥胖评估 肌肉量
 			switch (bc.肌肉量.getLevel()) {
 				case BodyComposition.LEVEL_LOW:
-					bcp = Position.肥胖评估_肌肉量_不足;
+					bcp = mCd.肥胖评估_肌肉量_不足;
 					break;
 				case BodyComposition.LEVEL_NORMAL:
-					bcp = Position.肥胖评估_肌肉量_正常;
+					bcp = mCd.肥胖评估_肌肉量_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = Position.肥胖评估_肌肉量_过量;
+					bcp = mCd.肥胖评估_肌肉量_过量;
 					break;
 			}
 			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
@@ -526,13 +533,13 @@ public class Report20171107 {
             // 91. 蛋白质
 			switch (bc.蛋白质.getLevel()) {
 				case BodyComposition.LEVEL_LOW:
-					bcp = Position.营养评估_蛋白质_不足;
+					bcp = mCd.营养评估_蛋白质_不足;
 					break;
 				case BodyComposition.LEVEL_NORMAL:
-					bcp = Position.营养评估_蛋白质_正常;
+					bcp = mCd.营养评估_蛋白质_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = Position.营养评估_蛋白质_过量;
+					bcp = mCd.营养评估_蛋白质_过量;
 					break;
 			}
 			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
@@ -540,13 +547,13 @@ public class Report20171107 {
             // 92. 无机盐
 			switch (bc.无机盐.getLevel()) {
 				case BodyComposition.LEVEL_LOW:
-					bcp = Position.营养评估_无机盐_不足;
+					bcp = mCd.营养评估_无机盐_不足;
 					break;
 				case BodyComposition.LEVEL_NORMAL:
-					bcp = Position.营养评估_无机盐_正常;
+					bcp = mCd.营养评估_无机盐_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = Position.营养评估_无机盐_正常;
+					bcp = mCd.营养评估_无机盐_正常;
 					break;
 			}
 			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
@@ -554,17 +561,17 @@ public class Report20171107 {
 			// 93.基础代谢量 okay
             textPaint.setTextSize(TEXT_SIZE_DEF);
 			tmpStr = String.format(FLOAT_0_FORMAT, bc.基础代谢.getCur());
-			bcp = Position.基础代谢量;
+			bcp = mCd.基础代谢量;
 			drawLineText(tmpStr, textPaint, canvas, bcp);
 
 			// 94.总能量消耗　okay
 			tmpStr = String.format(FLOAT_0_FORMAT, bc.总能耗.getCur());
-			bcp = Position.总能量消耗;
+			bcp = mCd.总能量消耗;
 			drawLineText(tmpStr, textPaint, canvas, bcp);
 
 			// 95.身体年龄 okay
 			tmpStr = String.format(FLOAT_0_FORMAT, bc.身体年龄.getCur());
-			bcp = Position.身体年龄;
+			bcp = mCd.身体年龄;
 			drawLineText(tmpStr, textPaint, canvas, bcp);
 
             // 10x.体型分析
@@ -574,7 +581,7 @@ public class Report20171107 {
 //            if (mContext.getResources().getBoolean(R.bool.is_print_total_score)) {
                 textPaint.setTextSize(TEXT_SIZE_健康评估);
                 tmpStr = String.format(FLOAT_1_FORMAT, bc.评分.getCur());
-				drawLineText(tmpStr, textPaint, canvas, Position.健康评估);
+				drawLineText(tmpStr, textPaint, canvas, mCd.健康评估);
 //            }
 
             // 水肿分析
@@ -607,16 +614,16 @@ public class Report20171107 {
 	 * @param canvas
 	 */
 	private void drawEdema(BodyComposition bc, TextPaint textPaint, Canvas canvas) {
-        Position bcp = Position.水肿分析_细胞外液_正常;
+        Position bcp = mCd.水肿分析_细胞外液_正常;
 		switch (bc.细胞外液含量.getLevel()) {
 			case BodyComposition.LEVEL_LOW:
-				bcp = Position.水肿分析_细胞外液_干燥;
+				bcp = mCd.水肿分析_细胞外液_干燥;
 				break;
 			case BodyComposition.LEVEL_NORMAL:
-				bcp = Position.水肿分析_细胞外液_正常;
+				bcp = mCd.水肿分析_细胞外液_正常;
 				break;
 			case BodyComposition.LEVEL_HIGH:
-				bcp = Position.水肿分析_细胞外液_浮肿;
+				bcp = mCd.水肿分析_细胞外液_浮肿;
 				break;
 		}
 		textPaint.setTextSize(TEXT_SIZE_DEF);
@@ -626,26 +633,26 @@ public class Report20171107 {
 		textPaint.setTextAlign(Paint.Align.LEFT);
 		canvas.drawText(
 				String.format(FLOAT_2_FORMAT, bc.水肿系数.getCur()),
-				Position.水肿分析_水肿系数.getXMils() / 1000,
-				Position.水肿分析_水肿系数.getYMils() / 1000,
+				mCd.水肿分析_水肿系数.getXMils() / 1000,
+				mCd.水肿分析_水肿系数.getYMils() / 1000,
 				textPaint);
 
 		canvas.drawText(
 				String.format(FLOAT_2_FORMAT, bc.身体水分率.getCur()),
-				Position.水肿分析_身体水分率.getXMils() / 1000,
-				Position.水肿分析_身体水分率.getYMils() / 1000,
+				mCd.水肿分析_身体水分率.getXMils() / 1000,
+				mCd.水肿分析_身体水分率.getYMils() / 1000,
 				textPaint);
 
 		canvas.drawText(
 				String.format(FLOAT_1_FORMAT, bc.细胞内液含量.getCur()),
-				Position.水肿分析_细胞内液.getXMils() / 1000,
-				Position.水肿分析_细胞内液.getYMils() / 1000,
+				mCd.水肿分析_细胞内液.getXMils() / 1000,
+				mCd.水肿分析_细胞内液.getYMils() / 1000,
 				textPaint);
 
 		canvas.drawText(
 				String.format(FLOAT_1_FORMAT, bc.细胞外液含量.getCur()),
-				Position.水肿分析_细胞外液.getXMils() / 1000,
-				Position.水肿分析_细胞外液.getYMils() / 1000,
+				mCd.水肿分析_细胞外液.getXMils() / 1000,
+				mCd.水肿分析_细胞外液.getYMils() / 1000,
 				textPaint);
 	}
 
@@ -707,16 +714,16 @@ public class Report20171107 {
 
 	/** 对一些参数进行补救 */
 	/* 1. 添加 */
-	public static final int 体型分析_X_MIN = 0;
-	public static final int 体型分析_Y_MIN = 0;
-	public static final int 体型分析_X_MAX = 3;
-	public static final int 体型分析_Y_MAX = 4;
+	private static final int 体型分析_X_MIN = 0;
+	private static final int 体型分析_Y_MIN = 0;
+	private static final int 体型分析_X_MAX = 3;
+	private static final int 体型分析_Y_MAX = 4;
 
     /**
      * 10x
      * 绘制 体型分析
      */
-    public void drawShapeAnalysis(BodyComposition bc,
+	private void drawShapeAnalysis(BodyComposition bc,
                                   TextPaint textPaint,
                                   Canvas canvas) {
     	// 一些参数
@@ -772,8 +779,8 @@ public class Report20171107 {
 		yPos = yPos > 体型分析_Y_MAX ? 体型分析_Y_MAX : yPos;
 		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
 
-        xPos = Position.ORIGIN_X + xPos * Position.SINGLE_RECT_WIDTH + Position.SINGLE_RECT_WIDTH / 2;
-        yPos = Position.ORIGIN_Y - yPos * Position.SINGLE_RECT_HEIGHT - Position.SINGLE_RECT_HEIGHT / 2;
+        xPos = mCd.ORIGIN_X + xPos * mCd.SINGLE_RECT_WIDTH + mCd.SINGLE_RECT_WIDTH / 2;
+        yPos = mCd.ORIGIN_Y - yPos * mCd.SINGLE_RECT_HEIGHT - mCd.SINGLE_RECT_HEIGHT / 2;
 
         /*
          * 坐标由iso mm转换为英寸point
@@ -874,13 +881,13 @@ public class Report20171107 {
 	 */
 	public static final int 项目_内脏脂肪  = 7;
 
-	public static final int 体成分分析_TOTAL_LENGTH = 89;
-	public static final int 内脏指数_TOTAL_LENGTH = 66; //89;
-    public static final float 体成分分析_SECOND_START_MM = 27f;
-    public static final float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * Position.VALUE_72_X_1MM;
-    public static final float 体成分分析_THIRD_START_MM = 49f;
-    public static final float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * Position.VALUE_72_X_1MM;
-    public static final float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * Position.VALUE_72_X_1MM;
+	public final int 体成分分析_TOTAL_LENGTH = 89;
+	public final int 内脏指数_TOTAL_LENGTH = 66; //89;
+    public final float 体成分分析_SECOND_START_MM = 27f;
+    public final float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * mCd.VALUE_72_X_1MM;
+    public final float 体成分分析_THIRD_START_MM = 49f;
+    public final float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * mCd.VALUE_72_X_1MM;
+    public final float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * mCd.VALUE_72_X_1MM;
 
 	//Item  项目
 	//返回
@@ -1061,6 +1068,6 @@ public class Report20171107 {
 
 		Log.i(LOG_TAG, "r: " + r);
 
-		return r * Position.VALUE_72_X_1MM / 1000;
+		return r * mCd.VALUE_72_X_1MM / 1000;
 	}
 }
