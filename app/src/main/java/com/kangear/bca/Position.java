@@ -9,7 +9,7 @@ package com.kangear.bca;
  */
 public class Position {
     private static final String LOG_TAG = "Posistion";
-    static int VALUE_72_X_1MM = 2836;
+    public static int VALUE_72_X_1MM = 2836;
     static int LINE1_Y = 38;
     static int LINE2_Y = 47;
     static int COW1_X = 26;
