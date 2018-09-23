@@ -145,8 +145,7 @@ public class Report20171107 {
 		paint.setColor(Color.BLACK);
 		paint.setStrokeWidth(STROCK);
 		Layout.Alignment mAlignment = Layout.Alignment.ALIGN_CENTER;
-		float xPos = p.getXMils() / 1000 +
-				getProgressLength3(t.getCur(), t.getMin(), t.getMax());
+		float xPos = p.getXMils() / 1000 + mCd.getProgressLength3(t.getCur(), t.getMin(), t.getMax());
 		drawProgress(canvas, p, xPos, paint);
 		canvas.drawText(
 				String.format(FLOAT_1_FORMAT, t.getCur()),
@@ -286,7 +285,7 @@ public class Report20171107 {
             /* 37. 内脏脂肪 */
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(3f);
-            float xPos = mCd.体成分分析_内脏脂肪.getXMils() / 1000 + getProgressLength2(bc);
+            float xPos = mCd.体成分分析_内脏脂肪.getXMils() / 1000 + mCd.getNeizangProgress(bc);
             canvas.drawLine(
 					mCd.体成分分析_内脏脂肪.getXMils() / 1000,
 					mCd.体成分分析_内脏脂肪.getYMils() / 1000,
@@ -483,7 +482,7 @@ public class Report20171107 {
 			tmpStr = String.format(FLOAT_1_FORMAT, bc._250k电阻LL.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢_250k);
 
-			// 8x 肥胖评估 体重 写「√」根据上下界判断
+			// 8x 肥胖评估 [身体情况] 体重 写「√」根据上下界判断
             // 81 体重
             Position bcp = mCd.肥胖评估_体重_正常;
             switch (bc.体重.getLevel()) {
@@ -664,13 +663,13 @@ public class Report20171107 {
         int oldColor = Color.BLACK;
         // 得出每一段长度
         final float RANGE_1_START = bp.getXMils() / 1000;
-        final float RANGE_2_START = bp.getXMils() / 1000 + 体成分分析_SECOND_START_PX / 1000;
-        final float RANGE_3_START = bp.getXMils() / 1000 + 体成分分析_THIRD_START_PX / 1000;
+        final float RANGE_2_START = bp.getXMils() / 1000 + mCd.体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_3_START = bp.getXMils() / 1000 + mCd.体成分分析_THIRD_START_PX / 1000;
 
         // 死值
-        final float RANGE_1_LENGTH = 体成分分析_SECOND_START_PX / 1000;
-        final float RANGE_2_LENGTH = 体成分分析_THIRD_START_PX / 1000;
-        final float RANGE_3_LENGTH = 体成分分析_TOTAL_LENGTH_PX / 1000;
+        final float RANGE_1_LENGTH = mCd.体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_2_LENGTH = mCd.体成分分析_THIRD_START_PX / 1000;
+        final float RANGE_3_LENGTH = mCd.体成分分析_TOTAL_LENGTH_PX / 1000;
 
         float RANGE_1 = xPos - RANGE_1_START;
         float RANGE_2 = xPos - RANGE_2_START;
@@ -881,14 +880,6 @@ public class Report20171107 {
 	 */
 	public static final int 项目_内脏脂肪  = 7;
 
-	public final int 体成分分析_TOTAL_LENGTH = 89;
-	public final int 内脏指数_TOTAL_LENGTH = 66; //89;
-    public final float 体成分分析_SECOND_START_MM = 27f;
-    public final float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * mCd.VALUE_72_X_1MM;
-    public final float 体成分分析_THIRD_START_MM = 49f;
-    public final float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * mCd.VALUE_72_X_1MM;
-    public final float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * mCd.VALUE_72_X_1MM;
-
 	//Item  项目
 	//返回
 
@@ -973,101 +964,5 @@ public class Report20171107 {
 //		}
 //		rate = (float) position / range;
 //		return rate * 体成分分析_TOTAL_LENGTH * 2836 / 1000;
-	}
-
-
-	/**
-	 * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
-	 * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
-	 * @param bc BodyComposition
-	 * @return 进度条实际长度，单位Point
-	 */
-	public float getProgressLength2(BodyComposition bc) {
-        if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
-            return (float) (65.5 / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
-//		float[] P_temp = new float[2];
-//		float cur = 0, min = 0, max = 0;
-//		cur = bc.内脏脂肪_CUR / 10f; // 10
-//		min = bc.内脏脂肪_MIN / 10f; // 最小1
-//		max = bc.内脏脂肪_MAX / 10f; // 最大17
-//		final float NORMAL_START = 0f;
-//		final float TOO_HIGH_START = 10f;
-//		final float HIGH_START = 14f;
-//		final float HIGH_END   = 17f;
-//
-//		final float NORMAL_START_MM = 0f;
-//		final float TOO_HIGH_START_MM = 39.5f; //38.3f;
-//		final float HIGH_START_MM = 34.5f; // 53.5f;
-//
-//		final float NORMAL_LENGTH_MM = 39.5f;
-//		final float TOO_HIGH_LENGTH_MM = 15.8f;
-//		final float HIGH_LENGTH_MM = 7; //36f;
-//		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
-//
-//		float base = 0f;
-//		float r = 0.1f; // 相对长度单位mm
-//		if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
-//			base = NORMAL_START_MM;
-//			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
-//		} else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
-//			base = TOO_HIGH_START_MM;
-//			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
-//		} else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
-//			base = HIGH_START_MM;
-//			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
-//		} else if (cur >= HIGH_END) {
-//			r = TOTAL_LENGTH_MM;
-//		}
-//
-//		Log.i(LOG_TAG, "r: " + r);
-
-//		return r * 2836 / 1000;
-		return 0;
-	}
-
-	/**
-	 * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
-	 * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
-	 * @return 进度条实际长度，单位Point
-	 */
-	public float getProgressLength3(final float inCur, final float inMin, final float inMax) {
-		float[] P_temp = new float[2];
-		float cur = inCur, min = inMin, max = inMax;
-		final float FIRST_START = 0f;
-		final float SECOND_START = min;
-		final float THIRD_START = max + 0.1f;
-		final float HIGH_END   = THIRD_START + max;
-
-		final float FIRST_START_MM = 0f;
-		final float SECOND_START_MM = 体成分分析_SECOND_START_MM;// 35.8f;
-		final float THIRD_START_MM = 体成分分析_THIRD_START_MM; // 56.8f;
-		final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
-
-		final float FIRST_LENGTH_MM = SECOND_START_MM - FIRST_START_MM;
-		final float SECOND_LENGTH_MM = THIRD_START_MM - SECOND_START_MM;
-		final float THIRD_LENGTH_MM = TOTAL_LENGTH_MM - THIRD_START_MM;
-
-		float base = 0f;
-		float r = 0.1f; // 第一格
-		if(cur >= FIRST_START && cur < SECOND_START) {
-			// 第一格
-			base = FIRST_START_MM;
-			r = FIRST_LENGTH_MM / (SECOND_START - FIRST_START) * (cur - FIRST_START) + base;
-		} else if (cur >= min && cur < THIRD_START) {
-			// 第二格
-			base = SECOND_START_MM;
-			r = SECOND_LENGTH_MM / (THIRD_START - SECOND_START)  * (cur - SECOND_START) + base;
-		} else if (cur >= THIRD_START) {
-			// 第三格
-			base = THIRD_START_MM;
-			r = THIRD_LENGTH_MM / (HIGH_END - THIRD_START) *  (cur - THIRD_START) + base;
-		}
-
-		/* 如果计算出来的大于最大值，刚按照最大值计算 */
-		r = (r > TOTAL_LENGTH_MM) ? TOTAL_LENGTH_MM : r;
-
-		Log.i(LOG_TAG, "r: " + r);
-
-		return r * mCd.VALUE_72_X_1MM / 1000;
 	}
 }
