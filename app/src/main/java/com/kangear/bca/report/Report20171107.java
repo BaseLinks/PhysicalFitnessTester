@@ -324,9 +324,10 @@ public class Report20171107 {
 					mCd.体重_当前.getYMils() / 1000,
 					paint);
 			// 43 体重_调节量 okay
+			/* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
-			float tmpFloat = bc.体重调节.getCur();
+			float tmpFloat = bc.脂肪调节.getCur() + bc.肌肉调节.getCur();
 			canvas.drawText(
                     String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
 					mCd.体重_调节量.getXMils() / 1000,
@@ -379,7 +380,7 @@ public class Report20171107 {
 			paint.setTextAlign(Paint.Align.CENTER);
 			tmpFloat = bc.肌肉调节.getCur();
 			canvas.drawText(
-					String.format(FLOAT_1_FORMAT, bc.肌肉量.getMax()),
+					String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
 					mCd.肌肉量_调节量.getXMils() / 1000,
 					mCd.肌肉量_调节量.getYMils() / 1000,
 					paint);
