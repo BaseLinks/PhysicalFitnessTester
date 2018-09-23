@@ -16,7 +16,7 @@ import static com.kangear.bodycompositionanalyzer.ResultActivity.NOMAL_LEVEL_WID
 /**
  * Created by tony on 16-6-22.
  */
-public class BodyComposition1 {
+public class BodyComposition {
     private static final String TAG = "BodyComposition";
     private static final String LOG_TAG = "BodyComposition";
     public static final String UNIT_KG     = "kg";
@@ -32,8 +32,8 @@ public class BodyComposition1 {
 
     public static final Third 姓名        = new Third("姓名", 0, 2, 0, UNIT_EMPTY);
     public static final Third 身高        = new Third("身高", 2, 2, 1, UNIT_CM);
-    public static final Third 性别        = new Third("性别",6, 1, 0, UNIT_EMPTY);
-    public static final Third 年龄        = new Third("年龄", 7, 1, 0, UNIT_AGE);
+    public static final Third 年龄        = new Third("年龄",6, 1, 0, UNIT_EMPTY);
+    public static final Third 性别        = new Third("性别", 7, 1, 0, UNIT_EMPTY);
     public static final Third 身体电阻值   = new Third("身体电阻值", 8, 2, 0, UNIT_R); //TODO
 
     public static final Third _50k电阻LA     = new Third("50k电阻LA", 10, 2, 1, UNIT_R);//TODO
@@ -426,7 +426,7 @@ public class BodyComposition1 {
      *
      * @param data
      */
-    public BodyComposition1(final byte[] data) {
+    public BodyComposition(final byte[] data) {
         mList.add(姓名);
         mList.add(身高);
         mList.add(年龄);
@@ -527,5 +527,11 @@ public class BodyComposition1 {
 //            score = 0;
 //        评分.setCur((float) ((评分.getCur() * 0.8 + score) * (float)Math.pow(10, 评分.dot)));
 //        Log.i(TAG, "评分2:  " + 评分.getCur());
+
+        // 将性别男女放到单位中
+        性别.setUnit(性别.getCur() == 0 ?  "女": "男");
+
+        /* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
+//        体重调节.setCur(脂肪调节.getCur() + 肌肉调节.getCur());
     }
 }
