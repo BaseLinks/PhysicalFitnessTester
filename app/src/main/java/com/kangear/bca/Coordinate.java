@@ -1,5 +1,7 @@
 package com.kangear.bca;
 
+import android.util.Log;
+
 public class Coordinate {
     public static final int VALUE_72_X_1MM = 2836;
     static int LINE1_Y = 38;
@@ -492,6 +494,138 @@ public class Coordinate {
     public static Position 水肿分析_细胞外液_浮肿 =
             new Position(108 * VALUE_72_X_1MM, (int)(118 + 2*11.5) * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
 
+
+    /**
+     * 体成分分析项目表
+     * 体重
+     */
+    public static final int 项目_体重      = 1;
+    /**
+     * BMI 身体质量
+     */
+    public static final int 项目_身体质量   = 2;
+    /**
+     * 体脂肪率
+     */
+    public static final int 项目_体脂肪率   = 3;
+    /**
+     * 体脂肪量
+     */
+    public static final int 项目_体脂肪量   = 4;
+    /**
+     * 肌肉量
+     */
+    public static final int 项目_肌肉量    = 5;
+    /**
+     * 身体水分
+     */
+    public static final int 项目_身体水分  = 6;
+    /**
+     * 内脏脂肪
+     */
+    public static final int 项目_内脏脂肪  = 7;
+
+    public static int 体成分分析_TOTAL_LENGTH = 89;
+    public static int 内脏指数_TOTAL_LENGTH = 66; //89;
+    public static float 体成分分析_SECOND_START_MM = 27f;
+    public static float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * VALUE_72_X_1MM;
+    public static float 体成分分析_THIRD_START_MM = 49f;
+    public static float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * VALUE_72_X_1MM;
+    public static float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * VALUE_72_X_1MM;
+
+    /**
+     * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
+     * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
+     * @return 进度条实际长度，单位Point
+     */
+    public float getProgressLength3(final float inCur, final float inMin, final float inMax) {
+        float[] P_temp = new float[2];
+        float cur = inCur, min = inMin, max = inMax;
+        final float FIRST_START = 0f;
+        final float SECOND_START = min;
+        final float THIRD_START = max + 0.1f;
+        final float HIGH_END   = THIRD_START + max;
+
+        final float FIRST_START_MM = 0f;
+        final float SECOND_START_MM = 体成分分析_SECOND_START_MM;// 35.8f;
+        final float THIRD_START_MM = 体成分分析_THIRD_START_MM; // 56.8f;
+        final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
+
+        final float FIRST_LENGTH_MM = SECOND_START_MM - FIRST_START_MM;
+        final float SECOND_LENGTH_MM = THIRD_START_MM - SECOND_START_MM;
+        final float THIRD_LENGTH_MM = TOTAL_LENGTH_MM - THIRD_START_MM;
+
+        float base = 0f;
+        float r = 0.1f; // 第一格
+        if(cur >= FIRST_START && cur < SECOND_START) {
+            // 第一格
+            base = FIRST_START_MM;
+            r = FIRST_LENGTH_MM / (SECOND_START - FIRST_START) * (cur - FIRST_START) + base;
+        } else if (cur >= min && cur < THIRD_START) {
+            // 第二格
+            base = SECOND_START_MM;
+            r = SECOND_LENGTH_MM / (THIRD_START - SECOND_START)  * (cur - SECOND_START) + base;
+        } else if (cur >= THIRD_START) {
+            // 第三格
+            base = THIRD_START_MM;
+            r = THIRD_LENGTH_MM / (HIGH_END - THIRD_START) *  (cur - THIRD_START) + base;
+        }
+
+        /* 如果计算出来的大于最大值，刚按照最大值计算 */
+        r = (r > TOTAL_LENGTH_MM) ? TOTAL_LENGTH_MM : r;
+
+        return r * VALUE_72_X_1MM / 1000;
+    }
+
+    /**
+     * 体成分分析　内脏脂肪　这个是一个比较复杂的计算方式
+     * 由于在A4纸上的表格并没有按照比例进行划分，所以需要进行分段以及微调才能达到效果
+     * @param bc BodyComposition
+     * @return 进度条实际长度，单位Point
+     */
+    public float getNeizangProgress(BodyComposition bc) {
+        if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
+            return (float) (65.5 / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
+//		float[] P_temp = new float[2];
+//		float cur = 0, min = 0, max = 0;
+//		cur = bc.内脏脂肪_CUR / 10f; // 10
+//		min = bc.内脏脂肪_MIN / 10f; // 最小1
+//		max = bc.内脏脂肪_MAX / 10f; // 最大17
+//		final float NORMAL_START = 0f;
+//		final float TOO_HIGH_START = 10f;
+//		final float HIGH_START = 14f;
+//		final float HIGH_END   = 17f;
+//
+//		final float NORMAL_START_MM = 0f;
+//		final float TOO_HIGH_START_MM = 39.5f; //38.3f;
+//		final float HIGH_START_MM = 34.5f; // 53.5f;
+//
+//		final float NORMAL_LENGTH_MM = 39.5f;
+//		final float TOO_HIGH_LENGTH_MM = 15.8f;
+//		final float HIGH_LENGTH_MM = 7; //36f;
+//		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
+//
+//		float base = 0f;
+//		float r = 0.1f; // 相对长度单位mm
+//		if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
+//			base = NORMAL_START_MM;
+//			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
+//		} else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
+//			base = TOO_HIGH_START_MM;
+//			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
+//		} else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
+//			base = HIGH_START_MM;
+//			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
+//		} else if (cur >= HIGH_END) {
+//			r = TOTAL_LENGTH_MM;
+//		}
+//
+//		Log.i(LOG_TAG, "r: " + r);
+
+//		return r * 2836 / 1000;
+        return 0;
+    }
+
     /**
      * This class specifies a supported media size. Media size is the
      * dimension of the media on which the content is printed. For
@@ -513,22 +647,22 @@ public class Coordinate {
          */
         public Position(int xMils, int yMils, int widthMils, int heightMils) {
 
-            if (xMils <= 0) {
-                throw new IllegalArgumentException("xMils "
-                        + "cannot be less than or equal to zero.");
-            }
-            if (yMils <= 0) {
-                throw new IllegalArgumentException("yMils "
-                        + "cannot be less than or euqual to zero.");
-            }
-            if (widthMils <= 0) {
-                throw new IllegalArgumentException("widthMils "
-                        + "cannot be less than or equal to zero.");
-            }
-            if (heightMils <= 0) {
-                throw new IllegalArgumentException("heightMils "
-                        + "cannot be less than or euqual to zero.");
-            }
+//            if (xMils <= 0) {
+//                throw new IllegalArgumentException("xMils "
+//                        + "cannot be less than or equal to zero.");
+//            }
+//            if (yMils <= 0) {
+//                throw new IllegalArgumentException("yMils "
+//                        + "cannot be less than or euqual to zero.");
+//            }
+//            if (widthMils <= 0) {
+//                throw new IllegalArgumentException("widthMils "
+//                        + "cannot be less than or equal to zero.");
+//            }
+//            if (heightMils <= 0) {
+//                throw new IllegalArgumentException("heightMils "
+//                        + "cannot be less than or euqual to zero.");
+//            }
             mXMils = xMils;
             mYMils = yMils;
             mWidthMils = widthMils;
