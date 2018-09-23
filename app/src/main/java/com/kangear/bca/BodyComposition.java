@@ -30,6 +30,11 @@ public class BodyComposition {
     public static final String UNIT_PERCENT= "%";
     public static final int INVALID_POSIONT = -1;
 
+    /* 女 */
+    public static final byte FEMALE = 0x00;
+    /* 男 */
+    public static final byte MALE   = 0x01;
+
     public static final Third 姓名        = new Third("姓名", 0, 2, 0, UNIT_EMPTY);
     public static final Third 身高        = new Third("身高", 2, 2, 1, UNIT_CM);
     public static final Third 年龄        = new Third("年龄",6, 1, 0, UNIT_EMPTY);
@@ -81,7 +86,7 @@ public class BodyComposition {
     public static final Third 细胞外液含量  = new Third("细胞外液含量", 160, 162, 164, 2, 1, UNIT_KG);
     public static final Third 细胞内液含量  = new Third("细胞内液含量", 166, 168, 170, 2, 1, UNIT_KG);
 
-    public static final Third BMI        = new Third("BMI", 178, 180, 182, 2, 1, UNIT_EMPTY);
+    public static final Third BMI        = new Third("BMI", 178, 180, 182, 2, 0, UNIT_EMPTY);
     public static final Third 脂肪率      = new Third("脂肪率", 184, 186, 188, 2, 1, UNIT_PERCENT);
 
     public static final Third 评分        = new Third("评分", 198,2, 1, UNIT_SCORE);
@@ -533,5 +538,16 @@ public class BodyComposition {
 
         /* 体重调节量是 脂肪调节量 和 肌肉调节量 之和 */
 //        体重调节.setCur(脂肪调节.getCur() + 肌肉调节.getCur());
+
+        // 将BMI(身体质量指数)最大值，最小值微调
+        // 根据旧文档旧代码确定的值
+        BMI.setMax(330); // 最大值
+        BMI.setMin(154); // 最小值
+
+        // 将脂肪率最值微调
+        脂肪率.setMin(10 * 10);
+        脂肪率.setMax(35 * 10); // 男性
+        if ((byte)性别.getCur() == FEMALE)
+            脂肪率.setMax(60 * 10); // 女性
     }
 }

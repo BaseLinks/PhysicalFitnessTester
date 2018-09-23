@@ -31,6 +31,7 @@ import java.io.InputStream;
 public class Report20171107 {
  	private static final boolean DEBUG = true;
 	private static final String LOG_TAG = "Report20171107";
+	private static final String TAG = "Report20171107";
 	private static Context mContext =  null;
 
 	private static final int TEXT_SIZE_DEF     = 9;
@@ -704,36 +705,6 @@ public class Report20171107 {
         }
     }
 
-	/**  10x.体型分析 */
-	/** BMI下限 */
-	public static final short BMI_MIN = 154;
-	/** BMI上限 */
-	public static final short BMI_MAX = 330;
-	/** BMI范围宽度 */
-	public static final short BMI_RANGE = BMI_MAX - BMI_MIN; // 176
-	/** 方块个数 */
-	public static final short BMI_RECT_NUM = 4;
-	/** 方块宽度 */
-	public static final short BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
-
-	/** 脂肪率结果 */
-	/** 脂肪率下限 数据哪里来的呢？ */
-	public static final short BFR_MIN = 100;
-	/** 男性脂肪率上限 */
-	public static final short BFR_MAX_MALE = 350;
-	/** 女性脂肪率上限 */
-	public static final short BFR_MAX_FEMALE = 600;
-	/** 男性脂肪率范围宽度 */
-	public static final short BFR_RANGE_MALE = BFR_MAX_MALE - BFR_MIN; // 150
-	/** 女性脂肪率范围宽度 */
-	public static final short BFR_RANGE_FEMALE = BFR_MAX_FEMALE - BFR_MIN; // 500
-	/** 方块个数 */
-	public static final short BFR_RECT_NUM = 5;
-	/** 方块宽度 */
-	public static final short BFR_RECT_WIDTH_MALE = BFR_RANGE_MALE / BFR_RECT_NUM; //50
-	/** 方块宽度 */
-	public static final short BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
-
 	/** 在A4纸上方块宽度 重新排版时要改这里 */
 	public static final double SINGLE_RECT_WIDTH = 66/4; //16.8;
 	/** 在A4纸上方块高度 */
@@ -761,28 +732,47 @@ public class Report20171107 {
     public void drawShapeAnalysis(BodyComposition bc,
                                   TextPaint textPaint,
                                   Canvas canvas) {
+    	// 一些参数
+		/* 脂肪率范围宽度 */
+		float BFR_RANGE = bc.脂肪率.getMax() - bc.脂肪率.getMin(); // 150
+		/* 方块个数 */
+		float BFR_RECT_NUM = 5;
+		/* 方块宽度 */
+		float BFR_RECT_WIDTH = BFR_RANGE / BFR_RECT_NUM; //男: 50 女:100
+
+		/* BMI范围宽度 */
+		float BMI_RANGE = bc.BMI.getMax() - bc.BMI.getMin(); // 176
+		/* 方块个数 */
+		float BMI_RECT_NUM = 4;
+		/* 方块宽度 */
+		float BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
+
+		Log.i(TAG, "BMI_RECT_WIDTH: " + BMI_RECT_WIDTH + " BFR_RECT_WIDTH: " + BFR_RECT_WIDTH + " bc.脂肪率.getMax(): " + bc.脂肪率.getMax() + " bc.脂肪率.getMin(): " + bc.脂肪率.getMin());
+
         // bmi结果
         double xPos = 0;
         double yPos = 0;
-        if (bc.BMI.getCur() > BMI_MIN) {
-            xPos = (bc.BMI.getCur() - BMI_MIN) / BMI_RECT_WIDTH;
+        // 比较是否出界线，如果出最小值，则迂回进来
+        if (bc.BMI.getCur() > bc.BMI.getMin()) {
+            xPos = (bc.BMI.getCur() - bc.BMI.getMin()) / BMI_RECT_WIDTH;
         } else
             xPos = 0;
 
-        if (bc.脂肪率.getCur() < BFR_MIN) {
+        // 如果脂肪率小于最小值，则迂回到0
+        if (bc.脂肪率.getCur() < bc.脂肪率.getMin()) {
             yPos = 0;
         }
+
         // MALE
-        if (bc.性别.getUnit().equals("男")) {
-            yPos = (bc.脂肪率.getCur() - BMI_MIN) / BFR_RECT_WIDTH_MALE;
+        if ((byte)bc.性别.getCur() == BodyComposition.MALE) {
             if (bc.脂肪率.getCur() > bc.脂肪率.getMax()) //测试值超过标准
             {
-                yPos = ((bc.脂肪率.getCur() - bc.脂肪率.getMax()) / 2 + bc.脂肪率.getMax() - BFR_MIN) / BFR_RECT_WIDTH_MALE;
+                yPos = ((bc.脂肪率.getCur() - bc.脂肪率.getMax()) / 2 + bc.脂肪率.getMax() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
             } else {
-                yPos = (bc.脂肪率.getCur() - BFR_MIN) / BFR_RECT_WIDTH_MALE;
+                yPos = (bc.脂肪率.getCur() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
             }
-        } else if (bc.性别.getUnit().equals("女")) { // FEMALE
-            yPos = (bc.脂肪率.getCur() - BFR_MIN) / BFR_RECT_WIDTH_FEMALE;
+        } else if ((byte)bc.性别.getCur() == BodyComposition.FEMALE) { // FEMALE
+            yPos = (bc.脂肪率.getCur() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
         }
 
 		Log.i(LOG_TAG, "before xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
@@ -798,128 +788,11 @@ public class Report20171107 {
         xPos = ORIGIN_X + xPos * SINGLE_RECT_WIDTH + SINGLE_RECT_WIDTH / 2;
         yPos = ORIGIN_Y - yPos * SINGLE_RECT_HEIGHT - SINGLE_RECT_HEIGHT / 2;
 
-        /**
+        /*
          * 坐标由iso mm转换为英寸point
          */
 		textPaint.setTextSize(TEXT_SIZE_体型分析);
         canvas.drawText(TEXT_体型分析, (float)(xPos * 2836 - 10) / 1000, (float)(yPos * 2836 + 10) / 1000, textPaint);
-    }
-
-    private static final String SEPARATOR = "-";
-
-    /**
-     * function: Evaluating a math expression given in string form
-     * @param str
-     * @return
-     * from: http://stackoverflow.com/a/26227947/2193455
-     */
-    public static double eval(final String str) {
-        return new Object() {
-            int pos = -1, ch;
-
-            void nextChar() {
-                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
-            }
-
-            boolean eat(int charToEat) {
-                while (ch == ' ') nextChar();
-                if (ch == charToEat) {
-                    nextChar();
-                    return true;
-                }
-                return false;
-            }
-
-            double parse() {
-                nextChar();
-                double x = parseExpression();
-                if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
-                return x;
-            }
-
-            // Grammar:
-            // expression = term | expression `+` term | expression `-` term
-            // term = factor | term `*` factor | term `/` factor
-            // factor = `+` factor | `-` factor | `(` expression `)`
-            //        | number | functionName factor | factor `^` factor
-
-            double parseExpression() {
-                double x = parseTerm();
-                for (;;) {
-                    if      (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
-                    else return x;
-                }
-            }
-
-            double parseTerm() {
-                double x = parseFactor();
-                for (;;) {
-                    if      (eat('*')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
-                    else return x;
-                }
-            }
-
-            double parseFactor() {
-                if (eat('+')) return parseFactor(); // unary plus
-                if (eat('-')) return -parseFactor(); // unary minus
-
-                double x;
-                int startPos = this.pos;
-                if (eat('(')) { // parentheses
-                    x = parseExpression();
-                    eat(')');
-                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
-                    while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
-                    x = Double.parseDouble(str.substring(startPos, this.pos));
-                } else if (ch >= 'a' && ch <= 'z') { // functions
-                    while (ch >= 'a' && ch <= 'z') nextChar();
-                    String func = str.substring(startPos, this.pos);
-                    x = parseFactor();
-                    if (func.equals("sqrt")) x = Math.sqrt(x);
-                    else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
-                    else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
-                    else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
-                    else throw new RuntimeException("Unknown function: " + func);
-                } else {
-                    throw new RuntimeException("Unexpected: " + (char)ch);
-                }
-
-                if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
-
-                return x;
-            }
-        }.parse();
-    }
-
-    /**
-     * 只处理精度不高于6位小数大小
-     * @param currentVal
-     * @param range
-     * @return
-     */
-    private static String getAssessment(String currentVal, String range) {
-        if(currentVal == null || range == null)
-            throw new NullPointerException();
-
-        String[] rangeArray = range.split(SEPARATOR);
-        if(rangeArray.length != 2)
-            throw new IllegalArgumentException("range must be splite as 2 length array!");
-
-        float curVal = Float.valueOf(currentVal);
-        float minVal = Float.valueOf(rangeArray[0]);
-        float maxVal = Float.valueOf(rangeArray[1]);
-        String ret = "正常";
-
-        if(curVal < minVal)
-            ret = "不足";
-        else if ((curVal >= minVal) && (curVal <= maxVal)) {
-            ret = "正常";
-        } else {
-            ret = "过量";
-        }
-        return ret;
     }
 
 	/**
