@@ -25,6 +25,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import cn.trinea.android.common.util.PreferencesUtils;
+
 /**
  * 不处理数据，只接收BodyComposition对象
  * 可以接收不同的Coordinate对象
@@ -44,6 +46,7 @@ public class Report20171107 {
 
 	// 坐标系: 可以设置不现的坐标
 	private Coordinate mCd = new Coordinate();
+	private boolean mBackground = false;
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
@@ -63,6 +66,10 @@ public class Report20171107 {
 
     public void setCoordinate(Coordinate value) {
 		mCd = value;
+	}
+
+	public void setBackground(boolean value) {
+		mBackground = value;
 	}
 
     private Report20171107(Context context) {
@@ -199,18 +206,18 @@ public class Report20171107 {
 			String tmpStr;
 
 			// 0.1 画底板 (调试对比使用，成品不画此界面)
-//			if(PreferencesUtils.getBoolean(mContext, Report20171107.KEY_IS_DRAW_NEGATIVE)) {
-//				Bitmap bm = getBitmapFromAsset(mContext, "body_composition_negative_20170504.jpg");
-//				if(bm != null) {
-//					// 将图片拉伸至整个页面
-//					canvas.drawBitmap(bm, null, new Rect(
-//									0,
-//									0,
-//									PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
-//									PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
-//							null);
-//				}
-//			}
+			if(mBackground) {
+				Bitmap bm = getBitmapFromAsset(mContext, mCd.BACKGROUND);
+				if(bm != null) {
+					// 将图片拉伸至整个页面
+					canvas.drawBitmap(bm, null, new Rect(
+									0,
+									0,
+									PrintAttributes.MediaSize.ISO_A4.getWidthMils() * 72 / 1000,
+									PrintAttributes.MediaSize.ISO_A4.getHeightMils() * 72 / 1000),
+							null);
+				}
+			}
 
 			textPaint.setTextSize(TEXT_SIZE_DEF);
 
@@ -381,43 +388,63 @@ public class Report20171107 {
 			// 51 左上肢肌肉量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左上肢肌肉量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢肌肉含量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.左上肢肌肉量.getLevelAsChinese(), textPaint, canvas, mCd.左上肢肌肉含量);
 
 			// 52 左下肢肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左下肌肉量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢肌肉含量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.左下肌肉量.getLevelAsChinese(), textPaint, canvas, mCd.左下肢肌肉含量);
 
 			// 53 右上肢肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右上肢肌肉量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢肌肉含量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.右上肢肌肉量.getLevelAsChinese(), textPaint, canvas, mCd.右上肢肌肉含量);
 
 			// 54 右下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右下肌肉量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢肌肉含量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.右下肌肉量.getLevelAsChinese(), textPaint, canvas, mCd.右下肢肌肉含量);
 
 			// 55 躯干肌肉含量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.躯干肌肉量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.躯干肌肉含量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.躯干肌肉量.getLevelAsChinese(), textPaint, canvas, mCd.躯干肌肉含量);
 
 			/* 6x 节段脂肪 */
 			// 61 左上肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左上脂肪量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.左上肢脂肪量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.左上脂肪量.getLevelAsChinese(), textPaint, canvas, mCd.左上肢脂肪量);
 
 			// 62 左下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.左下脂肪量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.左下肢脂肪量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.左下脂肪量.getLevelAsChinese(), textPaint, canvas, mCd.左下肢脂肪量);
 
 			// 63 右上肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右上脂肪量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.右上肢脂肪量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.右上脂肪量.getLevelAsChinese(), textPaint, canvas, mCd.右上肢脂肪量);
 
 			// 64 右下肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.右下脂肪量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.右下肢脂肪量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.右下脂肪量.getLevelAsChinese(), textPaint, canvas, mCd.右下肢脂肪量);
 
 			// 65 躯干肢脂肪量 okay
 			tmpStr = String.format(FLOAT_2_FORMAT, bc.躯干脂肪量.getCur());
 			drawLineText(tmpStr, textPaint, canvas, mCd.躯干肢脂肪量);
+			if (mCd.isShowJieduanChinese)
+				drawLineTextUint(bc.躯干脂肪量.getLevelAsChinese(), textPaint, canvas, mCd.躯干肢脂肪量);
 
 			/* 7x 节段电阻抗 */
 			mAlignment = Layout.Alignment.ALIGN_NORMAL;
@@ -585,6 +612,9 @@ public class Report20171107 {
 
             // 水肿分析
 			drawEdema(bc, textPaint, canvas);
+
+			// 其他
+			mCd.drawOther(bc, textPaint, canvas);
 
 			// finish the page
 			document.finishPage(page);
@@ -803,6 +833,24 @@ public class Report20171107 {
 				tmpStr,
 				pos.getXMils() / 1000,
 				pos.getYMils() / 1000,
+				textPaint);
+	}
+
+	/**
+	 *
+	 * @param tmpStr 文本
+	 * @param textPaint 文字画笔
+	 * @param canvas 画布
+	 * @param pos 位置对象
+	 */
+	private void drawLineTextUint(String tmpStr,
+							  TextPaint textPaint,
+							  Canvas canvas,
+							  Position pos) {
+		canvas.drawText(
+				tmpStr,
+				pos.getXMils() / 1000,
+				pos.getYMils() / 1000 + 10,
 				textPaint);
 	}
 

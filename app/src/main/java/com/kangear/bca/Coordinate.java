@@ -1,6 +1,7 @@
 package com.kangear.bca;
 
-import android.util.Log;
+import android.graphics.Canvas;
+import android.text.TextPaint;
 
 public class Coordinate {
     public static final int VALUE_72_X_1MM = 2836;
@@ -9,6 +10,11 @@ public class Coordinate {
     static int COW1_X = 26;
     static int COW2_X = 60; //70;
     static int COW3_X = 100; // 110;
+
+    // 背景
+    public static String BACKGROUND = "bg_20170504.jpg";
+    // 阶段标准显示中文
+    public static boolean isShowJieduanChinese = false;
 
     /** 在A4纸上方块宽度 重新排版时要改这里 */
     public static double SINGLE_RECT_WIDTH = 66/4; //16.8;
@@ -624,6 +630,11 @@ public class Coordinate {
 
 //		return r * 2836 / 1000;
         return 0;
+    }
+
+    //
+    public void drawOther(BodyComposition bc, TextPaint textPaint, Canvas canvas) {
+
     }
 
     /**

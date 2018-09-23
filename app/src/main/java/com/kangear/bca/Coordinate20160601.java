@@ -1,5 +1,7 @@
 package com.kangear.bca;
 
+import android.graphics.Canvas;
+import android.text.TextPaint;
 import android.util.Log;
 
 /**
@@ -7,26 +9,30 @@ import android.util.Log;
  */
 public class Coordinate20160601 extends Coordinate {
     private static final String TAG = "Coordinate20160601";
-    private static final int LINE1_Y = 44;
-    private static final int LINE2_Y = 50;
-    private static final int LINE3_Y = 56;
+    private static final int LINE1_Y = 49;
+    private static final int LINE2_Y = 54;
+    private static final int LINE3_Y = 60;
     private static final int COW1_X = 35;
     private static final int COW2_X = 90;
 
     static {
+        BACKGROUND = "bg_20160601.jpg";
+        // 阶段标准显示中文
+        isShowJieduanChinese = true;
+
         // n.n 体型分析
         /* 在A4纸上方块宽度 重新排版时要改这里 */
-        SINGLE_RECT_WIDTH = 66/4; //16.8;
+        SINGLE_RECT_WIDTH = 68/4; //16.8;
         /* 在A4纸上方块高度 */
-        SINGLE_RECT_HEIGHT = 70/5; //13.4;
+        SINGLE_RECT_HEIGHT = 68/5; //13.4;
         /* 原点坐标 下面的交叉点为「体型分析」原点 */
         /*
          * |
          * |
          * |_________
          */
-        ORIGIN_X = 133 ;// 132 - 3; //133;
-        ORIGIN_Y = 146 ;//138.5 + 2; //146;
+        ORIGIN_X = 133 - 5;// 132 - 3; //133;
+        ORIGIN_Y = 146 + 2;//138.5 + 2; //146;
 
         /* 第一行：姓名 测试日期 */
         姓名    = new Position(COW1_X * VALUE_72_X_1MM, LINE1_Y * VALUE_72_X_1MM, 20 * VALUE_72_X_1MM, 46810);
@@ -43,8 +49,8 @@ public class Coordinate20160601 extends Coordinate {
         /* 2X. 体成分结果 */
         // 21 体重
         体成分结果_X         = 36 * VALUE_72_X_1MM;
-        体成分结果_X_2       = 38 * VALUE_72_X_1MM;
-        体成分结果_Y_BASE    = 78 * VALUE_72_X_1MM;
+        体成分结果_X_2       = 16 * VALUE_72_X_1MM;
+        体成分结果_Y_BASE    = 82 * VALUE_72_X_1MM;
         体成分结果_X_RANGE   = (int)(22 * VALUE_72_X_1MM);
         体成分结果_Y_RANGE   = (int)(6.1 * VALUE_72_X_1MM);
         体重2     = new Position(体成分结果_X, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 0, 85 * VALUE_72_X_1MM, 46810);
@@ -53,17 +59,17 @@ public class Coordinate20160601 extends Coordinate {
         // 23 肌肉量
         肌肉量     = new Position(体成分结果_X, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 85 * VALUE_72_X_1MM, 46810);
         // 24 身体总水分
-        身体总水分 = new Position(体成分结果_X - 8 * VALUE_72_X_1MM, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 85 * VALUE_72_X_1MM, 46810);
+        身体总水分 = new Position(体成分结果_X - 2 * VALUE_72_X_1MM, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 85 * VALUE_72_X_1MM, 46810);
         // 25 细胞内液 ? 4 or 5
-        细胞内液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 0, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
+        细胞内液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 0, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 5, 20 * VALUE_72_X_1MM, 46810);
         // 26 细胞外液
-        细胞外液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 1, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
+        细胞外液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 1, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 5, 20 * VALUE_72_X_1MM, 46810);
         // 27 蛋白质量
-        蛋白质量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 2, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 20 * VALUE_72_X_1MM, 46810);
+        蛋白质量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 2, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
         // 28 无机盐量
-        无机盐量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 3, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
+        无机盐量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 3, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 20 * VALUE_72_X_1MM, 46810);
         // 29 体脂肪量
-        体脂肪量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 1, 20 * VALUE_72_X_1MM, 46810);
+        体脂肪量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
 
         /* 3X. 体成分分析 */
         体成分分析_X = 35 * VALUE_72_X_1MM;
@@ -147,67 +153,68 @@ public class Coordinate20160601 extends Coordinate {
 
         /* 5x 节段肌肉 */
         // 51 左上肢肌肉含量
-        int 节段肌肉_X_POS_BASE = 13 * VALUE_72_X_1MM;
-        int 节段肌肉_X_POS_RANGE = (int) (28 * VALUE_72_X_1MM);
-        int 节段肌肉_Y_POS_BASE = 251 * VALUE_72_X_1MM;
-        int 节段肌肉_Y_POS_RANGE_LITTLE = (int) (4.5 * VALUE_72_X_1MM);
-        int 节段肌肉_Y_POS_RANGE_LARGE  = (int) (13 * VALUE_72_X_1MM);
+        int 节段肌肉_X_POS_BASE = 15 * VALUE_72_X_1MM;
+        int 节段肌肉_X_POS_RANGE = (int) (16.5 * VALUE_72_X_1MM);
+        int 节段肌肉_Y_POS_BASE = 247 * VALUE_72_X_1MM;
+//        int 节段肌肉_Y_POS_RANGE_LITTLE = (int) (4.5 * VALUE_72_X_1MM);
+        int 节段肌肉_Y_POS_RANGE_LARGE  = (int) (17 * VALUE_72_X_1MM);
+        int RANGE = 43 * VALUE_72_X_1MM;
         左上肢肌肉含量 = new Position(
-                13 * VALUE_72_X_1MM,
-                251 * VALUE_72_X_1MM,
+                节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
         // 52 左下肢肌肉含量
         左下肢肌肉含量 = new Position(
-                13 * VALUE_72_X_1MM,
-                273 * VALUE_72_X_1MM,
+                节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         // 53 右上肢肌肉含量
         右上肢肌肉含量 = new Position(
-                41 * VALUE_72_X_1MM,
-                251 * VALUE_72_X_1MM,
+                节段肌肉_X_POS_BASE + 2 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         // 54 右下肢肌肉含量
         右下肢肌肉含量 = new Position(
-                41 * VALUE_72_X_1MM,
-                273 * VALUE_72_X_1MM,
+                节段肌肉_X_POS_BASE + 2 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE,
                         33110, 46810);
 
         // 55 躯干肌肉含量
         躯干肌肉含量 = new Position(
-                28 * VALUE_72_X_1MM,
-                260 * VALUE_72_X_1MM,
+                节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 1 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         /* 6x 节段脂肪 */
         // 61 左上肢脂肪量
         左上肢脂肪量 = new Position(
-                58 * VALUE_72_X_1MM,
-                251 * VALUE_72_X_1MM,
+                RANGE + 节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         // 62 左下肢脂肪量
         左下肢脂肪量 = new Position(
-                58 * VALUE_72_X_1MM,
-                273 * VALUE_72_X_1MM,
+                RANGE + 节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
         // 63 右上肢脂肪量
         右上肢脂肪量 = new Position(
-                87 * VALUE_72_X_1MM,
-                251 * VALUE_72_X_1MM,
+                RANGE + 节段肌肉_X_POS_BASE + 2 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 0 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         // 64 右下肢脂肪量
         右下肢脂肪量 = new Position(
-                87 * VALUE_72_X_1MM,
-                273 * VALUE_72_X_1MM,
+                RANGE + 节段肌肉_X_POS_BASE + 2 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 2 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         // 65 躯干脂肪量
         躯干肢脂肪量 = new Position(
-                72 * VALUE_72_X_1MM,
-                260 * VALUE_72_X_1MM,
+                RANGE + 节段肌肉_X_POS_BASE + 1 * 节段肌肉_X_POS_RANGE,
+                节段肌肉_Y_POS_BASE + 1 * 节段肌肉_Y_POS_RANGE_LARGE,
                 33110, 46810);
 
         /* 7x 节段电阻抗（深度科研、科研数据） */
@@ -315,7 +322,7 @@ public class Coordinate20160601 extends Coordinate {
         // 81.体重
         int 肥胖评估_X_POS_BASE = 153 * VALUE_72_X_1MM;
         int 肥胖评估_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
-        int 肥胖评估_Y_POS_BASE = 216 * VALUE_72_X_1MM;
+        int 肥胖评估_Y_POS_BASE = 222 * VALUE_72_X_1MM;
         int 肥胖评估_Y_POS_RANGE = (int) (8 * VALUE_72_X_1MM);
         // 71.频率
         肥胖评估_体重_不足 = new Position(
@@ -367,10 +374,10 @@ public class Coordinate20160601 extends Coordinate {
 
         /* 9x 营养评估 */
         // 91.蛋白质
-        int 营养评估_X_POS_BASE = 155 * VALUE_72_X_1MM;
+        int 营养评估_X_POS_BASE = 157 * VALUE_72_X_1MM;
         int 营养评估_X_POS_RANGE = (int) (15 * VALUE_72_X_1MM);
-        int 营养评估_Y_POS_BASE = 159 * VALUE_72_X_1MM;
-        int 营养评估_Y_POS_RANGE = (int) (8 * VALUE_72_X_1MM);
+        int 营养评估_Y_POS_BASE = 166 * VALUE_72_X_1MM;
+        int 营养评估_Y_POS_RANGE = (int) (8.2 * VALUE_72_X_1MM);
         营养评估_蛋白质_不足 = new Position(
                         营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
                         营养评估_Y_POS_BASE + 0 * 营养评估_Y_POS_RANGE,

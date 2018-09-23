@@ -7,13 +7,15 @@ import android.util.Log;
  */
 public class Coordinate20170504 extends Coordinate {
     private static final String TAG = "Coordinate20170504";
-    private static final int LINE1_Y = 38;
-    private static final int LINE2_Y = 47;
-    private static final int COW1_X = 26;
-    private static final int COW2_X = 60; //70;
-    private static final int COW3_X = 100; // 110;
+    private static final int LINE1_Y = 45;
+    private static final int LINE2_Y = 53;
+    private static final int COW1_X = 34;
+    private static final int COW2_X = 70; //70;
+    private static final int COW3_X = 110; // 110;
 
     static {
+        BACKGROUND = "bg_20170504.jpg";
+
         // n.n 体型分析
         /* 在A4纸上方块宽度 重新排版时要改这里 */
         SINGLE_RECT_WIDTH = 66/4; //16.8;
@@ -25,8 +27,8 @@ public class Coordinate20170504 extends Coordinate {
          * |
          * |_________
          */
-        ORIGIN_X = 132 - 3; //133;
-        ORIGIN_Y = 138.5 + 2; //146;
+        ORIGIN_X = 132 - 10; //133;
+        ORIGIN_Y = 138.5 + 8; //146;
 
         /* 第一行：姓名 测试日期 */
         姓名 = new Position(COW1_X * VALUE_72_X_1MM, LINE1_Y * VALUE_72_X_1MM, 20 * VALUE_72_X_1MM, 46810);
@@ -86,9 +88,9 @@ public class Coordinate20170504 extends Coordinate {
         // 表格尺寸
         体成分分析_TOTAL_LENGTH      = 89;
         内脏指数_TOTAL_LENGTH        = 66; //89;
-        体成分分析_SECOND_START_MM   = 35.8f;
+        体成分分析_SECOND_START_MM   = 27f;
         体成分分析_SECOND_START_PX   = 体成分分析_SECOND_START_MM * VALUE_72_X_1MM;
-        体成分分析_THIRD_START_MM    = 56.8f;
+        体成分分析_THIRD_START_MM    = 49f;
         体成分分析_THIRD_START_PX    = 体成分分析_THIRD_START_MM * VALUE_72_X_1MM;
         体成分分析_TOTAL_LENGTH_PX   = 体成分分析_TOTAL_LENGTH * VALUE_72_X_1MM;
 
@@ -211,7 +213,7 @@ public class Coordinate20170504 extends Coordinate {
         /* 7x 节段电阻抗（深度科研、科研数据） */
         int 节段电阻抗_X_POS_BASE = 18 * VALUE_72_X_1MM;
         int 节段电阻抗_X_POS_RANGE = (int) (18 * VALUE_72_X_1MM);
-        int 节段电阻抗_Y_POS_BASE = 260 * VALUE_72_X_1MM;
+        int 节段电阻抗_Y_POS_BASE = 264 * VALUE_72_X_1MM;
         int 节段电阻抗_Y_POS_RANGE = (int) (5.5 * VALUE_72_X_1MM);
         // 71.频率
         频率_5k = new Position(
@@ -313,7 +315,7 @@ public class Coordinate20170504 extends Coordinate {
         // 81.体重
         int 肥胖评估_X_POS_BASE = 48 * VALUE_72_X_1MM;
         int 肥胖评估_X_POS_RANGE = (int) (27 * VALUE_72_X_1MM);
-        int 肥胖评估_Y_POS_BASE = 210 * VALUE_72_X_1MM;
+        int 肥胖评估_Y_POS_BASE = 214 * VALUE_72_X_1MM;
         int 肥胖评估_Y_POS_RANGE = (int) (10 * VALUE_72_X_1MM);
         // 71.频率
         肥胖评估_体重_不足 = new Position(
@@ -367,7 +369,7 @@ public class Coordinate20170504 extends Coordinate {
         // 91.蛋白质
         int 营养评估_X_POS_BASE = 148 * VALUE_72_X_1MM;
         int 营养评估_X_POS_RANGE = (int) (17.3 * VALUE_72_X_1MM);
-        int 营养评估_Y_POS_BASE = 158 * VALUE_72_X_1MM;
+        int 营养评估_Y_POS_BASE = 160 * VALUE_72_X_1MM;
         int 营养评估_Y_POS_RANGE = (int) (9 * VALUE_72_X_1MM);
         营养评估_蛋白质_不足 = new Position(
                         营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
@@ -408,11 +410,11 @@ public class Coordinate20170504 extends Coordinate {
         // 95.身体年龄
         身体年龄 = new Position(
                 174 * VALUE_72_X_1MM,
-                49 * VALUE_72_X_1MM,
+                54 * VALUE_72_X_1MM,
                 12 * VALUE_72_X_1MM, 46810);
 
         // 10x.健康评估
-        健康评估 = new Position(174 * VALUE_72_X_1MM, 40 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
+        健康评估 = new Position(174 * VALUE_72_X_1MM, 45 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
 
         // 11x.水肿分析
         水肿分析_身体水分率 = new Position(-100 * VALUE_72_X_1MM, -100 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
