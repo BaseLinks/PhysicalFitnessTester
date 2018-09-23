@@ -632,11 +632,6 @@ public class Coordinate {
         return 0;
     }
 
-    //
-    public void drawOther(BodyComposition bc, TextPaint textPaint, Canvas canvas) {
-
-    }
-
     /**
      * This class specifies a supported media size. Media size is the
      * dimension of the media on which the content is printed. For
