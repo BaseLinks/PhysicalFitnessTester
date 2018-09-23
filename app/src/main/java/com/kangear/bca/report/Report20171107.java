@@ -614,9 +614,6 @@ public class Report20171107 {
             // 水肿分析
 			drawEdema(bc, textPaint, canvas);
 
-			// 其他
-			mCd.drawOther(bc, textPaint, canvas);
-
 			// finish the page
 			document.finishPage(page);
 			// add more pages
