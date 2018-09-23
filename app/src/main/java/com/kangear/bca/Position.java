@@ -16,6 +16,19 @@ public class Position {
     static int COW2_X = 60; //70;
     static int COW3_X = 100; // 110;
 
+    /** 在A4纸上方块宽度 重新排版时要改这里 */
+    public static final double SINGLE_RECT_WIDTH = 66/4; //16.8;
+    /** 在A4纸上方块高度 */
+    public static final double SINGLE_RECT_HEIGHT = 70/5; //13.4;
+    /** 原点坐标 下面的交叉点为「体型分析」原点 */
+    /**
+     * |
+     * |
+     * |_________
+     */
+    public static final double ORIGIN_X = 132 ;// 132 - 3; //133;
+    public static final double ORIGIN_Y = 246 ;//138.5 + 2; //146;
+
     /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
     public static final Position 姓名 =
             new Position(COW1_X * VALUE_72_X_1MM, LINE1_Y * VALUE_72_X_1MM, 20 * VALUE_72_X_1MM, 46810);

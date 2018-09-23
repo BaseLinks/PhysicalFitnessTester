@@ -705,19 +705,6 @@ public class Report20171107 {
         }
     }
 
-	/** 在A4纸上方块宽度 重新排版时要改这里 */
-	public static final double SINGLE_RECT_WIDTH = 66/4; //16.8;
-	/** 在A4纸上方块高度 */
-	public static final double SINGLE_RECT_HEIGHT = 70/5; //13.4;
-	/** 原点坐标 下面的交叉点为「体型分析」原点 */
-	/**
-	 * |
-	 * |
-	 * |_________
-	 */
-	public static final double ORIGIN_X = 132 ;// 132 - 3; //133;
-	public static final double ORIGIN_Y = 246 ;//138.5 + 2; //146;
-
 	/** 对一些参数进行补救 */
 	/* 1. 添加 */
 	public static final int 体型分析_X_MIN = 0;
@@ -747,7 +734,7 @@ public class Report20171107 {
 		/* 方块宽度 */
 		float BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
 
-		Log.i(TAG, "BMI_RECT_WIDTH: " + BMI_RECT_WIDTH + " BFR_RECT_WIDTH: " + BFR_RECT_WIDTH + " bc.脂肪率.getMax(): " + bc.脂肪率.getMax() + " bc.脂肪率.getMin(): " + bc.脂肪率.getMin());
+//		Log.i(TAG, "BMI_RECT_WIDTH: " + BMI_RECT_WIDTH + " BFR_RECT_WIDTH: " + BFR_RECT_WIDTH + " bc.脂肪率.getMax(): " + bc.脂肪率.getMax() + " bc.脂肪率.getMin(): " + bc.脂肪率.getMin());
 
         // bmi结果
         double xPos = 0;
@@ -785,8 +772,8 @@ public class Report20171107 {
 		yPos = yPos > 体型分析_Y_MAX ? 体型分析_Y_MAX : yPos;
 		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
 
-        xPos = ORIGIN_X + xPos * SINGLE_RECT_WIDTH + SINGLE_RECT_WIDTH / 2;
-        yPos = ORIGIN_Y - yPos * SINGLE_RECT_HEIGHT - SINGLE_RECT_HEIGHT / 2;
+        xPos = Position.ORIGIN_X + xPos * Position.SINGLE_RECT_WIDTH + Position.SINGLE_RECT_WIDTH / 2;
+        yPos = Position.ORIGIN_Y - yPos * Position.SINGLE_RECT_HEIGHT - Position.SINGLE_RECT_HEIGHT / 2;
 
         /*
          * 坐标由iso mm转换为英寸point
