@@ -4,13 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.hardware.usb.UsbManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.kangear.PrinterSdk.Printer;
 import com.kangear.bca.report.CreateReport;
-import com.kangear.bca.report.GPIO;
 import com.kangear.bodycompositionanalyzer.R;
 
 import java.io.File;
