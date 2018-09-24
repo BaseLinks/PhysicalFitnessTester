@@ -33,7 +33,7 @@ public class BcaManager {
 	private static Context mContext =  null;
 	private String                 serialPort       = null;
 	// 这个要改成可以设置的
-	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS0";
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS2"; // 对应VSTAR A33的Uart2
 
 	/** 串口相关 */
 	private static final String BAUDRATE_COIN = "9600";
