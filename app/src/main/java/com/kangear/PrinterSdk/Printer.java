@@ -41,6 +41,8 @@ public class Printer {
     private UsbDevice mDevice;
     private UsbDeviceConnection mDeviceConnection;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+    public static final String ACTION_PRINER_ADD = "ACTION_PRINER_ADD";
+    public static final String ACTION_PRINER_REMOVE = "ACTION_PRINER_REMOVE";
 
     private UsbEndpoint mEndpointOut;
     private UsbEndpoint mEndpointIn;
@@ -416,10 +418,14 @@ public class Printer {
 
     public static void handlePrinterAdd() {
         Log.i(LOG_TAG, "handlePrinterAdd");
+        if (mContext != null)
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_PRINER_ADD));
     }
 
     public static void handlePrinterRemove() {
         Log.i(LOG_TAG, "handlePrinterRemove");
+        if (mContext != null)
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_PRINER_REMOVE));
     }
 
     /**

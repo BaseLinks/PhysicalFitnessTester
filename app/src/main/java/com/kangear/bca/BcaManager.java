@@ -1,6 +1,11 @@
 package com.kangear.bca;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.hardware.usb.UsbManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.kangear.PrinterSdk.Printer;
@@ -93,6 +98,13 @@ public class BcaManager {
 
 	public void init() {
         Log.i(TAG, "init");
+		// 监听广播
+		IntentFilter itf = new IntentFilter();
+		itf.addAction(Printer.ACTION_PRINER_ADD);
+		itf.addAction(Printer.ACTION_PRINER_REMOVE);
+		LocalBroadcastManager.getInstance(mContext).registerReceiver(
+				mBroadcastReceiver,
+				itf);
 
 		mPrinter.init();
 		initSerial();
@@ -110,7 +122,6 @@ public class BcaManager {
 				report.setCoordinate(new Coordinate());
 				break;
 		}
-
 	}
 
 	private void initSerial() {
@@ -186,6 +197,10 @@ public class BcaManager {
 
 		/* 打印机反初始化 */
         mPrinter.uninit();
+
+        //
+		if (mContext != null)
+			LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mBroadcastReceiver);
     }
 
 	private void uninitSerial() {
@@ -206,6 +221,30 @@ public class BcaManager {
 				Log.i(TAG, "接收完整了");
 				doPrint(ret);
 			}
+		}
+	}
+
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handleEvent(intent);
+		}
+	};
+
+	private void handleEvent(Intent intent) {
+		Log.i(TAG, "handleEvent");
+		if (intent == null)
+			return;
+
+		String act = intent.getAction();
+		if (act == null)
+			return;
+
+		switch (act) {
+			case Printer.ACTION_PRINER_ADD:
+				break;
+			case Printer.ACTION_PRINER_REMOVE:
+				break;
 		}
 	}
 

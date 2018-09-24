@@ -64,9 +64,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        IntentFilter itf = new IntentFilter();
+        itf.addAction(Printer.ACTION_PRINER_ADD);
+        itf.addAction(Printer.ACTION_PRINER_REMOVE);
+
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mBroadcastReceiver,
-                new IntentFilter(BcaService.ACTION_BROCAST));
+                itf);
 
 
         int reportId = BcaManager.getInstance(this).getReportId();
@@ -103,24 +107,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleEvent(Intent intent) {
         Log.i(LOG_TAG, "handleEvent");
-        if (intent != null) {
-            int type = intent.getIntExtra(BcaService.EVENT_TYPE, BcaService.EVENT_TYPE_UNKNOW);
-            int code = intent.getIntExtra(BcaService.EVENT_CODE, BcaService.EVENT_CODE_UNKOWN);
-            if (type != BcaService.EVENT_TYPE_UNKNOW && code != BcaService.EVENT_CODE_UNKOWN) {
-                String str;
-                switch (type) {
-                    case BcaService.EVENT_TYPE_PRINTER:
-                        str = code == BcaService.EVENT_CODE_PRINTER_OK ? "已连接" : "未连接";
-                        mPrinterTextView.setText(str);
-                        Log.i(LOG_TAG, "handleEvent Printer: " + code);
-                        break;
-                    case BcaService.EVENT_TYPE_SERIAL:
-                        Log.i(LOG_TAG, "handleEvent Serial: " + code);
-                        str = code == BcaService.EVENT_CODE_SERIAL_OK ? "已连接" : "未连接";
-                        mSerialTextView.setText(str);
-                        break;
-                }
-            }
+        if (intent == null)
+            return;
+
+        String act = intent.getAction();
+        if (act == null)
+            return;
+
+        switch (act) {
+            case Printer.ACTION_PRINER_ADD:
+                mPrinterTextView.setText("已连接");
+                break;
+            case Printer.ACTION_PRINER_REMOVE:
+                mPrinterTextView.setText("未连接");
+                break;
         }
     }
 
