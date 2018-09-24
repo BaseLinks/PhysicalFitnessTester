@@ -366,7 +366,7 @@ public class Printer {
             UsbDeviceConnection connection = usbManager.openDevice(device);
             if (connection != null) {
                 Log.i(LOG_TAG, "open succeeded");
-                if (connection.claimInterface(intf, false)) {
+                if (connection.claimInterface(intf, true)) {
                     Log.i(LOG_TAG, "claim interface succeeded");
                     mDevice = device;
                     mDeviceConnection = connection;
@@ -437,6 +437,9 @@ public class Printer {
                                    UsbInterface intf) {
         Log.i(LOG_TAG, "Printer#initPrinterDeviceEndpoint");
         mDeviceConnection = connection;
+        if (mDeviceConnection == null) {
+            return;
+        }
         mSerial = connection.getSerial();
         if (mDeviceConnection == null || mSerial == null) {
             return;
@@ -468,6 +471,9 @@ public class Printer {
      */
     private static void updatePrinterModel(UsbDeviceConnection connection) {
         Log.i(LOG_TAG, "Printer#updatePrinterModel");
+        if (connection == null) {
+            return;
+        }
         PrinterModel ret = null;
         byte[] b = new byte[1024];
         int length = connection.controlTransfer(
@@ -819,7 +825,8 @@ public class Printer {
                 .copy("system/printer", destDir);
 
         ShellUtils.CommandResult cr;
-        String cmd = "busybox tar xvf " + context.getCacheDir() + "/phaser_3020_driver.tgz -C /";
+        String cmd = "busybox2 tar xvf " + context.getCacheDir() + "/phaser_3020_driver.tgz -C /";
+        Log.i(LOG_TAG, cmd);
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
@@ -845,13 +852,18 @@ public class Printer {
                 .copy("system/xbin", destDir);
 
         ShellUtils.CommandResult cr;
-        String cmd = "cp " + context.getCacheDir() + "/busybox" + " /system/bin";
+        File busybox = new File("/system/bin/busybox2");
+        if (busybox.exists()) {
+            return true;
+        }
+        String cmd = "cp " + context.getCacheDir() + "/busybox" + " /system/bin/busybox2";
+        Log.i(LOG_TAG, cmd);
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
         }
 
-        cmd = "chmod 777 /system/bin/busybox";
+        cmd = "chmod 777 /system/bin/busybox2";
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
