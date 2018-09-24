@@ -6,6 +6,7 @@ import android.util.Log;
 import com.kangear.PrinterSdk.Printer;
 import com.kangear.bca.report.CreateReport;
 import com.kangear.bca.report.UartHelper;
+import com.kangear.bodycompositionanalyzer.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.security.InvalidParameterException;
 
 import android_serialport_api.ComBean;
 import android_serialport_api.SerialHelper;
+import cn.trinea.android.common.util.PreferencesUtils;
 import cn.trinea.android.common.util.ShellUtils;
 
 import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
@@ -44,7 +46,22 @@ public class BcaManager {
 
 	public static final String KEY_IS_DRAW_NEGATIVE = "IS_DRAW_NEGATIVE";
 	public static final String KEY_DO_NOT_PRINT     = "DO_NOT_PRINT";
+	public static final String REPORT_ID = "REPORT_ID";
+	public static final int REPORT_ID_20160610 = R.id._20160610;
+	public static final int REPORT_ID_20170504 = R.id._20170504;
+	public static final int REPORT_ID_20170610 = R.id._20170610;
 	private final Protocol mProtocol = new Protocol();
+
+	public int getReportId() {
+		// 读取配置，刷新UI
+		int def = REPORT_ID_20160610;
+		int reportId = PreferencesUtils.getInt(mContext, BcaManager.REPORT_ID, def);
+		return reportId;
+	}
+
+	public void setReportId(int value) {
+		PreferencesUtils.putInt(mContext, BcaManager.REPORT_ID, value);
+	}
 
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
