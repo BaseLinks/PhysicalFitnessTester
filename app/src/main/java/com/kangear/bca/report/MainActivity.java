@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
         mContext = this;
 
-        /* 启动服务 */
-        startService(new Intent(this, BcaService.class));
-
         mDrawNegative = (CheckBox) findViewById(R.id.draw_negative_checkbox);
         mDotPrintCheckBox = (CheckBox) findViewById(R.id.dont_print_checkbox);
         mPrinterTextView = (TextView) findViewById(R.id.printer_textview);
@@ -129,14 +126,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            /* 读取测试数据 */
-            case R.id.parse_helloworld_button: {
-                BcaService.startActionTestData();
-                break;
-            }
             /* 解析数据 */
             case R.id.parse_button:
-                BcaService.startActionParseData();
+                BcaManager.getInstance(this).test();
                 break;
             case R.id.print_button:
                 break;
