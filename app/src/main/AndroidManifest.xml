@@ -18,6 +18,32 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name="com.kangear.bca.report.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name="com.kangear.bca.report.MyIntentService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="com.kangear.bca.report.BcaService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+        <receiver
+            android:name="com.kangear.bca.report.OnBootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait">
@@ -28,12 +54,12 @@
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".WeightActivity"

@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.kangear.PrinterSdk.Printer;
 import com.kangear.bca.report.CreateReport;
+import com.kangear.bca.report.GPIO;
 import com.kangear.bodycompositionanalyzer.R;
 
 import java.io.File;
@@ -240,12 +241,18 @@ public class BcaManager {
 		if (act == null)
 			return;
 
+		String cmd = "echo 0 > /sys/class/gpio_sw/PH7/data";
 		switch (act) {
 			case Printer.ACTION_PRINER_ADD:
+				cmd = "echo 0 > /sys/class/gpio_sw/PH7/data";
 				break;
 			case Printer.ACTION_PRINER_REMOVE:
+				cmd = "echo 1 > /sys/class/gpio_sw/PH7/data";
 				break;
 		}
+
+		Log.i(TAG, cmd);
+		ShellUtils.execCommand(cmd, true);
 	}
 
 	private static final byte[] TESTDATA = {
