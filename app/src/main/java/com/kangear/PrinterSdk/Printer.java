@@ -1,4 +1,4 @@
-package com.kangear.bca.report;
+package com.kangear.PrinterSdk;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ import java.util.LinkedList;
 
 import cn.trinea.android.common.util.FileUtils;
 import cn.trinea.android.common.util.ShellUtils;
+import flipagram.assetcopylib.AssetCopier;
 
 /**
  * Created by tony on 16-7-3.
@@ -154,6 +156,9 @@ public class Printer {
             // 没有连接打印机
             setPrinterInterface(null, null);
         }
+
+        // insta printer driver
+        installPrinterDriver(mContext);
 
         /** 将打印机状态告知服务 */
         Log.e(LOG_TAG, "Has Printer: " + hasPrinter);
@@ -423,7 +428,7 @@ public class Printer {
      * @param intf UsbInterface
      */
     private void initPrinterDeviceEndpoint(UsbDeviceConnection connection,
-                                           UsbInterface intf) {
+                                   UsbInterface intf) {
         Log.i(LOG_TAG, "Printer#initPrinterDeviceEndpoint");
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
@@ -780,6 +785,96 @@ public class Printer {
 
         // 3. write hp 1112 data to printer
         write(new FileInputStream(rasterPath));
+    }
+
+    public void installPrinterDriver(Context context) {
+        try {
+            installBusybox(context);
+            install3020driver(context);
+            //installBootAnimation(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 安装Printer Driver
+    public static void install3020driver(Context context) throws Exception {
+        // 将printer.tar.gz解包
+        // 1. re
+        remount();
+
+        // 读取busybox 写入/system/bin/busybox
+        int count = -1;
+        // This will fail if the user didn't allow the permissions
+        File destDir = context.getCacheDir();
+        count = new AssetCopier(context)
+                .withFileScanning()
+                .copy("system/printer", destDir);
+
+        ShellUtils.CommandResult cr;
+        String cmd = "busybox tar xvf " + context.getCacheDir() + "/phaser_3020_driver.tgz -C /";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+    }
+
+    /**
+     * 安装busybox
+     * @return
+     */
+    public static boolean installBusybox(Context context) throws Exception {
+        boolean ret = false;
+        // 将printer.tar.gz解包
+        // 1. re
+        remount();
+
+        // 读取busybox 写入/system/bin/busybox
+        int count = -1;
+        // This will fail if the user didn't allow the permissions
+        File destDir = context.getCacheDir();
+        count = new AssetCopier(context)
+                .withFileScanning()
+                .copy("system/xbin", destDir);
+
+        ShellUtils.CommandResult cr;
+        String cmd = "cp " + context.getCacheDir() + "/busybox" + " /system/bin";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+
+        cmd = "chmod 777 /system/bin/busybox";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+
+        return ret;
+    }
+
+    /**
+     * return
+     * @return
+     */
+    public static void remount() throws Exception {
+        // 将printer.tar.gz解包
+        // 1. re
+        ShellUtils.CommandResult cr;
+        if (!ShellUtils.checkRootPermission()) {
+            throw new Exception("无root权限");
+        }
+
+        cr = ShellUtils.execCommand("mount -o remount /system", true);
+        if(cr.result != 0) {
+            throw new Exception("mount -o remount /system fail");
+        }
+
+        cr = ShellUtils.execCommand("mount -o remount /", true);
+        if(cr.result != 0) {
+            throw new Exception("mount -o remount /fail");
+        }
     }
 }
 

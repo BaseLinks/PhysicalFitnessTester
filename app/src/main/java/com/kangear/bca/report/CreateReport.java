@@ -25,13 +25,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cn.trinea.android.common.util.PreferencesUtils;
-
 /**
  * 不处理数据，只接收BodyComposition对象
  * 可以接收不同的Coordinate对象
  */
-public class Report20171107 {
+public class CreateReport {
  	private static final boolean DEBUG = true;
 	private static final String LOG_TAG = "Report20171107";
 	private static final String TAG = "Report20171107";
@@ -51,13 +49,13 @@ public class Report20171107 {
     /**
      * 单例模式: http://coolshell.cn/articles/265.html
      */
-    private volatile static Report20171107 singleton = null;
+    private volatile static CreateReport singleton = null;
 
-	public static Report20171107 getInstance(Context context)   {
+	public static CreateReport getInstance(Context context)   {
         if (singleton== null)  {
-            synchronized (Report20171107.class) {
+            synchronized (CreateReport.class) {
                 if (singleton== null)  {
-                    singleton= new Report20171107(context);
+                    singleton= new CreateReport(context);
                 }
             }
         }
@@ -72,7 +70,7 @@ public class Report20171107 {
 		mBackground = value;
 	}
 
-    private Report20171107(Context context) {
+    private CreateReport(Context context) {
         this.mContext = context;
         if (mContext == null) {
         	Log.e(LOG_TAG, "mContext can not be null!");
