@@ -29,10 +29,6 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.kangear.bca.report.MyIntentService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
             android:name="com.kangear.bca.report.BcaService"
             android:enabled="true"
             android:exported="false">
