@@ -25,14 +25,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.kangear.bca.Coordinate.VALUE_72_X_1MM;
+
 /**
  * 不处理数据，只接收BodyComposition对象
  * 可以接收不同的Coordinate对象
  */
 public class CreateReport {
  	private static final boolean DEBUG = true;
-	private static final String LOG_TAG = "Report20171107";
-	private static final String TAG = "Report20171107";
+	private static final String LOG_TAG = "CreateReport";
+	private static final String TAG = "CreateReport";
 	private static Context mContext =  null;
 
 	private static final int TEXT_SIZE_DEF     = 9;
@@ -326,8 +328,9 @@ public class CreateReport {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			float tmpFloat = bc.脂肪调节.getCur() + bc.肌肉调节.getCur();
+			// 显示规则：大于[+],其他显示[-]
 			canvas.drawText(
-                    String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
+                    String.format(((tmpFloat > 0) ? "+" : "-") + FLOAT_1_FORMAT, ((tmpFloat < 0) ? -tmpFloat : tmpFloat)),
 					mCd.体重_调节量.getXMils() / 1000,
 					mCd.体重_调节量.getYMils() / 1000,
 					paint);
@@ -351,8 +354,9 @@ public class CreateReport {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			tmpFloat = bc.脂肪调节.getCur();
+			// 显示规则：_大于_0显示[+],其他显示[-]
 			canvas.drawText(
-					String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
+					String.format(((tmpFloat > 0) ? "+" : "-") + FLOAT_1_FORMAT, ((tmpFloat < 0) ? -tmpFloat : tmpFloat)),
 					mCd.身体脂肪量_调节量.getXMils() / 1000,
 					mCd.身体脂肪量_调节量.getYMils() / 1000,
 					paint);
@@ -377,8 +381,9 @@ public class CreateReport {
 			paint.setColor(Color.BLACK);
 			paint.setTextAlign(Paint.Align.CENTER);
 			tmpFloat = bc.肌肉调节.getCur();
+			// 显示规则：_大于等于_0显示[+],其他显示[-]
 			canvas.drawText(
-					String.format(((tmpFloat < 0) ? "" : "+") + FLOAT_1_FORMAT, tmpFloat),
+					String.format(((tmpFloat >= 0) ? "+" : "-") + FLOAT_1_FORMAT, ((tmpFloat < 0) ? -tmpFloat : tmpFloat)),
 					mCd.肌肉量_调节量.getXMils() / 1000,
 					mCd.肌肉量_调节量.getYMils() / 1000,
 					paint);
@@ -802,17 +807,51 @@ public class CreateReport {
 		// 设置最大值
 		xPos = xPos > 体型分析_X_MAX ? 体型分析_X_MAX : xPos;
 		yPos = yPos > 体型分析_Y_MAX ? 体型分析_Y_MAX : yPos;
-		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
 
-        xPos = mCd.ORIGIN_X + xPos * mCd.SINGLE_RECT_WIDTH + mCd.SINGLE_RECT_WIDTH / 2;
-        yPos = mCd.ORIGIN_Y - yPos * mCd.SINGLE_RECT_HEIGHT - mCd.SINGLE_RECT_HEIGHT / 2;
+		// 将x y向下取整数
+		xPos = (int)xPos;
+		yPos = (int)yPos;
+
+		Log.i(LOG_TAG, "after  xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
+		String xPosStr = String.format(FLOAT_1_FORMAT, xPos);
+		String yPosStr = String.format(FLOAT_1_FORMAT, yPos);
+
+		// xPos yPos 只找小方格原点，不找对应的中心了
+        xPos = mCd.ORIGIN_X + xPos * mCd.SINGLE_RECT_WIDTH; // + mCd.SINGLE_RECT_WIDTH / 2;
+		// yPos + 1 : 是为了找出该当前表格的左上角，因为绘图是从左上角开始的
+        yPos = mCd.ORIGIN_Y - (yPos + 1) * mCd.SINGLE_RECT_HEIGHT; // - mCd.SINGLE_RECT_HEIGHT / 2;
+		Log.i(LOG_TAG, "after2  xPos: " + xPos + " yPos: " + yPos);
 
         /*
          * 坐标由iso mm转换为英寸point
          */
 		textPaint.setTextSize(TEXT_SIZE_体型分析);
-        canvas.drawText(TEXT_体型分析, (float)(xPos * 2836 - 10) / 1000, (float)(yPos * 2836 + 10) / 1000, textPaint);
-    }
+        //canvas.drawText(TEXT_体型分析, (float)((xPos - TEXT_SIZE_体型分析/2) * VALUE_72_X_1MM) / 1000, (float)(yPos * VALUE_72_X_1MM + TEXT_SIZE_体型分析 / 2) / 1000, textPaint);
+		//textPaint.setTextSize(8);
+		//canvas.drawText("xPos: " + xPosStr + " yPos: " + yPosStr , (float)((xPos - 10) * 2836 - 10) / 1000, (float)((yPos + 10) * 2836 + 10) / 1000, textPaint);
+		//textPaint.setTextSize(TEXT_SIZE_体型分析);
+
+		textPaint.setTextSize(8);
+		canvas.drawText(
+				".",
+				(float) (xPos * VALUE_72_X_1MM / 1000),
+				(float) (yPos * VALUE_72_X_1MM / 1000),
+				textPaint);
+
+
+		textPaint.setTextSize(8);
+		canvas.drawText(
+				".",
+				(float) (Coordinate.ORIGIN_X * VALUE_72_X_1MM / 1000),
+				(float) (Coordinate.ORIGIN_Y * VALUE_72_X_1MM / 1000),
+				textPaint);
+
+		textPaint.setTextSize(TEXT_SIZE_体型分析);
+		Log.i(TAG, "Coordinate.SINGLE_RECT_HEIGHT: " + Coordinate.SINGLE_RECT_HEIGHT);
+		// yPos + 2: 属于微调，不微调会偏上
+		Position p = new Position((int)(xPos * VALUE_72_X_1MM), (int)((yPos + 2) * VALUE_72_X_1MM), (int)(Coordinate.SINGLE_RECT_WIDTH * VALUE_72_X_1MM), (int)(Coordinate.SINGLE_RECT_HEIGHT * VALUE_72_X_1MM));
+		drawMutilLineText(TEXT_体型分析, textPaint, canvas, p, Layout.Alignment.ALIGN_CENTER);
+	}
 
 	/**
 	 *
@@ -851,15 +890,12 @@ public class CreateReport {
 	}
 
 	/**
-	 *
-	 * @param bc BodyComposition对象
 	 * @param tmpStr 文本
 	 * @param textPaint 文字画笔
 	 * @param canvas 画布
 	 * @param pos 位置对象
 	 */
-	private void drawMutilLineText(BodyComposition bc,
-								   String tmpStr,
+	private void drawMutilLineText(String tmpStr,
 								   TextPaint textPaint,
 								   Canvas canvas,
 								   Position pos,
