@@ -7,8 +7,8 @@ import android.util.Log;
  */
 public class Coordinate20170504 extends Coordinate {
     private static final String TAG = "Coordinate20170504";
-    private static final int LINE1_Y = 45;
-    private static final int LINE2_Y = 53;
+    private static final int LINE1_Y = 45 - 4;
+    private static final int LINE2_Y = 53 - 3;
     private static final int COW1_X = 34;
     private static final int COW2_X = 70; //70;
     private static final int COW3_X = 110; // 110;
@@ -50,7 +50,7 @@ public class Coordinate20170504 extends Coordinate {
 
         /* 2X. 体成分结果 */
         // 21 体重
-        体成分结果_X         = 52 * VALUE_72_X_1MM;
+        体成分结果_X         = (52-1) * VALUE_72_X_1MM;
         体成分结果_X_2       = 32 * VALUE_72_X_1MM;
         体成分结果_Y_BASE    = 74 * VALUE_72_X_1MM;
         体成分结果_X_RANGE   = (int)(18 * VALUE_72_X_1MM);
@@ -74,7 +74,7 @@ public class Coordinate20170504 extends Coordinate {
         体脂肪量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 1, 20 * VALUE_72_X_1MM, 46810);
 
         /* 3X. 体成分分析 */
-        体成分分析_X = 35 * VALUE_72_X_1MM;
+        体成分分析_X = (35-1) * VALUE_72_X_1MM;
         体成分分析_Y_BASE = 138 * VALUE_72_X_1MM;
         体成分分析_Y_RANGE = (int)(9.5 * VALUE_72_X_1MM);
 
@@ -418,11 +418,11 @@ public class Coordinate20170504 extends Coordinate {
         // 95.身体年龄
         身体年龄 = new Position(
                 174 * VALUE_72_X_1MM,
-                54 * VALUE_72_X_1MM,
+                (54-2) * VALUE_72_X_1MM,
                 12 * VALUE_72_X_1MM, 46810);
 
         // 10x.健康评估
-        健康评估 = new Position(174 * VALUE_72_X_1MM, 45 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
+        健康评估 = new Position(174 * VALUE_72_X_1MM, (45-2) * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
 
         // 11x.水肿分析
         水肿分析_身体水分率 = new Position(-100 * VALUE_72_X_1MM, -100 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);

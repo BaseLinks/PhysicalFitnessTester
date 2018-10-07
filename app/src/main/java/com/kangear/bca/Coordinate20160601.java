@@ -81,7 +81,7 @@ public class Coordinate20160601 extends Coordinate {
         体脂肪量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
 
         /* 3X. 体成分分析 */
-        体成分分析_X = 35 * VALUE_72_X_1MM;
+        体成分分析_X = (int)((35-0.5) * VALUE_72_X_1MM);
         体成分分析_Y_BASE = 140 * VALUE_72_X_1MM;
         体成分分析_Y_RANGE = (int)(9 * VALUE_72_X_1MM);
 
@@ -229,7 +229,7 @@ public class Coordinate20160601 extends Coordinate {
         /* 7x 节段电阻抗（深度科研、科研数据） */
         int 节段电阻抗_X_POS_BASE = 105 * VALUE_72_X_1MM;
         int 节段电阻抗_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
-        int 节段电阻抗_Y_POS_BASE = 264 * VALUE_72_X_1MM;
+        int 节段电阻抗_Y_POS_BASE = (264-1) * VALUE_72_X_1MM;
         int 节段电阻抗_Y_POS_RANGE = (int) (4 * VALUE_72_X_1MM);
         // 71.频率
         频率_5k = new Position(
