@@ -316,11 +316,11 @@ public class BcaManager {
 			BodyComposition bc = new BodyComposition(pureData);
 			// 3. 生成PDF
 			CreateReport report = CreateReport.getInstance(mContext);
-			report.setBackground(true);
+			//report.setBackground(true);
 			String pdf = report.createPdf(bc);
 			Log.i(TAG, "PDF: " + pdf);
 			// 5. 打印
-			// mPrinter.printPdf(mContext.getCacheDir().getAbsolutePath() + File.separator + "test.raster", pdf);
+			mPrinter.printPdf(mContext.getCacheDir().getAbsolutePath() + File.separator + "test.raster", pdf);
 		} catch (Protocol.ProtocalExcption protocalExcption) {
 			protocalExcption.printStackTrace();
 		} catch (Exception e) {
