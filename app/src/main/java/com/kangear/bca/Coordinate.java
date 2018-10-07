@@ -20,15 +20,15 @@ public class Coordinate {
     /** 在A4纸上方块宽度 重新排版时要改这里 */
     public static double SINGLE_RECT_WIDTH = 66/4.0; //16.8;
     /** 在A4纸上方块高度 */
-    public static double SINGLE_RECT_HEIGHT = 70/5.0; //13.4;
+    public static double SINGLE_RECT_HEIGHT = 68.6/5.0; //13.4;
     /* 原点坐标 下面的交叉点为「体型分析」原点 */
     /**
      * |
      * |
      * |_________
      */
-    public static double ORIGIN_X = 132 - 3;// 132 - 3; //133;
-    public static double ORIGIN_Y = 246 ;//138.5 + 2; //146;
+    public static double ORIGIN_X = 132;// 132 - 3; //133;
+    public static double ORIGIN_Y = 239 + 4 ;//138.5 + 2; //146;
 
     /** 姓名 position: 841mm x 1189mm (33.11" x 46.81") */
     public static Position 姓名 =
