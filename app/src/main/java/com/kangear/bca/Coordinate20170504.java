@@ -14,6 +14,14 @@ public class Coordinate20170504 extends Coordinate {
     private static final int COW3_X = 110; // 110;
 
     static {
+        // 字体大小
+        TEXT_SIZE_DEF     = 9;
+        TEXT_SIZE_体成分结果 = 8;
+        TEXT_SIZE_健康评估 = 16;
+        TEXT_SIZE_体型分析 = 20;
+        TEXT_SIZE_身体年龄 = TEXT_SIZE_健康评估;
+
+        // 背景
         BACKGROUND = "bg_20170504.jpg";
 
         // n.n 体型分析
@@ -86,9 +94,9 @@ public class Coordinate20170504 extends Coordinate {
         体成分分析_内脏脂肪 = new Position((132 - 1)* VALUE_72_X_1MM, 270 * VALUE_72_X_1MM,  33110, 46810);
 
         // 表格尺寸
-        体成分分析_TOTAL_LENGTH      = 89;
-        内脏指数_TOTAL_LENGTH        = 66; //89;
-        体成分分析_SECOND_START_MM   = 27f;
+        体成分分析_TOTAL_LENGTH      = 89 - 4;
+        内脏指数_TOTAL_LENGTH        = 66 - 1; //89;
+        体成分分析_SECOND_START_MM   = 27.5f;
         体成分分析_SECOND_START_PX   = 体成分分析_SECOND_START_MM * VALUE_72_X_1MM;
         体成分分析_THIRD_START_MM    = 49f;
         体成分分析_THIRD_START_PX    = 体成分分析_THIRD_START_MM * VALUE_72_X_1MM;
@@ -450,7 +458,7 @@ public class Coordinate20170504 extends Coordinate {
     public float getNeizangProgress(BodyComposition bc) {
         Log.i(TAG, "getNeizangProgress");
         if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
-            return (float) (65.5 / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
+            return (float) (内脏指数_TOTAL_LENGTH / 17 * bc.内脏脂肪指数.getCur() * VALUE_72_X_1MM / 1000);
 		float[] P_temp = new float[2];
 		float cur = 0, min = 0, max = 0;
 		cur = bc.内脏脂肪指数.getCur(); // 10
