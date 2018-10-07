@@ -684,26 +684,6 @@ public class Printer {
         return ret;
     }
 
-    /*隐藏虚拟按键*/
-    public static boolean hideNavigation(Context context){
-        boolean ishide;
-        try
-        {
-            String command;
-            command = "PPD=/etc/cups/ppd/Phaser-3020.ppd service call activity 42 s16 com.android.systemui";
-            Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
-            proc.waitFor();
-            ishide = true;
-        }
-        catch(Exception ex)
-        {
-            Toast.makeText(context.getApplicationContext(), ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
-            ishide = false;
-        }
-        return ishide;
-    }
-
     /**
      * 将PDF转换成打印机语言
      * @param rasterPath 目标文件路径
