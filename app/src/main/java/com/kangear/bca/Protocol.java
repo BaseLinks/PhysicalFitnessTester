@@ -736,6 +736,12 @@ public class Protocol implements IProtocol {
         }
         length = msg[start] & 0xFF;
 
+        // 强制判断E1，不是这个长度则不工作，因为要带FE，不带FE的则不工作，只能通过长度来限制
+        if (length != 0xE1) {
+            Log.e(TAG, "parsePackage: response.length error");
+            throw new ProtocalExcption("parsePackage: response.length error");
+        }
+
 //        // 3. state
 //        start = MSG_STATE_START;
 //        end = start + MSG_STATE_LENGTH;
