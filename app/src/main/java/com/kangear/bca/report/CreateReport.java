@@ -25,6 +25,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.kangear.bca.Coordinate.TEXT_SIZE_DEF;
+import static com.kangear.bca.Coordinate.TEXT_SIZE_体型分析;
+import static com.kangear.bca.Coordinate.TEXT_SIZE_体成分结果;
+import static com.kangear.bca.Coordinate.TEXT_SIZE_健康评估;
+import static com.kangear.bca.Coordinate.TEXT_SIZE_身体年龄;
 import static com.kangear.bca.Coordinate.VALUE_72_X_1MM;
 
 /**
@@ -37,10 +42,6 @@ public class CreateReport {
 	private static final String TAG = "CreateReport";
 	private static Context mContext =  null;
 
-	private static final int TEXT_SIZE_DEF     = 9;
-    private static final int TEXT_SIZE_体成分结果 = 8;
-	private static final int TEXT_SIZE_健康评估 = 16;
-	private static final int TEXT_SIZE_体型分析 = 20;
 	private static final String TEXT_TICK    = "√";
 	private static final String TEXT_体型分析 = "✔";
 
@@ -147,7 +148,7 @@ public class CreateReport {
     }
 
     private void drawJindutiao(Paint paint, TextPaint textPaint, Canvas canvas, BodyComposition.Third t, Position p, Paint defPaint) {
-		float STROCK = 3f;
+		float STROCK = 5f;
 		textPaint.setTextSize(TEXT_SIZE_DEF); // 还原字体大小
 		paint.setColor(Color.BLACK);
 		paint.setStrokeWidth(STROCK);
@@ -291,7 +292,7 @@ public class CreateReport {
 
             /* 37. 内脏脂肪 */
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(3f);
+            paint.setStrokeWidth(5f);
             float xPos = mCd.体成分分析_内脏脂肪.getXMils() / 1000 + mCd.getNeizangProgress(bc);
             canvas.drawLine(
 					mCd.体成分分析_内脏脂肪.getXMils() / 1000,
@@ -602,7 +603,9 @@ public class CreateReport {
 			// 95.身体年龄 okay
 			tmpStr = String.format(FLOAT_0_FORMAT, bc.身体年龄.getCur());
 			bcp = mCd.身体年龄;
+            textPaint.setTextSize(TEXT_SIZE_身体年龄);
 			drawLineText(tmpStr, textPaint, canvas, bcp);
+            textPaint.setTextSize(defPaint.getTextSize());
 
             // 10x.体型分析
             drawShapeAnalysis(bc, textPaint, canvas);
@@ -694,13 +697,13 @@ public class CreateReport {
         int oldColor = Color.BLACK;
         // 得出每一段长度
         final float RANGE_1_START = bp.getXMils() / 1000;
-        final float RANGE_2_START = bp.getXMils() / 1000 + mCd.体成分分析_SECOND_START_PX / 1000;
-        final float RANGE_3_START = bp.getXMils() / 1000 + mCd.体成分分析_THIRD_START_PX / 1000;
+        final float RANGE_2_START = bp.getXMils() / 1000 + Coordinate.体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_3_START = bp.getXMils() / 1000 + Coordinate.体成分分析_THIRD_START_PX / 1000;
 
         // 死值
-        final float RANGE_1_LENGTH = mCd.体成分分析_SECOND_START_PX / 1000;
-        final float RANGE_2_LENGTH = mCd.体成分分析_THIRD_START_PX / 1000;
-        final float RANGE_3_LENGTH = mCd.体成分分析_TOTAL_LENGTH_PX / 1000;
+        final float RANGE_1_LENGTH = Coordinate.体成分分析_SECOND_START_PX / 1000;
+        final float RANGE_2_LENGTH = Coordinate.体成分分析_THIRD_START_PX / 1000;
+        final float RANGE_3_LENGTH = Coordinate.体成分分析_TOTAL_LENGTH_PX / 1000;
 
         float RANGE_1 = xPos - RANGE_1_START;
         float RANGE_2 = xPos - RANGE_2_START;
