@@ -6,8 +6,8 @@ import android.text.TextPaint;
 public class Coordinate {
     // 	1000mm Size in Points
     public static final int VALUE_72_X_1MM = 2836; // =33.37in  =1000 mm
-    static int LINE1_Y = 38;
-    static int LINE2_Y = 47;
+    static int LINE1_Y = 40;
+    static int LINE2_Y = 48;
     static int COW1_X = 26;
     static int COW2_X = 60; //70;
     static int COW3_X = 100; // 110;
@@ -58,7 +58,7 @@ public class Coordinate {
     // 21 体重
     public static int 体成分结果_X = 30 * VALUE_72_X_1MM;
     public static int 体成分结果_X_2 = 14 * VALUE_72_X_1MM;
-    public static int 体成分结果_Y_BASE = 65 * VALUE_72_X_1MM;
+    public static int 体成分结果_Y_BASE = 66 * VALUE_72_X_1MM;
     public static int 体成分结果_X_RANGE = (int)(22 * VALUE_72_X_1MM);
     public static int 体成分结果_Y_RANGE = (int)(6.1 * VALUE_72_X_1MM);
     public static Position 体重2 =
@@ -80,17 +80,17 @@ public class Coordinate {
             new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 1, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
     // 27 蛋白质量
     public static Position 蛋白质量 =
-            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 2, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 20 * VALUE_72_X_1MM, 46810);
+            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 2, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
     // 28 无机盐量
     public static Position 无机盐量 =
-            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 3, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
+            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 3, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 20 * VALUE_72_X_1MM, 46810);
     // 29 体脂肪量
     public static Position 体脂肪量 =
-            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 1, 20 * VALUE_72_X_1MM, 46810);
+            new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 4, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 2, 20 * VALUE_72_X_1MM, 46810);
 
     /* 3X. 体成分分析 */
     public static int 体成分分析_X = 33 * VALUE_72_X_1MM;
-    public static int 体成分分析_Y_BASE = 217 * VALUE_72_X_1MM;
+    public static int 体成分分析_Y_BASE = 218 * VALUE_72_X_1MM;
     public static int 体成分分析_Y_RANGE = (int)(5.4 * VALUE_72_X_1MM);
     // 32 体重
     public static Position 体成分分析_体重 =
@@ -178,9 +178,9 @@ public class Coordinate {
     // 51 左上肢肌肉含量
     static int 节段肌肉_X_POS_BASE = 30 * VALUE_72_X_1MM;
     static int 节段肌肉_X_POS_RANGE = (int) (70 * VALUE_72_X_1MM);
-    static int 节段肌肉_Y_POS_BASE = 163 * VALUE_72_X_1MM;
-    static int 节段肌肉_Y_POS_RANGE_LITTLE = (int) (4.5 * VALUE_72_X_1MM);
-    static int 节段肌肉_Y_POS_RANGE_LARGE  = (int) (13 * VALUE_72_X_1MM);
+    static int 节段肌肉_Y_POS_BASE = 165 * VALUE_72_X_1MM;
+    static int 节段肌肉_Y_POS_RANGE_LITTLE = (int) (4.6 * VALUE_72_X_1MM);
+    static int 节段肌肉_Y_POS_RANGE_LARGE  = (int) (13.2 * VALUE_72_X_1MM);
     public static Position 左上肢肌肉含量 =
             new Position(
                     节段肌肉_X_POS_BASE + 0 * 节段肌肉_X_POS_RANGE,
@@ -252,8 +252,8 @@ public class Coordinate {
     /* 7x 节段电阻抗（深度科研、科研数据） */
     static int 节段电阻抗_X_POS_BASE = 18 * VALUE_72_X_1MM;
     static int 节段电阻抗_X_POS_RANGE = (int) (18 * VALUE_72_X_1MM);
-    static int 节段电阻抗_Y_POS_BASE = 269 * VALUE_72_X_1MM;
-    static int 节段电阻抗_Y_POS_RANGE = (int) (5.5 * VALUE_72_X_1MM);
+    static int 节段电阻抗_Y_POS_BASE = 270 * VALUE_72_X_1MM;
+    static int 节段电阻抗_Y_POS_RANGE = (int) (6.8 * VALUE_72_X_1MM);
     // 71.频率
     public static Position 频率_5k =
             new Position(
@@ -372,7 +372,7 @@ public class Coordinate {
     // 81.体重
     static int 肥胖评估_X_POS_BASE = 29 * VALUE_72_X_1MM;
     static int 肥胖评估_X_POS_RANGE = (int) (11.8 * VALUE_72_X_1MM);
-    static int 肥胖评估_Y_POS_BASE = 117 * VALUE_72_X_1MM;
+    static int 肥胖评估_Y_POS_BASE = 118 * VALUE_72_X_1MM;
     static int 肥胖评估_Y_POS_RANGE = (int) (11 * VALUE_72_X_1MM);
     // 71.频率
     public static Position 肥胖评估_体重_不足 =
@@ -483,7 +483,7 @@ public class Coordinate {
                     12 * VALUE_72_X_1MM, 46810);
     // 95.身体年龄
     public static Position 身体年龄 =
-            new Position(157 * VALUE_72_X_1MM, 277 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
+            new Position(157 * VALUE_72_X_1MM, 279 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
     // 10x.健康评估
     public static Position 健康评估 =
             new Position(157 * VALUE_72_X_1MM, 269 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
@@ -507,37 +507,6 @@ public class Coordinate {
             new Position(108 * VALUE_72_X_1MM, (int)(118 + 1*11.5) * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
     public static Position 水肿分析_细胞外液_浮肿 =
             new Position(108 * VALUE_72_X_1MM, (int)(118 + 2*11.5) * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
-
-
-    /**
-     * 体成分分析项目表
-     * 体重
-     */
-    public static final int 项目_体重      = 1;
-    /**
-     * BMI 身体质量
-     */
-    public static final int 项目_身体质量   = 2;
-    /**
-     * 体脂肪率
-     */
-    public static final int 项目_体脂肪率   = 3;
-    /**
-     * 体脂肪量
-     */
-    public static final int 项目_体脂肪量   = 4;
-    /**
-     * 肌肉量
-     */
-    public static final int 项目_肌肉量    = 5;
-    /**
-     * 身体水分
-     */
-    public static final int 项目_身体水分  = 6;
-    /**
-     * 内脏脂肪
-     */
-    public static final int 项目_内脏脂肪  = 7;
 
     public static float 体成分分析_TOTAL_LENGTH = 89 - 2;
     public static float 内脏指数_TOTAL_LENGTH = 66 - 2; //89;
@@ -598,46 +567,7 @@ public class Coordinate {
      * @return 进度条实际长度，单位Point
      */
     public float getNeizangProgress(BodyComposition bc) {
-        if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
-            return (float) (内脏指数_TOTAL_LENGTH / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
-//		float[] P_temp = new float[2];
-//		float cur = 0, min = 0, max = 0;
-//		cur = bc.内脏脂肪_CUR / 10f; // 10
-//		min = bc.内脏脂肪_MIN / 10f; // 最小1
-//		max = bc.内脏脂肪_MAX / 10f; // 最大17
-//		final float NORMAL_START = 0f;
-//		final float TOO_HIGH_START = 10f;
-//		final float HIGH_START = 14f;
-//		final float HIGH_END   = 17f;
-//
-//		final float NORMAL_START_MM = 0f;
-//		final float TOO_HIGH_START_MM = 39.5f; //38.3f;
-//		final float HIGH_START_MM = 34.5f; // 53.5f;
-//
-//		final float NORMAL_LENGTH_MM = 39.5f;
-//		final float TOO_HIGH_LENGTH_MM = 15.8f;
-//		final float HIGH_LENGTH_MM = 7; //36f;
-//		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
-//
-//		float base = 0f;
-//		float r = 0.1f; // 相对长度单位mm
-//		if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
-//			base = NORMAL_START_MM;
-//			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
-//		} else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
-//			base = TOO_HIGH_START_MM;
-//			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
-//		} else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
-//			base = HIGH_START_MM;
-//			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
-//		} else if (cur >= HIGH_END) {
-//			r = TOTAL_LENGTH_MM;
-//		}
-//
-//		Log.i(LOG_TAG, "r: " + r);
-
-//		return r * 2836 / 1000;
-        return 0;
+        return (内脏指数_TOTAL_LENGTH / 17 * bc.内脏脂肪指数.getCur() * VALUE_72_X_1MM / 1000);
     }
 
     /**
