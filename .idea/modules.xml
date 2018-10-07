@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" />
       <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" filepath="$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common-debug/common-debug.iml" filepath="$PROJECT_DIR$/common-debug/common-debug.iml" />
       <module fileurl="file://$PROJECT_DIR$/d2xx/d2xx.iml" filepath="$PROJECT_DIR$/d2xx/d2xx.iml" />

@@ -8,18 +8,29 @@ should evaluate whether these are still needed in your project and if
 so manually move them:
 
 * Android.mk
-* MODULE_LICENSE_APACHE2
-* NOTICE
-* _index.html
+* AndroidManifest_test.xml
+* CleanSpec.mk
+* lib/
+* lib/mapapi/
+* lib/mapapi/com/
+* lib/mapapi/com/android/
+* lib/mapapi/com/android/bluetooth/
+* lib/mapapi/com/android/bluetooth/mapapi/
+* lib/mapapi/com/android/bluetooth/mapapi/BluetoothMapContract.java
+* lib/mapapi/com/android/bluetooth/mapapi/BluetoothMapEmailProvider.java
+* tests/
+* tests/Android.mk
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => home/src/main/AndroidManifest.xml
-* res/ => home/src/main/res/
-* src/ => home/src/main/java/
+* AndroidManifest.xml => bluetooth/src/main/AndroidManifest.xml
+* jni/ => bluetooth/src/main/jni/
+* res/ => bluetooth/src/main/res/
+* src/ => bluetooth/src/main/java/
+* tests/src/ => bluetooth/src/androidTest/java/
 
 Next Steps:
 -----------

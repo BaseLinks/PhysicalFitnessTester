@@ -48,6 +48,6 @@ dependencies {
     implementation project(':trineaandroidcommon-debug')
     implementation project(':d2xx')
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation project(':javaapk.com-comassistant')
     compile 'com.github.flipagram:android-assetcopier:0.1.1'
+    implementation project(':javaapk.com-comassistant')
 }
