@@ -86,7 +86,7 @@ public class BodyComposition {
     public static final Third 细胞外液含量  = new Third("细胞外液含量", 160, 162, 164, 2, 1, UNIT_KG);
     public static final Third 细胞内液含量  = new Third("细胞内液含量", 166, 168, 170, 2, 1, UNIT_KG);
 
-    public static final Third BMI        = new Third("BMI", 178, 180, 182, 2, 0, UNIT_EMPTY);
+    public static final Third BMI        = new Third("BMI", 178, 180, 182, 2, 1, UNIT_EMPTY);
     public static final Third 脂肪率      = new Third("脂肪率", 184, 186, 188, 2, 1, UNIT_PERCENT);
 
     public static final Third 评分        = new Third("评分", 198,2, 1, UNIT_SCORE);
