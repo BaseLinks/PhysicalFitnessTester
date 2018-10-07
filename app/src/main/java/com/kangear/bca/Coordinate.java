@@ -12,6 +12,13 @@ public class Coordinate {
     static int COW2_X = 60; //70;
     static int COW3_X = 100; // 110;
 
+    // 身体年龄
+    public static int TEXT_SIZE_DEF     = 9;
+    public static int TEXT_SIZE_体成分结果 = 8;
+    public static int TEXT_SIZE_健康评估 = 16;
+    public static int TEXT_SIZE_体型分析 = 20;
+    public static int TEXT_SIZE_身体年龄 = TEXT_SIZE_健康评估;
+
     // 背景
     public static String BACKGROUND = "bg_20170504.jpg";
     // 阶段标准显示中文
@@ -532,11 +539,11 @@ public class Coordinate {
      */
     public static final int 项目_内脏脂肪  = 7;
 
-    public static int 体成分分析_TOTAL_LENGTH = 89;
-    public static int 内脏指数_TOTAL_LENGTH = 66; //89;
-    public static float 体成分分析_SECOND_START_MM = 27f;
+    public static float 体成分分析_TOTAL_LENGTH = 89 - 2;
+    public static float 内脏指数_TOTAL_LENGTH = 66 - 2; //89;
+    public static float 体成分分析_SECOND_START_MM = 27.5f;
     public static float 体成分分析_SECOND_START_PX = 体成分分析_SECOND_START_MM * VALUE_72_X_1MM;
-    public static float 体成分分析_THIRD_START_MM = 49f;
+    public static float 体成分分析_THIRD_START_MM = 50f;
     public static float 体成分分析_THIRD_START_PX = 体成分分析_THIRD_START_MM * VALUE_72_X_1MM;
     public static float 体成分分析_TOTAL_LENGTH_PX = 体成分分析_TOTAL_LENGTH * VALUE_72_X_1MM;
 
@@ -592,7 +599,7 @@ public class Coordinate {
      */
     public float getNeizangProgress(BodyComposition bc) {
         if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
-            return (float) (65.5 / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
+            return (float) (内脏指数_TOTAL_LENGTH / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
 //		float[] P_temp = new float[2];
 //		float cur = 0, min = 0, max = 0;
 //		cur = bc.内脏脂肪_CUR / 10f; // 10
