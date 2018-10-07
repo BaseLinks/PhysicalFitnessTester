@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="595px"
     android:layout_height="842px"
-    >
+    android:background="@drawable/pdf_20180119">
     <!--android:background="@drawable/pdf_20180119"-->
 
     <include
-        android:visibility="invisible"
         android:id="@+id/history_view"
         layout="@layout/pdf_20180115_history"
         android:layout_width="46dp"
         android:layout_height="133dp"
         android:layout_marginBottom="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/history_guidline"
         app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/history_guidline" />
@@ -162,7 +162,6 @@
             app:layout_constraintTop_toBottomOf="@+id/company_textview" />
 
     </android.support.constraint.ConstraintLayout>
-
 
 
     <TextView
@@ -731,9 +730,9 @@
     <include
         android:id="@+id/danbaizhi_progressbar"
         layout="@layout/pdf_yingyangpinggu_progress"
+        android:layout_width="0dp"
         android:layout_height="3px"
         android:layout_marginTop="1dp"
-        android:layout_width="0dp"
         app:layout_constraintEnd_toStartOf="@+id/yingyangpinggu_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/yingyangpinggu_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/danbaizhi_guidline" />
@@ -741,9 +740,9 @@
     <include
         android:id="@+id/wujiyan_progressbar"
         layout="@layout/pdf_yingyangpinggu_progress"
+        android:layout_width="0dp"
         android:layout_height="3px"
         android:layout_marginTop="1dp"
-        android:layout_width="0dp"
         app:layout_constraintEnd_toStartOf="@+id/yingyangpinggu_end_guidline"
         app:layout_constraintStart_toStartOf="@+id/yingyangpinggu_start_guidline"
         app:layout_constraintTop_toTopOf="@+id/wujiyan_guidline" />
