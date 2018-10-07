@@ -18,17 +18,17 @@ public class Coordinate20170504 extends Coordinate {
 
         // n.n 体型分析
         /* 在A4纸上方块宽度 重新排版时要改这里 */
-        SINGLE_RECT_WIDTH = 66/4; //16.8;
+        SINGLE_RECT_WIDTH = 66/4.0; //16.8;
         /* 在A4纸上方块高度 */
-        SINGLE_RECT_HEIGHT = 70/5; //13.4;
+        SINGLE_RECT_HEIGHT = 69/5.0; //13.4;
         /* 原点坐标 下面的交叉点为「体型分析」原点 */
         /*
          * |
          * |
          * |_________
          */
-        ORIGIN_X = 132 - 10; //133;
-        ORIGIN_Y = 138.5 + 8; //146;
+        ORIGIN_X = 130; //133;
+        ORIGIN_Y = 139; //146;
 
         /* 第一行：姓名 测试日期 */
         姓名 = new Position(COW1_X * VALUE_72_X_1MM, LINE1_Y * VALUE_72_X_1MM, 20 * VALUE_72_X_1MM, 46810);

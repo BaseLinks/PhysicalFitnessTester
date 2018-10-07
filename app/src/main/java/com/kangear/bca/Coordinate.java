@@ -4,7 +4,8 @@ import android.graphics.Canvas;
 import android.text.TextPaint;
 
 public class Coordinate {
-    public static final int VALUE_72_X_1MM = 2836;
+    // 	1000mm Size in Points
+    public static final int VALUE_72_X_1MM = 2836; // =33.37in  =1000 mm
     static int LINE1_Y = 38;
     static int LINE2_Y = 47;
     static int COW1_X = 26;
@@ -17,9 +18,9 @@ public class Coordinate {
     public static boolean isShowJieduanChinese = false;
 
     /** 在A4纸上方块宽度 重新排版时要改这里 */
-    public static double SINGLE_RECT_WIDTH = 66/4; //16.8;
+    public static double SINGLE_RECT_WIDTH = 66/4.0; //16.8;
     /** 在A4纸上方块高度 */
-    public static double SINGLE_RECT_HEIGHT = 70/5; //13.4;
+    public static double SINGLE_RECT_HEIGHT = 70/5.0; //13.4;
     /* 原点坐标 下面的交叉点为「体型分析」原点 */
     /**
      * |
