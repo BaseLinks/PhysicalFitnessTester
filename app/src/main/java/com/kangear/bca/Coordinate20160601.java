@@ -16,6 +16,15 @@ public class Coordinate20160601 extends Coordinate {
     private static final int COW2_X = 90;
 
     static {
+        // 字体大小
+        // 身体年龄
+        TEXT_SIZE_DEF     = 9;
+        TEXT_SIZE_体成分结果 = 8;
+        TEXT_SIZE_健康评估 = 16;
+        TEXT_SIZE_体型分析 = 20;
+        TEXT_SIZE_身体年龄 = 8;
+
+
         BACKGROUND = "bg_20160601.jpg";
         // 阶段标准显示中文
         isShowJieduanChinese = true;
@@ -61,9 +70,9 @@ public class Coordinate20160601 extends Coordinate {
         // 24 身体总水分
         身体总水分 = new Position(体成分结果_X - 2 * VALUE_72_X_1MM, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 3, 85 * VALUE_72_X_1MM, 46810);
         // 25 细胞内液 ? 4 or 5
-        细胞内液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 0, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 5, 20 * VALUE_72_X_1MM, 46810);
+        细胞内液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 0, (int)(体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4.5), 20 * VALUE_72_X_1MM, 46810);
         // 26 细胞外液
-        细胞外液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 1, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 5, 20 * VALUE_72_X_1MM, 46810);
+        细胞外液   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 1, (int)(体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4.5), 20 * VALUE_72_X_1MM, 46810);
         // 27 蛋白质量
         蛋白质量   = new Position(体成分结果_X_2 + 体成分结果_X_RANGE * 2, 体成分结果_Y_BASE + 体成分结果_Y_RANGE * 4, 20 * VALUE_72_X_1MM, 46810);
         // 28 无机盐量
@@ -73,7 +82,7 @@ public class Coordinate20160601 extends Coordinate {
 
         /* 3X. 体成分分析 */
         体成分分析_X = 35 * VALUE_72_X_1MM;
-        体成分分析_Y_BASE = 138 * VALUE_72_X_1MM;
+        体成分分析_Y_BASE = 140 * VALUE_72_X_1MM;
         体成分分析_Y_RANGE = (int)(9 * VALUE_72_X_1MM);
 
         // 32 体重
@@ -320,9 +329,9 @@ public class Coordinate20160601 extends Coordinate {
 
         /* 8x 肥胖评估(身体情况评估) */
         // 81.体重
-        int 肥胖评估_X_POS_BASE = 153 * VALUE_72_X_1MM;
+        int 肥胖评估_X_POS_BASE = 154 * VALUE_72_X_1MM;
         int 肥胖评估_X_POS_RANGE = (int) (17 * VALUE_72_X_1MM);
-        int 肥胖评估_Y_POS_BASE = 222 * VALUE_72_X_1MM;
+        int 肥胖评估_Y_POS_BASE = 223 * VALUE_72_X_1MM;
         int 肥胖评估_Y_POS_RANGE = (int) (8 * VALUE_72_X_1MM);
         // 71.频率
         肥胖评估_体重_不足 = new Position(
@@ -374,10 +383,15 @@ public class Coordinate20160601 extends Coordinate {
 
         /* 9x 营养评估 */
         // 91.蛋白质
-        int 营养评估_X_POS_BASE = 157 * VALUE_72_X_1MM;
-        int 营养评估_X_POS_RANGE = (int) (15 * VALUE_72_X_1MM);
+        int 营养评估_X_POS_BASE = 156 * VALUE_72_X_1MM;
+        int 营养评估_X_POS_RANGE = (int) (15.5 * VALUE_72_X_1MM);
         int 营养评估_Y_POS_BASE = 166 * VALUE_72_X_1MM;
         int 营养评估_Y_POS_RANGE = (int) (8.2 * VALUE_72_X_1MM);
+
+        // 基础代谢 ...
+        int 营养评估_Y2_POS_BASE =  (int)((166 + 16.4 + 1) * VALUE_72_X_1MM);
+        int 营养评估_Y2_POS_RANGE = 营养评估_Y_POS_RANGE;
+
         营养评估_蛋白质_不足 = new Position(
                         营养评估_X_POS_BASE + 0 * 营养评估_X_POS_RANGE,
                         营养评估_Y_POS_BASE + 0 * 营养评估_Y_POS_RANGE,
@@ -407,21 +421,21 @@ public class Coordinate20160601 extends Coordinate {
         // 93.基础代谢量
         基础代谢量 = new Position(
                         营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
-                        营养评估_Y_POS_BASE + 2 * 营养评估_Y_POS_RANGE,
+                        营养评估_Y2_POS_BASE + 0 * 营养评估_Y2_POS_RANGE,
                         12 * VALUE_72_X_1MM, 46810);
         // 94.总能量消耗
         总能量消耗 = new Position(
                         营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
-                        营养评估_Y_POS_BASE + 3 * 营养评估_Y_POS_RANGE,
+                        营养评估_Y2_POS_BASE + 1 * 营养评估_Y2_POS_RANGE,
                         12 * VALUE_72_X_1MM, 46810);
         // 95.身体年龄
         身体年龄 = new Position(
                 营养评估_X_POS_BASE + 1 * 营养评估_X_POS_RANGE,
-                营养评估_Y_POS_BASE + 4 * 营养评估_Y_POS_RANGE,
+                营养评估_Y2_POS_BASE + 2 * 营养评估_Y2_POS_RANGE,
                 12 * VALUE_72_X_1MM, 46810);
 
         // 10x.健康评估
-        健康评估 = new Position(135 * VALUE_72_X_1MM, 280 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
+        健康评估 = new Position(135 * VALUE_72_X_1MM, 282 * VALUE_72_X_1MM, 18 * VALUE_72_X_1MM, 46810);
 
         // 11x.水肿分析
         水肿分析_身体水分率 = new Position(-100 * VALUE_72_X_1MM, -100 * VALUE_72_X_1MM, 12 * VALUE_72_X_1MM, 46810);
@@ -456,8 +470,6 @@ public class Coordinate20160601 extends Coordinate {
     @Override
     public float getNeizangProgress(BodyComposition bc) {
         Log.i(TAG, "getNeizangProgress");
-//        if (true) // 新版本已经符合比例了，不需要复杂的分段计算了
-//            return (float) (65.5 / 17 * bc.内脏脂肪指数.getCur() * 2836 / 1000);
 		float[] P_temp = new float[2];
 		float cur = 0, min = 0, max = 0;
 		cur = bc.内脏脂肪指数.getCur(); // 10
@@ -469,12 +481,12 @@ public class Coordinate20160601 extends Coordinate {
 		final float HIGH_END   = 17f;
 
 		final float NORMAL_START_MM = 0f;
-		final float TOO_HIGH_START_MM = 39.5f; //38.3f;
-		final float HIGH_START_MM = 34.5f; // 53.5f;
+		final float TOO_HIGH_START_MM = 38.3f;
+		final float HIGH_START_MM = 53.5f;
 
-		final float NORMAL_LENGTH_MM = 39.5f;
-		final float TOO_HIGH_LENGTH_MM = 15.8f;
-		final float HIGH_LENGTH_MM = 7; //36f;
+		final float NORMAL_LENGTH_MM = TOO_HIGH_START_MM;
+		final float TOO_HIGH_LENGTH_MM = HIGH_START_MM - TOO_HIGH_START_MM;
+		final float HIGH_LENGTH_MM = 内脏指数_TOTAL_LENGTH - HIGH_START_MM; //36f;
 		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
 
 		float base = 0f;
@@ -494,6 +506,6 @@ public class Coordinate20160601 extends Coordinate {
 
 		Log.i(TAG, "r: " + r);
 
-		return r * 2836 / 1000;
+		return r * VALUE_72_X_1MM / 1000;
     }
 }
