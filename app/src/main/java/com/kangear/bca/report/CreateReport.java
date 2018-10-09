@@ -119,6 +119,12 @@ public class CreateReport {
     public static final String FLOAT_1_FORMAT                      = "%.1f";
     public static final String FLOAT_0_FORMAT                      = "%.0f";
 
+	private void drawSimpleWithoutUnit(Paint paint, TextPaint textPaint, Canvas canvas, BodyComposition.Third t, Position p, String format) {
+		paint.setColor(Color.BLACK);
+		String tmpStr = String.format(format, t.getCur());
+		drawLineText(tmpStr, textPaint, canvas, p);
+	}
+
     private void drawSimple(Paint paint, TextPaint textPaint, Canvas canvas, BodyComposition.Third t, Position p, String format) {
 		paint.setColor(Color.BLACK);
         String tmpStr = String.format(format, t.getCur()) + t.getUnit();
@@ -226,10 +232,10 @@ public class CreateReport {
 			drawSimple(paint, textPaint, canvas, bc.姓名, mCd.姓名, FLOAT_0_FORMAT);
 
 			// 02 身高
-			drawSimple(paint, textPaint, canvas, bc.身高, mCd.身高, FLOAT_0_FORMAT);
+			drawSimpleWithoutUnit(paint, textPaint, canvas, bc.身高, mCd.身高, FLOAT_0_FORMAT);
 
 			// 03 体重
-			drawSimple(paint, textPaint, canvas, bc.体重, mCd.体重1, FLOAT_1_FORMAT);
+			drawSimpleWithoutUnit(paint, textPaint, canvas, bc.体重, mCd.体重1, FLOAT_1_FORMAT);
 
 			// 04 测试日期 (无法使用drawSimple)
 			tmpStr = String.valueOf(bc.测试时间.getUnit());
@@ -759,47 +765,29 @@ public class CreateReport {
 	private void drawShapeAnalysis(BodyComposition bc,
                                   TextPaint textPaint,
                                   Canvas canvas) {
-    	// 一些参数
-		/* 脂肪率范围宽度 */
-		float BFR_RANGE = bc.脂肪率.getMax() - bc.脂肪率.getMin(); // 150
-		/* 方块个数 */
-		float BFR_RECT_NUM = 5;
-		/* 方块宽度 */
-		float BFR_RECT_WIDTH = BFR_RANGE / BFR_RECT_NUM; //男: 50 女:100
-
-		/* BMI范围宽度 */
-		float BMI_RANGE = bc.BMI.getMax() - bc.BMI.getMin(); // 176
-		/* 方块个数 */
-		float BMI_RECT_NUM = 4;
-		/* 方块宽度 */
-		float BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
-
-//		Log.i(TAG, "BMI_RECT_WIDTH: " + BMI_RECT_WIDTH + " BFR_RECT_WIDTH: " + BFR_RECT_WIDTH + " bc.脂肪率.getMax(): " + bc.脂肪率.getMax() + " bc.脂肪率.getMin(): " + bc.脂肪率.getMin());
-
         // bmi结果
         double xPos = 0;
         double yPos = 0;
         // 比较是否出界线，如果出最小值，则迂回进来
-        if (bc.BMI.getCur() > bc.BMI.getMin()) {
-            xPos = (bc.BMI.getCur() - bc.BMI.getMin()) / BMI_RECT_WIDTH;
+        if (BodyComposition.BMI.getCur() > BodyComposition.BMI_MIN) {
+            xPos = (BodyComposition.BMI.getCur() - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
         } else
             xPos = 0;
 
-        // 如果脂肪率小于最小值，则迂回到0
-        if (bc.脂肪率.getCur() < bc.脂肪率.getMin()) {
+        if (BodyComposition.脂肪率.getCur() < BodyComposition.BFR_MIN) {
             yPos = 0;
         }
-
         // MALE
-        if ((byte)bc.性别.getCur() == BodyComposition.MALE) {
-            if (bc.脂肪率.getCur() > bc.脂肪率.getMax()) //测试值超过标准
+        if (BodyComposition.性别.getCur() == BodyComposition.MALE) {
+            yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            if (BodyComposition.脂肪率.getCur() > BodyComposition.脂肪率.getMax()) //测试值超过标准
             {
-                yPos = ((bc.脂肪率.getCur() - bc.脂肪率.getMax()) / 2 + bc.脂肪率.getMax() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
+                yPos = ((BodyComposition.脂肪率.getCur() - BodyComposition.脂肪率.getMax()) / 2 + BodyComposition.脂肪率.getMax() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             } else {
-                yPos = (bc.脂肪率.getCur() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
+                yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             }
-        } else if ((byte)bc.性别.getCur() == BodyComposition.FEMALE) { // FEMALE
-            yPos = (bc.脂肪率.getCur() - bc.脂肪率.getMin()) / BFR_RECT_WIDTH;
+        } else if (BodyComposition.性别.getCur() == BodyComposition.FEMALE) { // FEMALE
+            yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
 
 		Log.i(LOG_TAG, "before xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");
@@ -820,9 +808,9 @@ public class CreateReport {
 		String yPosStr = String.format(FLOAT_1_FORMAT, yPos);
 
 		// xPos yPos 只找小方格原点，不找对应的中心了
-        xPos = mCd.ORIGIN_X + xPos * mCd.SINGLE_RECT_WIDTH; // + mCd.SINGLE_RECT_WIDTH / 2;
+        xPos = Coordinate.ORIGIN_X + xPos * Coordinate.SINGLE_RECT_WIDTH; // + mCd.SINGLE_RECT_WIDTH / 2;
 		// yPos + 1 : 是为了找出该当前表格的左上角，因为绘图是从左上角开始的
-        yPos = mCd.ORIGIN_Y - (yPos + 1) * mCd.SINGLE_RECT_HEIGHT; // - mCd.SINGLE_RECT_HEIGHT / 2;
+        yPos = Coordinate.ORIGIN_Y - (yPos + 1) * Coordinate.SINGLE_RECT_HEIGHT; // - mCd.SINGLE_RECT_HEIGHT / 2;
 		Log.i(LOG_TAG, "after2  xPos: " + xPos + " yPos: " + yPos);
 
         /*

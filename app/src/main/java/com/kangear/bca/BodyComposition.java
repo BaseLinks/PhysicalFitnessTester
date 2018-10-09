@@ -185,6 +185,10 @@ public class BodyComposition {
             return (cur / (float)Math.pow(10, dot));
         }
 
+        public float getOriginCur() {
+            return cur;
+        }
+
         public void setCur(float cur) {
             this.cur = cur;
         }
@@ -196,6 +200,14 @@ public class BodyComposition {
         public Third setMin(int min) {
             this.min = min;
             return this;
+        }
+
+        public float getOriginMax() {
+            return max;
+        }
+
+        public float getOriginMin() {
+            return min;
         }
 
         public float getMax() {
@@ -541,13 +553,45 @@ public class BodyComposition {
 
         // 将BMI(身体质量指数)最大值，最小值微调
         // 根据旧文档旧代码确定的值
-        BMI.setMax(330); // 最大值
-        BMI.setMin(154); // 最小值
+//        BMI.setMax(330); // 最大值
+//        BMI.setMin(154); // 最小值
 
         // 将脂肪率最值微调
-        脂肪率.setMin(10 * 10);
-        脂肪率.setMax(35 * 10); // 男性
-        if ((byte)性别.getCur() == FEMALE)
-            脂肪率.setMax(60 * 10); // 女性
+//        脂肪率.setMin(10 * 10);
+//        脂肪率.setMax(35 * 10); // 男性
+//        if ((byte)性别.getCur() == FEMALE)
+//            脂肪率.setMax(60 * 10); // 女性
     }
+
+
+    /**  10x.体型分析 */
+    /** BMI下限 */
+    public static final float BMI_MIN = 15.4f;
+    /** BMI上限 */
+    public static final float BMI_MAX = 33.0f;
+    /** BMI范围宽度 */
+    public static final float BMI_RANGE = BMI_MAX - BMI_MIN; // 176
+    /** 方块个数 */
+    public static final float BMI_RECT_NUM = 4f;
+    /** 方块宽度 */
+    public static final float BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
+
+
+    /** 脂肪率结果 */
+    /** 脂肪率下限 数据哪里来的呢？ */
+    public static final float BFR_MIN = 10.0f;
+    /** 男性脂肪率上限 */
+    public static final float BFR_MAX_MALE = 35.0f;
+    /** 女性脂肪率上限 */
+    public static final float BFR_MAX_FEMALE = 60.0f;
+    /** 男性脂肪率范围宽度 */
+    public static final float BFR_RANGE_MALE = BFR_MAX_MALE - BFR_MIN; // 150
+    /** 女性脂肪率范围宽度 */
+    public static final float BFR_RANGE_FEMALE = BFR_MAX_FEMALE - BFR_MIN; // 500
+    /** 方块个数 */
+    public static final float BFR_RECT_NUM = 5f;
+    /** 方块宽度 */
+    public static final float BFR_RECT_WIDTH_MALE = BFR_RANGE_MALE / BFR_RECT_NUM; //50
+    /** 方块宽度 */
+    public static final float BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
 }
