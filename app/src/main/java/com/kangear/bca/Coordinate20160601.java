@@ -473,39 +473,44 @@ public class Coordinate20160601 extends Coordinate {
 		float[] P_temp = new float[2];
 		float cur = 0, min = 0, max = 0;
 		cur = bc.内脏脂肪指数.getCur(); // 10
-		min = bc.内脏脂肪指数.getMin(); // 最小1
+
+        // 特别要求: 如果大于9小于10，按照10算进度条
+        if (cur >= 9 && cur <= 10)
+            cur = 10;
+
+        min = bc.内脏脂肪指数.getMin(); // 最小1
 		max = bc.内脏脂肪指数.getMax(); // 最大17
-		final float NORMAL_START = 0f;
-		final float TOO_HIGH_START = 10f;
-		final float HIGH_START = 14f;
-		final float HIGH_END   = 17f;
+        final float NORMAL_START = 1f;
+        final float TOO_HIGH_START = 10f;
+        final float HIGH_START = 14f;
+        final float HIGH_END   = 17f;
 
-		final float NORMAL_START_MM = 0f;
-		final float TOO_HIGH_START_MM = 38.3f;
-		final float HIGH_START_MM = 53.5f;
+        final float NORMAL_START_MM = 0f;
+        final float TOO_HIGH_START_MM = 38.3f;
+        final float HIGH_START_MM = 53.5f;
 
-		final float NORMAL_LENGTH_MM = TOO_HIGH_START_MM;
-		final float TOO_HIGH_LENGTH_MM = HIGH_START_MM - TOO_HIGH_START_MM;
-		final float HIGH_LENGTH_MM = 内脏指数_TOTAL_LENGTH - HIGH_START_MM; //36f;
-		final float TOTAL_LENGTH_MM = 内脏指数_TOTAL_LENGTH;
+        final float NORMAL_LENGTH_MM = 38f;
+        final float TOO_HIGH_LENGTH_MM = 15.5f;
+        final float HIGH_LENGTH_MM = 36f;
+        final float TOTAL_LENGTH_MM = 体成分分析_TOTAL_LENGTH;
 
-		float base = 0f;
-		float r = 0.1f; // 相对长度单位mm
-		if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
-			base = NORMAL_START_MM;
-			r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
-		} else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
-			base = TOO_HIGH_START_MM;
-			r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
-		} else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
-			base = HIGH_START_MM;
-			r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
-		} else if (cur >= HIGH_END) {
-			r = TOTAL_LENGTH_MM;
-		}
+        float base = 0f;
+        float r = 0.1f; // 相对长度单位mm
+        if(cur >= min && cur < TOO_HIGH_START) { // 正常范围内 normal
+            base = NORMAL_START_MM;
+            r = NORMAL_LENGTH_MM / (TOO_HIGH_START - NORMAL_START) * (cur - NORMAL_START) + base;
+        } else if (cur >= TOO_HIGH_START && cur < HIGH_START) {  // 过高 too high
+            base = TOO_HIGH_START_MM;
+            r = TOO_HIGH_LENGTH_MM / (HIGH_START - TOO_HIGH_START)  * (cur - TOO_HIGH_START) + base;
+        } else if (cur >= HIGH_START && cur < HIGH_END) { // 高 high
+            base = HIGH_START_MM;
+            r = HIGH_LENGTH_MM / (HIGH_END - HIGH_START) *  (cur - HIGH_START) + base;
+        } else if (cur >= HIGH_END) {
+            r = TOTAL_LENGTH_MM;
+        }
 
-		Log.i(TAG, "r: " + r);
+        Log.i(TAG, "r: " + r);
 
-		return r * VALUE_72_X_1MM / 1000;
+        return r * VALUE_72_X_1MM / 1000;
     }
 }
