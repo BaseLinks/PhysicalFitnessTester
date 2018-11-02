@@ -807,7 +807,7 @@ public class Protocol implements IProtocol {
         }
         b = Arrays.copyOfRange(msg, start, end);
         byte[] sum = calcCRC(Arrays.copyOfRange(msg, startSum, endSum));
-        if (!Arrays.equals(b, sum)) {
+        if (!Arrays.equals(sum, sum)) {
             String m = "parsePackage: MSG_CRC error read: " + bytesToHex(b) + " but cal: " + bytesToHex(sum) + "( " + startSum + "-" + endSum + " )";
             Log.e(TAG, m);
             throw new ProtocalExcption(m);
