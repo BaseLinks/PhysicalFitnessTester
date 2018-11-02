@@ -590,7 +590,7 @@ public class CreateReport {
 					bcp = mCd.营养评估_无机盐_正常;
 					break;
 				case BodyComposition.LEVEL_HIGH:
-					bcp = mCd.营养评估_无机盐_正常;
+					bcp = mCd.营养评估_无机盐_过量;
 					break;
 			}
 			drawLineText(TEXT_TICK, textPaint, canvas, bcp);
@@ -769,25 +769,25 @@ public class CreateReport {
         double xPos = 0;
         double yPos = 0;
         // 比较是否出界线，如果出最小值，则迂回进来
-        if (BodyComposition.BMI.getCur() > BodyComposition.BMI_MIN) {
-            xPos = (BodyComposition.BMI.getCur() - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
+        if ((int)BodyComposition.BMI.getOriginCur() > BodyComposition.BMI_MIN) {
+            xPos = ((int)BodyComposition.BMI.getOriginCur() - BodyComposition.BMI_MIN) / BodyComposition.BMI_RECT_WIDTH;
         } else
             xPos = 0;
 
-        if (BodyComposition.脂肪率.getCur() < BodyComposition.BFR_MIN) {
+        if ((int)BodyComposition.脂肪率.getOriginCur() < BodyComposition.BFR_MIN) {
             yPos = 0;
         }
         // MALE
-        if (BodyComposition.性别.getCur() == BodyComposition.MALE) {
-            yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
-            if (BodyComposition.脂肪率.getCur() > BodyComposition.脂肪率.getMax()) //测试值超过标准
+        if ((int)BodyComposition.性别.getOriginCur() == BodyComposition.MALE) {
+            yPos = ((int)BodyComposition.脂肪率.getOriginCur() - BodyComposition.BMI_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+            if ((int)BodyComposition.脂肪率.getOriginCur() > (int)BodyComposition.脂肪率.getOriginMax()) //测试值超过标准
             {
-                yPos = ((BodyComposition.脂肪率.getCur() - BodyComposition.脂肪率.getMax()) / 2 + BodyComposition.脂肪率.getMax() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+                yPos = (((int)BodyComposition.脂肪率.getOriginCur() - (int)BodyComposition.脂肪率.getOriginMax()) / 2 + (int)BodyComposition.脂肪率.getOriginMax() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             } else {
-                yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
+                yPos = ((int)BodyComposition.脂肪率.getOriginCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_MALE;
             }
-        } else if (BodyComposition.性别.getCur() == BodyComposition.FEMALE) { // FEMALE
-            yPos = (BodyComposition.脂肪率.getCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
+        } else if ((int)BodyComposition.性别.getOriginCur() == BodyComposition.FEMALE) { // FEMALE
+            yPos = ((int)BodyComposition.脂肪率.getOriginCur() - BodyComposition.BFR_MIN) / BodyComposition.BFR_RECT_WIDTH_FEMALE;
         }
 
 		Log.i(LOG_TAG, "before xPos: " + xPos + " yPos: " + yPos + " xPos(0~3), yPos(0~4)");

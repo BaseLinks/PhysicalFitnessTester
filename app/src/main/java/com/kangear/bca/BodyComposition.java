@@ -566,32 +566,32 @@ public class BodyComposition {
 
     /**  10x.体型分析 */
     /** BMI下限 */
-    public static final float BMI_MIN = 15.4f;
+    public static final int BMI_MIN = 154;
     /** BMI上限 */
-    public static final float BMI_MAX = 33.0f;
+    public static final int BMI_MAX = 330;
     /** BMI范围宽度 */
-    public static final float BMI_RANGE = BMI_MAX - BMI_MIN; // 176
+    public static final int BMI_RANGE = BMI_MAX - BMI_MIN; // 176
     /** 方块个数 */
-    public static final float BMI_RECT_NUM = 4f;
+    public static final int BMI_RECT_NUM = 4;
     /** 方块宽度 */
-    public static final float BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
+    public static final int BMI_RECT_WIDTH = BMI_RANGE / BMI_RECT_NUM; //44
 
 
     /** 脂肪率结果 */
     /** 脂肪率下限 数据哪里来的呢？ */
-    public static final float BFR_MIN = 10.0f;
+    public static final int BFR_MIN = 100;
     /** 男性脂肪率上限 */
-    public static final float BFR_MAX_MALE = 35.0f;
+    public static final int BFR_MAX_MALE = 350;
     /** 女性脂肪率上限 */
-    public static final float BFR_MAX_FEMALE = 60.0f;
+    public static final int BFR_MAX_FEMALE = 600;
     /** 男性脂肪率范围宽度 */
-    public static final float BFR_RANGE_MALE = BFR_MAX_MALE - BFR_MIN; // 150
+    public static final int BFR_RANGE_MALE = BFR_MAX_MALE - BFR_MIN; // 150
     /** 女性脂肪率范围宽度 */
-    public static final float BFR_RANGE_FEMALE = BFR_MAX_FEMALE - BFR_MIN; // 500
+    public static final int BFR_RANGE_FEMALE = BFR_MAX_FEMALE - BFR_MIN; // 500
     /** 方块个数 */
-    public static final float BFR_RECT_NUM = 5f;
+    public static final int BFR_RECT_NUM = 5;
     /** 方块宽度 */
-    public static final float BFR_RECT_WIDTH_MALE = BFR_RANGE_MALE / BFR_RECT_NUM; //50
+    public static final int BFR_RECT_WIDTH_MALE = BFR_RANGE_MALE / BFR_RECT_NUM; //50
     /** 方块宽度 */
-    public static final float BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
+    public static final int BFR_RECT_WIDTH_FEMALE = BFR_RANGE_FEMALE / BFR_RECT_NUM; //100
 }
