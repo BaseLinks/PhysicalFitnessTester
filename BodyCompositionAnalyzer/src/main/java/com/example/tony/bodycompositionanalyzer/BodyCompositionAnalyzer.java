@@ -50,7 +50,7 @@ public class BodyCompositionAnalyzer {
 	private UartHelper mUartHelper;
 	private static Context mContext =  null;
 	private String                 serialPort       = null;
-	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyAMA3";
+	private static final String TRADITIONAL_TTY_DEV_NODE = "/dev/ttyS2";
 	private static BodyComposition mBodyComposition;
 	private static final boolean IS_USB_UART = false;
 	/**
