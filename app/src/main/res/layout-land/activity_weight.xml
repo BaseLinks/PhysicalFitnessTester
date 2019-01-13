@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/com1_background"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/read_xishu_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="181dp"
+        android:text="体重"
+        android:textColor="#F39801"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jiaozhuntizhong_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="WEIGHT"
+        android:textColor="#A0A0A0"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="kg"
+        android:textColor="#F39801"
+        android:textSize="87sp"
+        app:layout_constraintBottom_toBottomOf="@+id/weight_textview"
+        app:layout_constraintStart_toEndOf="@+id/weight_textview" />
+
+    <TextView
+        android:id="@+id/weight_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="402dp"
+        android:layout_marginEnd="226dp"
+        android:text="73.2"
+        android:textColor="#F39801"
+        android:textSize="142sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:background="#434343"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/weight_start"
+            layout="@layout/weight_start"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/weight_stop"
+            layout="@layout/weight_stop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
