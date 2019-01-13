@@ -26,37 +26,62 @@ public class BodyComposition {
     public static final String UNIT_R      = "欧";
     public static final String UNIT_PERCENT= "%";
     public static final int INVALID_POSIONT = -1;
+    public static final byte[] TESTDATA = {
+            0x55, (byte)0xAA, (byte)0xCD, 0x02, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x01, 0x28, (byte)0xA4, 0x06, 0x20, 0x03, (byte)0x9D, 0x1A, 0x7D, 0x16,
+            0x50, 0x00, 0x74, 0x0B, 0x48, 0x0B, 0x65, 0x01, (byte)0xF9, 0x09, 0x78, 0x09,
+            0x13, 0x15, 0x53, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7B, 0x02, 0x16,
+            0x02,(byte) 0xB5, 0x02, 0x33, 0x02, (byte)0xFC, 0x01, 0x1B, 0x02, (byte)0xED, 0x00, 0x5F,
+            0x00, 0x7F, 0x00, 0x10, 0x02, (byte)0xD5, 0x01, (byte)0xF5, 0x01, 0x2F, 0x01, 0x0A,
+            0x01, 0x4A, 0x01, (byte)0x99, 0x01, 0x6D, 0x01, (byte)0x84, 0x01, 0x77, 0x00, 0x64,
+            0x00, 0x71, 0x00, 0x23, 0x24, 0x26, 0x00, (byte)0x81, 0x00, (byte)0x8F, 0x00, (byte)0xA3,
+            0x00, 0x18, 0x01, (byte)0xF5, 0x00, 0x09, 0x01, 0x23, 0x1F, 0x21, 0x24, 0x1F,
+            0x21, 0x19, 0x01, (byte)0xEA, 0x00, (byte)0xF9, 0x00, 0x56, 0x00, 0x56, 0x00, 0x5C,
+            0x00, 0x5A, 0x00, 0x56, 0x00, 0x5C, 0x00, 0x0F, 0x06, 0x08, 0x0E, 0x06,
+            0x08, (byte)0x8C, 0x00, 0x2F, 0x00, 0x3F, 0x00, 0x23, 0x11, 0x17, 0x21, 0x11,
+            0x17, (byte)0xEB, 0x04, (byte)0x84, 0x03, 0x4C, 0x04, 0x14, 0x01, (byte)0xB9, 0x00, (byte)0xF0,
+            0x00, 0x28, 0x01, (byte)0x96, 0x00, (byte)0xC8, 0x00, 0x40, 0x04, 0x3E, 0x04, 0x5D,
+            0x04, (byte)0xB1, 0x03, 0x5D, 0x50, 0x5A, 0x1F, 0x1E, 0x23, 0x03, 0x04, (byte)0xF0,
+            0x04, (byte)0xA4, 0x02, 0x2B, (byte)0xA5, (byte)0x80, 0x7E, (byte)0x80, 0x2B, (byte)0x80, 0x0F, 0x07,
+            (byte)0xDC, 0x0A, (byte)0x81, (byte)0xA8
+    };
 
-    public static final Third 性别        = new Third(20, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_EMPTY);
-    public static final Third 年龄        = new Third(21, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_AGE);
-    public static final Third 身高        = new Third(22, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM);
-    public static final Third 体重        = new Third(24, 53, 55, 2, 1, UNIT_KG);
-    public static final Third _5k电阻     = new Third(26, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
-    public static final Third _50k电阻    = new Third(28, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
-    public static final Third _250k电阻   = new Third(44, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
-    public static final Third 去脂体重     = new Third(57, 59, 61, 2, 1, UNIT_KG);
-    public static final Third 体脂肪量    = new Third(63, 65, 67, 2, 1, UNIT_KG);
-    public static final Third 骨骼肌      = new Third(75, 77, 79, 2, 1, UNIT_KG);
-    public static final Third 身体水分    = new Third(81, 83, 85, 2, 1, UNIT_KG);
-    public static final Third 蛋白质      = new Third(87, 89, 91, 2, 1, UNIT_KG);
-    public static final Third 无机盐      = new Third(93, 94, 95, 1, 1, UNIT_KG);
-    public static final Third 左上肢肌肉量 = new Third(109, 110, 111, 1, 1, UNIT_KG);
-    public static final Third 右上肢肌肉量 = new Third(112, 113, 114, 1, 1, UNIT_KG);
-    public static final Third 躯干肌肉量   = new Third(115, 117, 119, 2, 1, UNIT_KG);
-    public static final Third 左下肌肉量   = new Third(121, 123, 125, 2, 1, UNIT_KG);
-    public static final Third 右下肌肉量   = new Third(127, 129, 131, 2, 1, UNIT_KG);
-    public static final Third 左上脂肪量   = new Third(133, 134, 135, 1, 1, UNIT_KG);
-    public static final Third 右上脂肪量   = new Third(136, 137, 138, 1, 1, UNIT_KG);
-    public static final Third 躯干脂肪量   = new Third(139, 141, 143, 2, 1, UNIT_KG);
-    public static final Third 左下脂肪量   = new Third(145, 146, 147, 1, 1, UNIT_KG);
-    public static final Third 右下脂肪量   = new Third(148, 149, 150, 1, 1, UNIT_KG);
-    public static final Third BMI        = new Third(157, 159, 161, 2, 1, UNIT_EMPTY);
-    public static final Third 体脂百分比   = new Third(163, 165, 167, 2, 1, UNIT_PERCENT);
-    public static final Third 腰臀比      = new Third(177, 178, 179, 1, 2, UNIT_EMPTY);
-    public static final Third 内脏面积     = new Third(185, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM2);
-    public static final Third 评分        = new Third(187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
-    public static final Third 基础代谢     = new Third(196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
-    public static final Third 总能耗       = new Third(198, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
+    public static final Third 性别        = new Third("性别", 20, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_EMPTY);
+    public static final Third 年龄        = new Third("年龄", 21, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_AGE);
+    public static final Third 身高        = new Third("身高", 22, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM);
+    public static final Third 体重        = new Third("体重", 24, 53, 55, 2, 1, UNIT_KG);
+    public static final Third _5k电阻     = new Third("_5k电阻", 26, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
+    public static final Third _50k电阻    = new Third("_50k电阻", 28, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
+    public static final Third _250k电阻   = new Third("_250k电阻", 44, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
+    public static final Third 去脂体重     = new Third("去脂体重", 57, 59, 61, 2, 1, UNIT_KG);
+    public static final Third 体脂肪量    = new Third("去脂体重", 63, 65, 67, 2, 1, UNIT_KG);
+    public static final Third 肌肉量      = new Third("肌肉量", 69, 71, 73, 2, 1, UNIT_KG);
+    public static final Third 骨骼肌      = new Third("骨骼肌", 75, 77, 79, 2, 1, UNIT_KG);
+    public static final Third 身体水分    = new Third("身体水分", 81, 83, 85, 2, 1, UNIT_KG);
+    public static final Third 蛋白质      = new Third("蛋白质", 87, 89, 91, 2, 1, UNIT_KG);
+    public static final Third 无机盐      = new Third("无机盐", 93, 94, 95, 1, 1, UNIT_KG);
+    public static final Third 细胞外液含量  = new Third("细胞外液含量", 96, 98, 100, 2, 1, UNIT_KG);
+    public static final Third 细胞内液含量  = new Third("细胞内液含量", 103, 105, 107, 2, 1, UNIT_KG);
+    public static final Third 左上肢肌肉量 = new Third("左上肢肌肉量", 109, 110, 111, 1, 1, UNIT_KG);
+    public static final Third 右上肢肌肉量 = new Third("右上肢肌肉量", 112, 113, 114, 1, 1, UNIT_KG);
+    public static final Third 躯干肌肉量   = new Third("躯干肌肉量", 115, 117, 119, 2, 1, UNIT_KG);
+    public static final Third 左下肌肉量   = new Third("左下肌肉量", 121, 123, 125, 2, 1, UNIT_KG);
+    public static final Third 右下肌肉量   = new Third("右下肌肉量", 127, 129, 131, 2, 1, UNIT_KG);
+    public static final Third 左上脂肪量   = new Third("左上脂肪量", 133, 134, 135, 1, 1, UNIT_KG);
+    public static final Third 右上脂肪量   = new Third("右上脂肪量", 136, 137, 138, 1, 1, UNIT_KG);
+    public static final Third 躯干脂肪量   = new Third("躯干脂肪量", 139, 141, 143, 2, 1, UNIT_KG);
+    public static final Third 左下脂肪量   = new Third("左下脂肪量", 145, 146, 147, 1, 1, UNIT_KG);
+    public static final Third 右下脂肪量   = new Third("右下脂肪量", 148, 149, 150, 1, 1, UNIT_KG);
+    public static final Third BMI        = new Third("BMI", 157, 159, 161, 2, 1, UNIT_EMPTY);
+    public static final Third 体脂百分比   = new Third("体脂百分比", 163, 165, 167, 2, 1, UNIT_PERCENT);
+    public static final Third 腰臀比      = new Third("腰臀比", 177, 178, 179, 1, 2, UNIT_EMPTY);
+    public static final Third 水肿系数      = new Third("水肿系数", 180, 181, 182, 1, 0, UNIT_EMPTY);
+    public static final Third 营养分析      = new Third("营养分析", INVALID_POSIONT, 183, 184, 1, 0, UNIT_EMPTY);
+    public static final Third 内脏面积     = new Third("内脏面积", 185, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM2);
+    public static final Third 评分        = new Third("评分", 187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
+    public static final Third 基础代谢     = new Third("基础代谢", 196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
+    public static final Third 总能耗       = new Third("总能耗", 198, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
     public final List<Third> mList = new ArrayList<Third>();
 
     public static final int LEVEL_LOW    = 0;
@@ -67,6 +92,7 @@ public class BodyComposition {
      * 数据类
      */
     public static class Third {
+        final String name;
         float cur;
         float min;
         float max;
@@ -84,7 +110,8 @@ public class BodyComposition {
          * @param length
          * @param dot　小数点几位
          */
-        public Third(int curStart, int minStart, int maxStart, int length, int dot, @NonNull String unit) {
+        public Third(String name, int curStart, int minStart, int maxStart, int length, int dot, @NonNull String unit) {
+            this.name = name;
             this.curStart = curStart;
             this.minStart = minStart;
             this.maxStart = maxStart;
@@ -98,7 +125,8 @@ public class BodyComposition {
          * @param length
          * @param dot　小数点几位
          */
-        public Third(int curStart, int length, int dot, @NonNull String unit) {
+        public Third(String name, int curStart, int length, int dot, @NonNull String unit) {
+            this.name = name;
             this.curStart = curStart;
             this.length = length;
             this.dot = dot;
@@ -242,7 +270,8 @@ public class BodyComposition {
         @Override
         public String toString() {
             return "Third{" +
-                    "cur=" + String.format("%02X", (int)cur) +
+                    " " + this.name +
+                    ", cur=" + String.format("%02X", (int)cur) +
                     ", min=" + String.format("%02X", (int)min) +
                     ", max=" + String.format("%02X", (int)max) +
                     ", curStart=" + curStart +
@@ -339,6 +368,11 @@ public class BodyComposition {
         mList.add(基础代谢);
         mList.add(总能耗);
         mList.add(去脂体重);
+        mList.add(肌肉量);
+        mList.add(细胞外液含量);
+        mList.add(细胞内液含量);
+        mList.add(水肿系数);
+        mList.add(营养分析);
 
         int i = 0;
         for (Third t : mList) {
