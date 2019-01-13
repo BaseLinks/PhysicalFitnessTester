@@ -478,10 +478,10 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param context
      */
     private void selfCheck(final Context context) {
-//        if (BuildConfig.DEBUG) {
-//            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
-//            return;
-//        }
+        if (BuildConfig.DEBUG) {
+            mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
+            return;
+        }
 
         // 1. Finger module
         boolean ret = false;
