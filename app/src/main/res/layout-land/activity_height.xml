@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kangear.bodycompositionanalyzer.WelcomeActivity">
+
+    <include
+        layout="@layout/com2_background"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/read_xishu_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="157dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="身高"
+        android:textColor="#F39801"
+        android:textSize="93sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jiaozhuntizhong_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="HEIGHT"
+        android:textColor="#A0A0A0"
+        android:textSize="39sp"
+        app:layout_constraintStart_toStartOf="@+id/read_xishu_textview"
+        app:layout_constraintTop_toBottomOf="@+id/read_xishu_textview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="70dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="cm"
+        android:textColor="#F39801"
+        android:textSize="55sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tizhibi_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tizhibi_edittext" />
+
+    <com.kangear.bodycompositionanalyzer.NoImeEditText
+        android:id="@+id/tizhibi_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="396dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="285dp"
+        android:background="@null"
+        android:gravity="end|center_vertical"
+        android:hint="@string/height_hint"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:lines="1"
+        android:padding="0dp"
+        android:text="175"
+        android:textColor="#F39801"
+        android:textSize="111sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

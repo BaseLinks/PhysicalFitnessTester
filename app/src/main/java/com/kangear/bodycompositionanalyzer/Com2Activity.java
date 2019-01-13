@@ -2,12 +2,14 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
     private Button mDotButton;
     private Button mSoftwareBoardButton;
     private String regular;
+    private Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
         this.regular = regular;
         mSoftwareBoardButton = v.findViewById(R.id.kb_softboard_button);
         mDotButton = v.findViewById(R.id.kb_dot_button);
+        mBackButton = v.findViewById(R.id.kb_back_button);
 
         mDotButton.setVisibility(hasDot ? View.VISIBLE : View.GONE);
         mSoftwareBoardButton.setVisibility(!hasDot ? View.VISIBLE : View.GONE);
@@ -74,6 +78,16 @@ public class Com2Activity extends AppCompatActivity implements iCom2 {
                 }
             });
         }
+    }
+
+    void setLongBackButton() {
+        mBackButton.setBackgroundResource(R.drawable._50_kb_back_long);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        params.height = 112;
+        params.width = 350;
+        params.startToStart = mNextButton.getId();
+        params.endToEnd = mNextButton.getId();
+        mBackButton.setLayoutParams(params);
     }
 
     // This snippet hides the system bars.

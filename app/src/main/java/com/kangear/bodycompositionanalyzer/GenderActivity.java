@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_FEMALE;
 import static com.kangear.bodycompositionanalyzer.Person.GENDER_MALE;
@@ -18,6 +19,7 @@ public class GenderActivity extends Com2Activity {
     private String TAG = "GenderActivity";
     private RadioGroup mSexRadioGroup;
     private EditText mEditText;
+    private TextView mGenderEnTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,9 @@ public class GenderActivity extends Com2Activity {
         setContentView(R.layout.activity_gender);
         hideSystemUI(getWindow().getDecorView());
         setView(true, getWindow().getDecorView(), null);
+        setLongBackButton();
         mEditText = findViewById(R.id.tizhibi_edittext);
+        mGenderEnTextView = findViewById(R.id.gender_en_textview);
         mSexRadioGroup = findViewById(R.id.sex_radiogroup);
         dissAllwithoutBackNext();
         mSexRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -34,9 +38,13 @@ public class GenderActivity extends Com2Activity {
                 switch (i) {
                     case R.id.male_radiobutton:
                         mEditText.setText(GENDER_MALE);
+                        if (mGenderEnTextView != null)
+                            mGenderEnTextView.setText("Male");
                         break;
                     case R.id.female_radiobutton:
                         mEditText.setText(GENDER_FEMALE);
+                        if (mGenderEnTextView != null)
+                            mGenderEnTextView.setText("Female");
                         break;
                 }
             }
@@ -60,7 +68,7 @@ public class GenderActivity extends Com2Activity {
         };
 
         for (int res : reses) {
-            findViewById(res).setVisibility(View.GONE);
+            findViewById(res).setVisibility(View.INVISIBLE);
         }
     }
 
