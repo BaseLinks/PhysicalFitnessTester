@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/_90_human_page_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/progress_constrainlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="645dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/human_constraintlayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="287dp"
+            android:layout_height="547dp">
+
+            <ImageView
+                android:id="@+id/human_background_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="matrix"
+                android:src="@drawable/_90_human_frontgound" />
+
+            <ImageView
+                android:id="@+id/human_frontgound_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="matrix"
+                android:src="@drawable/_90_human_background" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/progress_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="8dp"
+            android:text="分析中...80%"
+            android:textColor="#063B61"
+            android:textSize="38sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/human_constraintlayout" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/buttons_constrainlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="421px"
+        android:layout_marginBottom="78dp"
+        android:layout_marginEnd="21dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/print_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_50_kb_print"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/_90_kb_detail"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toTopOf="@+id/print_button" />
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/_90_kb_back"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toTopOf="@+id/detail_button" />
+    </android.support.constraint.ConstraintLayout>
+
+
+    <TableLayout
+        android:id="@+id/feipangfenxi_tablelayout"
+        android:layout_width="419px"
+        android:layout_height="421px"
+        android:layout_marginBottom="78dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/_90_feipangchengfen_table"
+        android:padding="2px"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rentifenxi_tablelayout">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="0px">
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="194px"
+                android:layout_height="47px"
+                android:background="#434343"
+                android:gravity="center"
+                android:text="肥胖成分"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="219px"
+                android:layout_height="47px"
+                android:layout_marginStart="2px"
+                android:alpha="100"
+                android:gravity="center"
+                android:text="结果"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="194px"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="身体质量指数"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/sdfsdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="BMI"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="219px"
+                android:layout_height="145px"
+                android:layout_marginStart="2px"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="815dp">
+
+                <TextView
+                    android:id="@+id/shentizhiliangzhishu_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="72px"
+                    android:alpha="100"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="30.1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/shentizhiliangzhishu_radiogroup"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shentizhiliangzhishu_result_textview">
+
+                    <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_low_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:text="低"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                    <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_normal_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:text="正常"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                    <RadioButton
+                        android:id="@+id/shentizhiliangzhishu_high_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:text="高"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                </RadioGroup>
+            </android.support.constraint.ConstraintLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="194px"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tizhibaifenbi_title_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="体脂百分比"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tizhibaifenbi_title2_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="FAT%"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tizhibaifenbi_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_title_textview" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="219px"
+                android:layout_height="145px"
+                android:layout_marginStart="2px"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="815dp">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tizhibaifenbi_constraintlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="72px">
+
+                    <TextView
+                        android:id="@+id/tizhibaifenbi_result_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"
+                        android:padding="0dp"
+                        android:text="67.4"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/white"
+                        android:textSize="45px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tizhibaifenbi_result_unit_textview"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tizhibaifenbi_result_unit_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginEnd="9dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"
+                        android:padding="0dp"
+                        android:text="%"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+
+                <RadioGroup
+                    android:id="@+id/tizhibaifenbi_radiogroup"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="2dp"
+                    android:alpha="100"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tizhibaifenbi_constraintlayout">
+
+                    <RadioButton
+                        android:id="@+id/tizhibaifenbi_low_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="低"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                    <RadioButton
+                        android:id="@+id/tizhibaifenbi_normal_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="正常"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                    <RadioButton
+                        android:id="@+id/tizhibaifenbi_high_radiobutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:button="@drawable/_90_radiobutton"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="高"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+
+                </RadioGroup>
+            </android.support.constraint.ConstraintLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="194px"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/jichudaixieliang_title_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#434343"
+                    android:gravity="center"
+                    android:text="基础代谢量"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="27sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/jichudaixieliang_title2_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="BM"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/test_result_title_text_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/jichudaixieliang_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/jichudaixieliang_title_textview" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="160px"
+                android:layout_height="72px"
+                android:layout_marginStart="2px">
+
+                <TextView
+                    android:id="@+id/jichudaixie_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/jichudaixie_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/jichudaixie_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kcal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/rentifenxi_tablelayout"
+        android:layout_width="721px"
+        android:layout_height="274px"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="203dp"
+        android:background="@drawable/_90_rentichengfen_table"
+        android:padding="2px"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="0px">
+
+            <TextView
+                android:layout_width="194px"
+                android:layout_height="47px"
+                android:background="#434343"
+                android:gravity="center"
+                android:text="人体成分"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="108px"
+                android:layout_height="47px"
+                android:layout_marginStart="2px"
+                android:alpha="100"
+                android:gravity="center"
+                android:text="低于"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="108px"
+                android:layout_height="47px"
+                android:layout_marginStart="4px"
+                android:gravity="center"
+                android:text="正常"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="137px"
+                android:layout_height="47px"
+                android:layout_marginStart="2px"
+                android:alpha="100"
+                android:gravity="center"
+                android:text="超过"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="160px"
+                android:layout_height="47px"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:text="结果"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <TextView
+                android:layout_width="194px"
+                android:layout_height="match_parent"
+                android:background="#434343"
+                android:gravity="center"
+                android:text="体重"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/test_result_title_text_color"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/weight_diyu_textview"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="108px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4px"
+                android:background="#434343"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="137px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:alpha="100"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="160px"
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/weight_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/weight_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/weight_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <TextView
+                android:layout_width="194px"
+                android:layout_height="match_parent"
+                android:background="#434343"
+                android:gravity="center"
+                android:text="骨骼肌"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/test_result_title_text_color"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="108px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4px"
+                android:background="#434343"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="137px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="160px"
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/gugeji_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/gugeji_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/gugeji_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="72px"
+            android:paddingTop="2px">
+
+            <TextView
+                android:layout_width="194px"
+                android:layout_height="match_parent"
+                android:background="#434343"
+                android:gravity="center"
+                android:text="体脂肪"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/test_result_title_text_color"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="108px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4px"
+                android:background="#434343"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="137px"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2px"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="160px"
+                android:layout_height="72px">
+
+                <TextView
+                    android:id="@+id/tizhifang_result_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="67.4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="45px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tizhifang_result_unit_textview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tizhifang_result_unit_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"
+                    android:padding="0dp"
+                    android:text="kg"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </TableRow>
+    </TableLayout>
+
+
+    <ProgressBar
+        android:id="@+id/weight_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="25px"
+        android:layout_marginEnd="164dp"
+        android:layout_marginStart="198dp"
+        android:layout_marginTop="72dp"
+        android:progress="67"
+        android:progressTint="@color/colorTestProgress"
+        app:layout_constraintEnd_toEndOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintTop_toTopOf="@+id/rentifenxi_tablelayout" />
+
+    <ProgressBar
+        android:id="@+id/gugeji_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="25px"
+        android:layout_marginEnd="164dp"
+        android:layout_marginStart="198dp"
+        android:layout_marginTop="146dp"
+        android:progress="36"
+        android:progressTint="@color/colorTestProgress"
+        app:layout_constraintEnd_toEndOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintTop_toTopOf="@+id/rentifenxi_tablelayout" />
+
+    <ProgressBar
+        android:id="@+id/tizhifang_progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="25px"
+        android:layout_marginEnd="164dp"
+        android:layout_marginStart="198dp"
+        android:layout_marginTop="220dp"
+        android:progress="46"
+        android:progressTint="@color/colorTestProgress"
+        app:layout_constraintEnd_toEndOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rentifenxi_tablelayout"
+        app:layout_constraintTop_toTopOf="@+id/rentifenxi_tablelayout" />
+</android.support.constraint.ConstraintLayout>
