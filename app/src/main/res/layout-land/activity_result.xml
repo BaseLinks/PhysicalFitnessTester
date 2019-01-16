@@ -6,11 +6,6 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/result_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <include
         android:id="@+id/result_first_page"
         layout="@layout/result_first_page"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +15,11 @@
         android:id="@+id/result_last_page"
         layout="@layout/result_last_page"
         android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        layout="@layout/result_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

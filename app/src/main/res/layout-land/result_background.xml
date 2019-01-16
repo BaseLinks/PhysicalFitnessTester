@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/result_background"
-    android:foregroundTint="#777777">
+    android:background="@android:color/transparent">
 
     <!-- 中间黑块 -->
 
     <View
         android:id="@+id/view"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="76px"
         android:background="#EA961C"
@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -33,55 +34,66 @@
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginStart="50dp"
-        android:onClick="onClick"
+        android:layout_width="162dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="14dp"
         android:background="@drawable/_50_kb_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="@+id/print_button"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/print_button" />
 
     <Button
         android:id="@+id/print_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="onClick"
+        android:layout_width="277dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/_50_kb_print"
-        app:layout_constraintBottom_toBottomOf="@+id/next_page_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/next_page_button"
-        app:layout_constraintTop_toTopOf="@+id/next_page_button" />
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/next_page_button"
-        android:layout_width="wrap_content"
-        android:layout_height="126dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/print_button2"
+        android:layout_width="277dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/_50_kb_print"
         android:onClick="onClick"
-        android:background="@drawable/_50_kb_next_page"
-        app:layout_constraintBottom_toBottomOf="@+id/previous_page_button"
-        app:layout_constraintStart_toEndOf="@+id/previous_page_button"
-        app:layout_constraintTop_toTopOf="@+id/previous_page_button" />
+        app:layout_constraintBottom_toBottomOf="@+id/print_button"
+        app:layout_constraintEnd_toStartOf="@+id/print_button"
+        app:layout_constraintTop_toTopOf="@+id/print_button" />
 
-    <Button
-        android:id="@+id/previous_page_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="onClick"
-        android:background="@drawable/_50_kb_previous_page"
-        app:layout_constraintBottom_toBottomOf="@+id/back_button"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintTop_toTopOf="@+id/back_button" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="162dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/print_button2"
+        app:layout_constraintEnd_toStartOf="@+id/print_button2"
+        app:layout_constraintTop_toTopOf="@+id/print_button2">
+
+        <Button
+            android:id="@+id/previous_page_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/_50_kb_previous_page"
+            android:onClick="onClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="415dp" />
+
+        <Button
+            android:id="@+id/next_page_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/_50_kb_next_page"
+            android:onClick="onClick"
+            tools:layout_editor_absoluteX="318dp"
+            tools:layout_editor_absoluteY="603dp" />
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.constraint.ConstraintLayout>

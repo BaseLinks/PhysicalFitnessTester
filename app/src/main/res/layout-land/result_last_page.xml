@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/_90_testresult_background_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,122 +10,251 @@
     <!-- 中间黑块 -->
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/yaotunbi_edittext"
+        android:id="@+id/jichudaixie_edittext3"
         style="@style/resultEditText"
-        android:layout_width="98dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline57"
+        app:layout_constraintStart_toStartOf="@+id/guideline49"
+        app:layout_constraintTop_toTopOf="@+id/guideline57" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
         app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toTopOf="@+id/textView13" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline58"
+        app:layout_constraintStart_toStartOf="@+id/guideline49"
+        app:layout_constraintTop_toTopOf="@+id/guideline58" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext11"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline59"
+        app:layout_constraintStart_toStartOf="@+id/guideline49"
+        app:layout_constraintTop_toTopOf="@+id/guideline59" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext12"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline56"
+        app:layout_constraintStart_toStartOf="@+id/guideline49"
+        app:layout_constraintTop_toTopOf="@+id/guideline56" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext16"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline53"
+        app:layout_constraintEnd_toStartOf="@+id/guideline60"
+        app:layout_constraintStart_toStartOf="@+id/guideline60" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext4"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline53"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintStart_toStartOf="@+id/guideline19" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext5"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintEnd_toStartOf="@+id/guideline50"
+        app:layout_constraintStart_toStartOf="@+id/guideline50"
+        app:layout_constraintTop_toTopOf="@+id/guideline54" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/shentishuifen_edittext6"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline66"
+        app:layout_constraintEnd_toStartOf="@+id/guideline62"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/zhifangtiaozheng_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="#12BE0A"
+        android:textSize="18sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline66"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jiroutiaozheng_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="#12BE0A"
+        android:textSize="18sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jiroutiaozheng_edittext3"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline62"
+        app:layout_constraintStart_toStartOf="@+id/guideline62"
+        app:layout_constraintTop_toTopOf="@+id/guideline65" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/wujiyan_zhengchang_edittext"
         style="@style/resultEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:maxLines="1"
+        android:visibility="gone"
         app:backgroundTint="#777777"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView14" />
+        tools:layout_editor_absoluteX="497dp" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/zongnenghao_edittext"
         style="@style/resultEditText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.687"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/danbaizhi_zhengchang_edittext"
-        style="@style/resultEditText"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
         app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView14" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline45"
+        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/zongnenghao_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline48"
+        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/jichudaixie_edittext"
         style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/textView11" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/yaotunbi_normal_edittext"
-        style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/yaotunbi_edittext"
-        app:layout_constraintStart_toEndOf="@+id/yaotunbi_edittext"
-        app:layout_constraintTop_toTopOf="@+id/yaotunbi_edittext" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/tizhibi_normal_edittext"
-        style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="5dp"
         android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
         app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/tizhibi_edittext"
-        app:layout_constraintEnd_toStartOf="@+id/textView8"
-        app:layout_constraintHorizontal_bias="0.363"
-        app:layout_constraintStart_toEndOf="@+id/tizhibi_edittext"
-        app:layout_constraintTop_toTopOf="@+id/tizhibi_edittext"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline46"
+        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/jichudaixie_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
+        app:backgroundTint="#777777"
+        app:layout_constraintEnd_toStartOf="@+id/guideline51"
+        app:layout_constraintStart_toStartOf="@+id/guideline51"
+        app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/tizhibi_edittext"
         style="@style/resultEditText"
-        android:layout_width="95px"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:maxLines="1"
+        android:textColor="#EA961D"
+        android:textSize="18sp"
         app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/textView26"
-        style="@style/resultYelloItemLabel"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="382dp"
-        android:layout_marginTop="8dp"
-        android:text="营养评估"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline52"
+        app:layout_constraintStart_toStartOf="@+id/guideline52"
+        app:layout_constraintTop_toTopOf="@+id/guideline56" />
 
     <TextView
         android:id="@+id/zhifangtiaozheng_textview"
@@ -134,196 +264,57 @@
         android:layout_marginStart="377dp"
         android:background="@drawable/_70_result_label_black"
         android:text="蛋白质"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bmi_textiview" />
-
-    <TextView
-        android:id="@+id/bmi_textiview"
-        style="@style/resultItemLabel"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="B.M.I"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="基础代谢"
-        style="@style/resultItemLabel"
-        app:layout_constraintEnd_toEndOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="体脂比"
-        style="@style/resultItemLabel"
-        app:layout_constraintEnd_toEndOf="@+id/bmi_textiview"
-        app:layout_constraintStart_toStartOf="@+id/bmi_textiview"
-        app:layout_constraintTop_toBottomOf="@+id/bmi_textiview" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="腰臀比"
-        style="@style/resultItemLabel"
-        app:layout_constraintEnd_toEndOf="@+id/textView12"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        tools:layout_editor_absoluteY="150dp" />
 
     <TextView
         android:id="@+id/textView9"
+        style="@style/resultItemLabel"
         android:layout_width="120px"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/_70_result_label_black"
         android:text="总能耗"
-        style="@style/resultItemLabel"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView8"
+        style="@style/resultItemLabel"
         android:layout_width="120px"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/_70_result_label_black"
-        style="@style/resultItemLabel"
         android:text="无机盐"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
         app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
         app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
 
-    <TextView
-        android:id="@+id/textView22"
-        style="@style/resultYelloItemLabel"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:text="肥胖分析"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/bmi_normal_edittext"
-        style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="5dp"
-        android:maxLines="1"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/bmi_edittext"
-        app:layout_constraintEnd_toStartOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintHorizontal_bias="0.363"
-        app:layout_constraintStart_toEndOf="@+id/bmi_edittext"
-        app:layout_constraintTop_toTopOf="@+id/bmi_edittext"
-        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/bmi_edittext"
         style="@style/resultEditText"
         android:layout_width="95px"
         android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
         android:maxLines="1"
+        android:visibility="gone"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toBottomOf="@+id/bmi_textiview"
-        app:layout_constraintStart_toEndOf="@+id/bmi_textiview"
-        app:layout_constraintTop_toTopOf="@+id/bmi_textiview" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="95px"
-        android:layout_height="30px"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:text="正常值"
-        style="@style/resultLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/textView10"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="72px"
-        android:layout_height="30px"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        style="@style/resultLabel"
-        android:text="过量"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/textView15" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="70px"
-        android:layout_height="30px"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        style="@style/resultLabel"
-        android:text="正常"
-        app:layout_constraintBottom_toBottomOf="@+id/textView14"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView14"
-        style="@style/resultLabel"
-        android:layout_width="74px"
-        android:layout_height="30px"
-        android:layout_marginStart="497dp"
-        android:text="不足"
-        app:layout_constraintBottom_toTopOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="95px"
-        android:layout_height="30px"
-        style="@style/resultLabel"
-        android:layout_marginBottom="2dp"
-        android:layout_marginStart="169dp"
-        android:text="测试值"
-        app:layout_constraintBottom_toTopOf="@+id/bmi_textiview"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="182dp" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/jieduanzhifang_constraintlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginStart="50dp"
         android:layout_marginTop="442dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -339,6 +330,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/jieduanjirou_constraintlayout"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
@@ -359,48 +351,581 @@
         android:layout_width="2px"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:background="@color/line"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
-        app:layout_constraintEnd_toStartOf="@+id/textView15"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
 
     <View
         android:id="@+id/sdf2"
         android:layout_width="2px"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:background="@color/line"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/danbaizhi_progressbar" />
+        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
 
-    <ProgressBar
-        android:id="@+id/wujiyan_progressbar"
-        style="@style/CustomProgressBar"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
+        app:layout_constraintEnd_toStartOf="@+id/guideline37"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toTopOf="@+id/guideline42"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline44"
+        app:layout_constraintEnd_toStartOf="@+id/guideline39"
+        app:layout_constraintStart_toStartOf="@+id/guideline39"
+        app:layout_constraintTop_toTopOf="@+id/guideline44"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline44"
+        app:layout_constraintEnd_toStartOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="@+id/guideline38"
+        app:layout_constraintTop_toTopOf="@+id/guideline44"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toStartOf="@+id/guideline39"
+        app:layout_constraintStart_toStartOf="@+id/guideline39"
+        app:layout_constraintTop_toTopOf="@+id/guideline43"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toStartOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="@+id/guideline38"
+        app:layout_constraintTop_toTopOf="@+id/guideline43"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
+        app:layout_constraintEnd_toStartOf="@+id/guideline39"
+        app:layout_constraintStart_toStartOf="@+id/guideline39"
+        app:layout_constraintTop_toTopOf="@+id/guideline42"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
+        app:layout_constraintEnd_toStartOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="@+id/guideline38"
+        app:layout_constraintTop_toTopOf="@+id/guideline42"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline41"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline41"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline44"
+        app:layout_constraintEnd_toStartOf="@+id/guideline37"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toTopOf="@+id/guideline44"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toStartOf="@+id/guideline37"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toTopOf="@+id/guideline43"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline40"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline40"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline41"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="@+id/guideline41"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline41"
+        app:layout_constraintEnd_toStartOf="@+id/guideline36"
+        app:layout_constraintStart_toStartOf="@+id/guideline36"
+        app:layout_constraintTop_toTopOf="@+id/guideline41"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline40"
+        app:layout_constraintEnd_toStartOf="@+id/guideline36"
+        app:layout_constraintStart_toStartOf="@+id/guideline36"
+        app:layout_constraintTop_toTopOf="@+id/guideline40"
+        app:srcCompat="@drawable/error" />
+
+    <ImageView
+        android:id="@+id/imageView26"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline40"
+        app:layout_constraintEnd_toStartOf="@+id/guideline19"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="@+id/guideline40"
+        app:srcCompat="@drawable/error" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="163dp" />
 
-    <ProgressBar
-        android:id="@+id/danbaizhi_progressbar"
-        style="@style/CustomProgressBar"
-        android:layout_width="0dp"
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/zhifangtiaozheng_textview" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="239dp" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="314dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="501dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="577dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="652dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="451dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="485dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="460dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="521dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="586dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="579dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="545dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="325dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="617dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline49"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="190dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="349dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="459dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="578dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="393dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="323dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="305dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="290dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="159dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="199dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="243dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="111dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="855dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="933dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="590dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="529dp" />
+
+    <TableLayout
+        android:layout_width="309dp"
+        android:layout_height="272dp"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="49dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+    </TableLayout>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -9,24 +9,252 @@
     <!--android:background="@drawable/_90_testresult_background_1"-->
 
     <!-- 中间黑块 -->
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/yaotunbi_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="70dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:text="yaotunbi"
+        app:backgroundTint="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toStartOf="@+id/guideline33"
+        app:layout_constraintStart_toStartOf="@+id/guideline33"
+        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext8"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext7"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext6"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext5"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintStart_toStartOf="@+id/guideline20" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext9"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintStart_toStartOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext10"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline24" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext17"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext18"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline23" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext14"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline24"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext15"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline24" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext16"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline24"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext11"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline22" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext12"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext13"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline22" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext4"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/quzhitizhong_edittext3" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/quzhitizhong_edittext3"
+        style="@style/resultEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/jieduanzhifang_constraintlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="442dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="-1dp" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/neizangmianji_edittext"
         style="@style/resultEditText"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="neizang..."
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="508dp"
-        tools:layout_editor_absoluteY="566dp" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jiroutiaozheng_edittext"
-        style="@style/resultEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="736dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline35"
+        app:layout_constraintEnd_toStartOf="@+id/guideline34"
+        app:layout_constraintStart_toStartOf="@+id/guideline34"
+        app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/jiankangzhishu_edittext"
@@ -46,14 +274,15 @@
         android:layout_width="152dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="315dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="nianling..."
         android:textAlignment="viewStart"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline31" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/gender_edittext"
@@ -61,14 +290,15 @@
         android:layout_width="152dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="362dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="xingbie..."
         android:textAlignment="viewStart"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/id_edittext"
@@ -76,24 +306,50 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="135dp"
         android:layout_marginEnd="8dp"
         android:padding="0dp"
         android:text="id..."
         android:textAlignment="viewStart"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zhifangtiaozheng_edittext"
+        android:id="@+id/id_edittext2"
+        style="@style/resultEditText"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="0dp"
+        android:text="riqi..."
+        android:textAlignment="viewStart"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/id_edittext3"
         style="@style/resultEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="0dp"
+        android:text="tizhong..."
+        android:textAlignment="viewStart"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="801dp"
-        tools:layout_editor_absoluteY="9dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/height_edittext"
@@ -101,32 +357,66 @@
         android:layout_width="152dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="226dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="shengao..."
         android:textAlignment="viewStart"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/shentishuifen_edittext"
+        android:id="@+id/shentishuifen_edittext2"
         style="@style/resultEditText"
-        android:layout_width="138dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="683dp"
-        tools:layout_editor_absoluteY="58dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="@+id/guideline14" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/quzhitizhong_edittext"
+        android:id="@+id/shentishuifen_edittext3"
         style="@style/resultEditText"
-        android:layout_width="266dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="327dp"
-        tools:layout_editor_absoluteY="42dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="@+id/guideline14"
+        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/shentishuifen_edittext4"
+        style="@style/resultEditText"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="@+id/guideline14"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/shentishuifen_edittext5"
+        style="@style/resultEditText"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="@+id/guideline14" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -156,11 +446,23 @@
         layout="@layout/screen_progress"
         android:layout_width="0dp"
         android:layout_height="30px"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <include
+        android:id="@+id/weight_progressbar"
+        layout="@layout/screen_progress"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <include
         android:id="@+id/gugeji_progressbar"
@@ -230,5 +532,145 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="976dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="82dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="230dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="472dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="577dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="155dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="528dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="299dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="375dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="447dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="247dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="281dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="147dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="192dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="233dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="286dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="329dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="372dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="792dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="528dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="610dp" />
 
 </android.support.constraint.ConstraintLayout>
