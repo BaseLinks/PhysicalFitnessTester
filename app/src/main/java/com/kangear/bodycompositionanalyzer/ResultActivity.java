@@ -1,6 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kangear.bodycompositionanalyzer.databinding.ActivityResultBinding;
 
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_HIGH;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_LOW;
@@ -87,10 +90,17 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        ActivityResultBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_result);
+//        setContentView(R.layout.activity_result);
         hideSystemUI(getWindow().getDecorView());
         getWindow().setSoftInputMode(WindowManager.
                 LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        mRecord = new Record(0, 0, "xiaoguo2", 343, 1, "xxxx", 323, 2222);
+        binding.setRecord(mRecord);
+        if (true)
+            return;
+
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, INVALID_RECORD_ID);
         if (recordId != INVALID_RECORD_ID) {
