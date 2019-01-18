@@ -10,6 +10,7 @@
     <include
         android:id="@+id/result_first_page"
         layout="@layout/result_first_page"
+        app:record="@{record}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
