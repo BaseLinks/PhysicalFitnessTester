@@ -269,7 +269,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="592dp"
         android:layout_marginEnd="76dp"
-        android:text="pingfen..."
+        android:text="@{@string/left_zero_decimal(record.getBodyComposition().评分.getCur())}"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

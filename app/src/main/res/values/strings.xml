@@ -34,4 +34,6 @@
     <bool name="is_print_total_score">true</bool>
 
     <string name="left_two_decimal">%1$.2f</string>
+    <string name="left_one_decimal">%1$.1f</string>
+    <string name="left_zero_decimal">%1$.0f</string>
 </resources>
