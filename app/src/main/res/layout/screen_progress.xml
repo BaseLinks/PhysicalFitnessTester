@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="third" type="com.kangear.bodycompositionanalyzer.BodyComposition.Third"/>
+    </data>
+<android.support.constraint.ConstraintLayout
     android:id="@+id/progress_constrainlayout"
     android:layout_width="208px"
     android:layout_height="match_parent"
@@ -36,10 +41,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
-        android:text="62.7kg"
+        android:text="@{third.formatCurUnit(1)}"
         android:textSize="20sp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/shentichengfenfenxi_frontgound_imageview"
         app:layout_constraintStart_toStartOf="@+id/shentichengfenfenxi_frontgound_imageview"
         app:layout_constraintTop_toTopOf="@+id/shentichengfenfenxi_frontgound_imageview" />
 </android.support.constraint.ConstraintLayout>
+</layout>

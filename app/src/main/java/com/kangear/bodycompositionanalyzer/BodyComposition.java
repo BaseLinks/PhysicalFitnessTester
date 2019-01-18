@@ -6,7 +6,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.MORE_LEVEL_WIDTH;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.NOMAL_LEVEL_WIDTH;
 
@@ -26,6 +25,10 @@ public class BodyComposition {
     public static final String UNIT_R      = "欧";
     public static final String UNIT_PERCENT= "%";
     public static final int INVALID_POSIONT = -1;
+
+    public static final int GENDER_FEMALE = 0x00;
+    public static final int GENDER_MALE   = 0x01;
+
     public static final byte[] TESTDATA = {
             0x55, (byte)0xAA, (byte)0xCD, 0x02, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -196,6 +199,13 @@ public class BodyComposition {
             return unit;
         }
 
+        public String formatCurUnit(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return String.format("%." + dot + "f", getCur()) + getUnit();
+        }
+
         /**
          *
          * @param lessWidth
@@ -265,6 +275,16 @@ public class BodyComposition {
 
             }
             return "正常";
+        }
+
+        public String getGenderAsChinese() {
+            switch ((int)getCur()) {
+                case GENDER_FEMALE:
+                    return "女";
+                default:
+                    return "男";
+
+            }
         }
 
         @Override
