@@ -161,6 +161,8 @@ public class ResultActivity extends AppCompatActivity {
         mFirstPage = findViewById(R.id.result_first_page);
         mLastPage = findViewById(R.id.result_last_page);
 
+        page(FIRST_PAGE_NUMBER);
+
         binding.setRecord(mRecord);
         if (true)
             return;
