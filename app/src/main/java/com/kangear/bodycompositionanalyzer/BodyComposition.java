@@ -58,7 +58,7 @@ public class BodyComposition {
     public static final Third _50k电阻    = new Third("_50k电阻", 28, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
     public static final Third _250k电阻   = new Third("_250k电阻", 44, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_R);
     public static final Third 去脂体重     = new Third("去脂体重", 57, 59, 61, 2, 1, UNIT_KG);
-    public static final Third 体脂肪量    = new Third("去脂体重", 63, 65, 67, 2, 1, UNIT_KG);
+    public static final Third 体脂肪量    = new Third("体脂肪量", 63, 65, 67, 2, 1, UNIT_KG);
     public static final Third 肌肉量      = new Third("肌肉量", 69, 71, 73, 2, 1, UNIT_KG);
     public static final Third 骨骼肌      = new Third("骨骼肌", 75, 77, 79, 2, 1, UNIT_KG);
     public static final Third 身体水分    = new Third("身体水分", 81, 83, 85, 2, 1, UNIT_KG);
@@ -306,6 +306,18 @@ public class BodyComposition {
             }
         }
 
+        public boolean levelLow() {
+            return getLevel() == LEVEL_LOW;
+        }
+
+        public boolean levelHigh() {
+            return getLevel() == LEVEL_HIGH;
+        }
+
+        public boolean levelNormal() {
+            return getLevel() == LEVEL_NORMAL;
+        }
+
         /**
          * 低标准 正常 高标准
          * @return
@@ -331,6 +343,26 @@ public class BodyComposition {
                     return "男";
 
             }
+        }
+
+        public String getAdjustmentMinWithUnit(int dot) {
+            float ret = getCur() - getMin();
+            ret = ret > 0 ? ret : 0;
+            String fuhao = "";
+            if (ret != 0) { // =0时不显示符号
+                fuhao = "-";
+            }
+            return fuhao + formatValueWithUnit(dot, ret);
+        }
+
+        public String getAdjustmentMaxWithUnit(int dot) {
+            float ret = getMax() - getCur();
+            ret = ret > 0 ? ret : 0;
+            String fuhao = "";
+            if (ret != 0) { // =0时不显示符号
+                fuhao = "+";
+            }
+            return fuhao + formatValueWithUnit(dot, ret);
         }
 
         @Override
