@@ -207,7 +207,10 @@ public class BodyComposition {
         }
 
         public float getGuidelinePercent() {
-            return getProgress(149, 78, 200)/100f; // Of course, this default could be anything you want.
+            // 这些值是从UI是量得的，不同UI要按照不同的修改
+            float ret = getProgress(130, 67, 223 - 70)/100f; // Of course, this default could be anything you want.
+            // 微调回来
+            return ret > 0.833333333f ? 0.833333333f : ret;
         }
 
         /**
