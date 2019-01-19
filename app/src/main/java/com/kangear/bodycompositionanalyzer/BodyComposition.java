@@ -80,7 +80,7 @@ public class BodyComposition {
     public static final Third 体脂百分比   = new Third("体脂百分比", 163, 165, 167, 2, 1, UNIT_PERCENT);
     public static final Third 腰臀比      = new Third("腰臀比", 177, 178, 179, 1, 2, UNIT_EMPTY);
     public static final Third 水肿系数      = new Third("水肿系数", 180, 181, 182, 1, 0, UNIT_EMPTY);
-    public static final Third 营养分析      = new Third("营养分析", INVALID_POSIONT, 183, 184, 1, 0, UNIT_EMPTY);
+    public static final Third 体型分析      = new Third("体型分析", INVALID_POSIONT, 183, 184, 1, 0, UNIT_EMPTY);
     public static final Third 内脏面积     = new Third("内脏面积", 185, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM2);
     public static final Third 评分        = new Third("评分", 187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
     public static final Third 基础代谢     = new Third("基础代谢", 196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
@@ -470,7 +470,7 @@ public class BodyComposition {
         mList.add(细胞外液含量);
         mList.add(细胞内液含量);
         mList.add(水肿系数);
-        mList.add(营养分析);
+        mList.add(体型分析);
 
         int i = 0;
         for (Third t : mList) {

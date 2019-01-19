@@ -823,11 +823,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
+            android:visibility="@{bc.体型分析.getMax() == 5 ? View.VISIBLE : View.INVISIBLE, default=visible}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -835,49 +837,21 @@
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -885,30 +859,71 @@
         </TableRow>
 
         <TableRow
+            android:visibility="@{bc.体型分析.getMax() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             >
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+        </TableRow>
+
+        <TableRow
+            android:visibility="@{bc.体型分析.getMax() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+            <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -917,30 +932,35 @@
 
 
         <TableRow
+            android:visibility="@{bc.体型分析.getMax() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             >
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -948,30 +968,35 @@
         </TableRow>
 
         <TableRow
+            android:visibility="@{bc.体型分析.getMax() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             >
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
 
             <ImageView
+                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
