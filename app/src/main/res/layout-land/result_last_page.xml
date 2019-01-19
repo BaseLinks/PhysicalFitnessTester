@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="java.lang.String" />
+        <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
+        <variable
+            name="bc"
+            type="com.kangear.bodycompositionanalyzer.BodyComposition"
+            />
+    </data>
+<android.support.constraint.ConstraintLayout
     android:background="@drawable/_90_testresult_background_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,12 +22,13 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/jichudaixie_edittext3"
         style="@style/resultEditText"
-        android:layout_width="46dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="@{bc.体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -33,6 +44,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
+        android:text="@{bc.去脂体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -48,6 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:maxLines="1"
+        android:text="@{bc.肌肉量.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -55,14 +68,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline49"
         app:layout_constraintTop_toTopOf="@+id/guideline59" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <TextView
         android:id="@+id/jichudaixie_edittext12"
         style="@style/resultEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:singleLine="false"
+        android:inputType = "textMultiLine"
+        android:text="@{bc.身体水分.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -76,27 +92,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:inputType="textMultiLine"
+        android:text="@{bc.细胞内液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
         app:layout_constraintBottom_toTopOf="@+id/guideline53"
         app:layout_constraintEnd_toStartOf="@+id/guideline60"
-        app:layout_constraintStart_toStartOf="@+id/guideline60" />
+        app:layout_constraintStart_toStartOf="@+id/guideline60"
+        app:layout_constraintTop_toTopOf="@+id/guideline53" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <TextView
         android:id="@+id/jichudaixie_edittext4"
         style="@style/resultEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:inputType="textMultiLine"
+        android:text="@{bc.细胞外液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
         app:layout_constraintBottom_toTopOf="@+id/guideline53"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
-        app:layout_constraintStart_toStartOf="@+id/guideline19" />
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="@+id/guideline53" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/jichudaixie_edittext5"
@@ -105,7 +127,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:inputType="textMultiLine"
+        android:text="@{bc.蛋白质.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -192,6 +216,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:maxLines="1"
+        android:text="@{bc.总能耗.formatCurWithoutUnit(0), default=`3581`}"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:backgroundTint="#777777"
@@ -205,6 +230,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:maxLines="1"
+        android:text="@{bc.年龄.formatCurWithoutUnit(0), default=`50`}"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:backgroundTint="#777777"
@@ -217,7 +243,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
         android:maxLines="1"
+        android:text="@{bc.基础代谢.formatCurWithoutUnit(0), default=`2022`}"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:backgroundTint="#777777"
@@ -232,7 +260,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:maxLines="1"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:text="@{bc.无机盐.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -248,7 +278,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:inputType="textMultiLine"
+        android:text="@{bc.体脂肪量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
         android:textColor="#EA961D"
         android:textSize="18sp"
         app:backgroundTint="#777777"
@@ -682,7 +714,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="393dp" />
+        app:layout_constraintGuide_begin="370dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline54"
@@ -929,3 +961,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+</layout>

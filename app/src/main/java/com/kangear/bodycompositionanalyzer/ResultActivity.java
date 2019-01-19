@@ -156,6 +156,11 @@ public class ResultActivity extends AppCompatActivity {
         mRecord.setData(data2);
         mRecord.getBodyComposition();
 
+        mPreButton = findViewById(R.id.previous_page_button);
+        mNextButton = findViewById(R.id.next_page_button);
+        mFirstPage = findViewById(R.id.result_first_page);
+        mLastPage = findViewById(R.id.result_last_page);
+
         binding.setRecord(mRecord);
         if (true)
             return;
@@ -171,10 +176,6 @@ public class ResultActivity extends AppCompatActivity {
         }
         mBodyComposition = mRecord.getBodyComposition();
 
-        mPreButton = findViewById(R.id.previous_page_button);
-        mNextButton = findViewById(R.id.next_page_button);
-        mFirstPage = findViewById(R.id.result_first_page);
-        mLastPage = findViewById(R.id.result_last_page);
 
         FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + mBodyComposition.体脂肪量.getUnit();
         FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + mBodyComposition.骨骼肌.getUnit();

@@ -206,11 +206,50 @@ public class BodyComposition {
             return String.format("%." + dot + "f", getCur()) + getUnit();
         }
 
+        public String formatCurWithoutUnit(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return String.format("%." + dot + "f", getCur());
+        }
+
+
         public float getGuidelinePercent() {
             // 这些值是从UI是量得的，不同UI要按照不同的修改
             float ret = getProgress(130, 67, 223 - 70)/100f; // Of course, this default could be anything you want.
             // 微调回来
             return ret > 0.833333333f ? 0.833333333f : ret;
+        }
+
+        public String formatValueWithUnit(int dot, float value) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return String.format("%." + dot + "f" + getUnit(), value);
+        }
+
+        public String formatValue(int dot, float value) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return String.format("%." + dot + "f", value);
+        }
+
+        // cur(min-max)
+        public String formatRange1(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return formatValueWithUnit(dot, getCur()) + "(" + formatValue(dot, getMin()) + "-" + formatValue(dot, getMax()) + ")";
+        }
+
+        //    cur
+        // (min-max)
+        public String formatRange2(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return formatValueWithUnit(dot, getCur()) + "\n(" + formatValue(dot, getMin()) + "-" + formatValue(dot, getMax()) + ")";
         }
 
         /**
