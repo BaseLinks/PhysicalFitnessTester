@@ -321,7 +321,7 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/age_edittext"
         style="@style/resultEditText"
-        android:layout_width="152dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -339,7 +339,7 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/gender_edittext"
         style="@style/resultEditText"
-        android:layout_width="152dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -381,7 +381,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="0dp"
-        android:text="@{String.valueOf(record.time)}"
+        android:text="@{record.getDateFormatted()}"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="19sp"
@@ -414,7 +414,7 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/height_edittext"
         style="@style/resultEditText"
-        android:layout_width="152dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -598,7 +598,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="815dp" />
+        app:layout_constraintGuide_begin="796dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline12"

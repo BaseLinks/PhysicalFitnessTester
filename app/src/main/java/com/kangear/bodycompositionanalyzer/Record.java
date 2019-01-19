@@ -5,6 +5,9 @@ import com.google.gson.Gson;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by tony on 18-1-1.
  */
@@ -146,6 +149,11 @@ public class Record {
     public static Record fromJson(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, Record.class);
+    }
+
+    public String getDateFormatted(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        return formatter.format(getTime());
     }
 
     @Override
