@@ -13,7 +13,7 @@
         android:layout_height="73dp"
         android:layout_marginStart="54dp"
         android:layout_marginTop="23dp"
-        android:src="@drawable/_02_logo_white"
+        android:src="@drawable/_01_logo_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

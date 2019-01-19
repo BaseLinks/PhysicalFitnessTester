@@ -206,10 +206,12 @@ public class TestActivity extends AppCompatActivity {
                     break;
 
                 case SHOW_TEST_DONE: // show weight
-                    mBodyComposition = mRecord.getBodyComposition();
-                    progress = mBodyComposition.体重.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
-                    curValue = mBodyComposition.体重.getCur();
-                    update(progress, curValue, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
+                    finish();
+                    openDetailActivity();
+//                    mBodyComposition = mRecord.getBodyComposition();
+//                    progress = mBodyComposition.体重.getProgress(低于_WIDTH_PX, 正常_WIDTH_PX, 超过_WIDTH_PX);
+//                    curValue = mBodyComposition.体重.getCur();
+//                    update(progress, curValue, mWeightProgressBar, msg.what, SHOW_WEIGHT_DONE, mWeightTextView);
                     break;
 
 
@@ -364,6 +366,13 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
+    void openDetailActivity() {
+        Intent intent;
+        intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(CONST_RECORD_ID, mRecord.getId());
+        startActivity(intent);
+    }
+
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
@@ -371,9 +380,7 @@ public class TestActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.detail_button:
-                intent = new Intent(this, ResultActivity.class);
-                intent.putExtra(CONST_RECORD_ID, mRecord.getId());
-                startActivity(intent);
+                openDetailActivity();
                 break;
             case R.id.print_button:
                 startPdf(this, mRecord.getId());
