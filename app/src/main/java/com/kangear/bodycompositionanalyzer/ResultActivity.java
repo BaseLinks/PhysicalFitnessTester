@@ -1,13 +1,18 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.constraint.Guideline;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,6 +65,36 @@ public class ResultActivity extends AppCompatActivity {
     private static final int YINGYANGPINGGU_MORE_LEVEL_WIDTH = 72 + 2;
 
     private Record mRecord = null;
+
+    @BindingAdapter({"android:layout_height"})
+    public static void setLayoutHeight(View view, int height) {
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = height;
+        view.setLayoutParams(layoutParams);
+    }
+
+//    @BindingAdapter({"app:layout_constraintWidth_percent"})
+//    public static void setConstraintWidth_percent(ConstraintLayout view, float percent) {
+//        ConstraintLayout constraintLayout = (ConstraintLayout) view.getParent();
+//        ConstraintSet constraintSet = new ConstraintSet();
+//        constraintSet.clone(constraintLayout);
+//        constraintSet.setGuidelinePercent();
+//        constraintLayout.setConstraintSet(constraintSet);
+//    }
+
+    @BindingAdapter({"layout_constraintWidth_percent"})
+    public static void setLayoutConstraintWidthPercent(ConstraintLayout view, float percent) {
+//        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)view.getLayoutParams();
+//        layoutParams.matchConstraintPercentWidth = 0.5f;
+//        view.setLayoutParams(layoutParams);
+    }
+
+    @BindingAdapter("layout_constraintGuide_percent")
+    public static void setLayoutConstraintGuideBegin(Guideline guideline, float percent) {
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) guideline.getLayoutParams();
+        params.guidePercent = percent;
+        guideline.setLayoutParams(params);
+    }
 
     private static void setProgressOfTichengfenfenxi(BodyComposition.Third t, View view) {
         final int PECENT_MAX = 100;

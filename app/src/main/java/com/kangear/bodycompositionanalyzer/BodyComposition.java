@@ -206,6 +206,10 @@ public class BodyComposition {
             return String.format("%." + dot + "f", getCur()) + getUnit();
         }
 
+        public float getGuidelinePercent() {
+            return getProgress(149, 78, 200)/100f; // Of course, this default could be anything you want.
+        }
+
         /**
          *
          * @param lessWidth
