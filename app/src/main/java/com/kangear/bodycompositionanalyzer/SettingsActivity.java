@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
@@ -141,6 +143,10 @@ public class SettingsActivity extends AppCompatActivity {
                     protocalExcption.printStackTrace();
                     Toast.makeText(this, "写入系数失败", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.update_apk_button:
+                Toast.makeText(this, "系统升级", Toast.LENGTH_SHORT).show();
+//                CrashReport.testJavaCrash();
                 break;
         }
     }
