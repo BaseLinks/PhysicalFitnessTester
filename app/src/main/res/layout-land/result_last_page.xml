@@ -236,7 +236,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:maxLines="1"
-        android:text="@{bc.年龄.formatCurWithoutUnit(0), default=`50`}"
+        android:text="@{bc.身体年龄.formatCurWithoutUnit(0), default=`50`}"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:backgroundTint="#777777"

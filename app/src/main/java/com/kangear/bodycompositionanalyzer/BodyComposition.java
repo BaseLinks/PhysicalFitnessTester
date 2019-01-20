@@ -85,6 +85,7 @@ public class BodyComposition {
     public static final Third 评分        = new Third("评分", 187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
     public static final Third 基础代谢     = new Third("基础代谢", 196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
     public static final Third 总能耗       = new Third("总能耗", 198, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
+    public static final Third 身体年龄     = new Third("身体年龄", 198, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_KCAL);
     public final List<Third> mList = new ArrayList<Third>();
 
     public static final int LEVEL_LOW    = 0;
@@ -471,6 +472,7 @@ public class BodyComposition {
         mList.add(细胞内液含量);
         mList.add(水肿系数);
         mList.add(体型分析);
+        mList.add(身体年龄);
 
         int i = 0;
         for (Third t : mList) {
@@ -506,5 +508,29 @@ public class BodyComposition {
             score = 0;
         评分.setCur((float) ((评分.getCur() * 0.8 + score) * (float)Math.pow(10, 评分.dot)));
         Log.i(TAG, "评分2:  " + 评分.getCur());
+
+        // 3. 身体年龄 计算
+        //    评分90(含)以上的，身体年龄=输入的实际年龄-1
+        //    评分90---80(含)，身体年龄=输入的实际年龄
+        //    评分70(含)----80 ，身体年龄=输入的实际年龄+1
+        //    评分 60(含)---70，身体年龄=输入的实际年龄+2
+        //    60分以下，身体年龄=输入的实际年龄+3
+        int yuhuinianling = 0;
+        score = 评分.getCur();
+        if (score >= 90) {
+            yuhuinianling = -1;
+        } else if (score >= 80) {
+            yuhuinianling = 0;
+        } else if (score >= 70) {
+            yuhuinianling = 1;
+        } else if (score >= 60) {
+            yuhuinianling = 2;
+        } else { // (score < 60)
+            yuhuinianling = 3;
+        }
+
+        身体年龄.setCur(年龄.getCur() + yuhuinianling);
+        Log.i(TAG, "身体年龄2:  " + 身体年龄.getCur());
+
     }
 }
