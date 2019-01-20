@@ -81,7 +81,7 @@ public class AgeActivity extends Com2Activity {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
         WelcomeActivity.getRecord().setAge(Integer.valueOf(mEditText.getText().toString()));
-        WelcomeActivity.startGender(this);
+        WelcomeActivity.startHeight(this);
         finish();
     }
 

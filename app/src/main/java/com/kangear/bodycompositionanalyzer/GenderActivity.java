@@ -86,7 +86,7 @@ public class GenderActivity extends Com2Activity {
         super.onNextButtonClick();
         Log.i(TAG, "onNextButtonClick");
         WelcomeActivity.getRecord().setGender(mEditText.getText().toString());
-        WelcomeActivity.startHeight(this);
+        WelcomeActivity.doTest(this);
         finish();
     }
 
