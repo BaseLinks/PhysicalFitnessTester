@@ -27,15 +27,15 @@
         android:id="@+id/read_radio_button"
         android:layout_width="393dp"
         android:layout_height="102dp"
-        android:layout_marginStart="38dp"
         android:layout_marginTop="39dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/_120_settings_button"
         android:gravity="center"
         android:onClick="onClick"
         android:text="读取系数"
         android:textColor="#434343"
         android:textSize="52sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline68"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -114,10 +114,9 @@
 
     <TextView
         android:id="@+id/radio_textview"
-        android:layout_width="0dp"
+        android:layout_width="394dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/_120_settings_data_background"
         android:ems="10"
         android:gravity="center"
@@ -125,40 +124,31 @@
         android:textColor="#FFFFFF"
         android:textSize="65sp"
         app:layout_constraintBottom_toBottomOf="@+id/read_radio_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/read_radio_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline68"
         app:layout_constraintTop_toTopOf="@+id/read_radio_button" />
 
     <EditText
         android:id="@+id/radio_edittext"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/_120_settings_data_background"
         android:ems="10"
         android:gravity="center"
         android:hint="0-5000"
-        android:maxLength="4"
         android:inputType="numberDecimal"
+        android:maxLength="4"
         android:text="Name"
         android:textColor="#FFFFFF"
         android:textSize="65sp"
         app:layout_constraintBottom_toBottomOf="@+id/calibrate_radio_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calibrate_radio_button"
+        app:layout_constraintEnd_toEndOf="@+id/radio_textview"
+        app:layout_constraintStart_toStartOf="@+id/radio_textview"
         app:layout_constraintTop_toTopOf="@+id/calibrate_radio_button" />
 
     <TextView
         android:id="@+id/weight_textview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/_120_settings_data_background"
         android:ems="10"
         android:gravity="center"
@@ -166,16 +156,14 @@
         android:textColor="#FFFFFF"
         android:textSize="65sp"
         app:layout_constraintBottom_toBottomOf="@+id/test_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calibrate_radio_button"
+        app:layout_constraintEnd_toEndOf="@+id/radio_edittext"
+        app:layout_constraintStart_toStartOf="@+id/radio_edittext"
         app:layout_constraintTop_toTopOf="@+id/test_button" />
 
     <Button
         android:id="@+id/ad_text_setting"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/_120_settings_button"
         android:onClick="onClick"
         android:text="广告文本设置"
@@ -191,12 +179,12 @@
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="48dp"
-        android:layout_marginEnd="38dp"
         android:background="@drawable/_120_settings_back"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/volume_constrainlayout" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/volume_constrainlayout"
@@ -272,15 +260,43 @@
 
     <Button
         android:id="@+id/update_apk_button"
-        android:layout_width="351dp"
+        android:layout_width="0dp"
         android:layout_height="97dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="系统升级"
-        android:textSize="52sp"
         android:onClick="onClick"
+        android:text="系统升级"
+        android:textSize="40sp"
         app:layout_constraintEnd_toStartOf="@+id/back_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline68"
         app:layout_constraintTop_toBottomOf="@+id/volume_constrainlayout" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline68"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="97dp"
+        android:layout_marginTop="8dp"
+        android:text="WIFI"
+        android:textSize="52sp"
+        app:layout_constraintStart_toStartOf="@+id/volume_setting"
+        app:layout_constraintTop_toBottomOf="@+id/volume_setting" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="97dp"
+        android:layout_marginTop="8dp"
+        android:text="开"
+        android:textSize="52sp"
+        app:layout_constraintEnd_toEndOf="@+id/volume_setting"
+        app:layout_constraintTop_toBottomOf="@+id/volume_setting" />
 
 
 </android.support.constraint.ConstraintLayout>

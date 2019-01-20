@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kangear.bodycompositionanalyzer.TimeActivity">
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/com4_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <DatePicker
+        android:id="@+id/datepicker"
+        style="@style/datepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="15dp"
+        android:background="#FFFFFF"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TimePicker
+        android:id="@+id/timepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:background="#FFFFFF"
+        android:timePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/datepicker"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/datepicker" />
+
+    <Button
+        android:id="@+id/yes_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:onClick="onClick"
+        android:padding="30dp"
+        android:text="确认"
+        android:textSize="29sp"
+        app:layout_constraintEnd_toEndOf="@+id/datepicker"
+        app:layout_constraintStart_toStartOf="@+id/datepicker"
+        app:layout_constraintTop_toBottomOf="@+id/datepicker" />
+
+    <Button
+        android:id="@+id/no_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:onClick="onClick"
+        android:padding="30dp"
+        android:text="取消"
+        android:textSize="29sp"
+        app:layout_constraintEnd_toEndOf="@+id/timepicker"
+        app:layout_constraintStart_toStartOf="@+id/timepicker"
+        app:layout_constraintTop_toBottomOf="@+id/timepicker" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent=".5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="8dp"
+        android:text="日期:"
+        android:textColor="@color/colorProgress"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/datepicker"
+        app:layout_constraintStart_toStartOf="@+id/datepicker" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="8dp"
+        android:text="时间:"
+        android:textColor="@color/colorProgress"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/datepicker"
+        app:layout_constraintStart_toStartOf="@+id/timepicker" />
+
+</android.support.constraint.ConstraintLayout>
