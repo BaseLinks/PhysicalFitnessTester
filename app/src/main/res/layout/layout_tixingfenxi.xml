@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="tixingfenxi"
+            type="com.kangear.bodycompositionanalyzer.BodyComposition.Third"
+            />
+    </data>
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="@{tixingfenxi.getMax() == 5 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:visibility="@{tixingfenxi.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="@{tixingfenxi.getMax() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="@{tixingfenxi.getMax() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="@{tixingfenxi.getMax() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="@{tixingfenxi.getMax() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="@{tixingfenxi.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+    </TableRow>
+
+</TableLayout>
+</layout>

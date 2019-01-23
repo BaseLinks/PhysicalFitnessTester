@@ -375,22 +375,16 @@
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/id_edittext2"
         style="@style/resultEditText"
-        android:layout_width="0dp"
+        android:layout_width="164dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:padding="0dp"
         android:text="@{record.getDateFormatted()}"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="19sp"
         app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+        tools:layout_editor_absoluteX="804dp"
+        tools:layout_editor_absoluteY="177dp" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/id_edittext3"

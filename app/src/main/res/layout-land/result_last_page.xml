@@ -13,998 +13,994 @@
             type="com.kangear.bodycompositionanalyzer.BodyComposition"
             />
     </data>
-<android.support.constraint.ConstraintLayout
-    android:background="@drawable/_90_testresult_background_2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <!-- 中间黑块 -->
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext3"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:maxLines="1"
-        android:text="@{bc.体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintStart_toStartOf="@+id/guideline49"
-        app:layout_constraintTop_toTopOf="@+id/guideline57" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/quzhitizhong_edittext2"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
-        android:text="@{bc.去脂体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline58"
-        app:layout_constraintStart_toStartOf="@+id/guideline49"
-        app:layout_constraintTop_toTopOf="@+id/guideline58" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext11"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
-        android:text="@{bc.肌肉量.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline59"
-        app:layout_constraintStart_toStartOf="@+id/guideline49"
-        app:layout_constraintTop_toTopOf="@+id/guideline59" />
-
-    <TextView
-        android:id="@+id/jichudaixie_edittext12"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:maxLines="2"
-        android:singleLine="false"
-        android:inputType = "textMultiLine"
-        android:text="@{bc.身体水分.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline56"
-        app:layout_constraintStart_toStartOf="@+id/guideline49"
-        app:layout_constraintTop_toTopOf="@+id/guideline56" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext16"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:maxLines="2"
-        android:inputType="textMultiLine"
-        android:text="@{bc.细胞内液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline53"
-        app:layout_constraintEnd_toStartOf="@+id/guideline60"
-        app:layout_constraintStart_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toTopOf="@+id/guideline53" />
-
-    <TextView
-        android:id="@+id/jichudaixie_edittext4"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:maxLines="2"
-        android:inputType="textMultiLine"
-        android:text="@{bc.细胞外液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline53"
-        app:layout_constraintEnd_toStartOf="@+id/guideline19"
-        app:layout_constraintStart_toStartOf="@+id/guideline19"
-        app:layout_constraintTop_toTopOf="@+id/guideline53" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext5"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:maxLines="2"
-        android:inputType="textMultiLine"
-        android:text="@{bc.蛋白质.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintEnd_toStartOf="@+id/guideline50"
-        app:layout_constraintStart_toStartOf="@+id/guideline50"
-        app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/shentishuifen_edittext6"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:text="@{bc.体脂肪量.formatCurUnit(1), default=`50.6kg`}"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toTopOf="@+id/guideline66"
-        app:layout_constraintEnd_toStartOf="@+id/guideline62"
-        app:layout_constraintStart_toStartOf="@+id/guideline62"
-        app:layout_constraintTop_toTopOf="@+id/guideline66" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zhifangtiaozheng_edittext2"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#12BE0A"
-        android:textSize="18sp"
-        android:text="@{bc.体脂肪量.getAdjustmentMinWithUnit(1), default=`-31.5kg`}"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toTopOf="@+id/guideline66"
-        app:layout_constraintEnd_toStartOf="@+id/guideline63"
-        app:layout_constraintStart_toStartOf="@+id/guideline63"
-        app:layout_constraintTop_toTopOf="@+id/guideline66" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jiroutiaozheng_edittext2"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#12BE0A"
-        android:textSize="18sp"
-        android:text="@{bc.肌肉量.getAdjustmentMaxWithUnit(1), default=`+55.2kg`}"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toTopOf="@+id/guideline65"
-        app:layout_constraintEnd_toStartOf="@+id/guideline63"
-        app:layout_constraintStart_toStartOf="@+id/guideline63"
-        app:layout_constraintTop_toTopOf="@+id/guideline65" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jiroutiaozheng_edittext3"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#FFFFFF"
-        android:text="@{bc.肌肉量.formatCurUnit(1), default=`77.8kg`}"
-        android:textSize="18sp"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        app:layout_constraintBottom_toTopOf="@+id/guideline65"
-        app:layout_constraintEnd_toStartOf="@+id/guideline62"
-        app:layout_constraintStart_toStartOf="@+id/guideline62"
-        app:layout_constraintTop_toTopOf="@+id/guideline65" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/wujiyan_zhengchang_edittext"
-        style="@style/resultEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:visibility="gone"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        tools:layout_editor_absoluteX="497dp" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zongnenghao_edittext"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:maxLines="1"
-        android:text="@{bc.总能耗.formatCurWithoutUnit(0), default=`3581`}"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline45"
-        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/zongnenghao_edittext2"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:maxLines="1"
-        android:text="@{bc.身体年龄.formatCurWithoutUnit(0), default=`50`}"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline48"
-        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        android:maxLines="1"
-        android:text="@{bc.基础代谢.formatCurWithoutUnit(0), default=`2022`}"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintBottom_toTopOf="@+id/guideline46"
-        app:layout_constraintEnd_toStartOf="@+id/guideline47" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/jichudaixie_edittext2"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:inputType="textMultiLine"
-        android:maxLines="2"
-        android:text="@{bc.无机盐.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintEnd_toStartOf="@+id/guideline51"
-        app:layout_constraintStart_toStartOf="@+id/guideline51"
-        app:layout_constraintTop_toTopOf="@+id/guideline55" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/tizhibi_edittext"
-        style="@style/resultEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:maxLines="2"
-        android:inputType="textMultiLine"
-        android:text="@{bc.体脂肪量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
-        android:textColor="#EA961D"
-        android:textSize="18sp"
-        app:backgroundTint="#777777"
-        app:layout_constraintEnd_toStartOf="@+id/guideline52"
-        app:layout_constraintStart_toStartOf="@+id/guideline52"
-        app:layout_constraintTop_toTopOf="@+id/guideline56" />
-
-    <TextView
-        android:id="@+id/zhifangtiaozheng_textview"
-        style="@style/resultItemLabel"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="377dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="蛋白质"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="150dp" />
-
-    <TextView
-        android:id="@+id/textView9"
-        style="@style/resultItemLabel"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="总能耗"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView8"
-        style="@style/resultItemLabel"
-        android:layout_width="120px"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/_70_result_label_black"
-        android:text="无机盐"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
-        app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
-
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/bmi_edittext"
-        style="@style/resultEditText"
-        android:layout_width="95px"
-        android:layout_height="0dp"
-        android:maxLines="1"
-        android:visibility="gone"
-        app:backgroundTint="@color/colorResultEditTextbackgroundTint"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="182dp" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/jieduanzhifang_constraintlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="442dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/_90_testresult_background_2">
 
-        <include
-            android:id="@+id/zhifang_yellow_human"
-            layout="@layout/yellow_human"
+
+        <!-- 中间黑块 -->
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext3"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:maxLines="1"
+            android:text="@{bc.体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline57"
+            app:layout_constraintStart_toStartOf="@+id/guideline49"
+            app:layout_constraintTop_toTopOf="@+id/guideline57" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/quzhitizhong_edittext2"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:text="@{bc.去脂体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline58"
+            app:layout_constraintStart_toStartOf="@+id/guideline49"
+            app:layout_constraintTop_toTopOf="@+id/guideline58" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext11"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:text="@{bc.肌肉量.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline59"
+            app:layout_constraintStart_toStartOf="@+id/guideline49"
+            app:layout_constraintTop_toTopOf="@+id/guideline59" />
+
+        <TextView
+            android:id="@+id/jichudaixie_edittext12"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="@{bc.身体水分.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline56"
+            app:layout_constraintStart_toStartOf="@+id/guideline49"
+            app:layout_constraintTop_toTopOf="@+id/guideline56" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext16"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:text="@{bc.细胞内液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline53"
+            app:layout_constraintEnd_toStartOf="@+id/guideline60"
+            app:layout_constraintStart_toStartOf="@+id/guideline60"
+            app:layout_constraintTop_toTopOf="@+id/guideline53" />
+
+        <TextView
+            android:id="@+id/jichudaixie_edittext4"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:text="@{bc.细胞外液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline53"
+            app:layout_constraintEnd_toStartOf="@+id/guideline19"
+            app:layout_constraintStart_toStartOf="@+id/guideline19"
+            app:layout_constraintTop_toTopOf="@+id/guideline53" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext5"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:text="@{bc.蛋白质.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintStart_toStartOf="@+id/guideline50"
+            app:layout_constraintTop_toTopOf="@+id/guideline54" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/shentishuifen_edittext6"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{bc.体脂肪量.formatCurUnit(1), default=`50.6kg`}"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+            app:layout_constraintBottom_toTopOf="@+id/guideline66"
+            app:layout_constraintEnd_toStartOf="@+id/guideline62"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/zhifangtiaozheng_edittext2"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{bc.体脂肪量.getAdjustmentMinWithUnit(1), default=`-31.5kg`}"
+            android:textColor="#12BE0A"
+            android:textSize="18sp"
+            app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+            app:layout_constraintBottom_toTopOf="@+id/guideline66"
+            app:layout_constraintEnd_toStartOf="@+id/guideline63"
+            app:layout_constraintStart_toStartOf="@+id/guideline63"
+            app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jiroutiaozheng_edittext2"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{bc.肌肉量.getAdjustmentMaxWithUnit(1), default=`+55.2kg`}"
+            android:textColor="#12BE0A"
+            android:textSize="18sp"
+            app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+            app:layout_constraintBottom_toTopOf="@+id/guideline65"
+            app:layout_constraintEnd_toStartOf="@+id/guideline63"
+            app:layout_constraintStart_toStartOf="@+id/guideline63"
+            app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jiroutiaozheng_edittext3"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{bc.肌肉量.formatCurUnit(1), default=`77.8kg`}"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+            app:layout_constraintBottom_toTopOf="@+id/guideline65"
+            app:layout_constraintEnd_toStartOf="@+id/guideline62"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/wujiyan_zhengchang_edittext"
+            style="@style/resultEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:visibility="gone"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            tools:layout_editor_absoluteX="497dp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/zongnenghao_edittext"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:maxLines="1"
+            android:text="@{bc.总能耗.formatCurWithoutUnit(0), default=`3581`}"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline45"
+            app:layout_constraintEnd_toStartOf="@+id/guideline47" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/zongnenghao_edittext2"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:maxLines="1"
+            android:text="@{bc.身体年龄.formatCurWithoutUnit(0), default=`50`}"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline48"
+            app:layout_constraintEnd_toStartOf="@+id/guideline47" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            android:maxLines="1"
+            android:text="@{bc.基础代谢.formatCurWithoutUnit(0), default=`2022`}"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintBottom_toTopOf="@+id/guideline46"
+            app:layout_constraintEnd_toStartOf="@+id/guideline47" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/jichudaixie_edittext2"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:text="@{bc.无机盐.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintEnd_toStartOf="@+id/guideline51"
+            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintTop_toTopOf="@+id/guideline55" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/tizhibi_edittext"
+            style="@style/resultEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:text="@{bc.体脂肪量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+            android:textColor="#EA961D"
+            android:textSize="18sp"
+            app:backgroundTint="#777777"
+            app:layout_constraintEnd_toStartOf="@+id/guideline52"
+            app:layout_constraintStart_toStartOf="@+id/guideline52"
+            app:layout_constraintTop_toTopOf="@+id/guideline56" />
+
+        <TextView
+            android:id="@+id/zhifangtiaozheng_textview"
+            style="@style/resultItemLabel"
+            android:layout_width="120px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="377dp"
+            android:background="@drawable/_70_result_label_black"
+            android:text="蛋白质"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-    </android.support.constraint.ConstraintLayout>
+            tools:layout_editor_absoluteY="150dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/resultItemLabel"
+            android:layout_width="120px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/_70_result_label_black"
+            android:text="总能耗"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/resultItemLabel"
+            android:layout_width="120px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/_70_result_label_black"
+            android:text="无机盐"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/zhifangtiaozheng_textview"
+            app:layout_constraintStart_toStartOf="@+id/zhifangtiaozheng_textview"
+            app:layout_constraintTop_toBottomOf="@+id/zhifangtiaozheng_textview" />
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/jieduanjirou_constraintlayout"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="442dp"
-        app:layout_constraintStart_toEndOf="@+id/jieduanzhifang_constraintlayout"
-        app:layout_constraintTop_toTopOf="parent">
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/bmi_edittext"
+            style="@style/resultEditText"
+            android:layout_width="95px"
+            android:layout_height="0dp"
+            android:maxLines="1"
+            android:visibility="gone"
+            app:backgroundTint="@color/colorResultEditTextbackgroundTint"
+            tools:layout_editor_absoluteX="170dp"
+            tools:layout_editor_absoluteY="182dp" />
 
-        <include
-            android:id="@+id/jirou_yellow_human"
-            layout="@layout/yellow_human"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/jieduanzhifang_constraintlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="442dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/zhifang_yellow_human"
+                layout="@layout/yellow_human"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/jieduanjirou_constraintlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="442dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/jieduanzhifang_constraintlayout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/jirou_yellow_human"
+                layout="@layout/yellow_human"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:id="@+id/sdf"
+            android:layout_width="2px"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
+
+        <View
+            android:id="@+id/sdf2"
+            android:layout_width="2px"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/line"
+            app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体重.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline42"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline42"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.肌肉量.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline44"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline39"
+            app:layout_constraintTop_toTopOf="@+id/guideline44"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.肌肉量.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline44"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="@+id/guideline38"
+            app:layout_constraintTop_toTopOf="@+id/guideline44"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体脂肪量.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline43"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline39"
+            app:layout_constraintTop_toTopOf="@+id/guideline43"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体脂肪量.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline43"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="@+id/guideline38"
+            app:layout_constraintTop_toTopOf="@+id/guideline43"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView22"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体重.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline42"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline39"
+            app:layout_constraintTop_toTopOf="@+id/guideline42"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体重.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline42"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="@+id/guideline38"
+            app:layout_constraintTop_toTopOf="@+id/guideline42"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.无机盐.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline41"
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintStart_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toTopOf="@+id/guideline41"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.肌肉量.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline44"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline44"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.体脂肪量.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline43"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline43"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.蛋白质.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintStart_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{bc.无机盐.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline41"
+            app:layout_constraintEnd_toStartOf="@+id/guideline19"
+            app:layout_constraintStart_toStartOf="@+id/guideline19"
+            app:layout_constraintTop_toTopOf="@+id/guideline41"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView27"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{bc.无机盐.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline41"
+            app:layout_constraintEnd_toStartOf="@+id/guideline36"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline41"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView25"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
+            app:layout_constraintEnd_toStartOf="@+id/guideline36"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <ImageView
+            android:id="@+id/imageView26"
+            android:layout_width="26dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{bc.蛋白质.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
+            app:layout_constraintEnd_toStartOf="@+id/guideline19"
+            app:layout_constraintStart_toStartOf="@+id/guideline19"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:srcCompat="@drawable/_90_gou" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="163dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="239dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="314dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="501dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="577dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="652dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="451dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="485dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="460dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="521dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="586dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="579dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="545dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="325dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="617dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="190dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="349dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="459dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="578dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="370dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline54"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="323dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="305dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="290dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline57"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="159dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="199dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline59"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="243dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="111dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline62"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="855dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="933dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline65"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="590dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline66"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="529dp" />
+
+        <TableLayout
+            android:layout_width="309dp"
+            android:layout_height="272dp"
+            android:layout_marginTop="125dp"
+            android:layout_marginEnd="49dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="@{bc.体型分析.getMax() == 5 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="@{bc.体型分析.getMax() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="@{bc.体型分析.getMax() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="@{bc.体型分析.getMax() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="@{bc.体型分析.getMax() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                    app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
+            </TableRow>
+
+        </TableLayout>
+
 
     </android.support.constraint.ConstraintLayout>
-
-    <View
-        android:id="@+id/sdf"
-        android:layout_width="2px"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/line"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
-
-    <View
-        android:id="@+id/sdf2"
-        android:layout_width="2px"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/line"
-        app:layout_constraintBottom_toBottomOf="@+id/wujiyan_zhengchang_edittext" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体重.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline42"
-        app:layout_constraintEnd_toStartOf="@+id/guideline37"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline42"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.肌肉量.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline44"
-        app:layout_constraintEnd_toStartOf="@+id/guideline39"
-        app:layout_constraintStart_toStartOf="@+id/guideline39"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView19"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.肌肉量.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline44"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintStart_toStartOf="@+id/guideline38"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView20"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体脂肪量.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toStartOf="@+id/guideline39"
-        app:layout_constraintStart_toStartOf="@+id/guideline39"
-        app:layout_constraintTop_toTopOf="@+id/guideline43"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体脂肪量.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintStart_toStartOf="@+id/guideline38"
-        app:layout_constraintTop_toTopOf="@+id/guideline43"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体重.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline42"
-        app:layout_constraintEnd_toStartOf="@+id/guideline39"
-        app:layout_constraintStart_toStartOf="@+id/guideline39"
-        app:layout_constraintTop_toTopOf="@+id/guideline42"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView23"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体重.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline42"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintStart_toStartOf="@+id/guideline38"
-        app:layout_constraintTop_toTopOf="@+id/guideline42"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.无机盐.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline41"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView16"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.肌肉量.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline44"
-        app:layout_constraintEnd_toStartOf="@+id/guideline37"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView17"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.体脂肪量.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toStartOf="@+id/guideline37"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline43"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView18"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.蛋白质.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline40"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="@{bc.无机盐.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintEnd_toStartOf="@+id/guideline19"
-        app:layout_constraintStart_toStartOf="@+id/guideline19"
-        app:layout_constraintTop_toTopOf="@+id/guideline41"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView27"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.无机盐.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintEnd_toStartOf="@+id/guideline36"
-        app:layout_constraintStart_toStartOf="@+id/guideline36"
-        app:layout_constraintTop_toTopOf="@+id/guideline41"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="@{bc.蛋白质.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=`visible`}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline40"
-        app:layout_constraintEnd_toStartOf="@+id/guideline36"
-        app:layout_constraintStart_toStartOf="@+id/guideline36"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/error" />
-
-    <ImageView
-        android:id="@+id/imageView26"
-        android:layout_width="26dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="@{bc.蛋白质.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
-        app:layout_constraintBottom_toTopOf="@+id/guideline40"
-        app:layout_constraintEnd_toStartOf="@+id/guideline19"
-        app:layout_constraintStart_toStartOf="@+id/guideline19"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/error" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="163dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="239dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="314dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="501dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="577dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline39"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="652dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="451dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline41"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="485dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="460dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline43"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="521dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline44"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="586dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="579dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="545dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline47"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="325dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline48"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="617dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline49"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="190dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="349dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline51"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="459dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="578dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline53"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="370dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline54"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="323dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="305dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline56"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="290dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline57"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="159dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline58"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="199dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline59"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="243dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="111dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline62"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="855dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="933dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline65"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="590dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline66"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="529dp" />
-
-    <TableLayout
-        android:layout_width="309dp"
-        android:layout_height="272dp"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="49dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow
-            android:visibility="@{bc.体型分析.getMax() == 5 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-        <TableRow
-            android:visibility="@{bc.体型分析.getMax() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-        <TableRow
-            android:visibility="@{bc.体型分析.getMax() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-
-        <TableRow
-            android:visibility="@{bc.体型分析.getMax() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-        <TableRow
-            android:visibility="@{bc.体型分析.getMax() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 2 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 3 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-
-            <ImageView
-                android:visibility="@{bc.体型分析.getMin() == 4 ? View.VISIBLE : View.INVISIBLE, default=visible}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/_90_testresult_tixingfenxi_star" />
-        </TableRow>
-
-    </TableLayout>
-
-
-</android.support.constraint.ConstraintLayout>
 </layout>
