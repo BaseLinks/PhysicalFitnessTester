@@ -6,8 +6,8 @@
         <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
     </data>
 <android.support.constraint.ConstraintLayout
-    android:layout_width="595px"
-    android:layout_height="842px">
+    android:layout_width="595dp"
+    android:layout_height="842dp">
     <include
         android:id="@+id/pdf"
         layout="@layout/pdf_20190104"

@@ -129,17 +129,17 @@ public class PdfActivity extends AppCompatActivity {
 
         binding.setRecord(mRecord);
 
-        Pdf pdf = new Pdf(mRecord, findViewById(R.id.pdf), this, null);
+//        Pdf pdf = new Pdf(mRecord, findViewById(R.id.pdf), this, null);
 
-        LocalBroadcastManager.getInstance(mContext).registerReceiver(mBroadcastReceiver, mPrintDoneFilter);
-
-        Message msg = new Message();
-        msg.what = HANDLE_EVENT_PRINT;
-        msg.obj = pdf;
-        mHandler.sendMessageDelayed(msg, 1);
-
-        if (true)
-            return;
+//        LocalBroadcastManager.getInstance(mContext).registerReceiver(mBroadcastReceiver, mPrintDoneFilter);
+//
+//        Message msg = new Message();
+//        msg.what = HANDLE_EVENT_PRINT;
+//        msg.obj = pdf;
+//        mHandler.sendMessageDelayed(msg, 1);
+//
+//        if (true)
+//            return;
 
 
         mFailView = findViewById(R.id.print_fail_view);
@@ -152,7 +152,7 @@ public class PdfActivity extends AppCompatActivity {
             DATE_FORMAT = DATE_FORMAT_TIME;
         }
 
-        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, RECORD_ID_INVALID);
+        int recordId = getIntent().getIntExtra(CONST_RECORD_ID, 0);
         if (recordId == RECORD_ID_INVALID) {
             Log.e(TAG, "recordId can not be RECORD_ID_INVALID");
             mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
@@ -195,12 +195,12 @@ public class PdfActivity extends AppCompatActivity {
         Log.i(TAG, "mRecords: " + records.size());
         Toast.makeText(this, "历史记录数:"+records.size(), Toast.LENGTH_LONG).show();
 
-//        Pdf pdf = new Pdf(curRecord, findViewById(R.id.pdf), this, records);
-//
-//        Message msg = new Message();
-//        msg.what = HANDLE_EVENT_PRINT;
-//        msg.obj = pdf;
-//        mHandler.sendMessageDelayed(msg, 1);
+        Pdf pdf = new Pdf(curRecord, findViewById(R.id.pdf), this, records);
+
+        Message msg = new Message();
+        msg.what = HANDLE_EVENT_PRE_FILL;
+        msg.obj = pdf;
+        mHandler.sendMessageDelayed(msg, 1);
 
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mBroadcastReceiver, mPrintDoneFilter);
     }
@@ -453,98 +453,98 @@ public class PdfActivity extends AppCompatActivity {
         String c = o1 == null ? "" : o1.getStrValue();
         String n = o2 == null ? "" : o2.getStrValue();
         Toast.makeText(activity, "company: " + c + " number: " + n, Toast.LENGTH_LONG).show();
-        ((TextView)pdfView.findViewById(R.id.company_textview)).setText(c);
-        ((TextView)pdfView.findViewById(R.id.number_textview)).setText(n);
-
-        // JiBenXinXi
-        // - ID, Date, Time, Gender
-        ((TextView)pdfView.findViewById(R.id.name_textview)).setText(curRecord.getName());
-        ((TextView)pdfView.findViewById(R.id.gender_textview)).setText(curRecord.getGender());
-        Date date = new Date(curRecord.getTime());
-        ((TextView)pdfView.findViewById(R.id.jibenxinxi_date_textview)).setText(new SimpleDateFormat(JIBENXINXI_DATE_FORMAT).format(date));
-        ((TextView)pdfView.findViewById(R.id.time_textview)).setText(new SimpleDateFormat(JIBENXINXI_TIME_FORMAT).format(date));
-
-        //
-        fillOne(pdfView, bc.身高, R.id.height_textview, true, FORMAT_WEIGHT);
-        fillOne(pdfView, bc.年龄, R.id.age_textview, true, FLOAT_0_FORMAT);
-        fillOne(pdfView, bc.评分, R.id.jibenxinxi_jiankangzhishu_textview, false, FLOAT_1_FORMAT);
-
-        // 身体成分分析
-        fillRange(pdfView, bc.体重, R.id.weight_range_textview, false, FLOAT_1_FORMAT);
-        fillRange(pdfView, bc.骨骼肌, R.id.gugeji_range_textview, false, FLOAT_1_FORMAT);
-        fillRange(pdfView, bc.体脂肪量, R.id.tizhifang_range_textview, false, FLOAT_1_FORMAT);
-        setProgressOfTichengfenfenxi(bc.体重, pdfView.findViewById(R.id.weight_progressbar));
-        setProgressOfTichengfenfenxi(bc.骨骼肌, pdfView.findViewById(R.id.gugeji_progressbar));
-        setProgressOfTichengfenfenxi(bc.体脂肪量, pdfView.findViewById(R.id.tizhifang_progressbar));
-
-        // -身体水分
-        fillCurAndRange(pdfView, bc.身体水分, R.id.shentishuifen_textview, true, FLOAT_1_FORMAT);
-        // -去脂体重
-        fillCurAndRange(pdfView, bc.去脂体重, R.id.quzhitizhong_textview, true, FLOAT_1_FORMAT);
-
-        // 营养评估
-        // -蛋白质 无机盐 总能耗
-        fillOne(pdfView, bc.蛋白质, R.id.danbaizhi_textview, true, FLOAT_1_FORMAT);
-        fillOne(pdfView, bc.无机盐, R.id.wujiyan_textview, true, FLOAT_1_FORMAT);
-        fillOne(pdfView, bc.总能耗, R.id.zongnenghao_textview, false, FLOAT_0_FORMAT);
-        setProgressOfYingYangPingGu(bc.蛋白质, pdfView.findViewById(R.id.danbaizhi_progressbar));
-        setProgressOfYingYangPingGu(bc.无机盐, pdfView.findViewById(R.id.wujiyan_progressbar));
-
-        // 肥胖分析
-        fillCurAndRange(pdfView, bc.BMI, R.id.bmi_textview, R.id.bmi_range_textview, true, FLOAT_1_FORMAT);
-        fillCurAndRange(pdfView, bc.体脂百分比, R.id.pdf_tizhibaifenbi_textview, R.id.tizhibaifenbi_range_textview, true, FLOAT_1_FORMAT);
-        fillCurAndRange(pdfView, bc.腰臀比, R.id.yaotunbi_textview, R.id.yaotunbi_range_textview, true, FLOAT_2_FORMAT);
-        fillOne(pdfView, bc.基础代谢, R.id.jichudaixie_textview, true, FLOAT_0_FORMAT);
-
-        // zonghepingjia
-        // -内脏面积
-        fillCurAndRange(pdfView, bc.内脏面积, R.id.neizangmianji_textview, true, FLOAT_1_FORMAT);
-
-        // -阶段
-        // - 阶段脂肪
-        fillYelloMan(
-                new ResultActivity.YelloMan(
-                        null,
-                        bc.左上脂肪量,
-                        bc.左下脂肪量,
-                        bc.右上脂肪量,
-                        bc.右下脂肪量,
-                        bc.躯干脂肪量
-                ),
-                pdfView.findViewById(R.id.zhifang_yellow_human)
-
-        );
-
-        // - 阶段肌肉
-        fillYelloMan(
-                new ResultActivity.YelloMan(
-                        null,
-                        bc.左上肢肌肉量,
-                        bc.左下肌肉量,
-                        bc.右上肢肌肉量,
-                        bc.右下肌肉量,
-                        bc.躯干肌肉量
-                ),
-                pdfView.findViewById(R.id.jirou_yellow_human)
-
-        );
-
-        // 综合评价
-        FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + bc.体脂肪量.getUnit();
-        FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + bc.骨骼肌.getUnit();
-        // -脂肪调整量
-        ((TextView)pdfView.findViewById(R.id.zhifangtiaozheng_textview)).setText(String.format(FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT, bc.getZhifangAdjustment()));
-        // -肌肉调整量
-        ((TextView)pdfView.findViewById(R.id.jiroutiaozheng_textview)).setText(String.format(FLOAT_JIROU_TIAOZHENGLIANG_FORMAT, bc.getJirouAdjustment()));
-        // -健康指数(评分)
-        fillOne(pdfView, bc.评分, R.id.jiankangzhishu_textview, false, FLOAT_1_FORMAT);
-
-        // 生物电阻抗
-        // -5k
-        fillOne(pdfView, bc._5k电阻, R.id._5k_textview, true, FLOAT_0_FORMAT);
-        // -50k
-        fillOne(pdfView, bc._50k电阻, R.id._50k_textview, true, FLOAT_0_FORMAT);
-        // -250k
-        fillOne(pdfView, bc._250k电阻, R.id._250k_textview, true, FLOAT_0_FORMAT);
+        ((TextView)pdfView.findViewById(R.id.company_textview)).setText("地址: "+ c + "联系方式: " + n);
+//        ((TextView)pdfView.findViewById(R.id.number_textview)).setText(n);
+//
+//        // JiBenXinXi
+//        // - ID, Date, Time, Gender
+//        ((TextView)pdfView.findViewById(R.id.name_textview)).setText(curRecord.getName());
+//        ((TextView)pdfView.findViewById(R.id.gender_textview)).setText(curRecord.getGender());
+//        Date date = new Date(curRecord.getTime());
+//        ((TextView)pdfView.findViewById(R.id.jibenxinxi_date_textview)).setText(new SimpleDateFormat(JIBENXINXI_DATE_FORMAT).format(date));
+//        ((TextView)pdfView.findViewById(R.id.time_textview)).setText(new SimpleDateFormat(JIBENXINXI_TIME_FORMAT).format(date));
+//
+//        //
+//        fillOne(pdfView, bc.身高, R.id.height_textview, true, FORMAT_WEIGHT);
+//        fillOne(pdfView, bc.年龄, R.id.age_textview, true, FLOAT_0_FORMAT);
+//        fillOne(pdfView, bc.评分, R.id.jibenxinxi_jiankangzhishu_textview, false, FLOAT_1_FORMAT);
+//
+//        // 身体成分分析
+//        fillRange(pdfView, bc.体重, R.id.weight_range_textview, false, FLOAT_1_FORMAT);
+//        fillRange(pdfView, bc.骨骼肌, R.id.gugeji_range_textview, false, FLOAT_1_FORMAT);
+//        fillRange(pdfView, bc.体脂肪量, R.id.tizhifang_range_textview, false, FLOAT_1_FORMAT);
+//        setProgressOfTichengfenfenxi(bc.体重, pdfView.findViewById(R.id.weight_progressbar));
+//        setProgressOfTichengfenfenxi(bc.骨骼肌, pdfView.findViewById(R.id.gugeji_progressbar));
+//        setProgressOfTichengfenfenxi(bc.体脂肪量, pdfView.findViewById(R.id.tizhifang_progressbar));
+//
+//        // -身体水分
+//        fillCurAndRange(pdfView, bc.身体水分, R.id.shentishuifen_textview, true, FLOAT_1_FORMAT);
+//        // -去脂体重
+//        fillCurAndRange(pdfView, bc.去脂体重, R.id.quzhitizhong_textview, true, FLOAT_1_FORMAT);
+//
+//        // 营养评估
+//        // -蛋白质 无机盐 总能耗
+//        fillOne(pdfView, bc.蛋白质, R.id.danbaizhi_textview, true, FLOAT_1_FORMAT);
+//        fillOne(pdfView, bc.无机盐, R.id.wujiyan_textview, true, FLOAT_1_FORMAT);
+//        fillOne(pdfView, bc.总能耗, R.id.zongnenghao_textview, false, FLOAT_0_FORMAT);
+//        setProgressOfYingYangPingGu(bc.蛋白质, pdfView.findViewById(R.id.danbaizhi_progressbar));
+//        setProgressOfYingYangPingGu(bc.无机盐, pdfView.findViewById(R.id.wujiyan_progressbar));
+//
+//        // 肥胖分析
+//        fillCurAndRange(pdfView, bc.BMI, R.id.bmi_textview, R.id.bmi_range_textview, true, FLOAT_1_FORMAT);
+//        fillCurAndRange(pdfView, bc.体脂百分比, R.id.pdf_tizhibaifenbi_textview, R.id.tizhibaifenbi_range_textview, true, FLOAT_1_FORMAT);
+//        fillCurAndRange(pdfView, bc.腰臀比, R.id.yaotunbi_textview, R.id.yaotunbi_range_textview, true, FLOAT_2_FORMAT);
+//        fillOne(pdfView, bc.基础代谢, R.id.jichudaixie_textview, true, FLOAT_0_FORMAT);
+//
+//        // zonghepingjia
+//        // -内脏面积
+//        fillCurAndRange(pdfView, bc.内脏面积, R.id.neizangmianji_textview, true, FLOAT_1_FORMAT);
+//
+//        // -阶段
+//        // - 阶段脂肪
+//        fillYelloMan(
+//                new ResultActivity.YelloMan(
+//                        null,
+//                        bc.左上脂肪量,
+//                        bc.左下脂肪量,
+//                        bc.右上脂肪量,
+//                        bc.右下脂肪量,
+//                        bc.躯干脂肪量
+//                ),
+//                pdfView.findViewById(R.id.zhifang_yellow_human)
+//
+//        );
+//
+//        // - 阶段肌肉
+//        fillYelloMan(
+//                new ResultActivity.YelloMan(
+//                        null,
+//                        bc.左上肢肌肉量,
+//                        bc.左下肌肉量,
+//                        bc.右上肢肌肉量,
+//                        bc.右下肌肉量,
+//                        bc.躯干肌肉量
+//                ),
+//                pdfView.findViewById(R.id.jirou_yellow_human)
+//
+//        );
+//
+//        // 综合评价
+//        FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT = "-" + FLOAT_1_FORMAT + bc.体脂肪量.getUnit();
+//        FLOAT_JIROU_TIAOZHENGLIANG_FORMAT   = "+" + FLOAT_1_FORMAT + bc.骨骼肌.getUnit();
+//        // -脂肪调整量
+//        ((TextView)pdfView.findViewById(R.id.zhifangtiaozheng_textview)).setText(String.format(FLOAT_ZHIFANG_TIAOZHENGLIANG_FORMAT, bc.getZhifangAdjustment()));
+//        // -肌肉调整量
+//        ((TextView)pdfView.findViewById(R.id.jiroutiaozheng_textview)).setText(String.format(FLOAT_JIROU_TIAOZHENGLIANG_FORMAT, bc.getJirouAdjustment()));
+//        // -健康指数(评分)
+//        fillOne(pdfView, bc.评分, R.id.jiankangzhishu_textview, false, FLOAT_1_FORMAT);
+//
+//        // 生物电阻抗
+//        // -5k
+//        fillOne(pdfView, bc._5k电阻, R.id._5k_textview, true, FLOAT_0_FORMAT);
+//        // -50k
+//        fillOne(pdfView, bc._50k电阻, R.id._50k_textview, true, FLOAT_0_FORMAT);
+//        // -250k
+//        fillOne(pdfView, bc._250k电阻, R.id._250k_textview, true, FLOAT_0_FORMAT);
     }
 }
