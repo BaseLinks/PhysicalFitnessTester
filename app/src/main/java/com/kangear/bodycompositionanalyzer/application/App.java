@@ -3,6 +3,8 @@ package com.kangear.bodycompositionanalyzer.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class App extends Application {
@@ -12,6 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "onCreate");
-        CrashReport.initCrashReport(getApplicationContext(), "cb731b8519", false);
+        Beta.autoCheckUpgrade = false;
+        Bugly.init(getApplicationContext(), "cb731b8519", true);
     }
 }

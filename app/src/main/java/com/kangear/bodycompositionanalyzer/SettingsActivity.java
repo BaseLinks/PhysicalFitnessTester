@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -145,8 +146,9 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.update_apk_button:
-                Toast.makeText(this, "系统升级", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "系统升级", Toast.LENGTH_SHORT).show();
 //                CrashReport.testJavaCrash();
+                Beta.checkUpgrade();
                 break;
         }
     }
