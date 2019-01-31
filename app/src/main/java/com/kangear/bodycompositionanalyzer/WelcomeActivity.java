@@ -498,6 +498,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 installPrinterDriver(mContext);
                 installBootAnimation(mContext);
                 //installNotoFonts(mContext);
+
+                // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+                MemRegActivity.checkMem(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
