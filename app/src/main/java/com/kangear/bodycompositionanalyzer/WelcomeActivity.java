@@ -1,8 +1,10 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
@@ -351,6 +353,16 @@ public class WelcomeActivity extends AppCompatActivity {
                 startHistory(this);
                 break;
             case R.id.settings_imageview:
+//                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//                alertDialog.setTitle("Alert");
+//                alertDialog.setMessage("Alert message to be shown");
+//                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                alertDialog.show();
                 startSettings(this);
 //                onClick2(v);
                 break;
@@ -479,6 +491,16 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private void selfCheck(final Context context) {
         if (BuildConfig.DEBUG) {
+            try {
+                Printer.getInstance(this).init();
+
+                installBusybox(mContext);
+                installPrinterDriver(mContext);
+                installBootAnimation(mContext);
+                //installNotoFonts(mContext);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             mHandler.sendEmptyMessage(HANDLE_EVENT_AUTO_TEST_DONE);
             return;
         }
@@ -529,7 +551,11 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        TouchID.getInstance(this).unInit();
+        try {
+            TouchID.getInstance(this).unInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // pre test

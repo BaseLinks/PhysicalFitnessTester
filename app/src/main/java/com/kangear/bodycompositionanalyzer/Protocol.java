@@ -957,6 +957,15 @@ public class Protocol implements IProtocol {
         return crc;
     }
 
+    /**
+     * 将short转换成data数组
+     * @param shortNumber
+     * @return
+     */
+    public static byte[] getDataFromShort(int shortNumber) {
+        return ByteBuffer.allocate(2).order(BYTE_ORDER).putShort((short) (shortNumber & 0xFFFF)).array();
+    }
+
 
     // 七， 16 位的 crc 校验函数
 //    short calcrc(unsigned char *ptr, short count)

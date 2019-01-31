@@ -1,8 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,15 +25,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kangear.bodycompositionanalyzer.databinding.ActivityResultBinding;
+import com.kangear.utils.QRCodeUtil;
 
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
+import static com.kangear.bodycompositionanalyzer.BodyComposition.BMI;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_HIGH;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_LOW;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_NORMAL;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体脂百分比;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体脂肪量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.体重;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.内脏面积;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.右下脂肪量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.基础代谢;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.左上肢肌肉量;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.性别;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.总能耗;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.无机盐;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.腰臀比;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.评分;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.身体年龄;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.骨骼肌;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.INVALID_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startPdf;
+import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -448,6 +471,62 @@ public class ResultActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
+    private Bitmap createQr() {
+        byte[] qrData = mRecord.getData().clone();
+
+        int BYTE_BUFFER_ALLOCATE = 1024;
+        ByteBuffer target = ByteBuffer.allocate(1024);
+        target.put(Arrays.copyOfRange(qrData, 性别.getCurStart(), 体重.getCurStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体重.getMinStart(), 体重.getMaxStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体脂肪量.getCurStart(), 体脂肪量.getMaxStart() + 体脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 骨骼肌.getCurStart(), 无机盐.getMaxStart() + 无机盐.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 左上肢肌肉量.getCurStart(), 右下脂肪量.getMaxStart() + 右下脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, BMI.getCurStart(), 体脂百分比.getMaxStart() + 体脂百分比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 腰臀比.getCurStart(), 腰臀比.getMaxStart() + 腰臀比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 内脏面积.getCurStart(), 内脏面积.getCurStart() + 内脏面积.getLength()));
+        target.put(Protocol.getDataFromShort((int) 评分.getCur()));
+        target.put((byte) 身体年龄.getCur()); // 身体年龄
+        Log.i(TAG, "身体年龄: " + 身体年龄.getCur());
+        target.put((byte) 0x00); //肌肉调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
+        target.put((byte) 0x01); //脂肪调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getZhifangAdjustment() * 10.0)));
+        target.put(Protocol.getDataFromShort((int) (基础代谢.getCur())));
+        target.put(Arrays.copyOfRange(qrData, 总能耗.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
+        target.limit(target.remaining());
+        target.rewind();
+        /* 提取 */
+        byte[] byteArray = new byte[BYTE_BUFFER_ALLOCATE - target.remaining()];
+        target.get(byteArray);
+        /* 将byteBuffer清理 */
+        target.clear();
+
+        Log.i(TAG, bytesToHex(byteArray));
+
+        // 加密 -0xAA
+        for (int i=0; i<byteArray.length; i++) {
+            byteArray[i] -= (byte)0xAA;
+        }
+
+        String qrcontent = bytesToHexWithoutSpace(byteArray);
+        Log.i(TAG, qrcontent);
+
+        return QRCodeUtil.createQRCodeBitmap(qrcontent, 480, 480);
+    }
+
+    public static String bytesToHexWithoutSpace(byte[] in) {
+        StringBuilder builder = new StringBuilder();
+        byte[] var2 = in;
+        int var3 = in.length;
+
+        for(int var4 = 0; var4 < var3; ++var4) {
+            byte b = var2[var4];
+            builder.append(String.format("%02X", b));
+        }
+
+        return builder.toString();
+    }
+
     public void onClick(View v) {
         Intent intent = new Intent(this, WelcomeActivity.class);
         switch (v.getId()) {
@@ -465,6 +544,13 @@ public class ResultActivity extends AppCompatActivity {
                 break;
             case R.id.qr_button:
                 Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
+                ImageView image = new ImageView(this);
+                image.setImageBitmap(createQr());
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(this).
+                                setMessage("微信扫一扫收藏本次测试结果").
+                                setView(image);
+                builder.create().show();
                 break;
             case R.id.print_button:
                 if (mRecord != null)
