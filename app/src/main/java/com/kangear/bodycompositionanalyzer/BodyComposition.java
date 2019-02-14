@@ -440,12 +440,19 @@ public class BodyComposition {
         return true;
     }
 
+    // 原始数据包
+    private byte[] data;
+    public byte[] getData() {
+        return data;
+    }
+
     /**
      * 从数据段进行解析各项参数
      *
      * @param data
      */
     public BodyComposition(final byte[] data) {
+        this.data = data;
         mList.add(性别);
         mList.add(年龄);
         mList.add(身高);

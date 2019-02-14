@@ -25,10 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kangear.bodycompositionanalyzer.databinding.ActivityResultBinding;
+import com.kangear.qr.PrinterIntence;
 import com.kangear.utils.QRCodeUtil;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import android.util.Base64;
+
+import org.json.JSONObject;
 
 import static com.kangear.bodycompositionanalyzer.BodyComposition.BMI;
 import static com.kangear.bodycompositionanalyzer.BodyComposition.LEVEL_HIGH;
@@ -508,10 +513,35 @@ public class ResultActivity extends AppCompatActivity {
             byteArray[i] -= (byte)0xAA;
         }
 
-        String qrcontent = bytesToHexWithoutSpace(byteArray);
+        // 二维码内容：原始数据+时间+
+        String qrcontent = bytesToHexWithoutSpace(mBodyComposition.getData());
+        qrcontent = Base64.encodeToString(mBodyComposition.getData(), Base64.DEFAULT);
+        qrcontent = qrcontent.replaceAll("\r|\n", "");
         Log.i(TAG, qrcontent);
 
-        return QRCodeUtil.createQRCodeBitmap(qrcontent, 480, 480);
+        // Company and Number
+        Other o1 = OtherBean.getInstance(getApplicationContext()).queryByName(Other.OTHER_NAME_COMPANY);
+        Other o2 = OtherBean.getInstance(getApplicationContext()).queryByName(Other.OTHER_NAME_NUMBER);
+        String c = o1 == null ? "" : o1.getStrValue();
+        String n = o2 == null ? "" : o2.getStrValue();
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("date", mRecord.getTime());
+            obj.put("tel", n);
+            obj.put("addr", c);
+            obj.put("score", 评分.formatCurWithoutUnit(1));
+            obj.put("bodyage", 身体年龄.formatCurWithoutUnit(0));
+            obj.put("whr", 腰臀比.formatCurWithoutUnit(2));
+            obj.put("database64", qrcontent);
+
+            PrinterIntence mp = PrinterIntence.getPrinterIntence(new File("/dev/ttyS2"), 115200, 0);
+            mp.setQrCode2(1, 5, 1, 1, obj.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return QRCodeUtil.createQRCodeBitmap(obj.toString(), 500, 500);
     }
 
     public static String bytesToHexWithoutSpace(byte[] in) {
