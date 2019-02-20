@@ -706,7 +706,7 @@ public class Printer {
                     "-sPJLLanguage=PCL3GUI " +
                     "-dOnlyCRD " +
                     "-r600 " +
-                    "-sColourModel=CMYK " +
+//                    "-sColourModel=CMYK " +
                     "-sPrintQuality=draft " +
                     "-sMedium=plain " +
                     "-sPAPERSIZE=a4 " +
