@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -25,7 +26,7 @@ public class RecordAdapter extends BaseAdapter {
     */
     public RecordAdapter(LayoutInflater inflater,List<Record> data){
         mInflater = inflater;
-        mData = data;
+        mData = data; //testList.sort(Comparator.comparing(ClassName::getFieldName).reversed());;
     }
 
     @Override
@@ -60,8 +61,13 @@ public class RecordAdapter extends BaseAdapter {
             id.setText(record.getName());
             age.setText(String.valueOf(record.getAge()));
             gender.setText(record.getGender());
-            date.setText(record.getDate());
+            date.setText(getDateFormatted(record.getTime()));
         }
         return viewStudent ;
+    }
+
+    public String getDateFormatted(long time){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(time);
     }
 }
