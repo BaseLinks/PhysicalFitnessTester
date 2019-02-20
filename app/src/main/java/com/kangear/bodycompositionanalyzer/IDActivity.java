@@ -28,6 +28,7 @@ public class IDActivity extends Com2Activity {
         setView(false, getWindow().getDecorView(), null);
         mEditText = findViewById(R.id.tizhibi_edittext);
         mEditText.setText("");
+        setNumberLength(18);
         Log.i(TAG, "onCreate");
     }
 

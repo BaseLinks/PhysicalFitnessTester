@@ -130,6 +130,18 @@
     </style>
 
     <style
+        name="resultTextview">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">#777777</item>
+        <item name="android:enabled" >false</item>
+        <item name="android:text" >TEST</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style
         name="yelloHumanItem"
         parent="resultEditText">
         <item name="android:textColor">@android:color/black</item>

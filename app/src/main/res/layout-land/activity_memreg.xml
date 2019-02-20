@@ -100,7 +100,7 @@
             android:hint="@string/id_hint_gray"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:maxLength="6"
+            android:maxLength="18"
             android:padding="0dp"
             android:text="A11023"
             android:textColor="#434343"
