@@ -28,7 +28,7 @@
     <string name="height_hint_gray"><font size="30" color="gray">可输入范围90-220</font></string>
     <string name="error_tip">测试未完成，请检查后重新测试</string>
 
-    <string name="admin_passwd">YIH6666</string>
+    <string name="admin_passwd">5858</string>
 
 
     <bool name="is_print_total_score">true</bool>

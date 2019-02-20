@@ -64,7 +64,7 @@ public class BodyComposition {
     public static final Third 身体水分    = new Third("身体水分", 81, 83, 85, 2, 1, UNIT_KG);
     public static final Third 蛋白质      = new Third("蛋白质", 87, 89, 91, 2, 1, UNIT_KG);
     public static final Third 无机盐      = new Third("无机盐", 93, 94, 95, 1, 1, UNIT_KG);
-    public static final Third 细胞外液含量  = new Third("细胞外液含量", 96, 98, 100, 2, 1, UNIT_KG);
+    public static final Third 细胞外液含量  = new Third("细胞外液含量", 97, 99, 101, 2, 1, UNIT_KG);
     public static final Third 细胞内液含量  = new Third("细胞内液含量", 103, 105, 107, 2, 1, UNIT_KG);
     public static final Third 左上肢肌肉量 = new Third("左上肢肌肉量", 109, 110, 111, 1, 1, UNIT_KG);
     public static final Third 右上肢肌肉量 = new Third("右上肢肌肉量", 112, 113, 114, 1, 1, UNIT_KG);
@@ -79,7 +79,7 @@ public class BodyComposition {
     public static final Third BMI        = new Third("BMI", 157, 159, 161, 2, 1, UNIT_EMPTY);
     public static final Third 体脂百分比   = new Third("体脂百分比", 163, 165, 167, 2, 1, UNIT_PERCENT);
     public static final Third 腰臀比      = new Third("腰臀比", 177, 178, 179, 1, 2, UNIT_EMPTY);
-    public static final Third 水肿系数      = new Third("水肿系数", 180, 181, 182, 1, 0, UNIT_EMPTY);
+    public static final Third 水肿系数      = new Third("水肿系数", 180, 181, 182, 1, 2, UNIT_EMPTY);
     public static final Third 体型分析      = new Third("体型分析", INVALID_POSIONT, 183, 184, 1, 0, UNIT_EMPTY);
     public static final Third 内脏面积     = new Third("内脏面积", 185, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_CM2);
     public static final Third 评分        = new Third("评分", 187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
@@ -386,6 +386,7 @@ public class BodyComposition {
                     ", minStart=" + minStart +
                     ", maxStart=" + maxStart +
                     ", length=" + length +
+                    ", dot=" + dot +
                     '}';
         }
     }
@@ -478,7 +479,7 @@ public class BodyComposition {
         mList.add(BMI);
         mList.add(体脂百分比);
         mList.add(腰臀比);
-        mList.add(内脏面积.setMin(0).setMax(800)); // hardcode number
+        mList.add(内脏面积.setMin(0).setMax(750)); // hardcode number
         mList.add(评分);
         mList.add(基础代谢);
         mList.add(总能耗);
@@ -547,6 +548,10 @@ public class BodyComposition {
 
         身体年龄.setCur(年龄.getCur() + yuhuinianling);
         Log.i(TAG, "身体年龄2:  " + 身体年龄.getCur());
+
+        // yaotunbi weitiao
+        // hardcode number
+        腰臀比.setMin(70).setMax(80);
 
     }
 }

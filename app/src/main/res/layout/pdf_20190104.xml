@@ -394,12 +394,12 @@
                 android:layout_width="0dp"
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
-                app:third="@{bc.BMI}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline91"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
-                app:layout_constraintTop_toTopOf="@+id/guideline91" />
+                app:layout_constraintTop_toTopOf="@+id/guideline91"
+                app:third="@{bc.BMI}" />
 
             <include
                 android:id="@+id/tizhifang_progressbar"
@@ -407,12 +407,12 @@
                 android:layout_width="0dp"
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
-                app:third="@{bc.身体水分}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline104"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
-                app:layout_constraintTop_toTopOf="@+id/guideline104" />
+                app:layout_constraintTop_toTopOf="@+id/guideline104"
+                app:third="@{bc.身体水分}" />
 
             <include
                 android:id="@+id/weight_progressbar"
@@ -420,12 +420,12 @@
                 android:layout_width="0dp"
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
-                app:third="@{bc.体重}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline90"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
-                app:layout_constraintTop_toTopOf="@+id/guideline90" />
+                app:layout_constraintTop_toTopOf="@+id/guideline90"
+                app:third="@{bc.体重}" />
 
             <include
                 android:id="@+id/tizhifang_progressbar"
@@ -433,32 +433,32 @@
                 android:layout_width="0dp"
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
-                app:third="@{bc.体脂百分比}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline93"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
-                app:layout_constraintTop_toTopOf="@+id/guideline93" />
+                app:layout_constraintTop_toTopOf="@+id/guideline93"
+                app:third="@{bc.体脂百分比}" />
 
             <include
                 android:id="@+id/gugeji_progressbar"
                 layout="@layout/pdf_tichengfenfenxi_progress"
                 android:layout_width="0dp"
-                android:layout_height="11dp"
+                android:layout_height="13dp"
                 android:layout_marginTop="8dp"
-                app:third="@{bc.骨骼肌}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline92"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
-                app:layout_constraintTop_toTopOf="@+id/guideline92" />
+                app:layout_constraintTop_toTopOf="@+id/guideline92"
+                app:third="@{bc.骨骼肌}" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline105"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="84dp" />
+                app:layout_constraintGuide_begin="82dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline90"
@@ -479,7 +479,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="93dp" />
+                app:layout_constraintGuide_begin="97dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline93"
@@ -521,7 +521,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="174dp" />
+                app:layout_constraintGuide_begin="175dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline98"
@@ -535,7 +535,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="43dp" />
+                app:layout_constraintGuide_begin="46dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline124"
@@ -549,35 +549,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="60dp" />
+                app:layout_constraintGuide_begin="63dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline127"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="75dp" />
+                app:layout_constraintGuide_begin="80dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline128"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="141dp" />
+                app:layout_constraintGuide_begin="146dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline129"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="160dp" />
+                app:layout_constraintGuide_begin="164dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline130"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="81dp" />
+                app:layout_constraintGuide_begin="82dp" />
 
             <TextView
                 android:id="@+id/danbaizhi_buzu_textview"
@@ -677,7 +677,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="129dp" />
+                app:layout_constraintGuide_begin="130dp" />
 
             <TextView
                 android:id="@+id/jichudaixie_textView94"
@@ -859,7 +859,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="@{bc.腰臀比.formatRange1(2), default=`0.95(0.70-0.80)`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="10sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline71"
                     app:layout_constraintStart_toStartOf="@+id/guideline73"
                     app:layout_constraintTop_toTopOf="@+id/guideline71" />
@@ -924,13 +924,16 @@
                     android:id="@+id/textView71"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@{bc.水肿系数.formatRange1(2), default=`0.31(0.32-0.44)`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="10sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline89"
-                    app:layout_constraintStart_toStartOf="@+id/guideline74"
-                    app:layout_constraintTop_toTopOf="@+id/guideline89" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -1277,14 +1280,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="106dp" />
+            app:layout_constraintGuide_begin="100dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/age_guidline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="163dp" />
+            app:layout_constraintGuide_begin="157dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/history_guidline"
@@ -1348,7 +1351,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="376dp" />
+            app:layout_constraintGuide_begin="370dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline69"
@@ -1369,14 +1372,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="812dp" />
+            app:layout_constraintGuide_begin="796dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline125"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="42dp" />
+            app:layout_constraintGuide_begin="38dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline135"

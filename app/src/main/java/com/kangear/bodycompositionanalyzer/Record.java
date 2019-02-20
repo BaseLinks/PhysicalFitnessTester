@@ -152,7 +152,7 @@ public class Record {
     }
 
     public String getDateFormatted(){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return formatter.format(getTime());
     }
 
