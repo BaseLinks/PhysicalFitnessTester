@@ -1,8 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +17,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startSettings;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class AdminPasswordDialogActivity extends AppCompatActivity {
+public class AdminPasswordDialogActivity extends BaseActivity {
     private static final String TAG = "AdDialogActivity";
     private EditText mPasswordEditText;
     private boolean DEBUG = true;
@@ -27,6 +30,7 @@ public class AdminPasswordDialogActivity extends AppCompatActivity {
 
         mPasswordEditText = findViewById(R.id.passwd_edittext);
         mPasswordEditText.setText("");
+        mPasswordEditText.addTextChangedListener(WatchDog.getInstance(getApplicationContext()).mTextWatcher);
         mPasswd = getResources().getString(R.string.admin_passwd);
         setFinishOnTouchOutside(false);
     }

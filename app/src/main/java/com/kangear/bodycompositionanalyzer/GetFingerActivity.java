@@ -28,7 +28,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.unkownError;
 /**
  * 本页面不显示logo
  */
-public class GetFingerActivity extends AppCompatActivity {
+public class GetFingerActivity extends BaseActivity {
     private static final String TAG = "GetFingerActivity";
     private Context mContext;
     private static final int GET_FINGER_OK         = 1;

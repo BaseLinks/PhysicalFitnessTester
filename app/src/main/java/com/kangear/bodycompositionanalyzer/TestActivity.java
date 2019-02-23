@@ -3,11 +3,13 @@ package com.kangear.bodycompositionanalyzer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -50,7 +52,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startTichengfe
  * 2. DEFAULT_TEST_COST_TIME(32)秒进度条走到DEFAULT_TEST_PROGRESS(95)，收到数据并解析完毕，
  * 进度条DEFAULT_TEST_PROGRESS_MAX(100)，显示[返回，详情，打印]等按钮，2秒体重等依次进度条走到对应位置。
  */
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends BaseActivity {
     private static final String TAG = "TestActivity";
     private static final int DEFAULT_TEST_COST_TIME         = 1 * 1000;
     private static final int DEFAULT_TEST_PROGRESS_MAX      = 100;

@@ -2,10 +2,12 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -27,7 +29,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_T
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends BaseActivity {
     private static final String TAG = "HistoryActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;

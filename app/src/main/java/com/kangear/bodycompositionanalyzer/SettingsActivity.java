@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -41,7 +42,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
     private static final String TAG = "SettingsActivity";
     private AudioManager mAudioManager;
     private TextView mVolumeTextView;
@@ -115,6 +116,8 @@ public class SettingsActivity extends AppCompatActivity {
                     mRadioEditText.setTextColor(Color.RED);
                     mCalibrateRadioButton.setEnabled(false);
                 }
+
+                WatchDog.getInstance(getApplicationContext()).feed();
             }
         });
     }

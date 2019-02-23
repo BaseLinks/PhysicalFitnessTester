@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,7 +29,7 @@ import android.widget.TwoLineListItem;
 
 import java.util.List;
 
-public class WiFiActivity extends AppCompatActivity {
+public class WiFiActivity extends BaseActivity {
     private static final String TAG = "TestWifiScan";
     private WifiManager mWifiManager;
     private List<ScanResult> mScanResults;

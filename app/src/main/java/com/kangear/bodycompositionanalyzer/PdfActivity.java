@@ -52,7 +52,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 /**
  * 入口: personId,heck recently 10 times history record by personId
  */
-public class PdfActivity extends AppCompatActivity {
+public class PdfActivity extends BaseActivity {
     private static final String TAG = "PdfActivity";
     private static final String JIBENXINXI_DATE_FORMAT  = "yyyy.MM.dd";
     private static final String JIBENXINXI_TIME_FORMAT  = "HH:mm";

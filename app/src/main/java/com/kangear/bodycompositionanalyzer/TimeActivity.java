@@ -1,9 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -15,7 +17,7 @@ import java.util.Calendar;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class TimeActivity extends AppCompatActivity {
+public class TimeActivity extends BaseActivity {
     private static final String TAG = "TimeActivity";
     private DatePicker mDatePicker;
     private TimePicker mTimePicker;

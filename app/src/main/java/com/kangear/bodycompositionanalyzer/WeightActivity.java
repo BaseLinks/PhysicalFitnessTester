@@ -2,6 +2,7 @@ package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startWelcome;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WeightActivity extends AppCompatActivity {
+public class WeightActivity extends BaseActivity {
     private static final String TAG = "WeightActivity";
     private View startView;
     private View stopView;

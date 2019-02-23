@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,17 +20,22 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kangear.bodycompositionanalyzer.application.App;
 import com.kangear.common.utils.ByteArrayUtils;
 import com.kangear.common.utils.TimeUtils;
 import com.yhao.floatwindow.FloatWindow;
+import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
@@ -76,7 +82,7 @@ import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
     private static final String TAG = "WelcomeActivity";
     public static final int INVALID_FINGER_ID = -1;
     public static final int INVALID_RECORD_ID = -1;
@@ -148,56 +154,15 @@ public class WelcomeActivity extends AppCompatActivity {
         mContext = this;
 
         preInit();
-        mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
 
-        PermissionListener mPermissionListener = new PermissionListener() {
-            @Override
-            public void onSuccess() {
+        if (!App.isInit()) {
+            App.setInit(true);
+            mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
+        } else {
+            // second boot
+            mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_DONE, 1);
+        }
 
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        };
-
-        ViewStateListener mViewStateListener = new ViewStateListener() {
-            @Override
-            public void onPositionUpdate(int i, int i1) {
-
-            }
-
-            @Override
-            public void onShow() {
-
-            }
-
-            @Override
-            public void onHide() {
-
-            }
-
-            @Override
-            public void onDismiss() {
-
-            }
-
-            @Override
-            public void onMoveAnimStart() {
-
-            }
-
-            @Override
-            public void onMoveAnimEnd() {
-
-            }
-
-            @Override
-            public void onBackToDesktop() {
-
-            }
-        };
 
         ImageView imageView = new ImageView(getApplicationContext());
         imageView.setImageResource(R.drawable._01_logo_color);
@@ -209,17 +174,7 @@ public class WelcomeActivity extends AppCompatActivity {
         ifi.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mB, ifi);
 
-        FloatWindow
-                .with(getApplicationContext())
-                .setView(imageView)
-                .setWidth(100)                               //设置控件宽高
-                .setHeight(Screen.width,0.2f)
-                .setX(100)                                   //设置控件初始位置
-                .setY(Screen.height,0.3f)
-                .setDesktopShow(true)                        //桌面显示
-                .setViewStateListener(mViewStateListener)    //监听悬浮控件状态改变
-                .setPermissionListener(mPermissionListener)  //监听权限申请结果
-                .build();
+        WatchDog.getInstance(this).feed(Color.WHITE);
     }
 
 
@@ -424,6 +379,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 // TODO：获取一个id以及一个fingerId
                 MusicService.play(mContext, SOUND_30_LOG_UP);
                 intent = new Intent(this, MemRegActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:
@@ -759,7 +715,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getRecord().setPersonId(PERSON_ID_ANONYMOUS);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_NEW_TEST);
-        context.startActivity(intent);
+        startActivityWithoutHistory(intent);
         MusicService.play(mContext, SOUND_01_NEW_TEST);
     }
 
@@ -768,7 +724,7 @@ public class WelcomeActivity extends AppCompatActivity {
         MusicService.play(mContext, SOUND_02_VIP_TEST);
         Intent intent = new Intent(context, WeightActivity.class);
         intent.putExtra(CONST_WEIGHT_TAG, WEIGHT_VIP_TEST);
-        context.startActivity(intent);
+        startActivityWithoutHistory(intent);
     }
 
     // 临时测试需要将personId设置成INVALID
@@ -848,7 +804,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param actvity
      */
     public static void startSettings(Activity actvity) {
-        actvity.startActivity(new Intent(actvity, AdminPasswordDialogActivity.class));
+        startActivityWithoutHistory(new Intent(actvity, AdminPasswordDialogActivity.class));
     }
 
     /**
@@ -875,7 +831,15 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param context
      */
     public static void startHistory(Context context) {
-        context.startActivity(new Intent(context, HistoryActivity.class));
+        startActivityWithoutHistory(new Intent(context, HistoryActivity.class));
+    }
+
+    private static void startActivityWithoutHistory(Intent intent) {
+        if (mContext == null) {
+            return;
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        mContext.startActivity(intent);
     }
 
     /**

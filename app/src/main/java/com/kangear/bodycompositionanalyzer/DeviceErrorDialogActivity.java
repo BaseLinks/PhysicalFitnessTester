@@ -12,7 +12,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doSettings;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class DeviceErrorDialogActivity extends AppCompatActivity {
+public class DeviceErrorDialogActivity extends BaseActivity {
     private static final String TAG = "AdDialogActivity";
 
     @Override

@@ -1,13 +1,16 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +22,7 @@ import android.widget.Toast;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Com2Activity extends AppCompatActivity implements iCom2 {
+public class Com2Activity extends BaseActivity implements iCom2 {
     private boolean hasDot = true;
     private EditText mEditText;
     Button mNextButton;

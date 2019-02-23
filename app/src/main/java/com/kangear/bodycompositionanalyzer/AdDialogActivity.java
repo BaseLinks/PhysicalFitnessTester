@@ -17,7 +17,7 @@ import android.widget.Toast;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class AdDialogActivity extends AppCompatActivity {
+public class AdDialogActivity extends BaseActivity {
     private static final String TAG = "AdDialogActivity";
     private EditText companyEditText;
     private EditText numberEditText;
@@ -40,6 +40,9 @@ public class AdDialogActivity extends AppCompatActivity {
         numberEditText.setText(n);
         companyEditText.setSelection(c.length());
         numberEditText.setSelection(n.length());
+
+        companyEditText.addTextChangedListener(WatchDog.mTextWatcher);
+        numberEditText.addTextChangedListener(WatchDog.mTextWatcher);
 
         setFinishOnTouchOutside(false);
     }

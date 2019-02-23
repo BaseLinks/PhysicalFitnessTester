@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.constraint.Guideline;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -64,7 +66,7 @@ import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends BaseActivity {
     private static final String TAG = "ResultActivity";
     private static final int FIRST_PAGE_NUMBER = 1;
     private static final int LAST_PAGE_NUMBER  = 2;
