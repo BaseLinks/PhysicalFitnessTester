@@ -69,6 +69,8 @@ public class Com2Activity extends BaseActivity implements iCom2 {
 
                     // 有输入，则将使能
                     setEnable(canNext(mEditText.getText().toString()));
+
+                    WatchDog.getInstance(getApplicationContext()).feed();
                 }
             });
 
