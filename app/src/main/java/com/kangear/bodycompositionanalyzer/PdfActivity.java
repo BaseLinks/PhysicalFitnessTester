@@ -44,6 +44,7 @@ import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_2_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.getGugejiScore;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.createPdfFromView;
@@ -189,8 +190,14 @@ public class PdfActivity extends BaseActivity {
             records.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
             records.add(new Record(0, PERSON_ID_INVALID, "default", 25, 180, Person.GENDER_MALE, 70, 0));
         } else {
-            records = RecordBean.getInstance(this).findRecentlyListById(personId, 10);
-            Collections.reverse(records);
+            if (personId == PERSON_ID_ANONYMOUS) {
+                // 匿名没有历史记录
+                records.add(curRecord);
+            } else {
+                records = RecordBean.getInstance(this).findRecentlyListById(personId, 10);
+                Collections.reverse(records);
+            }
+
         }
         Log.i(TAG, "mRecords: " + records.size());
         Toast.makeText(this, "历史记录数:"+records.size(), Toast.LENGTH_LONG).show();
