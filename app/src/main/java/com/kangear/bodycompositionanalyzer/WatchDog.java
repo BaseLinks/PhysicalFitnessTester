@@ -32,7 +32,7 @@ public class WatchDog {
     private static Context mContext = null;
     private static CountDownTimer mCountDownTimer = null;
     private static TextView textView;
-    private static final int TIMEOUT = 10;
+    private static int TIMEOUT = 58; //default release timeout
 
     private volatile static WatchDog singleton = null;
     public WatchDog(Context context) {
@@ -50,6 +50,11 @@ public class WatchDog {
                 return false;
             }
         });
+
+        // Debug
+        if (BuildConfig.DEBUG) {
+            TIMEOUT = 10;
+        }
 
         FloatWindow
                 .with(mContext)
