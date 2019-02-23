@@ -151,6 +151,7 @@ public class PdfActivity extends BaseActivity {
 
         if (BuildConfig.DEBUG) {
             DATE_FORMAT = DATE_FORMAT_TIME;
+            findViewById(R.id.pdf_view).setVisibility(View.VISIBLE);
         }
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, 0);
