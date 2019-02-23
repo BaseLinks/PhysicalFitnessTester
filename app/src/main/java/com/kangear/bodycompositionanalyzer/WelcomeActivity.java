@@ -3,13 +3,20 @@ package com.kangear.bodycompositionanalyzer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +29,10 @@ import android.widget.Toast;
 
 import com.kangear.common.utils.ByteArrayUtils;
 import com.kangear.common.utils.TimeUtils;
+import com.yhao.floatwindow.FloatWindow;
+import com.yhao.floatwindow.PermissionListener;
+import com.yhao.floatwindow.Screen;
+import com.yhao.floatwindow.ViewStateListener;
 
 import org.xutils.DbManager;
 import org.xutils.x;
@@ -33,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.kangear.bodycompositionanalyzer.BcaService.installApks;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBusybox;
 import static com.kangear.bodycompositionanalyzer.BcaService.installPrinterDriver;
@@ -127,6 +139,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private ProgressDialog mSelfCheckProgressDialog;
     //创建一个SoundPool对象
     private ImageView mLogoImageView;
+    private ImageView mWifiImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +149,77 @@ public class WelcomeActivity extends AppCompatActivity {
 
         preInit();
         mHandler.sendEmptyMessageDelayed(HANDLE_EVENT_AUTO_TEST_START, 1);
+
+        PermissionListener mPermissionListener = new PermissionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        };
+
+        ViewStateListener mViewStateListener = new ViewStateListener() {
+            @Override
+            public void onPositionUpdate(int i, int i1) {
+
+            }
+
+            @Override
+            public void onShow() {
+
+            }
+
+            @Override
+            public void onHide() {
+
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+
+            @Override
+            public void onMoveAnimStart() {
+
+            }
+
+            @Override
+            public void onMoveAnimEnd() {
+
+            }
+
+            @Override
+            public void onBackToDesktop() {
+
+            }
+        };
+
+        ImageView imageView = new ImageView(getApplicationContext());
+        imageView.setImageResource(R.drawable._01_logo_color);
+
+        IntentFilter ifi = new IntentFilter();
+        ifi.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        ifi.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        ifi.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        ifi.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mB, ifi);
+
+        FloatWindow
+                .with(getApplicationContext())
+                .setView(imageView)
+                .setWidth(100)                               //设置控件宽高
+                .setHeight(Screen.width,0.2f)
+                .setX(100)                                   //设置控件初始位置
+                .setY(Screen.height,0.3f)
+                .setDesktopShow(true)                        //桌面显示
+                .setViewStateListener(mViewStateListener)    //监听悬浮控件状态改变
+                .setPermissionListener(mPermissionListener)  //监听权限申请结果
+                .build();
     }
 
 
@@ -322,6 +406,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mWifiImageView.setVisibility(isWifiConnected() ? View.VISIBLE : View.INVISIBLE);
         mTimeUtils.start();
         hideSystemUI(getWindow().getDecorView());
     }
@@ -431,6 +516,9 @@ public class WelcomeActivity extends AppCompatActivity {
         if (!BuildConfig.DEBUG)
             hideNavigation(this);
 
+        mWifiImageView = findViewById(R.id.imageView12);
+        mWifiImageView.setVisibility(isWifiConnected() ? View.VISIBLE : View.INVISIBLE);
+
         mLogoImageView = findViewById(R.id.logo_imageview);
         mLogoImageView.setOnClickListener(new View.OnClickListener() {
             long[] mHits = new long[3];
@@ -485,6 +573,98 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+    private BroadcastReceiver mB = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String act = intent.getAction();
+            if (act == null)
+                return;
+
+            if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) {// 监听wifi的打开与关闭，与wifi的连接无关
+                int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
+                Log.e("TAG", "wifiState:" + wifiState);
+                switch (wifiState) {
+                    case WifiManager.WIFI_STATE_DISABLED:
+                        break;
+                    case WifiManager.WIFI_STATE_DISABLING:
+                        break;
+                }
+            }
+
+
+            if (act.equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION)) {
+                Log.e(TAG, "SUPPLICANT_STATE_CHANGED_ACTION: " + act);
+                int linkWifiResult = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, 123);
+                if (linkWifiResult == WifiManager.ERROR_AUTHENTICATING) {
+                    Toast.makeText(getBaseContext(), "密码错误", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            // 监听wifi的连接状态即是否连上了一个有效无线路由
+            if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(intent.getAction())) {
+                Parcelable parcelableExtra = intent
+                        .getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+                if (null != parcelableExtra) {
+                    // 获取联网状态的NetWorkInfo对象
+                    NetworkInfo networkInfo = (NetworkInfo) parcelableExtra;
+                    //获取的State对象则代表着连接成功与否等状态
+                    NetworkInfo.State state = networkInfo.getState();
+                    //判断网络是否已经连接
+                    boolean isConnected = state == NetworkInfo.State.CONNECTED;
+                    Log.d(TAG, "networkInfo: " + networkInfo.toString());
+                    Log.e("TAG", "isConnected:" + isConnected);
+                    if (isConnected) {
+                        Toast.makeText(getBaseContext(), "WiFi已成功连接", Toast.LENGTH_LONG).show();
+                    } else {
+
+                    }
+
+                    mWifiImageView.setVisibility(isWifiConnected() ? View.VISIBLE : View.INVISIBLE);
+                }
+            }
+
+            // 监听网络连接，包括wifi和移动数据的打开和关闭,以及连接上可用的连接都会接到监听
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                //获取联网状态的NetworkInfo对象
+                NetworkInfo info = intent
+                        .getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+                if (info != null) {
+                    //如果当前的网络连接成功并且网络连接可用
+                    if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
+                        if (info.getType() == ConnectivityManager.TYPE_WIFI
+                                || info.getType() == ConnectivityManager.TYPE_MOBILE) {
+                            Log.i("TAG", getConnectionType(info.getType()) + "连上");
+                        }
+                    } else {
+                        Log.i("TAG", getConnectionType(info.getType()) + "断开");
+                    }
+                }
+            }
+        }
+    };
+
+    public boolean isWifiConnected() {
+
+        WifiManager mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
+        int ipAddress = wifiInfo == null ? 0 : wifiInfo.getIpAddress();
+        if (mWifiManager.isWifiEnabled() && ipAddress != 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+    private String getConnectionType(int type) {
+        String connType = "";
+        if (type == ConnectivityManager.TYPE_MOBILE) {
+            connType = "3G网络数据";
+        } else if (type == ConnectivityManager.TYPE_WIFI) {
+            connType = "WIFI网络";
+        }
+        return connType;
+    }
+
     /**
      * 自检查
      * @param context
@@ -497,6 +677,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 installBusybox(mContext);
                 installPrinterDriver(mContext);
                 installBootAnimation(mContext);
+                installApks(mContext);
                 //installNotoFonts(mContext);
 
                 // 判断Person数据库表，如果数据库表为空，那么Empty指纹
@@ -516,6 +697,7 @@ public class WelcomeActivity extends AppCompatActivity {
             installBusybox(mContext);
             installPrinterDriver(mContext);
             installBootAnimation(mContext);
+            installApks(mContext);
             //installNotoFonts(mContext);
         } catch (Exception e) {
             e.printStackTrace();
@@ -559,6 +741,8 @@ public class WelcomeActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        unregisterReceiver(mB);
     }
 
     // pre test

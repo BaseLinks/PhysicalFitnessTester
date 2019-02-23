@@ -19,13 +19,13 @@
     <integer name="radio_min">0</integer>
     <integer name="radio_max">5000</integer>
 
-    <string name="height_hint"><font size="30" color="yellow">可输入范围90-220</font></string>
-    <string name="id_hint"><font size="30" color="yellow">可输入数字或者汉字</font></string>
-    <string name="age_hint"><font size="30" color="yellow">可输入7-99岁</font></string>
+    <string name="height_hint"><font color="yellow" size="30">可输入范围90-220</font></string>
+    <string name="id_hint"><font color="yellow" size="30">可输入数字或者汉字</font></string>
+    <string name="age_hint"><font color="yellow" size="30">可输入7-99岁</font></string>
 
-    <string name="id_hint_gray"><font size="30" color="gray">可输入数字或者汉字</font></string>
-    <string name="age_hint_gray"><font size="30" color="gray">可输入7-99岁</font></string>
-    <string name="height_hint_gray"><font size="30" color="gray">可输入范围90-220</font></string>
+    <string name="id_hint_gray"><font color="gray" size="30">可输入数字或者汉字</font></string>
+    <string name="age_hint_gray"><font color="gray" size="30">可输入7-99岁</font></string>
+    <string name="height_hint_gray"><font color="gray" size="30">可输入范围90-220</font></string>
     <string name="error_tip">测试未完成，请检查后重新测试</string>
 
     <string name="admin_passwd">5858</string>
@@ -36,4 +36,5 @@
     <string name="left_two_decimal">%1$.2f</string>
     <string name="left_one_decimal">%1$.1f</string>
     <string name="left_zero_decimal">%1$.0f</string>
+    <string name="title_activity_wi_fi">WiFiActivity</string>
 </resources>

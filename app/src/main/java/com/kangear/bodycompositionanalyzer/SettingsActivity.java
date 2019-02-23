@@ -1,12 +1,17 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,9 +19,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -46,11 +53,27 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText mRadioEditText;
     private Button mCalibrateRadioButton;
     private TextView mWeightTextView;
+    private WifiManager mWifiManager;
+    private ToggleButton mWiFiToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        mWifiManager = (WifiManager) getApplicationContext()
+                .getSystemService(Context.WIFI_SERVICE);
+
+        mWiFiToggleButton = findViewById(R.id.wifi_ctrl_button);
+        mWiFiToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                mWifiManager.setWifiEnabled(isChecked);
+            }
+        });
+
+        mWiFiToggleButton.setChecked(mWifiManager.isWifiEnabled());
+
         mContext = this;
         mVolumeTextView = findViewById(R.id.volume_textview);
         mVolumeAdd = findViewById(R.id.volume_add);
@@ -150,8 +173,20 @@ public class SettingsActivity extends AppCompatActivity {
 //                CrashReport.testJavaCrash();
                 Beta.checkUpgrade();
                 break;
+            case R.id.wifi_button:
+//                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+//                Intent intent = new Intent();
+//                ComponentName comp = new ComponentName("com.farproc.wifi.connecter","com.farproc.wifi.connecter.TestWifiScan");
+//                intent.setComponent(comp);
+//                intent.setAction("android.intent.action.MAIN");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(new Intent(this, WiFiActivity.class));
+                break;
+
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

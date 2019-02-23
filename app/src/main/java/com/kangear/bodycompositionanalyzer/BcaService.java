@@ -58,6 +58,41 @@ public class BcaService extends Service {
         }
     }
 
+    // bootanimation.zip路径有两个：
+    // /data/local/bootanimation.zip
+    // /system/media/bootanimation.zip
+    // drwxr-x--x root     root              2018-01-21 19:13 local
+    // 需要root cmd实现
+    public static void installApks(Context context) throws Exception {
+        // 将printer.tar.gz解包
+        // 1. re
+        remount();
+
+        // 读取busybox 写入/system/bin/busybox
+        int count = -1;
+        // This will fail if the user didn't allow the permissions
+        File destDir = new File("/sdcard");
+        count = new AssetCopier(context)
+                .withFileScanning()
+                .copy("system/apk", destDir);
+
+        ShellUtils.CommandResult cr;
+        String cmd;
+
+        cmd = "pm install -r " + destDir.getAbsolutePath() + "/wifi.apk";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+
+
+        cmd = "busybox rm " + destDir.getAbsolutePath() + "/wifi.apk";
+        cr = ShellUtils.execCommand(cmd, true);
+        if(cr.result != 0) {
+            throw new Exception(cmd +" fail");
+        }
+    }
+
     // 安装字体
     public static void installNotoFonts(Context context) throws Exception {
         if (true)
