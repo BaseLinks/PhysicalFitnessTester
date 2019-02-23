@@ -98,34 +98,12 @@ public class WatchDog {
         mCountDownTimer.start();
     }
 
+    public void setVisible(boolean visible) {
+        textView.setVisibility(!visible ? View.INVISIBLE : View.VISIBLE);
+    }
+
     public void feed(@ColorInt int color) {
-        // cancel
-        if (mCountDownTimer != null)
-            mCountDownTimer.cancel();
-
-        // restart
-        mCountDownTimer = new CountDownTimer(TIMEOUT * 1000, 1 * 1000) {
-            @Override
-            public void onTick(long l) {
-                textView.setText(String.valueOf((int)(l /1000)));
-            }
-
-            @Override
-            public void onFinish() {
-                // 最
-                if (!isTopActivity()) {
-                    Log.i(TAG, "不在TOP");
-                    Intent intent = new Intent(mContext, WelcomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    mContext.startActivity(intent);
-                } else {
-                    Log.i(TAG, "已经在TOP");
-                }
-            }
-        };
-
-        mCountDownTimer.start();
+        feed();
     }
 
     public static TextWatcher mTextWatcher = new TextWatcher() {

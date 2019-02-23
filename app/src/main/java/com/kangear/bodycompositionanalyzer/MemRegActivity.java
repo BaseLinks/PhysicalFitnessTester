@@ -244,6 +244,8 @@ public class MemRegActivity extends Com2Activity {
     public void onContentChanged() {
         boolean hefa = true;
 
+        WatchDog.getInstance(getApplicationContext()).feed();
+
         //onActivityResultLog.e(TAG, "onContentChanged");
         if (mFingerButton == null
                 || mIdEditText == null

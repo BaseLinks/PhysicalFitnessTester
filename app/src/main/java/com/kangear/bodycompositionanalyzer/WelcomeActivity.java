@@ -364,12 +364,14 @@ public class WelcomeActivity extends BaseActivity {
         mWifiImageView.setVisibility(isWifiConnected() ? View.VISIBLE : View.INVISIBLE);
         mTimeUtils.start();
         hideSystemUI(getWindow().getDecorView());
+        WatchDog.getInstance(getBaseContext()).setVisible(false);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mTimeUtils.stop();
+        WatchDog.getInstance(getBaseContext()).setVisible(true);
     }
 
     public void onClick(View v) {
