@@ -189,12 +189,14 @@ public class TestActivity extends BaseActivity {
                     // test
                     break;
                 case SHOW_WAIT: // 等待测试 界面
+                    WatchDog.getInstance(getApplicationContext()).feed();
                     mWaitView.setVisibility(View.VISIBLE);
                     mTestView.setVisibility(View.GONE);
 //                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);
                     startTichengfenTest((Activity) mContext, mHandler, mRecord);
                     break;
                 case SHOW_TEST: // 测试中界面 界面
+                    WatchDog.getInstance(getApplicationContext()).feed();
                     mWaitView.setVisibility(View.GONE);
                     mTestView.setVisibility(View.VISIBLE);
 //                    setProgress2(progress);
@@ -373,6 +375,8 @@ public class TestActivity extends BaseActivity {
         intent = new Intent(this, ResultActivity.class);
         intent.putExtra(CONST_RECORD_ID, mRecord.getId());
         startActivity(intent);
+        // here need watch dog
+        WatchDog.getInstance(getApplicationContext()).feed();
     }
 
     public void onClick(View v) {

@@ -529,6 +529,13 @@ public class WelcomeActivity extends BaseActivity {
             tmp.setPersonId(PERSON_ID_ANONYMOUS);
             RecordBean.getInstance(mContext).insert(tmp);
         }
+
+        TouchID.getInstance(mContext);
+        // 判断Person数据库表，如果数据库表为空，那么Empty指纹
+        MemRegActivity.checkMem(this);
+        Printer.getInstance(this).init();
+        // 2. device connect
+        UartBca.getInstance(mContext);
     }
 
     private BroadcastReceiver mB = new BroadcastReceiver() {

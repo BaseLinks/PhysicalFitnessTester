@@ -65,6 +65,11 @@ public class GetFingerActivity extends BaseActivity {
                 try {
                     ret = TouchID.getInstance(mContext).getFinger();
                     if (ret) {
+//                        runOnUiThread(new Runnable() {
+//                            public void run() {
+//                                WatchDog.getInstance(getApplicationContext()).feed();
+//                            }
+//                        });
                         fingerId = TouchID.getInstance(mContext).macheFinger();
                         if (fingerId != INVALID_FINGER_ID) {
                             mHandler.sendEmptyMessage(FINGER_ALREADY_EXIST);

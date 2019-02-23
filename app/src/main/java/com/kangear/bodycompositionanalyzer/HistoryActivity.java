@@ -165,6 +165,7 @@ public class HistoryActivity extends BaseActivity {
                 // TODO: 要获取选中jilu_id，给result ui.
                 intent = new Intent(this, ResultActivity.class);
                 intent.putExtra(CONST_RECORD_ID, mData.get(mPosition).getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case R.id.delete_button:

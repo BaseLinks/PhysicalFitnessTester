@@ -29,6 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:theme="@style/AppTheme"
             android:name=".WiFiActivity"
             android:label="@string/title_activity_wi_fi"></activity>
         <activity
