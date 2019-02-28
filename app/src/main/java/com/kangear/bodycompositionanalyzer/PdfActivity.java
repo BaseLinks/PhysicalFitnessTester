@@ -6,7 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,6 +47,7 @@ import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_0_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_2_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.getGugejiScore;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_BITMAP;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_RECORD_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
@@ -102,6 +108,8 @@ public class PdfActivity extends BaseActivity {
         DialogPrintBinding binding = DataBindingUtil.setContentView(this, R.layout.dialog_print);
 //        setContentView(R.layout.dialog_print);
         hideSystemUI(getWindow().getDecorView());
+//        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
         mContext = this;
 //        byte[] data2 = {
 //                /*0x55, (byte)0xAA, (byte)0xCD, 0x02, 0x31, 0x00, */0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -142,6 +150,13 @@ public class PdfActivity extends BaseActivity {
 //        if (true)
 //            return;
 
+        Intent intent = getIntent();
+        String path = intent.getStringExtra(CONST_BITMAP);
+        if (path != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
+            getWindow().getDecorView().setBackground(ob);
+        }
 
         mFailView = findViewById(R.id.print_fail_view);
         mPrintingView = findViewById(R.id.printing_view);
@@ -151,7 +166,7 @@ public class PdfActivity extends BaseActivity {
 
         if (BuildConfig.DEBUG) {
             DATE_FORMAT = DATE_FORMAT_TIME;
-            findViewById(R.id.pdf_view).setVisibility(View.VISIBLE);
+//            findViewById(R.id.pdf_view).setVisibility(View.VISIBLE);
         }
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, 0);

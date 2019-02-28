@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
@@ -105,6 +106,7 @@ public class WelcomeActivity extends BaseActivity {
     public static final int HANDLE_EVENT_UPDATE_TICHENGFEN_PROGRESS = 101;
     public static final int HANDLE_EVENT_WEIGHT_ERROR               = 102;
     public static final int HANDLE_EVENT_TICHENGFEN_ERROR           = 103;
+    public static final String CONST_BITMAP = "BITMAP";
 
     private TimeUtils mTimeUtils;
     private static Person mCurPersion;
@@ -829,9 +831,10 @@ public class WelcomeActivity extends BaseActivity {
      * 12. Pdf
      * @param actvity
      */
-    public static void startPdf(Activity actvity, int recordId) {
+    public static void startPdf(Activity actvity, int recordId, String path) {
         Intent intent = new Intent(actvity, PdfActivity.class);
         intent.putExtra(CONST_RECORD_ID, recordId);
+        intent.putExtra(CONST_BITMAP, path);
         actvity.startActivity(intent);
     }
 

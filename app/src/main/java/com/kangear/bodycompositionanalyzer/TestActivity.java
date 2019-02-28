@@ -389,7 +389,7 @@ public class TestActivity extends BaseActivity {
                 openDetailActivity();
                 break;
             case R.id.print_button:
-                startPdf(this, mRecord.getId());
+                startPdf(this, mRecord.getId(), null);
                 break;
         }
     }

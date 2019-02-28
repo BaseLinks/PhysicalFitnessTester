@@ -4,6 +4,7 @@
         <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
     </data>
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/result_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

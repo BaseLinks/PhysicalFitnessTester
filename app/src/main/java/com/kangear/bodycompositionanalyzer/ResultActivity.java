@@ -31,6 +31,8 @@ import com.kangear.qr.PrinterIntence;
 import com.kangear.utils.QRCodeUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import android.util.Base64;
@@ -585,9 +587,55 @@ public class ResultActivity extends BaseActivity {
                 builder.create().show();
                 break;
             case R.id.print_button:
+                // 获取截图
+                Bitmap bitmap = getCacheBitmapFromView(findViewById(R.id.result_root_view));
+                String path = getCacheDir().getAbsolutePath() + "/" + "pdfbackground.png";
+                saveBitmap(bitmap, path);
+
                 if (mRecord != null)
-                    startPdf(this, mRecord.getId());
+                    startPdf(this, mRecord.getId(), path);
                 break;
         }
+    }
+
+    private void saveBitmap(Bitmap bitmap,String path){
+        if(bitmap!=null){
+            try {
+                FileOutputStream outputStream = null;
+                try {
+                    outputStream = new FileOutputStream(path); //here is set your file path where you want to save or also here you can set file object directly
+
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream); // bitmap is your Bitmap instance, if you want to compress it you can compress reduce percentage
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (outputStream != null) {
+                            outputStream.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Bitmap getCacheBitmapFromView(View view) {
+        final boolean drawingCacheEnabled = true;
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        view.buildDrawingCache(drawingCacheEnabled);
+        final Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (drawingCache != null) {
+            bitmap = Bitmap.createBitmap(drawingCache);
+            view.setDrawingCacheEnabled(false);
+        } else {
+            bitmap = null;
+        }
+        return bitmap;
     }
 }
