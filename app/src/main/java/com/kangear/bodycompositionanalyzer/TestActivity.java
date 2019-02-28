@@ -7,11 +7,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -305,11 +308,35 @@ public class TestActivity extends BaseActivity {
                     }
                     break;
                 case HANDLE_EVENT_TICHENGFEN_ERROR:
-                    finish();
+                    // show error dialog 3 miao zhong
+                    showDialog();
+//                    finish();
                     break;
             }
         }
     };
+
+    AlertDialog alertDialog = null;
+
+    void showDialog() {
+        WatchDog.getInstance(getBaseContext()).feedSecond(3);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        // ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_test_error, null);
+        dialogBuilder.setView(dialogView);
+
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+    }
 
     private int getShentizhiliangzhishuRadioButtonResId(int level) {
         int ret = R.id.shentizhiliangzhishu_low_radiobutton;

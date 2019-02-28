@@ -473,7 +473,7 @@ public class WelcomeActivity extends BaseActivity {
      * 初始化
      */
     private void preInit() {
-        if (!BuildConfig.DEBUG)
+//        if (!BuildConfig.DEBUG)
             hideNavigation(this);
 
         mWifiImageView = findViewById(R.id.imageView12);
