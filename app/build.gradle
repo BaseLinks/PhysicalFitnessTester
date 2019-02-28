@@ -14,8 +14,8 @@ android {
         applicationId "com.kangear.bodycompositionanalyzer"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 7
-        versionName "2.0.190223"
+        versionCode 9
+        versionName "2.0.190301"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }
