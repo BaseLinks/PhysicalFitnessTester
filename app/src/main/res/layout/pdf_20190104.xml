@@ -1032,8 +1032,7 @@
                     android:textSize="8sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline77"
                     app:layout_constraintEnd_toStartOf="@+id/guideline85"
-                    app:layout_constraintStart_toStartOf="@+id/guideline85"
-                    tools:text="@{bc.左上脂肪量.formatCurWithoutUnit(2), default=`17.69`}" />
+                    app:layout_constraintStart_toStartOf="@+id/guideline85" />
 
                 <TextView
                     android:id="@+id/textView61"
