@@ -1372,7 +1372,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="800dp" />
+            app:layout_constraintGuide_begin="798dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline125"
