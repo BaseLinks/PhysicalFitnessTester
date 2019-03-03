@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
@@ -116,6 +117,7 @@ public class HistoryActivity extends BaseActivity {
         mPageNumber.setText(mCurPageNumber + "/" + mTotalNumber);
         LayoutInflater inflater = getLayoutInflater();
         mData = RecordBean.getInstance(this).getVipRecordList(mCurPageNumber - 1, COUNTS_PER_PAGE);
+        Collections.reverse(mData);
         //创建自定义Adapter的对象
         mAdapter = new RecordAdapter(inflater, mData);
         //将布局添加到ListView中
