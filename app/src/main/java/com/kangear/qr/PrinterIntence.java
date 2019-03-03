@@ -313,7 +313,7 @@ public class PrinterIntence {
     }
 
     public void setQrCode2(int start_l, int start_b, int start_v, int start_r, String string) {
-        byte[] res = new byte[400];
+        byte[] res = new byte[800];
         int i = 0;
         int var10 = i + 1;
         res[i] = 29;
