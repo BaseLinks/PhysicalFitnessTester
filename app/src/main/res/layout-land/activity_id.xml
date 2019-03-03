@@ -51,4 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
+    这里不能添加这一行，会导致看不到输入框
+    android:singleLine="true" -->
+
 </android.support.constraint.ConstraintLayout>
