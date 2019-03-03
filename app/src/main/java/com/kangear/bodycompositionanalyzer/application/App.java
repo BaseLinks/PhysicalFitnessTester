@@ -16,7 +16,9 @@ public class App extends Application {
         super.onCreate();
         Log.e(TAG, "onCreate");
         Beta.autoCheckUpgrade = false;
-        Bugly.init(getApplicationContext(), "cb731b8519", false);
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
+        strategy.setAppReportDelay(20000);   //改为20s
+        Bugly.init(getApplicationContext(), "cb731b8519", true, strategy);
     }
 
     public static boolean isInit() {
