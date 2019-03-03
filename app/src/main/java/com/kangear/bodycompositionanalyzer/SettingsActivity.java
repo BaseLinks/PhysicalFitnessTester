@@ -173,7 +173,8 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.update_apk_button:
 //                Toast.makeText(this, "系统升级", Toast.LENGTH_SHORT).show();
-//                CrashReport.testJavaCrash();
+//                if (BuildConfig.DEBUG)
+//                    CrashReport.testJavaCrash();
                 Beta.checkUpgrade();
                 break;
             case R.id.wifi_button:
