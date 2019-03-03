@@ -469,11 +469,17 @@ public class Printer {
                 5000);
 
         /** 挑出有用信息 注：第一个字节为0，第二个字节为 { */
-        byte[] deviceIdArray = Arrays.copyOfRange(b, 2, length);
-        /** 解析设备ID */
-        String deviceIdStr = new String(deviceIdArray);
-        Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
+        byte[] deviceIdArray = null;
+        try {
+            deviceIdArray = Arrays.copyOfRange(b, 2, length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (deviceIdArray != null) {
+            /** 解析设备ID */
+            String deviceIdStr = new String(deviceIdArray);
+            Log.i(LOG_TAG, "DEVICE ID STR:" + deviceIdStr);
             PrinterModel pm = matchPrinterModel(deviceIdStr);
             ret = pm;
             Log.e(LOG_TAG, "打印机型号: " + pm.getDes());
