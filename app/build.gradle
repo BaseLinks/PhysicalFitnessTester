@@ -1,4 +1,23 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
+
+int getDateInt() {
+    return System.currentTimeMillis() / (1000 * 60);
+}
+
+int getDate() {
+    SimpleDateFormat time_formatter = new SimpleDateFormat("yyMMddHHmm");
+    String dates = time_formatter.format(System.currentTimeMillis());
+    return Integer.valueOf(dates);
+}
+
+static String getDateString(int second) {
+    SimpleDateFormat time_formatter = new SimpleDateFormat("yyMMddHHmm");
+    String dates = time_formatter.format(System.currentTimeMillis());
+    return dates;
+}
+
 
 android {
     signingConfigs {
@@ -14,8 +33,9 @@ android {
         applicationId "com.kangear.bodycompositionanalyzer"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 9
-        versionName "2.0.190301"
+        versionCode(getDate())
+        versionName("v2.1.${versionCode}")
+        setProperty("archivesBaseName", "JH318_${versionName}")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }
