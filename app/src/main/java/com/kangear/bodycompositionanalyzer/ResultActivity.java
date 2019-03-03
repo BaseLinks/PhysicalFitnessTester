@@ -529,21 +529,29 @@ public class ResultActivity extends BaseActivity {
         String c = o1 == null ? "" : o1.getStrValue();
         String n = o2 == null ? "" : o2.getStrValue();
 
+
+        // two qr image:
+        // 1nd: without tel & addr (paper)
+        // 2nd: with tel & addr (screen)
         JSONObject obj = new JSONObject();
         try {
             obj.put("date", mRecord.getTime());
-            obj.put("tel", n);
-            obj.put("addr", c);
+            obj.put("tel", "");
+            obj.put("addr", "");
             obj.put("score", 评分.formatCurWithoutUnit(1));
             obj.put("bodyage", 身体年龄.formatCurWithoutUnit(0));
             obj.put("whr", 腰臀比.formatCurWithoutUnit(2));
             obj.put("database64", qrcontent);
 
             PrinterIntence mp = PrinterIntence.getPrinterIntence(new File("/dev/ttyS2"), 115200, 0);
-            mp.setQrCode2(1, 5, 1, 1, obj.toString());
+            mp.setQrCode2(1, 4, 1, 1, obj.toString());
+
+            obj.put("tel", n);
+            obj.put("addr", c);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         return QRCodeUtil.createQRCodeBitmap(obj.toString(), 500, 500);
     }
