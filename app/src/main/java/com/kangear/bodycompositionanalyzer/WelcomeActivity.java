@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -41,6 +43,7 @@ import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
 
+import org.w3c.dom.Text;
 import org.xutils.DbManager;
 import org.xutils.x;
 
@@ -177,8 +180,51 @@ public class WelcomeActivity extends BaseActivity {
         registerReceiver(mB, ifi);
 
         WatchDog.getInstance(this).feed(Color.WHITE);
+
+        addVersionNameView();
     }
 
+    private void addVersionNameView() {
+        ((TextView)findViewById(R.id.version_textview)).setText(getAppVersionName(getApplicationContext()));
+//        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+//        View myLayout = inflater.inflate(R.layout.version_name, null);
+//        TextView textView = myLayout.findViewById(R.id.textView);
+//        textView.setText(getAppVersionName(getApplicationContext()));
+//
+//        FloatWindow
+//                .with(getApplicationContext())
+//                .setMoveType(MoveType.inactive)
+//                .setView(myLayout)
+////                .setHeight(Screen.height, 1)
+////                .setWidth(Screen.width, 1)
+//                .setWidth(100)                               //设置控件宽高
+//                .setHeight(20)
+//                .setX(Screen.width, 0.00f)                                   //设置控件初始位置
+//                .setY(Screen.height,1f)
+//                .setDesktopShow(true)                        //桌面显示
+//                .setTag("version")
+//                .build();
+    }
+
+
+    /**
+     * 返回当前程序版本名
+     */
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            if (versionName == null || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (Exception e) {
+            Log.e("VersionInfo", "Exception", e);
+        }
+        return versionName;
+    }
 
     /**
      * 判断性别是否合法
