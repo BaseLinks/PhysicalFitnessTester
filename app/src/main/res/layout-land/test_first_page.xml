@@ -117,6 +117,8 @@
                     android:layout_weight="0.2"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="012"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
                     android:textColor="#13B5B1"
                     android:textSize="39sp"
                     android:textStyle="bold" />
