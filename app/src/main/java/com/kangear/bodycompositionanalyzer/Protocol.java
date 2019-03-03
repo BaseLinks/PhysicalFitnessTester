@@ -670,6 +670,10 @@ public class Protocol implements IProtocol {
             ret = Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_TICHENGFEN, null);
         }
 
+        else if (Arrays.equals(sendMsg, Protocol.createCmd(MSG_CMD_STOP, MSG_ITEM_CODE_WEIGHT, null))) {
+            ret = Protocol.createResponse(MSG_STATE_OK, MSG_ITEM_CODE_WEIGHT, null);
+        }
+
         else {
             // start tichengfen test
             int length = 6; // 只比前６位
