@@ -7,6 +7,7 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.Record.DB_COL_PERSON_ID;
@@ -67,6 +68,9 @@ public class RecordBean {
                     }
                 }
             }
+
+            // 倒序
+            Collections.reverse(mVipRecords);
         } catch (DbException e) {
             e.printStackTrace();
         }
