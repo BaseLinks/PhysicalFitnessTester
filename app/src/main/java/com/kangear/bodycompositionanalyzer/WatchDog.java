@@ -53,7 +53,7 @@ public class WatchDog {
 
         // Debug
         if (BuildConfig.DEBUG) {
-            TIMEOUT = 10;
+            TIMEOUT = 58;
         }
 
         FloatWindow
