@@ -47,13 +47,14 @@ public class MemRegActivity extends Com2Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memreg);
+        setView(false, getWindow().getDecorView(), null);
         logoView = findViewById(R.id.logo_imageview);
         logoView.setVisibility(View.GONE);
         mFingerButton = findViewById(R.id.finger_button);
         mIdEditText = findViewById(R.id.id_edittext);
         mHeightEditText = findViewById(R.id.height_edittext);
         mAgeEditText = findViewById(R.id.age_edittext);
-        mNextButton = findViewById(R.id.kb_next_button);
+        mNextButton = findViewById(R.id.keyboard_back_del_next).findViewById(R.id.kb_next_button);
         mMaleRadio = findViewById(R.id.male_radiobutton);
         mFeMaleRadio = findViewById(R.id.female_radiobutton);
 
@@ -77,6 +78,8 @@ public class MemRegActivity extends Com2Activity {
         }
 
         Log.i(TAG, "mFingerId: " + mFingerId);
+
+        onContentChanged();
     }
 
     private TextWatcher mIdTextWatcher = new TextWatcher() {
@@ -220,11 +223,17 @@ public class MemRegActivity extends Com2Activity {
         Date date = new Date();
         String gender = mFeMaleRadio.isChecked() ? Person.GENDER_FEMALE: Person.GENDER_MALE;
         mPerson.setGender(gender);
-        mPerson.setFingerId(mFingerId);
-        mPerson.setName(mIdEditText.getText().toString());
-        mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
-        mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
-        mPerson.setDate(dateFormat.format(date));
+        try {
+            mPerson.setFingerId(mFingerId);
+            mPerson.setName(mIdEditText.getText().toString());
+            mPerson.setAge(Integer.valueOf(mAgeEditText.getText().toString()));
+            mPerson.setHeight(Integer.valueOf(mHeightEditText.getText().toString()));
+            mPerson.setDate(dateFormat.format(date));
+        } catch (Exception e) {
+            Toast.makeText(this, "信息不能为空", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         try {
             boolean ret = TouchID.getInstance(this).saveFinger((short) mFingerId);
         } catch (IOException e) {
@@ -246,12 +255,13 @@ public class MemRegActivity extends Com2Activity {
 
         WatchDog.getInstance(getApplicationContext()).feed();
 
-        //onActivityResultLog.e(TAG, "onContentChanged");
+        Log.d(TAG, "onContentChanged");
         if (mFingerButton == null
                 || mIdEditText == null
                 || mHeightEditText == null
                 || mAgeEditText == null
                 || mNextButton == null) {
+            Log.e(TAG, "onContentChanged");
             return;
         }
 
@@ -283,7 +293,9 @@ public class MemRegActivity extends Com2Activity {
             if (!WelcomeActivity.checkAge(age))
                 hefa = false;
         }
+
         mNextButton.setEnabled(hefa);
+        Log.e(TAG, "setEnable: " + hefa);
     }
 
     @Override

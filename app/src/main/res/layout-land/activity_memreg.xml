@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <include
-            android:id="@+id/keyboard"
+            android:id="@+id/keyboard_back_del_next"
             layout="@layout/keyboard_back_del_next"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="0dp" />
