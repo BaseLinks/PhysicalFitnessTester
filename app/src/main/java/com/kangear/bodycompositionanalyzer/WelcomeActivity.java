@@ -298,6 +298,9 @@ public class WelcomeActivity extends BaseActivity {
                 boolean ret = false;
                 float weight = 0;
                 try {
+                    // 倒计时，有启动指令下发的（体成分指令，体重指令），下位机，等待查询指令的，58秒倒计时退出时需要给下位机发停止命令，下位机回初始状态。
+                    // 针对上述问题，解决方案是在测试体重时先发一个终止指令
+                    ret = UartBca.getInstance(activity).stopWeight();
                     ret = UartBca.getInstance(activity).startWeight();
                 } catch (Protocol.ProtocalExcption protocalExcption) {
                     protocalExcption.printStackTrace();
