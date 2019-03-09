@@ -319,15 +319,17 @@ public class TestActivity extends BaseActivity {
     AlertDialog alertDialog = null;
 
     void showDialog() {
-        WatchDog.getInstance(getBaseContext()).feedSecond(3);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        // ...Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_test_error, null);
-        dialogBuilder.setView(dialogView);
+        if (!isFinishing()) {
+            WatchDog.getInstance(getBaseContext()).feedSecond(3);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            // ...Irrelevant code for customizing the buttons and title
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.dialog_test_error, null);
+            dialogBuilder.setView(dialogView);
 
-        alertDialog = dialogBuilder.create();
-        alertDialog.show();
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
+        }
     }
 
     @Override

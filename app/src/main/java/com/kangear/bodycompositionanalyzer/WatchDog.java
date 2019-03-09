@@ -32,7 +32,7 @@ public class WatchDog {
     private static Context mContext = null;
     private static CountDownTimer mCountDownTimer = null;
     private static TextView textView;
-    private static int TIMEOUT = 58; //default release timeout
+    public static int TIMEOUT = 58; //default release timeout
 
     private volatile static WatchDog singleton = null;
     public WatchDog(Context context) {

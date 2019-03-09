@@ -53,6 +53,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.concurrent.TimeoutException;
 
 import static com.kangear.bodycompositionanalyzer.BcaService.installApks;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
@@ -337,8 +338,13 @@ public class WelcomeActivity extends BaseActivity {
                                        final Handler handler) {
         weightTextView.setText("0.0");
 
+        if (mTichengfen != null && mTichengfen.isAlive()) {
+            mTichengfen.interrupt();
+            mTichengfen = null;
+        }
+
         // star phread
-        new Thread() {
+        mWeight = new Thread() {
             @Override
             public void run() {
                 boolean ret = false;
@@ -405,8 +411,11 @@ public class WelcomeActivity extends BaseActivity {
                         }
                     }
                 }
+
+                Log.e(TAG, "startWeightTest: end...");
             }
-        }.start();
+        };
+        mWeight.start();
     }
 
     @Override
@@ -416,6 +425,16 @@ public class WelcomeActivity extends BaseActivity {
         mTimeUtils.start();
         hideSystemUI(getWindow().getDecorView());
         WatchDog.getInstance(getBaseContext()).setVisible(false);
+
+        if (mTichengfen != null && mTichengfen.isAlive()) {
+            mTichengfen.interrupt();
+            mTichengfen = null;
+        }
+
+        if (mWeight != null && mWeight.isAlive()) {
+            mWeight.interrupt();
+            mWeight = null;
+        }
     }
 
     @Override
@@ -484,6 +503,17 @@ public class WelcomeActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case HANDLE_EVENT_AUTO_TEST_START:
+                    mAgeMin = getResources().getInteger(R.integer.age_min);
+                    mAgeMax = getResources().getInteger(R.integer.age_max);
+                    mHeightMin = getResources().getInteger(R.integer.height_min);
+                    mHeightMax = getResources().getInteger(R.integer.height_max);
+                    mWeightMin = getResources().getInteger(R.integer.weight_min);
+                    mWeightMax = getResources().getInteger(R.integer.weight_max);
+                    mGenderMin = getResources().getInteger(R.integer.gender_min);
+                    mGenderMax = getResources().getInteger(R.integer.gender_max);
+                    mRadioMin = getResources().getInteger(R.integer.radio_min);
+                    mRadioMax = getResources().getInteger(R.integer.radio_max);
+
                     mSelfCheckProgressDialog.show();
                     new Thread() {
                         @Override
@@ -498,16 +528,6 @@ public class WelcomeActivity extends BaseActivity {
                     // 启动指纹
                     TouchID.getInstance(mContext.getApplicationContext());
                     UartBca.getInstance(mContext);
-                    mAgeMin = getResources().getInteger(R.integer.age_min);
-                    mAgeMax = getResources().getInteger(R.integer.age_max);
-                    mHeightMin = getResources().getInteger(R.integer.height_min);
-                    mHeightMax = getResources().getInteger(R.integer.height_max);
-                    mWeightMin = getResources().getInteger(R.integer.weight_min);
-                    mWeightMax = getResources().getInteger(R.integer.weight_max);
-                    mGenderMin = getResources().getInteger(R.integer.gender_min);
-                    mGenderMax = getResources().getInteger(R.integer.gender_max);
-                    mRadioMin = getResources().getInteger(R.integer.radio_min);
-                    mRadioMax = getResources().getInteger(R.integer.radio_max);
                     break;
                 case HANDLE_EVENT_AUTO_TEST_ERROR:
                     mSelfCheckProgressDialog.dismiss();
@@ -661,7 +681,7 @@ public class WelcomeActivity extends BaseActivity {
 
     public boolean isWifiConnected() {
 
-        WifiManager mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
         int ipAddress = wifiInfo == null ? 0 : wifiInfo.getIpAddress();
         if (mWifiManager.isWifiEnabled() && ipAddress != 0) {
@@ -922,13 +942,16 @@ public class WelcomeActivity extends BaseActivity {
         Toast.makeText(activity, "未知错误，请联系厂家", Toast.LENGTH_SHORT).show();
     }
 
+    private static Thread mTichengfen;
+    private static Thread mWeight;
+
     /**
      * 开始
      */
     public static void startTichengfenTest(final Activity activity,
                                            final Handler handler,
                                            Record mRecord) {
-
+        final long startTime = System.currentTimeMillis();
         final byte gender = (mRecord.getGender().equals(GENDER_MALE)) ? PROTOCAL_GENDER_MALE : PROTOCAL_GENDER_FEMALE;
         final byte age = (byte)((int)(mRecord.getAge() * (float)Math.pow(10, BodyComposition.年龄.dot)) & 0xFF);
         final short height = (short) (((int)(mRecord.getHeight() * (float)Math.pow(10, BodyComposition.身高.dot)) & 0xFFFF));
@@ -938,7 +961,7 @@ public class WelcomeActivity extends BaseActivity {
 
         // star phread
         MusicService.play(mContext, SOUND_08_TEST_START);
-        new Thread() {
+        mTichengfen = new Thread() {
             @Override
             public void run() {
                 boolean ret = false;
@@ -972,6 +995,10 @@ public class WelcomeActivity extends BaseActivity {
                 boolean isFirst20 = true;
                 while(isRun) {
                     try {
+//                        if ((System.currentTimeMillis() - startTime) / 1000 > (WatchDog.TIMEOUT - 10)) {
+//                            // timeout
+//                            throw new TimeoutException("一直未响应");
+//                        }
                         sleep(20);
                         UartBca.QueryResult qr = UartBca.getInstance(activity).qeuryTichengfen();
                         if (qr == null) {
@@ -1042,8 +1069,11 @@ public class WelcomeActivity extends BaseActivity {
                         break;
                     }
                 }
+
+                Log.e(TAG, "startTichengfenTest: end...");
             }
-        }.start();
+        };
+        mTichengfen.start();
     }
 
     public static void createPdfFromView(View content, final String pdfPath) {

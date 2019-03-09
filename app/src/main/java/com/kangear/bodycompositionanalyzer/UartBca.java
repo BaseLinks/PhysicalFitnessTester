@@ -141,7 +141,11 @@ public class UartBca extends Protocol {
     @Override
     public byte[] recv(int timeout) {
         Log.e(TAG, "recv: start =========================================== ");
-        while (!hasData){}
+        while (!hasData){
+            if (Thread.currentThread().isInterrupted()) {
+                break;
+            }
+        }
         hasData = false;
         Log.e(TAG, "recv: end =====================================================");
         return mCache;
