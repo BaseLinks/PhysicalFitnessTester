@@ -516,14 +516,15 @@ public class BodyComposition {
         基础代谢.setCur(tmp);
         Log.i(TAG, "基础代谢2: " + 基础代谢.getCur());
 
-        // 2.评分=下位机传回评分x0.8+（骨骼肌映射20分）；
+        // 20190322 由0.8改为*0.9 后续还得改，评分有点低
+        // 2.评分=下位机传回评分x0.9+（骨骼肌映射20分）；
         // 骨骼肌映射20分：骨骼肌进度条在第一格的，计0分。然后第二格10分，第三格10分，根据进度线段按比例映射得出具体分数。
         //  * Math.pow(10, 评分.dot)
         Log.i(TAG, "评分1:  " + 评分.getCur());
         float score = (float) (骨骼肌.getProgress(0, NOMAL_LEVEL_WIDTH, MORE_LEVEL_WIDTH) * 0.2);
         if (骨骼肌.getLevel() == LEVEL_LOW)
             score = 0;
-        评分.setCur((float) ((评分.getCur() * 0.8 + score) * (float)Math.pow(10, 评分.dot)));
+        评分.setCur((float) ((评分.getCur() * 0.9 + score) * (float)Math.pow(10, 评分.dot)));
         Log.i(TAG, "评分2:  " + 评分.getCur());
 
         // 3. 身体年龄 计算
