@@ -224,9 +224,10 @@ public class Protocol implements IProtocol {
      * 停止体重测试
      * @return
      * @throws ProtocalExcption
+     * 20190322: 停止只有一个，都是0x31
      */
     public boolean stopWeight() throws ProtocalExcption {
-        return stop(MSG_ITEM_CODE_WEIGHT);
+        return stop(MSG_ITEM_CODE_TICHENGFEN);
     }
 
     /**
@@ -703,6 +704,8 @@ public class Protocol implements IProtocol {
 
         if (msg == null)
             throw new ProtocalExcption("parsePackage: msg can not be null");
+
+        Log.e(TAG, "parseQueryMsg: " + bytesToHex(msg));
 
         // 1. Package Head check
         start = MSG_HEAD_START;

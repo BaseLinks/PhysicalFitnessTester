@@ -543,8 +543,9 @@ public class ResultActivity extends BaseActivity {
             obj.put("whr", 腰臀比.formatCurWithoutUnit(2));
             obj.put("database64", qrcontent);
 
-            PrinterIntence mp = PrinterIntence.getPrinterIntence(new File("/dev/ttyS2"), 115200, 0);
+            PrinterIntence mp = PrinterIntence.getPrinterIntence(new File("/dev/ttyS2"), 9600, 0);
             mp.setQrCode2(1, 4, 1, 1, obj.toString());
+            mp.Label(true);
 
             obj.put("tel", n);
             obj.put("addr", c);
@@ -553,7 +554,7 @@ public class ResultActivity extends BaseActivity {
         }
 
 
-        return QRCodeUtil.createQRCodeBitmap(obj.toString(), 500, 500);
+        return QRCodeUtil.createQRCodeBitmap(obj.toString(), 450, 450);
     }
 
     public static String bytesToHexWithoutSpace(byte[] in) {
