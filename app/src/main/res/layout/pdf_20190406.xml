@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <import type="java.lang.String" />
+        <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
+        <variable
+            name="bc"
+            type="com.kangear.bodycompositionanalyzer.BodyComposition"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:background="@drawable/pdf_20190405"
+        android:layout_width="595dp"
+        android:layout_height="842dp">
+        <!--android:background="@drawable/jh318_pdf_20190104"-->
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/jibenxinxi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/age_guidline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline100"
+            app:layout_constraintTop_toTopOf="@+id/id_guidline"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                android:id="@+id/xingming_textView70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{record.name, default=`周杰伦`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline101"
+                app:layout_constraintStart_toStartOf="@+id/guideline101"
+                app:layout_constraintTop_toTopOf="@+id/guideline102" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="87dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline102"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <TextView
+                android:id="@+id/shengao_textView71"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{bc.身高.formatCurWithoutUnit(0), default=`200`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline108"
+                app:layout_constraintStart_toStartOf="@+id/guideline108"
+                app:layout_constraintTop_toTopOf="@+id/guideline102" />
+
+            <TextView
+                android:id="@+id/nianling_textView72"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.年龄.formatCurWithoutUnit(0), default=`21`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline106"
+                app:layout_constraintEnd_toStartOf="@+id/guideline101"
+                app:layout_constraintStart_toStartOf="@+id/guideline101"
+                app:layout_constraintTop_toTopOf="@+id/guideline106" />
+
+            <TextView
+                android:id="@+id/xingbie_textView73"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.性别.getGenderAsChinese(), default=`男`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline106"
+                app:layout_constraintEnd_toStartOf="@+id/guideline108"
+                app:layout_constraintStart_toStartOf="@+id/guideline108"
+                app:layout_constraintTop_toTopOf="@+id/guideline106" />
+
+            <TextView
+                android:id="@+id/tizhong_textView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{bc.体重.formatCurWithoutUnit(1), default=`100.5`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline109"
+                app:layout_constraintStart_toStartOf="@+id/guideline109"
+                app:layout_constraintTop_toTopOf="@+id/guideline102" />
+
+            <TextView
+                android:id="@+id/date_textView75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{record.getDateFormatted(), default=`2018-10-28 19:56`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline106"
+                app:layout_constraintEnd_toStartOf="@+id/guideline109"
+                app:layout_constraintStart_toStartOf="@+id/guideline109"
+                app:layout_constraintTop_toTopOf="@+id/guideline106" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline106"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="45dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline108"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="274dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline109"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="464dp" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/tichengfenfenxi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline84"
+            app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
+            app:layout_constraintStart_toEndOf="@+id/guideline100"
+            app:layout_constraintTop_toBottomOf="@+id/guideline83">
+
+            <TextView
+                android:id="@+id/tizhong_textView76"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline110"
+                app:layout_constraintStart_toStartOf="@+id/guideline115"
+                app:layout_constraintTop_toTopOf="@+id/guideline110" />
+
+            <TextView
+                android:id="@+id/quzhitizhong_textView77"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.去脂体重.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline111"
+                app:layout_constraintStart_toStartOf="@+id/guideline115"
+                app:layout_constraintTop_toTopOf="@+id/guideline111" />
+
+            <TextView
+                android:id="@+id/jirouliang_textView78"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.肌肉量.formatRange1(1), default=`40.9kg(36.5-38.8)`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline112"
+                app:layout_constraintStart_toStartOf="@+id/guideline115"
+                app:layout_constraintTop_toTopOf="@+id/guideline112" />
+
+            <TextView
+                android:id="@+id/zongshuifen_textView79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.身体水分.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline113"
+                app:layout_constraintStart_toStartOf="@+id/guideline115"
+                app:layout_constraintTop_toTopOf="@+id/guideline113" />
+
+            <TextView
+                android:id="@+id/xibaoneiye_textView80"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.细胞内液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline114"
+                app:layout_constraintEnd_toStartOf="@+id/guideline116"
+                app:layout_constraintStart_toStartOf="@+id/guideline116"
+                app:layout_constraintTop_toTopOf="@+id/guideline114" />
+
+            <TextView
+                android:id="@+id/xibaowaiye_textView81"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.细胞外液含量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline114"
+                app:layout_constraintEnd_toStartOf="@+id/guideline117"
+                app:layout_constraintStart_toStartOf="@+id/guideline117"
+                app:layout_constraintTop_toTopOf="@+id/guideline114" />
+
+            <TextView
+                android:id="@+id/danbaizhiliang_textView82"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.蛋白质.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline121"
+                app:layout_constraintEnd_toStartOf="@+id/guideline118"
+                app:layout_constraintStart_toStartOf="@+id/guideline118"
+                app:layout_constraintTop_toTopOf="@+id/guideline121" />
+
+            <TextView
+                android:id="@+id/wujianyanliang_textView83"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{bc.无机盐.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline113"
+                app:layout_constraintEnd_toStartOf="@+id/guideline119"
+                app:layout_constraintStart_toStartOf="@+id/guideline119"
+                app:layout_constraintTop_toTopOf="@+id/guideline113" />
+
+            <TextView
+                android:id="@+id/tizhifangliang_textView84"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{bc.体脂肪量.formatRange2(1), default=`40.9kg\n(36.5-38.8)`}"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline123"
+                app:layout_constraintEnd_toStartOf="@+id/guideline122"
+                app:layout_constraintStart_toStartOf="@+id/guideline122"
+                app:layout_constraintTop_toTopOf="@+id/guideline123" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline110"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="40dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline112"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="64dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline113"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="87dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline114"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="128dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline115"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="68dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline116"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="32dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline117"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="98dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline118"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="153dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline119"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="209dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline121"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="109dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline122"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="268dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline123"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="67dp" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/shentichengfenfenxi"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline95"
+            app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
+            app:layout_constraintStart_toStartOf="@+id/guideline100"
+            app:layout_constraintTop_toBottomOf="@+id/guideline103">
+
+            <include
+                android:id="@+id/tizhifang_progressbar"
+                layout="@layout/pdf_tichengfenfenxi_progress"
+                android:layout_width="0dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline91"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline105"
+                app:layout_constraintTop_toTopOf="@+id/guideline91"
+                app:third="@{bc.BMI}" />
+
+            <include
+                android:id="@+id/tizhifang_progressbar"
+                layout="@layout/pdf_tichengfenfenxi_progress"
+                android:layout_width="0dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline104"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline105"
+                app:layout_constraintTop_toTopOf="@+id/guideline104"
+                app:third="@{bc.身体水分}" />
+
+            <include
+                android:id="@+id/weight_progressbar"
+                layout="@layout/pdf_tichengfenfenxi_progress"
+                android:layout_width="0dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline90"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline105"
+                app:layout_constraintTop_toTopOf="@+id/guideline90"
+                app:third="@{bc.体重}" />
+
+            <include
+                android:id="@+id/tizhifang_progressbar"
+                layout="@layout/pdf_tichengfenfenxi_progress"
+                android:layout_width="0dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline93"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline105"
+                app:layout_constraintTop_toTopOf="@+id/guideline93"
+                app:third="@{bc.体脂百分比}" />
+
+            <include
+                android:id="@+id/gugeji_progressbar"
+                layout="@layout/pdf_tichengfenfenxi_progress"
+                android:layout_width="0dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline92"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline105"
+                app:layout_constraintTop_toTopOf="@+id/guideline92"
+                app:third="@{bc.骨骼肌}" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline105"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="82dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="37dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline91"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="67dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="97dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline93"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="124dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline104"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="154dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/yingyanpinggu_tiaojiejianyi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline95"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline82"
+            app:layout_constraintTop_toTopOf="@+id/guideline103"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline96"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="106dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline97"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="175dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="26dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="46dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline124"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="9dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline126"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="63dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline127"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="80dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline128"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="146dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline129"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="164dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline130"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="82dp" />
+
+            <TextView
+                android:id="@+id/danbaizhi_buzu_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="@{bc.蛋白质.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline124"
+                app:layout_constraintEnd_toStartOf="@+id/guideline130"
+                app:layout_constraintStart_toStartOf="@+id/guideline130"
+                app:layout_constraintTop_toTopOf="@+id/guideline124" />
+
+            <TextView
+                android:id="@+id/danbaizhi_zhengchang_textView93"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:visibility="@{bc.蛋白质.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline124"
+                app:layout_constraintEnd_toStartOf="@+id/guideline131"
+                app:layout_constraintStart_toStartOf="@+id/guideline131"
+                app:layout_constraintTop_toTopOf="@+id/guideline124" />
+
+            <TextView
+                android:id="@+id/danbaizhi_guoliang_textView91"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:visibility="@{bc.蛋白质.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=`visible`}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline124"
+                app:layout_constraintEnd_toStartOf="@+id/guideline97"
+                app:layout_constraintHorizontal_bias="0.437"
+                app:layout_constraintStart_toStartOf="@+id/guideline97"
+                app:layout_constraintTop_toTopOf="@+id/guideline124" />
+
+            <TextView
+                android:id="@+id/wujiyan_buzu_textView89"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:visibility="@{bc.无机盐.levelLow() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline98"
+                app:layout_constraintEnd_toStartOf="@+id/guideline130"
+                app:layout_constraintStart_toStartOf="@+id/guideline130"
+                app:layout_constraintTop_toTopOf="@+id/guideline98" />
+
+            <TextView
+                android:id="@+id/wujiyan_zhengchang_textView92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:visibility="@{bc.无机盐.levelNormal() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline98"
+                app:layout_constraintEnd_toStartOf="@+id/guideline131"
+                app:layout_constraintStart_toStartOf="@+id/guideline131"
+                app:layout_constraintTop_toTopOf="@+id/guideline98" />
+
+            <TextView
+                android:id="@+id/wujiyan_guoliang_textView90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="√"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:visibility="@{bc.无机盐.levelHigh() ? View.VISIBLE : View.INVISIBLE, default=visible}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline98"
+                app:layout_constraintEnd_toStartOf="@+id/guideline97"
+                app:layout_constraintStart_toStartOf="@+id/guideline97"
+                app:layout_constraintTop_toTopOf="@+id/guideline98" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline131"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="130dp" />
+
+            <TextView
+                android:id="@+id/jichudaixie_textView94"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.基础代谢.formatCurWithoutUnit(0), default=`2022`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline99"
+                app:layout_constraintEnd_toStartOf="@+id/guideline131"
+                app:layout_constraintTop_toTopOf="@+id/guideline99" />
+
+            <TextView
+                android:id="@+id/zongnengliangxiaohao_textView95"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.总能耗.formatCurWithoutUnit(0), default=`3581`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline126"
+                app:layout_constraintEnd_toStartOf="@+id/guideline131"
+                app:layout_constraintTop_toTopOf="@+id/guideline126" />
+
+            <TextView
+                android:id="@+id/shentinianling_textView96"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{bc.身体年龄.formatCurWithoutUnit(0), default=`50`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline127"
+                app:layout_constraintEnd_toStartOf="@+id/guideline131"
+                app:layout_constraintTop_toTopOf="@+id/guideline127" />
+
+            <TextView
+                android:id="@+id/zhifangliang_dangqian_textView97"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.体脂肪量.formatCurUnit(1), default=`50.6kg`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline128"
+                app:layout_constraintEnd_toStartOf="@+id/guideline96"
+                app:layout_constraintStart_toStartOf="@+id/guideline96"
+                app:layout_constraintTop_toTopOf="@+id/guideline128" />
+
+            <TextView
+                android:id="@+id/jirouliangdangqian_textView98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.肌肉量.formatCurUnit(1), default=`77.8kg`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline129"
+                app:layout_constraintEnd_toStartOf="@+id/guideline96"
+                app:layout_constraintStart_toStartOf="@+id/guideline96"
+                app:layout_constraintTop_toTopOf="@+id/guideline129" />
+
+            <TextView
+                android:id="@+id/zhifang_tiaozheng_textView99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.体脂肪量.getAdjustmentMinWithUnit(1), default=`-31.5kg`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline128"
+                app:layout_constraintEnd_toStartOf="@+id/guideline97"
+                app:layout_constraintStart_toStartOf="@+id/guideline97"
+                app:layout_constraintTop_toTopOf="@+id/guideline128" />
+
+            <TextView
+                android:id="@+id/jiroutiaozheng_textView100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.肌肉量.getAdjustmentMaxWithUnit(1), default=`+55.2kg`}"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline129"
+                app:layout_constraintEnd_toStartOf="@+id/guideline97"
+                app:layout_constraintStart_toStartOf="@+id/guideline97"
+                app:layout_constraintTop_toTopOf="@+id/guideline129" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/tixingfenxi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline84"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintStart_toStartOf="@+id/guideline82"
+            app:layout_constraintTop_toTopOf="@+id/guideline83">
+
+            <include
+                android:id="@+id/xxjldfdf"
+                layout="@layout/layout_tixingfenxi"
+                app:tixingfenxi="@{bc.体型分析}"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <include
+            android:id="@+id/history_view"
+            layout="@layout/pdf_20180115_history"
+            android:layout_width="46dp"
+            android:layout_height="133dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/history_guidline"
+            app:layout_constraintTop_toTopOf="@+id/history_guidline"
+            tools:layout_editor_absoluteX="111dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/yaotunbi_jieduan_shuizhong_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline69"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline100"
+            app:layout_constraintTop_toTopOf="@+id/guideline95"
+            app:layout_constraintVertical_bias="0.0">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="168dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/yaotunbi_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline70"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline71"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="85dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline72"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="130dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline73"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="40dp" />
+
+                <TextView
+                    android:id="@+id/textView87"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{bc.腰臀比.formatRange1(2), default=`0.95(0.70-0.80)`}"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline71"
+                    app:layout_constraintStart_toStartOf="@+id/guideline73"
+                    app:layout_constraintTop_toTopOf="@+id/guideline71" />
+
+                <TextView
+                    android:id="@+id/textView101"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{bc.内脏面积.formatRange1(1), default=`100.5cm\n(0-75)`}"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline72"
+                    app:layout_constraintStart_toStartOf="@+id/guideline73"
+                    app:layout_constraintTop_toTopOf="@+id/guideline72" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="395dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/shuizhongxishu_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline75"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{bc.评分.formatCurWithoutUnit(1), default=`78.2`}"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline74" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline74"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="71dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline89"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="76dp" />
+
+                <TextView
+                    android:id="@+id/textView71"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.水肿系数.formatRange1(2), default=`0.31(0.32-0.44)`}"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline89"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/jieduan_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline75"
+                app:layout_constraintStart_toEndOf="@+id/guideline70"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline76"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="50dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline77"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="128dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline78"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="90dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="65dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline80"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="31dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline85"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="101dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline86"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="127dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline87"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="166dp" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline88"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="201dp" />
+
+                <TextView
+                    android:id="@+id/textView47"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左上脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline76"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline80"
+                    app:layout_constraintStart_toStartOf="@+id/guideline80" />
+
+                <TextView
+                    android:id="@+id/textView48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右下脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline77"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline85"
+                    app:layout_constraintStart_toStartOf="@+id/guideline85" />
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右下脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline85"
+                    app:layout_constraintStart_toStartOf="@+id/guideline85"
+                    app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+                <TextView
+                    android:id="@+id/textView62"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右下肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline77"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline88"
+                    app:layout_constraintStart_toStartOf="@+id/guideline88" />
+
+                <TextView
+                    android:id="@+id/textView86"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右下肌肉量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline88"
+                    app:layout_constraintStart_toStartOf="@+id/guideline88"
+                    app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右上肢肌肉量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline88"
+                    app:layout_constraintStart_toStartOf="@+id/guideline88"
+                    app:layout_constraintTop_toTopOf="@+id/guideline76" />
+
+                <TextView
+                    android:id="@+id/textView64"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右上肢肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline76"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline88"
+                    app:layout_constraintStart_toStartOf="@+id/guideline88" />
+
+                <TextView
+                    android:id="@+id/textView65"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{bc.左下肌肉量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline86"
+                    app:layout_constraintHorizontal_bias="0.419"
+                    app:layout_constraintStart_toStartOf="@+id/guideline86"
+                    app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+                <TextView
+                    android:id="@+id/textView66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左下肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline77"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline86"
+                    app:layout_constraintStart_toStartOf="@+id/guideline86" />
+
+                <TextView
+                    android:id="@+id/textView67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.躯干肌肉量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline87"
+                    app:layout_constraintStart_toStartOf="@+id/guideline87"
+                    app:layout_constraintTop_toBottomOf="@+id/textView68" />
+
+                <TextView
+                    android:id="@+id/textView68"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.躯干肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline78"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline87"
+                    app:layout_constraintStart_toStartOf="@+id/guideline87" />
+
+                <TextView
+                    android:id="@+id/textView69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左上脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline86"
+                    app:layout_constraintStart_toStartOf="@+id/guideline86"
+                    app:layout_constraintTop_toTopOf="@+id/guideline76" />
+
+                <TextView
+                    android:id="@+id/textView85"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左上肢肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline76"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline86"
+                    app:layout_constraintStart_toStartOf="@+id/guideline86" />
+
+                <TextView
+                    android:id="@+id/textView49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右上脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline85"
+                    app:layout_constraintStart_toStartOf="@+id/guideline85"
+                    app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+                <TextView
+                    android:id="@+id/textView50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.右上脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline76"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline85"
+                    app:layout_constraintStart_toStartOf="@+id/guideline85" />
+
+                <TextView
+                    android:id="@+id/textView51"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左下脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline80"
+                    app:layout_constraintHorizontal_bias="0.304"
+                    app:layout_constraintStart_toStartOf="@+id/guideline80"
+                    app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+                <TextView
+                    android:id="@+id/textView57"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左下脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline77"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline80"
+                    app:layout_constraintStart_toStartOf="@+id/guideline80" />
+
+                <TextView
+                    android:id="@+id/textView58"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.躯干脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline79"
+                    app:layout_constraintStart_toStartOf="@+id/guideline79"
+                    app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.躯干脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline78"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline79"
+                    app:layout_constraintStart_toStartOf="@+id/guideline79" />
+
+                <TextView
+                    android:id="@+id/textView60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{bc.左上脂肪量.getLevelAsChinese(), default=`低标准`}"
+                    android:textColor="#000000"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline80"
+                    app:layout_constraintStart_toStartOf="@+id/guideline80"
+                    app:layout_constraintTop_toTopOf="@+id/guideline76" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/history_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline120"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintStart_toStartOf="@+id/guideline137"
+            app:layout_constraintTop_toTopOf="@+id/guideline107" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/shentichengfenfenxi_end_guidline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="262dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/id_guidline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="100dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/age_guidline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="157dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/history_guidline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="936dp" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline81"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="560dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="350dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="196dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline84"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="341dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline94"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="489dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline95"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="551dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="29dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline103"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="370dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline69"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="698dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline107"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="730dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline120"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="798dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline125"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="38dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline135"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="68dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline135"
+            app:layout_constraintEnd_toStartOf="@+id/guideline81"
+            app:layout_constraintStart_toStartOf="@+id/guideline100"
+            app:layout_constraintTop_toTopOf="@+id/guideline125">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline136"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="271dp" />
+
+            <TextView
+                android:id="@+id/company_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="地址：xxxxxxx 联系电话: 13323434"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline136"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline137"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="80dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
