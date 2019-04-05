@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{bc.身高.formatCurWithoutUnit(0), default=`202`}"
+                android:text="@{bc.评分.formatCurWithoutUnit(1), default=`78.2`}"
                 android:textColor="#000000"
                 android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline102"
@@ -204,28 +204,26 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/yaotunbi_jieduan_shuizhong_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline69"
-            app:layout_constraintEnd_toStartOf="@+id/guideline81"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline100"
-            app:layout_constraintTop_toTopOf="@+id/guideline95"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_width="539dp"
+            android:layout_height="129dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline152">
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline70"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="168dp" />
+                app:layout_constraintGuide_end="371dp" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/yaotunbi_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="245dp"
+                android:layout_height="129dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline70"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -234,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="85dp" />
+                    app:layout_constraintGuide_begin="92dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline72"
@@ -248,18 +246,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="40dp" />
+                    app:layout_constraintGuide_begin="90dp" />
 
                 <TextView
                     android:id="@+id/textView87"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{bc.腰臀比.formatRange1(2), default=`0.95(0.70-0.80)`}"
+                    android:text="@{bc.腰臀比.formatRange2(2), default=`0.95\n(0.70-0.80)`}"
+                    android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline71"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline73"
                     app:layout_constraintStart_toStartOf="@+id/guideline73"
                     app:layout_constraintTop_toTopOf="@+id/guideline71" />
 
@@ -267,12 +267,23 @@
                     android:id="@+id/textView101"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{bc.内脏面积.formatRange1(1), default=`100.5cm\n(0-75)`}"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{bc.内脏面积.formatRange2(1), default=`100.5cm\n(0-75)`}"
+                    android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline72"
-                    app:layout_constraintStart_toStartOf="@+id/guideline73"
-                    app:layout_constraintTop_toTopOf="@+id/guideline72" />
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline71"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline153"
+                    app:layout_constraintStart_toStartOf="@+id/guideline153"
+                    app:layout_constraintTop_toTopOf="@+id/guideline71" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline153"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="218dp" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.Guideline
@@ -284,64 +295,49 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/shuizhongxishu_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="120dp"
+                android:layout_height="129dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/guideline75"
+                app:layout_constraintStart_toEndOf="@+id/yaotunbi_view"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView70"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@{bc.评分.formatCurWithoutUnit(1), default=`78.2`}"
-                    android:textColor="#000000"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline74" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline74"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="71dp" />
+                    app:layout_constraintGuide_begin="82dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline89"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="76dp" />
+                    app:layout_constraintGuide_begin="93dp" />
 
                 <TextView
                     android:id="@+id/textView71"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@{bc.水肿系数.formatRange1(2), default=`0.31(0.32-0.44)`}"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{bc.水肿系数.formatRange2(2), default=`0.31\n(0.32-0.44)`}"
+                    android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline89"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@+id/guideline74"
+                    app:layout_constraintStart_toStartOf="@+id/guideline74"
+                    app:layout_constraintTop_toTopOf="@+id/guideline89" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/jieduan_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="150dp"
+                android:layout_height="129dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline75"
-                app:layout_constraintStart_toEndOf="@+id/guideline70"
+                app:layout_constraintStart_toEndOf="@+id/shuizhongxishu_view"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.constraint.Guideline
@@ -356,56 +352,56 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="128dp" />
+                    app:layout_constraintGuide_begin="103dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline78"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="90dp" />
+                    app:layout_constraintGuide_begin="73dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline79"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="65dp" />
+                    app:layout_constraintGuide_begin="34dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline80"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="31dp" />
+                    app:layout_constraintGuide_begin="16dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline85"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="101dp" />
+                    app:layout_constraintGuide_begin="50dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline86"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="127dp" />
+                    app:layout_constraintGuide_begin="95dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline87"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="166dp" />
+                    app:layout_constraintGuide_begin="113dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline88"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="201dp" />
+                    app:layout_constraintGuide_begin="132dp" />
 
                 <TextView
                     android:id="@+id/textView47"
@@ -415,7 +411,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左上脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline76"
                     app:layout_constraintEnd_toStartOf="@+id/guideline80"
                     app:layout_constraintStart_toStartOf="@+id/guideline80" />
@@ -428,7 +424,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右下脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline77"
                     app:layout_constraintEnd_toStartOf="@+id/guideline85"
                     app:layout_constraintStart_toStartOf="@+id/guideline85" />
@@ -440,7 +436,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右下脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline85"
                     app:layout_constraintStart_toStartOf="@+id/guideline85"
                     app:layout_constraintTop_toTopOf="@+id/guideline77" />
@@ -452,7 +448,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右下肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline77"
                     app:layout_constraintEnd_toStartOf="@+id/guideline88"
                     app:layout_constraintStart_toStartOf="@+id/guideline88" />
@@ -464,7 +460,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右下肌肉量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline88"
                     app:layout_constraintStart_toStartOf="@+id/guideline88"
                     app:layout_constraintTop_toTopOf="@+id/guideline77" />
@@ -476,7 +472,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右上肢肌肉量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline88"
                     app:layout_constraintStart_toStartOf="@+id/guideline88"
                     app:layout_constraintTop_toTopOf="@+id/guideline76" />
@@ -488,7 +484,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右上肢肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline76"
                     app:layout_constraintEnd_toStartOf="@+id/guideline88"
                     app:layout_constraintStart_toStartOf="@+id/guideline88" />
@@ -499,7 +495,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{bc.左下肌肉量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline86"
                     app:layout_constraintHorizontal_bias="0.419"
                     app:layout_constraintStart_toStartOf="@+id/guideline86"
@@ -512,7 +508,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左下肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline77"
                     app:layout_constraintEnd_toStartOf="@+id/guideline86"
                     app:layout_constraintStart_toStartOf="@+id/guideline86" />
@@ -524,7 +520,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.躯干肌肉量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline87"
                     app:layout_constraintStart_toStartOf="@+id/guideline87"
                     app:layout_constraintTop_toBottomOf="@+id/textView68" />
@@ -536,7 +532,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.躯干肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline78"
                     app:layout_constraintEnd_toStartOf="@+id/guideline87"
                     app:layout_constraintStart_toStartOf="@+id/guideline87" />
@@ -548,7 +544,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左上脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline86"
                     app:layout_constraintStart_toStartOf="@+id/guideline86"
                     app:layout_constraintTop_toTopOf="@+id/guideline76" />
@@ -561,7 +557,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左上肢肌肉量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline76"
                     app:layout_constraintEnd_toStartOf="@+id/guideline86"
                     app:layout_constraintStart_toStartOf="@+id/guideline86" />
@@ -573,7 +569,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右上脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline85"
                     app:layout_constraintStart_toStartOf="@+id/guideline85"
                     app:layout_constraintTop_toBottomOf="@+id/textView50" />
@@ -585,7 +581,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.右上脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline76"
                     app:layout_constraintEnd_toStartOf="@+id/guideline85"
                     app:layout_constraintStart_toStartOf="@+id/guideline85" />
@@ -597,7 +593,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左下脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline80"
                     app:layout_constraintHorizontal_bias="0.304"
                     app:layout_constraintStart_toStartOf="@+id/guideline80"
@@ -610,7 +606,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左下脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline77"
                     app:layout_constraintEnd_toStartOf="@+id/guideline80"
                     app:layout_constraintStart_toStartOf="@+id/guideline80" />
@@ -623,7 +619,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.躯干脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline79"
                     app:layout_constraintStart_toStartOf="@+id/guideline79"
                     app:layout_constraintTop_toBottomOf="@+id/textView59" />
@@ -635,7 +631,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.躯干脂肪量.formatCurWithoutUnit(2), default=`17.69`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline78"
                     app:layout_constraintEnd_toStartOf="@+id/guideline79"
                     app:layout_constraintStart_toStartOf="@+id/guideline79" />
@@ -648,7 +644,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@{bc.左上脂肪量.getLevelAsChinese(), default=`低标准`}"
                     android:textColor="#000000"
-                    android:textSize="8sp"
+                    android:textSize="9sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline80"
                     app:layout_constraintStart_toStartOf="@+id/guideline80"
                     app:layout_constraintTop_toTopOf="@+id/guideline76" />
@@ -657,12 +653,12 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/history_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="480dp"
+            android:layout_height="73dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline120"
-            app:layout_constraintEnd_toStartOf="@+id/guideline81"
-            app:layout_constraintStart_toStartOf="@+id/guideline137"
-            app:layout_constraintTop_toTopOf="@+id/guideline107" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline144" />
 
 
 
@@ -722,7 +718,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="798dp" />
+            app:layout_constraintGuide_begin="787dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline125"
@@ -1554,6 +1550,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="31dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline152"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="552dp" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
