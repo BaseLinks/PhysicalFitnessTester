@@ -40,7 +40,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@{record.name, default=`周杰伦`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline102"
                 app:layout_constraintEnd_toStartOf="@+id/guideline101"
                 app:layout_constraintStart_toStartOf="@+id/guideline101"
@@ -58,17 +58,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="16dp" />
+                app:layout_constraintGuide_begin="19dp" />
 
             <TextView
-                android:id="@+id/shengao_textView71"
+                android:id="@+id/shentinianling_textView71"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.身高.formatCurWithoutUnit(0), default=`201`}"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline106"
+                app:layout_constraintEnd_toStartOf="@+id/guideline139"
+                app:layout_constraintStart_toStartOf="@+id/guideline139"
+                app:layout_constraintTop_toTopOf="@+id/guideline106" />
+
+            <TextView
+                android:id="@+id/jiankangpingfen_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{bc.身高.formatCurWithoutUnit(0), default=`202`}"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline139"
+                app:layout_constraintStart_toStartOf="@+id/guideline139"
+                app:layout_constraintTop_toTopOf="@+id/guideline102" />
+
+            <TextView
+                android:id="@+id/shengao_textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@{bc.身高.formatCurWithoutUnit(0), default=`200`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline102"
                 app:layout_constraintEnd_toStartOf="@+id/guideline108"
                 app:layout_constraintStart_toStartOf="@+id/guideline108"
@@ -82,7 +111,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@{bc.年龄.formatCurWithoutUnit(0), default=`21`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline106"
                 app:layout_constraintEnd_toStartOf="@+id/guideline101"
                 app:layout_constraintStart_toStartOf="@+id/guideline101"
@@ -96,7 +125,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@{bc.性别.getGenderAsChinese(), default=`男`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline106"
                 app:layout_constraintEnd_toStartOf="@+id/guideline108"
                 app:layout_constraintStart_toStartOf="@+id/guideline108"
@@ -110,7 +139,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@{bc.体重.formatCurWithoutUnit(1), default=`100.5`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline102"
                 app:layout_constraintEnd_toStartOf="@+id/guideline109"
                 app:layout_constraintStart_toStartOf="@+id/guideline109"
@@ -124,7 +153,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@{record.getDateFormatted(), default=`2018-10-28 19:56`}"
                 android:textColor="#000000"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline106"
                 app:layout_constraintEnd_toStartOf="@+id/guideline109"
                 app:layout_constraintStart_toStartOf="@+id/guideline109"
@@ -135,21 +164,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="45dp" />
+                app:layout_constraintGuide_begin="44dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline108"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="274dp" />
+                app:layout_constraintGuide_begin="207dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline109"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="464dp" />
+                app:layout_constraintGuide_begin="357dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline139"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="495dp" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -1280,14 +1316,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="100dp" />
+            app:layout_constraintGuide_begin="78dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/age_guidline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="157dp" />
+            app:layout_constraintGuide_begin="141dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/history_guidline"
@@ -1379,14 +1415,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="38dp" />
+            app:layout_constraintGuide_begin="16dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline135"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="68dp" />
+            app:layout_constraintGuide_begin="56dp" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
@@ -1405,15 +1441,28 @@
 
             <TextView
                 android:id="@+id/company_textview"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="地址：xxxxxxx 联系电话: 13323434"
-                android:textAlignment="center"
+                android:layout_marginEnd="8dp"
+                android:text="15516617888"
+                android:textAlignment="viewEnd"
                 android:textColor="#000000"
-                android:textSize="10sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline136"
+                app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+            <TextView
+                android:id="@+id/textView73"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="北京123健康俱乐部"
+                android:textAlignment="viewEnd"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
