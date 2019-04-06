@@ -60,57 +60,61 @@
         android:id="@+id/vip_register_imageview"
         android:layout_width="246dp"
         android:layout_height="108dp"
-        android:layout_marginEnd="49dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="8dp"
         android:onClick="onClick"
         android:src="@drawable/_04_vip_register"
-        app:layout_constraintEnd_toStartOf="@+id/start_new_test_imageview"
-        app:layout_constraintTop_toTopOf="@+id/start_new_test_imageview" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline146"
+        app:layout_constraintStart_toEndOf="@+id/vip_test_imageview"
+        app:layout_constraintTop_toTopOf="@+id/guideline146" />
 
     <ImageView
         android:id="@+id/vip_test_imageview"
         android:layout_width="246dp"
         android:layout_height="108dp"
-        android:layout_marginEnd="49dp"
+        android:layout_marginEnd="8dp"
         android:onClick="onClick"
         android:src="@drawable/_05_vip_test"
-        app:layout_constraintBottom_toBottomOf="@+id/start_new_test_imageview"
-        app:layout_constraintEnd_toStartOf="@+id/start_new_test_imageview" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline146"
+        app:layout_constraintEnd_toStartOf="@+id/guideline140"
+        app:layout_constraintStart_toStartOf="@+id/guideline140"
+        app:layout_constraintTop_toTopOf="@+id/guideline146" />
 
     <ImageView
         android:id="@+id/start_new_test_imageview"
-        android:layout_width="214dp"
-        android:layout_height="265dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="246dp"
+        android:layout_height="108dp"
+        android:layout_marginEnd="37dp"
         android:onClick="onClick"
         android:src="@drawable/_07_start_new_test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+        app:layout_constraintBottom_toBottomOf="@+id/vip_test_imageview"
+        app:layout_constraintEnd_toStartOf="@+id/vip_test_imageview"
+        app:layout_constraintTop_toTopOf="@+id/vip_test_imageview" />
 
     <ImageView
         android:id="@+id/history_imageview"
         android:layout_width="246dp"
         android:layout_height="108dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="8dp"
         android:onClick="onClick"
         android:src="@drawable/_06_history"
-        app:layout_constraintStart_toEndOf="@+id/start_new_test_imageview"
-        app:layout_constraintTop_toTopOf="@+id/start_new_test_imageview" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline141"
+        app:layout_constraintEnd_toStartOf="@+id/guideline140"
+        app:layout_constraintTop_toTopOf="@+id/guideline141" />
 
 
     <ImageView
         android:id="@+id/settings_imageview"
         android:layout_width="246dp"
         android:layout_height="108dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginBottom="8dp"
         android:onClick="onClick"
         android:src="@drawable/_08_settings"
-        app:layout_constraintBottom_toBottomOf="@+id/start_new_test_imageview"
-        app:layout_constraintStart_toEndOf="@+id/start_new_test_imageview" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline141"
+        app:layout_constraintStart_toStartOf="@+id/guideline140"
+        app:layout_constraintTop_toTopOf="@+id/guideline141" />
 
     <TextView
         android:id="@+id/textView40"
@@ -118,10 +122,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="JH-318"
+        android:layout_marginBottom="34dp"
+        android:text="303+"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -154,5 +158,26 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline140"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline141"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="174dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline146"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="464dp" />
 
 </android.support.constraint.ConstraintLayout>
