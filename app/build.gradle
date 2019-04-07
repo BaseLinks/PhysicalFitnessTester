@@ -75,12 +75,7 @@ android {
             testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         }
     }
-
-    sourceSets {
-        jh303plus {
-            java.srcDirs('src/jh303plus/java')
-        }
-    }
+    
     buildToolsVersion '26.0.2'
     dataBinding {
         enabled = true
