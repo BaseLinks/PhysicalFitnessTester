@@ -55,7 +55,31 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+
+    flavorDimensions("model")
+
     productFlavors {
+        jh318 {
+            minSdkVersion 19
+            dimension "model"
+            signingConfig signingConfigs.config
+            targetSdkVersion 26
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        }
+
+        jh303plus {
+            minSdkVersion 19
+            dimension "model"
+            signingConfig signingConfigs.config
+            targetSdkVersion 26
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        }
+    }
+
+    sourceSets {
+        jh303plus {
+            java.srcDirs('src/jh303plus/java')
+        }
     }
     buildToolsVersion '26.0.2'
     dataBinding {
