@@ -7,6 +7,8 @@
         <import type="android.view.View" />
         <import type="java.lang.String" />
         <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
+        <variable name="company" type="java.lang.String"/>
+        <variable name="number" type="java.lang.String"/>
         <variable
             name="bc"
             type="com.kangear.bodycompositionanalyzer.BodyComposition"
@@ -14,10 +16,9 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:background="@drawable/pdf_20190405"
         android:layout_width="595dp"
         android:layout_height="842dp">
-        <!--android:background="@drawable/jh318_pdf_20190104"-->
+        <!--android:background="@drawable/pdf_20190405"-->
 
 
         <android.support.constraint.ConstraintLayout
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="19dp" />
+                app:layout_constraintGuide_begin="22dp" />
 
             <TextView
                 android:id="@+id/shentinianling_textView71"
@@ -165,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="44dp" />
+                app:layout_constraintGuide_begin="46dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline108"
@@ -221,7 +222,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/yaotunbi_view"
-                android:layout_width="245dp"
+                android:layout_width="247dp"
                 android:layout_height="129dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -366,42 +367,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="34dp" />
+                    app:layout_constraintGuide_begin="31dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline80"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="16dp" />
+                    app:layout_constraintGuide_begin="13dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline85"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="50dp" />
+                    app:layout_constraintGuide_begin="49dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline86"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="95dp" />
+                    app:layout_constraintGuide_begin="92dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline87"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="113dp" />
+                    app:layout_constraintGuide_begin="110dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline88"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="132dp" />
+                    app:layout_constraintGuide_begin="130dp" />
 
                 <TextView
                     android:id="@+id/textView47"
@@ -733,48 +734,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="56dp" />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline135"
-            app:layout_constraintEnd_toStartOf="@+id/guideline81"
-            app:layout_constraintStart_toStartOf="@+id/guideline100"
-            app:layout_constraintTop_toTopOf="@+id/guideline125">
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline136"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="271dp" />
-
-            <TextView
-                android:id="@+id/company_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="15516617888"
-                android:textAlignment="viewEnd"
-                android:textColor="#000000"
-                android:textSize="9sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView73" />
-
-            <TextView
-                android:id="@+id/textView73"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="北京123健康俱乐部"
-                android:textAlignment="viewEnd"
-                android:textColor="#000000"
-                android:textSize="9sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline137"
@@ -1161,7 +1120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="67dp" />
+                    app:layout_constraintGuide_begin="69dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline90"
@@ -1215,14 +1174,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="122dp" />
+                    app:layout_constraintGuide_begin="119dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline97"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="171dp" />
+                    app:layout_constraintGuide_begin="168dp" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline98"
@@ -1271,7 +1230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="74dp" />
+                    app:layout_constraintGuide_begin="71dp" />
 
                 <TextView
                     android:id="@+id/danbaizhi_buzu_textview"
@@ -1371,7 +1330,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="137dp" />
+                    app:layout_constraintGuide_begin="133dp" />
 
                 <TextView
                     android:id="@+id/jichudaixie_textView94"
@@ -1557,6 +1516,50 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="552dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="265dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/jibenxinxi"
+            app:layout_constraintEnd_toStartOf="@+id/guideline144"
+            app:layout_constraintTop_toBottomOf="@+id/guideline125">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline136"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="271dp" />
+
+            <TextView
+                android:id="@+id/company_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{number, default=`15516617888`}"
+                android:textAlignment="viewEnd"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+            <TextView
+                android:id="@+id/textView73"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{company, default=`北京123健康俱乐部`}"
+                android:textAlignment="viewEnd"
+                android:textColor="#000000"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
