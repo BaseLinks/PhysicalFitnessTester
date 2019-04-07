@@ -75,7 +75,7 @@ android {
             testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         }
     }
-    
+
     buildToolsVersion '26.0.2'
     dataBinding {
         enabled = true
