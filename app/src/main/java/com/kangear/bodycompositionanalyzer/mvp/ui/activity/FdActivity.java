@@ -39,6 +39,8 @@ import com.kangear.bodycompositionanalyzer.R;
 
 import cn.xsshome.taip.face.TAipFace;
 
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
+
 public class FdActivity extends Activity implements CvCameraViewListener2 {
 
     public static final String ZHUCE = "zhuce.....";
@@ -68,7 +70,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
 
     private CameraBridgeViewBase   mOpenCvCameraView;
 
-    private final String FACEID_GROUP_ID = "group20180512";
+    private final String FACEID_GROUP_ID = "group20180513";
     private static final String PATH = "/sdcard/fff.jpg";
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
@@ -257,12 +259,14 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                 String result;
                 // zhuce
                 if (zhuce) {
-                    result = aipFace.faceNewperson(PATH, FACEID_GROUP_ID, String.valueOf(System.currentTimeMillis()), String.valueOf(System.currentTimeMillis()));//个体创建
+                    String personId = String.valueOf(System.currentTimeMillis() / 1000);
+                    result = aipFace.faceNewperson(PATH, FACEID_GROUP_ID, personId, String.valueOf(System.currentTimeMillis()));//个体创建
                     NewPerson newPerson = gson.fromJson(result, NewPerson.class);
-                    String perceId = newPerson.getData().getPerson_id();
-                    result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 9);//人脸识别
+                    final String perceId = newPerson.getData().getPerson_id();
+                    result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 1);//人脸识别
                     FaceReg faceReg = gson.fromJson(result, FaceReg.class);
-                    if (faceReg.getData().getCandidates().get(0).getPerson_id().equals(perceId)) {
+                    List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
+                    if (candidatesBeans.size() > 0 &&  faceReg.getData().getCandidates().get(0).getPerson_id().equals(perceId)) {
                         Log.e(TAG, "注册成功: " + perceId);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -272,11 +276,17 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(CONST_FINGER_ID, Integer.valueOf(perceId));
+                                        setResult(RESULT_OK, intent);
                                         finish();
                                     }
-                                }, 3 * 1000);
+                                }, 1 * 1000);
                             }
                         });
+                    } else {
+                        aipFace.faceDelperson(personId);//个体创建
+                        state = 0;
                     }
                 } else {
                     result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 9);//人脸识别
@@ -284,6 +294,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                     if (faceReg.getRet() == 0) {
                         List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
                         if (candidatesBeans.size() > 0 && candidatesBeans.get(0).getConfidence() > 90) {
+                            final String perceId = candidatesBeans.get(0).getPerson_id();
                             Log.e(TAG, "识别成功: " + candidatesBeans.get(0).getPerson_id());
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -293,43 +304,19 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Intent intent = new Intent();
+                                            intent.putExtra(CONST_FINGER_ID, Integer.valueOf(perceId));
+                                            setResult(RESULT_OK, intent);
                                             finish();
-                                        }
-                                    }, 3 * 1000);
-                                }
-                            });
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail);
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            state = 0;
-                                            ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_info);
                                         }
                                     }, 1 * 1000);
                                 }
                             });
-
-                            Log.e(TAG, "识别失败1");
+                        } else {
+                            fail();
                         }
                     } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        state = 0;
-                                        ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_info);
-                                    }
-                                }, 1 * 1000);
-                            }
-                        });
-                        Log.e(TAG, "识别失败2");
+                        fail();
                     }
                 }
             } catch (Exception e) {
@@ -337,6 +324,31 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
             }
         }
     }
+
+    private void fail() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        state = 0;
+                        ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_info);
+                    }
+                }, 1 * 1000);
+            }
+        });
+        Log.e(TAG, "识别失败");
+
+        times--;
+        if (times < 0) {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    private int times = 3;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

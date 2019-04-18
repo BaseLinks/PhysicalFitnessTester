@@ -145,7 +145,11 @@
             android:name=".HistoryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.HistoryActivity" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".HistoryDeleteDialogActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
