@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
@@ -280,10 +281,57 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                 } else {
                     result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 9);//人脸识别
                     FaceReg faceReg = gson.fromJson(result, FaceReg.class);
-                    if (faceReg.getRet() == 0)
-                        Log.e(TAG, "" + faceReg.getData().getCandidates().get(0).getConfidence());
+                    if (faceReg.getRet() == 0) {
+                        List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
+                        if (candidatesBeans.size() > 0 && candidatesBeans.get(0).getConfidence() > 90) {
+                            Log.e(TAG, "识别成功: " + candidatesBeans.get(0).getPerson_id());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((ImageView) findViewById(R.id.faceid_imageview)).setImageResource(R.drawable._80_faceid_green);
+                                    ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_ok);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    }, 3 * 1000);
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            state = 0;
+                                            ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_info);
+                                        }
+                                    }, 1 * 1000);
+                                }
+                            });
+
+                            Log.e(TAG, "识别失败1");
+                        }
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        state = 0;
+                                        ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_info);
+                                    }
+                                }, 1 * 1000);
+                            }
+                        });
+                        Log.e(TAG, "识别失败2");
+                    }
                 }
-                Log.e(TAG, "result: " + result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
