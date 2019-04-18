@@ -1,1 +1,2 @@
 include ':BodyCompositionAnalyzer', ':javaapk.com-comassistant', ':d2xx', ':trineaandroidcommon-debug', ':app', ':touchid', ':common-debug', ':JH303PLUS'
+include ':openCVLibrary320'

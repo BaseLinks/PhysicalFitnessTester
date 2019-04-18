@@ -37,4 +37,6 @@
     <string name="left_one_decimal">%1$.1f</string>
     <string name="left_zero_decimal">%1$.0f</string>
     <string name="title_activity_wi_fi">WiFiActivity</string>
+    <string name="title_activity_face_id">FaceIdActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

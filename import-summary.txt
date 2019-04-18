@@ -1,36 +1,24 @@
 ECLIPSE ANDROID PROJECT IMPORT SUMMARY
 ======================================
 
-Ignored Files:
---------------
-The following files were *not* copied into the new Gradle project; you
-should evaluate whether these are still needed in your project and if
-so manually move them:
-
-* Android.mk
-* AndroidManifest_test.xml
-* CleanSpec.mk
-* lib/
-* lib/mapapi/
-* lib/mapapi/com/
-* lib/mapapi/com/android/
-* lib/mapapi/com/android/bluetooth/
-* lib/mapapi/com/android/bluetooth/mapapi/
-* lib/mapapi/com/android/bluetooth/mapapi/BluetoothMapContract.java
-* lib/mapapi/com/android/bluetooth/mapapi/BluetoothMapEmailProvider.java
-* tests/
-* tests/Android.mk
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => bluetooth/src/main/AndroidManifest.xml
-* jni/ => bluetooth/src/main/jni/
-* res/ => bluetooth/src/main/res/
-* src/ => bluetooth/src/main/java/
-* tests/src/ => bluetooth/src/androidTest/java/
+* AndroidManifest.xml => openCVSamplefacedetection/src/main/AndroidManifest.xml
+* jni/ => openCVSamplefacedetection/src/main/jni/
+* res/ => openCVSamplefacedetection/src/main/res/
+* src/ => openCVSamplefacedetection/src/main/java/
 
 Next Steps:
 -----------
