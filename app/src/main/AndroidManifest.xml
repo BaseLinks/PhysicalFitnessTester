@@ -116,7 +116,11 @@
             android:name=".MemRegActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MemRegActivity" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".GetFingerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

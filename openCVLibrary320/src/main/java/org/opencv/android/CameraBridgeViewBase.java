@@ -1,5 +1,6 @@
 package org.opencv.android;
 
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.opencv.BuildConfig;
@@ -379,6 +380,19 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
         }
     }
 
+    public static void saveImage(Bitmap bitmap, String name) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("/sdcard/" + name + ".jpg");
+            if (out != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method shall be called by the subclasses when they have valid
      * object and want it to be delivered to external client (via callback) and
@@ -410,8 +424,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             Canvas canvas = getHolder().lockCanvas();
             if (canvas != null) {
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
-                if (BuildConfig.DEBUG)
-                    Log.d(TAG, "mStretch value: " + mScale);
+//                if (BuildConfig.DEBUG)
+//                    Log.d(TAG, "mStretch value: " + mScale);
 
                 if (mScale != 0) {
                     canvas.drawBitmap(mCacheBitmap, new Rect(0,0,mCacheBitmap.getWidth(), mCacheBitmap.getHeight()),
@@ -430,6 +444,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
                 if (mFpsMeter != null) {
                     mFpsMeter.measure();
                     mFpsMeter.draw(canvas, 20, 30);
+//                    saveImage(mCacheBitmap, "ff");
                 }
                 getHolder().unlockCanvasAndPost(canvas);
             }

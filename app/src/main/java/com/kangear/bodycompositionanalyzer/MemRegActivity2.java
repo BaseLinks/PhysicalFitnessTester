@@ -1,7 +1,6 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
-import com.kangear.bodycompositionanalyzer.mvp.ui.activity.FdActivity;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -32,7 +29,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
 /**
  * 本页面不显示logo
  */
-public class MemRegActivity extends Com2Activity {
+public class MemRegActivity2 extends Com2Activity {
     private static final String TAG = "MemRegActivity";
     private View logoView;
     private Button mFingerButton;
@@ -70,14 +67,14 @@ public class MemRegActivity extends Com2Activity {
         mHeightEditText.setText("");
         mPerson = new Person();
 
-//        // TODO: fingerId如何生成？ 0-1024范围，不能重复
-//        for (int i = 0; i < 1024; i++) {
-//            Person test = PersonBean.getInstance(this).queryByFingerId(i);
-//            if (test == null) {
-//                mFingerId = i;
-//                break;
-//            }
-//        }
+        // TODO: fingerId如何生成？ 0-1024范围，不能重复
+        for (int i = 0; i < 1024; i++) {
+            Person test = PersonBean.getInstance(this).queryByFingerId(i);
+            if (test == null) {
+                mFingerId = i;
+                break;
+            }
+        }
 
         Log.i(TAG, "mFingerId: " + mFingerId);
 
@@ -176,8 +173,7 @@ public class MemRegActivity extends Com2Activity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.finger_button:
-                Intent intent = new Intent(this, FdActivity.class);
-                intent.putExtra(FdActivity.ZHUCE, true);
+                Intent intent = new Intent(this, GetFingerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_TOUCHID);
                 break;
         }

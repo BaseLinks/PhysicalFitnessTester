@@ -16,21 +16,31 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.R;
 
+import cn.xsshome.taip.face.TAipFace;
+
 public class FdActivity extends Activity implements CvCameraViewListener2 {
+
+    public static final String ZHUCE = "zhuce.....";
 
     private static final String    TAG                 = "OCVSample::Activity";
     private static final Scalar    FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
@@ -56,6 +66,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
     private int                    mAbsoluteFaceSize   = 0;
 
     private CameraBridgeViewBase   mOpenCvCameraView;
+
+    private final String FACEID_GROUP_ID = "group20180512";
+    private static final String PATH = "/sdcard/fff.jpg";
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -109,6 +122,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
             }
         }
     };
+    private boolean zhuce = false;
 
     public FdActivity() {
         mDetectorName = new String[2];
@@ -124,6 +138,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        Intent intent = getIntent();
+        zhuce = intent.getBooleanExtra(ZHUCE, false);
 
         setContentView(R.layout.face_detect_surface_view);
 
@@ -200,7 +217,77 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         for (int i = 0; i < facesArray.length; i++)
             Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
 
+
+        handleFace(facesArray, inputFrame);
         return mRgba;
+    }
+
+    int state = 0;
+    // 初始化一个TAipPtu
+    TAipFace aipFace = new TAipFace("2114617797", "nyFobjtIqgIH1MXW");
+
+    void handleFace(Rect[] facesArray, CvCameraViewFrame inputFrame) {
+        if (this.state != 1) {
+            int faceNumber = facesArray.length;
+            if (faceNumber == 1) {
+                this.state = 1;
+                Mat mRgb = new Mat();
+                Imgproc.cvtColor(inputFrame.rgba(), mRgb, 3);
+                Imgcodecs.imwrite("/sdcard/fff.jpg", mRgb);
+                Log.i("xxx", "照片已存储！！！");
+                new Thread(new Runnable() {
+                    public void run() {
+                        netWork1();
+                    }
+                }).start();
+            }
+        }
+    }
+
+    /**
+     * sech or add new one
+     */
+    private void netWork1() {
+        File file = new File(PATH);
+        Gson gson = new Gson();
+        if (file.exists()) {
+            try {
+
+                String result;
+                // zhuce
+                if (zhuce) {
+                    result = aipFace.faceNewperson(PATH, FACEID_GROUP_ID, String.valueOf(System.currentTimeMillis()), String.valueOf(System.currentTimeMillis()));//个体创建
+                    NewPerson newPerson = gson.fromJson(result, NewPerson.class);
+                    String perceId = newPerson.getData().getPerson_id();
+                    result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 9);//人脸识别
+                    FaceReg faceReg = gson.fromJson(result, FaceReg.class);
+                    if (faceReg.getData().getCandidates().get(0).getPerson_id().equals(perceId)) {
+                        Log.e(TAG, "注册成功: " + perceId);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((ImageView)findViewById(R.id.faceid_imageview)).setImageResource(R.drawable._80_faceid_green);
+                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_ok);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, 3 * 1000);
+                            }
+                        });
+                    }
+                } else {
+                    result = aipFace.faceIdentify(PATH, FACEID_GROUP_ID, 9);//人脸识别
+                    FaceReg faceReg = gson.fromJson(result, FaceReg.class);
+                    if (faceReg.getRet() == 0)
+                        Log.e(TAG, "" + faceReg.getData().getCandidates().get(0).getConfidence());
+                }
+                Log.e(TAG, "result: " + result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
