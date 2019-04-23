@@ -6,59 +6,55 @@
     <data>
         <variable name="third" type="com.kangear.bodycompositionanalyzer.BodyComposition.Third"/>
     </data>
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/progress_constrainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/progress_constrainlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
+    <ImageView
+        android:id="@+id/shentichengfenfenxi_background_imageview"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:background="@color/colorProgress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/guideline61"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/shentichengfenfenxi_background_imageview"
-            android:layout_width="0dp"
-            android:layout_height="7dp"
-            android:background="@color/colorProgress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline61"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/shentichengfenfenxi_frontgound_imageview"
+        android:layout_width="912dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:scaleType="matrix"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shentichengfenfenxi_background_imageview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/shentichengfenfenxi_frontgound_imageview"
-            android:layout_width="912dp"
-            android:layout_height="0dp"
-            android:background="@android:color/transparent"
-            android:scaleType="matrix"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shentichengfenfenxi_background_imageview"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/progress_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:text="@{third.formatCurUnit(1), default=`TEST`}"
+        android:textAlignment="viewStart"
+        android:textColor="#0EA09D"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guideline61"
+        tools:layout_editor_absoluteY="371dp" />
 
-        <TextView
-            android:id="@+id/progress_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@{third.formatCurUnit(1), default=TEST}"
-            android:textAlignment="viewStart"
-            android:textColor="#0EA09D"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline61"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline61"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="@{0.95f, default=0.95}" />
-    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="@{third.getGuidelinePercent(), default=0.5}" />
+</android.support.constraint.ConstraintLayout>
 </layout>
