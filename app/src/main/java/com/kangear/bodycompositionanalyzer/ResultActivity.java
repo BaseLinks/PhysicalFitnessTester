@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.kangear.bodycompositionanalyzer.databinding.ActivityResultBinding;
 import com.kangear.qr.PrinterIntence;
+import com.kangear.utils.AntiShakeUtils;
 import com.kangear.utils.QRCodeUtil;
 
 import java.io.File;
@@ -596,6 +597,10 @@ public class ResultActivity extends BaseActivity {
                 builder.create().show();
                 break;
             case R.id.print_button:
+                if (AntiShakeUtils.isInvalidClick(v, 3000)) {
+                    Log.e(TAG, "无效点击");
+                    break;
+                }
                 // 获取截图
                 Bitmap bitmap = getCacheBitmapFromView(findViewById(R.id.result_root_view));
                 String path = getCacheDir().getAbsolutePath() + "/" + "pdfbackground.png";
