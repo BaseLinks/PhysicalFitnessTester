@@ -13,6 +13,8 @@
     </data>
 <android.support.constraint.ConstraintLayout
     android:background="@drawable/_90_testresult_background_1"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -583,7 +585,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="635dp" />
+        app:layout_constraintGuide_begin="566dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
