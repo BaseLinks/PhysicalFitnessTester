@@ -512,7 +512,7 @@ public class WelcomeActivity extends BaseActivity {
                 case HANDLE_EVENT_AUTO_TEST_DONE:
                     mSelfCheckProgressDialog.dismiss();
                     // 启动指纹
-                    TouchID.getInstance(mContext.getApplicationContext());
+//                    TouchID.getInstance(mContext.getApplicationContext());
                     UartBca.getInstance(mContext);
                     break;
                 case HANDLE_EVENT_AUTO_TEST_ERROR:
@@ -587,9 +587,9 @@ public class WelcomeActivity extends BaseActivity {
             RecordBean.getInstance(mContext).insert(tmp);
         }
 
-        TouchID.getInstance(mContext);
+//        TouchID.getInstance(mContext);
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-        MemRegActivity.checkMem(this);
+//        MemRegActivity.checkMem(this);
         Printer.getInstance(this).init();
         // 2. device connect
         UartBca.getInstance(mContext);
@@ -725,16 +725,16 @@ public class WelcomeActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        ret = TouchID.getInstance(mContext).selfCheck();
-        if (!ret) {
-            msg.obj = "指纹模块异常";
-            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
-            mHandler.sendMessage(msg);
-            return;
-        }
+//        ret = TouchID.getInstance(mContext).selfCheck();
+//        if (!ret) {
+//            msg.obj = "指纹模块异常";
+//            msg.what = HANDLE_EVENT_AUTO_TEST_ERROR;
+//            mHandler.sendMessage(msg);
+//            return;
+//        }
 
         // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-        MemRegActivity.checkMem(this);
+//        MemRegActivity.checkMem(this);
 
         Printer.getInstance(this).init();
 
@@ -758,11 +758,11 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-            TouchID.getInstance(this).unInit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TouchID.getInstance(this).unInit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         unregisterReceiver(mB);
     }
