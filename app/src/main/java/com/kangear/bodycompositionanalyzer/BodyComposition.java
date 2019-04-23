@@ -220,7 +220,7 @@ public class BodyComposition {
             // 这些值是从UI是量得的，不同UI要按照不同的修改
             float ret = getProgress(130, 67, 223 - 70)/100f; // Of course, this default could be anything you want.
             // 微调回来
-            return ret > 0.833333333f ? 0.833333333f : ret;
+            return ret > 1f ? 1f : ret;
         }
 
         // pdf
@@ -229,6 +229,14 @@ public class BodyComposition {
             float ret = getProgress(71, 73, 78 - 70)/100f; // Of course, this default could be anything you want.
             // 微调回来
             return ret > 0.833333333f ? 0.833333333f : ret;
+        }
+
+        // pdf
+        public float getPdf303GuidelinePercent() {
+            // 这些值是从UI是量得的，不同UI要按照不同的修改
+            float ret = getProgress(78, 64, 105 - 32)/100f; // Of course, this default could be anything you want.
+            // 微调回来
+            return ret > 1f ? 1f : ret;
         }
 
         public String formatValueWithUnit(int dot, float value) {

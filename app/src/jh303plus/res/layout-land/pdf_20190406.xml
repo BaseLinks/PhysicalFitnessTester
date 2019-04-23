@@ -1042,19 +1042,21 @@
                 android:id="@+id/shentichengfenfenxi"
                 android:layout_width="324dp"
                 android:layout_height="244dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <include
                     android:id="@+id/tizhifang_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
-                    android:layout_width="0dp"
+                    android:layout_width="212dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="11dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline91"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline105"
                     app:layout_constraintTop_toTopOf="@+id/guideline91"
                     app:third="@{bc.BMI}" />
@@ -1062,7 +1064,7 @@
                 <include
                     android:id="@+id/tizhifang_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
-                    android:layout_width="0dp"
+                    android:layout_width="212dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="11dp"
@@ -1076,7 +1078,7 @@
                 <include
                     android:id="@+id/weight_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
-                    android:layout_width="0dp"
+                    android:layout_width="212dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="11dp"
@@ -1090,7 +1092,7 @@
                 <include
                     android:id="@+id/tizhifang_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
-                    android:layout_width="0dp"
+                    android:layout_width="212dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="11dp"
@@ -1104,7 +1106,7 @@
                 <include
                     android:id="@+id/gugeji_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
-                    android:layout_width="0dp"
+                    android:layout_width="212dp"
                     android:layout_height="13dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="11dp"
