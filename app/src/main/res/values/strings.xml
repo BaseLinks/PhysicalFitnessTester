@@ -37,4 +37,9 @@
     <string name="left_one_decimal">%1$.1f</string>
     <string name="left_zero_decimal">%1$.0f</string>
     <string name="title_activity_wi_fi">WiFiActivity</string>
+    <string name="title_activity_face_id">FaceIdActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="face_id_info">请将脸部对准上方摄像头</string>
+    <string name="face_id_ok">识别成功</string>
+    <string name="face_id_fail">识别失败</string>
 </resources>

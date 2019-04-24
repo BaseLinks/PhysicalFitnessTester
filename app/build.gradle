@@ -55,8 +55,27 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+
+    flavorDimensions("model")
+
     productFlavors {
+        jh318 {
+            minSdkVersion 19
+            dimension "model"
+            signingConfig signingConfigs.config
+            targetSdkVersion 26
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        }
+
+        jh303plus {
+            minSdkVersion 19
+            dimension "model"
+            signingConfig signingConfigs.config
+            targetSdkVersion 26
+            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        }
     }
+
     buildToolsVersion '26.0.2'
     dataBinding {
         enabled = true
@@ -64,6 +83,7 @@ android {
 }
 
 dependencies {
+    implementation 'cn.xsshome:taip:4.3.2'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
     implementation 'commons-codec:commons-codec:1.11'
@@ -83,4 +103,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.github.flipagram:android-assetcopier:0.1.1'
     implementation project(':javaapk.com-comassistant')
+    implementation project(':openCVLibrary320')
 }

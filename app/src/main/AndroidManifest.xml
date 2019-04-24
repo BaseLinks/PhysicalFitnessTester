@@ -25,10 +25,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="face"/>
         <activity
-            android:theme="@style/AppTheme"
+            android:name=".mvp.ui.activity.FaceIdActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_face_id">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN2" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".WiFiActivity"
-            android:label="@string/title_activity_wi_fi"></activity>
+            android:label="@string/title_activity_wi_fi"
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.kangear.bca.report.MainActivity"
             android:configChanges="orientation|screenSize"
@@ -45,7 +56,7 @@
         <service
             android:name="com.kangear.bca.report.BcaService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <receiver android:name=".OnBootBroadcastReceiver">
             <intent-filter>
@@ -56,7 +67,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -67,106 +78,121 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                 <category android:name="android.intent.category.HOME" />
-                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".WeightActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Com2Activity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".HeightActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".IDActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AgeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".GenderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MemRegActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MemRegActivity" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".GetFingerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ResultActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TouchIdActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".HistoryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.HistoryActivity" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".HistoryDeleteDialogActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/NoTitleDialog"></activity>
+            android:theme="@style/NoTitleDialog" />
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TimeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AdDialogActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/NoTitleDialog"></activity>
+            android:theme="@style/NoTitleDialog" />
         <activity
             android:name=".PdfActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AdminPasswordDialogActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/NoTitleDialog"></activity>
+            android:theme="@style/NoTitleDialog" />
         <activity
             android:name=".DeviceErrorDialogActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/NoTitleDialog"></activity>
+            android:theme="@style/NoTitleDialog" />
+        <activity android:name=".mvp.ui.activity.FdActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_face_id">
+            <intent-filter>
+                <action android:name="android.intent.action.FdActivity" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".MusicService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>
