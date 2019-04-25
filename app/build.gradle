@@ -35,7 +35,7 @@ android {
         targetSdkVersion 26
         versionCode(getDate())
         versionName("v2.1.${versionCode}")
-        setProperty("archivesBaseName", "JH318_${versionName}")
+        setProperty("archivesBaseName", "${versionName}")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }
@@ -60,6 +60,7 @@ android {
 
     productFlavors {
         jh318 {
+            buildConfigField 'String','BUGLY_APPID','"cb731b8519"'
             minSdkVersion 19
             dimension "model"
             signingConfig signingConfigs.config
@@ -68,6 +69,7 @@ android {
         }
 
         jh303plus {
+            buildConfigField 'String','BUGLY_APPID','"1416470daa"'
             minSdkVersion 19
             dimension "model"
             signingConfig signingConfigs.config

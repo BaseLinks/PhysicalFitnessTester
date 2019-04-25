@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.kangear.bodycompositionanalyzer.BuildConfig;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -18,7 +19,7 @@ public class App extends Application {
         Beta.autoCheckUpgrade = false;
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
         strategy.setAppReportDelay(20000);   //改为20s
-        Bugly.init(getApplicationContext(), "cb731b8519", true, strategy);
+        Bugly.init(getApplicationContext(), BuildConfig.BUGLY_APPID, true, strategy);
     }
 
     public static boolean isInit() {
