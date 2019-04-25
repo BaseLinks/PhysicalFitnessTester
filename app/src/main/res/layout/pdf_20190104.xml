@@ -14,6 +14,9 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:background="@drawable/jh318_pdf_20190104"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="595dp"
         android:layout_height="842dp">
         <!--android:background="@drawable/jh318_pdf_20190104"-->
@@ -383,6 +386,8 @@
             android:id="@+id/shentichengfenfenxi"
             android:layout_width="0dp"
             android:layout_height="170dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toTopOf="@+id/guideline95"
             app:layout_constraintEnd_toStartOf="@+id/shentichengfenfenxi_end_guidline"
             app:layout_constraintStart_toStartOf="@+id/guideline100"
@@ -395,7 +400,7 @@
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline91"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline132"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
                 app:layout_constraintTop_toTopOf="@+id/guideline91"
@@ -408,7 +413,7 @@
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline104"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline132"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
                 app:layout_constraintTop_toTopOf="@+id/guideline104"
@@ -421,7 +426,7 @@
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline90"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline132"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
                 app:layout_constraintTop_toTopOf="@+id/guideline90"
@@ -434,7 +439,7 @@
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline93"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline132"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
                 app:layout_constraintTop_toTopOf="@+id/guideline93"
@@ -447,7 +452,7 @@
                 android:layout_height="13dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline92"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline132"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline105"
                 app:layout_constraintTop_toTopOf="@+id/guideline92"
@@ -494,6 +499,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="154dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline132"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="34dp" />
 
         </android.support.constraint.ConstraintLayout>
 

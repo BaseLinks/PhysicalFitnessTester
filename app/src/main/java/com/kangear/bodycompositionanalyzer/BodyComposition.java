@@ -232,6 +232,14 @@ public class BodyComposition {
         }
 
         // pdf
+        public float getPdf318GuidelinePercent() {
+            // 这些值是从UI是量得的，不同UI要按照不同的修改
+            float ret = getProgress(71, 73, 78 - 24)/100f; // Of course, this default could be anything you want.
+            // 微调回来
+            return ret > 1f ? 1f : ret;
+        }
+
+        // pdf
         public float getPdf303GuidelinePercent() {
             // 这些值是从UI是量得的，不同UI要按照不同的修改
             float ret = getProgress(78, 64, 105 - 32)/100f; // Of course, this default could be anything you want.

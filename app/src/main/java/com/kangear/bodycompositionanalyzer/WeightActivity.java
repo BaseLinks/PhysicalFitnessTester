@@ -129,8 +129,8 @@ public class WeightActivity extends BaseActivity {
                         doVipTest(this);
                         finish();
                     } else {
-                        Log.i(TAG, "指纹识别异常");
-                        Toast.makeText(this, "指纹识别异常", Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "会员识别异常");
+                        Toast.makeText(this, "会员识别异常", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

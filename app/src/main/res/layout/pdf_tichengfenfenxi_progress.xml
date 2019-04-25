@@ -17,7 +17,6 @@
         android:id="@+id/shentichengfenfenxi_background_imageview"
         android:layout_width="0dp"
         android:layout_height="5dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/pdf_tichengfenfenxi_progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,11 +39,11 @@
     <TextView
         android:id="@+id/progress_textview"
         android:layout_width="wrap_content"
-        android:layout_height="13dp"
-        android:layout_marginStart="2dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@{third.formatCurUnit(1), default=`41.2kg`}"
+        android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/shentichengfenfenxi_frontgound_imageview"
@@ -56,6 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="@{third.getPdfGuidelinePercent(), default=0.5}" />
+        app:layout_constraintGuide_percent="@{third.getPdf318GuidelinePercent(), default=0.5}" />
 </android.support.constraint.ConstraintLayout>
 </layout>
