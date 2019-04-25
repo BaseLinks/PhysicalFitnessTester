@@ -83,6 +83,8 @@ public class PdfActivity extends BaseActivity {
     private static final int HANDLE_EVENT_PRINT_DONE = 3;
     private static final int HANDLE_EVENT_PRINT_FAIL = 4;
 
+    private DialogPrintBinding binding;
+
     private View mFailView;
     private View mPrintingView;
 
@@ -105,7 +107,7 @@ public class PdfActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DialogPrintBinding binding = DataBindingUtil.setContentView(this, R.layout.dialog_print);
+        binding = DataBindingUtil.setContentView(this, R.layout.dialog_print);
 //        setContentView(R.layout.dialog_print);
         hideSystemUI(getWindow().getDecorView());
 //        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -477,8 +479,10 @@ public class PdfActivity extends BaseActivity {
         Other o2 = OtherBean.getInstance(activity).queryByName(Other.OTHER_NAME_NUMBER);
         String c = o1 == null ? "" : o1.getStrValue();
         String n = o2 == null ? "" : o2.getStrValue();
-        Toast.makeText(activity, "company: " + c + " number: " + n, Toast.LENGTH_LONG).show();
-        ((TextView)pdfView.findViewById(R.id.company_textview)).setText("地址: "+ c + "  " + n);
+        binding.setCompany(c);
+        binding.setNumber(n);
+//        Toast.makeText(activity, "company: " + c + " number: " + n, Toast.LENGTH_LONG).show();
+//        ((TextView)pdfView.findViewById(R.id.company_textview)).setText("地址: "+ c + "  " + n);
 //        ((TextView)pdfView.findViewById(R.id.number_textview)).setText(n);
 //
 //        // JiBenXinXi
