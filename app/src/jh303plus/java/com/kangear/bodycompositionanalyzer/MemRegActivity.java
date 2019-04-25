@@ -229,11 +229,11 @@ public class MemRegActivity extends Com2Activity {
             return;
         }
 
-        try {
-            boolean ret = TouchID.getInstance(this).saveFinger((short) mFingerId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            boolean ret = TouchID.getInstance(this).saveFinger((short) mFingerId);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
         PersonBean.getInstance(this).insert(mPerson);
         finish();

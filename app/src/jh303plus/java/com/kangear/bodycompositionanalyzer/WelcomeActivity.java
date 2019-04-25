@@ -703,7 +703,7 @@ public class WelcomeActivity extends BaseActivity {
                 //installNotoFonts(mContext);
 
                 // 判断Person数据库表，如果数据库表为空，那么Empty指纹
-                MemRegActivity.checkMem(this);
+//                MemRegActivity.checkMem(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
