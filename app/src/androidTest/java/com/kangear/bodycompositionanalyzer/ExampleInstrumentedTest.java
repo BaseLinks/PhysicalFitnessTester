@@ -1,9 +1,7 @@
 package com.kangear.bodycompositionanalyzer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
@@ -14,7 +12,6 @@ import com.kangear.bca.Coordinate20170504;
 import com.kangear.bca.Protocol;
 import com.kangear.bca.report.CreateReport;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,13 +24,6 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    @Rule
-    public ActivityTestRule<PdfActivity> activityRule
-            = new ActivityTestRule<>(
-            PdfActivity.class,
-            true,     // initialTouchMode
-            false);
-
     @Test
     public void useAppContext() throws Exception {
         final String TAG = "ExampleInstrumentedTest";
@@ -66,56 +56,24 @@ public class ExampleInstrumentedTest {
                 0x02, 0x59, 0x00, 0x01, 0x00, 0x0B, 0x00, 0x00, 0x00, 0x57, 0x00, 0x01,
                 0x00, 0x62, 0x00, 0x7A, 0x05, 0x6C, 0x08};
 
-        byte[] data2 = {
-                /*0x55, (byte)0xAA, (byte)0xCD, 0x02, 0x31, 0x00, */0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x01, 0x28, (byte)0xA4, 0x06, 0x20, 0x03, (byte)0x9D, 0x1A, 0x7D, 0x16,
-                0x50, 0x00, 0x74, 0x0B, 0x48, 0x0B, 0x65, 0x01, (byte)0xF9, 0x09, 0x78, 0x09,
-                0x13, 0x15, 0x53, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7B, 0x02, 0x16,
-                0x02,(byte) 0xB5, 0x02, 0x33, 0x02, (byte)0xFC, 0x01, 0x1B, 0x02, (byte)0xED, 0x00, 0x5F,
-                0x00, 0x7F, 0x00, 0x10, 0x02, (byte)0xD5, 0x01, (byte)0xF5, 0x01, 0x2F, 0x01, 0x0A,
-                0x01, 0x4A, 0x01, (byte)0x99, 0x01, 0x6D, 0x01, (byte)0x84, 0x01, 0x77, 0x00, 0x64,
-                0x00, 0x71, 0x00, 0x23, 0x24, 0x26, 0x00, (byte)0x81, 0x00, (byte)0x8F, 0x00, (byte)0xA3,
-                0x00, 0x18, 0x01, (byte)0xF5, 0x00, 0x09, 0x01, 0x23, 0x1F, 0x21, 0x24, 0x1F,
-                0x21, 0x19, 0x01, (byte)0xEA, 0x00, (byte)0xF9, 0x00, 0x56, 0x00, 0x56, 0x00, 0x5C,
-                0x00, 0x5A, 0x00, 0x56, 0x00, 0x5C, 0x00, 0x0F, 0x06, 0x08, 0x0E, 0x06,
-                0x08, (byte)0x8C, 0x00, 0x2F, 0x00, 0x3F, 0x00, 0x23, 0x11, 0x17, 0x21, 0x11,
-                0x17, (byte)0xEB, 0x04, (byte)0x84, 0x03, 0x4C, 0x04, 0x14, 0x01, (byte)0xB9, 0x00, (byte)0xF0,
-                0x00, 0x28, 0x01, (byte)0x96, 0x00, (byte)0xC8, 0x00, 0x40, 0x04, 0x3E, 0x04, 0x5D,
-                0x04, (byte)0xB1, 0x03, 0x5D, 0x50, 0x5A, 0x1F, 0x1E, 0x23, 0x03, 0x04, (byte)0xF0,
-                0x04, (byte)0xA4, 0x02, 0x2B, (byte)0xA5, (byte)0x80, 0x7E, (byte)0x80, 0x2B, (byte)0x80, 0x0F, 0x07,
-                (byte)0xDC, 0x0A, (byte)0x81, (byte)0xA8
-        };
+        byte[] totalArray = Protocol.createResponse(data);
+        BodyComposition bc = new BodyComposition(data);
 
-        // @{@string/left_two_decimal(record.getBodyComposition().腰臀比.getCur())}
-        // getLevelAsChinese
+//        Protocol p = new Protocol();
+//        p.connectData(Arrays.copyOfRange(totalArray, 0, 20));
+//        p.connectData(Arrays.copyOfRange(totalArray, 20, 35));
+//        p.connectData(Arrays.copyOfRange(totalArray, 35, totalArray.length));
 
-        com.kangear.bodycompositionanalyzer.BodyComposition nbc = new com.kangear.bodycompositionanalyzer.BodyComposition(data2);
-        Intent intent = new Intent();
-//        intent.putExtra("your_key", "your_value");
-        activityRule.launchActivity(intent);
+        CreateReport report = CreateReport.getInstance(appContext);
+        report.setCoordinate(new Coordinate20170504());
+        report.setCoordinate(new Coordinate20160601());
+        report.setCoordinate(new Coordinate20170504());
+        report.setBackground(true);
 
-        Log.e(TAG, "xxx");
+        String pdf = report.createPdf(bc);
+        Log.i(TAG, "PDF: " + pdf);
 
-//
-//        byte[] totalArray = Protocol.createResponse(data);
-//        BodyComposition bc = new BodyComposition(data);
-//
-////        Protocol p = new Protocol();
-////        p.connectData(Arrays.copyOfRange(totalArray, 0, 20));
-////        p.connectData(Arrays.copyOfRange(totalArray, 20, 35));
-////        p.connectData(Arrays.copyOfRange(totalArray, 35, totalArray.length));
-//
-//        CreateReport report = CreateReport.getInstance(appContext);
-//        report.setCoordinate(new Coordinate20170504());
-//        report.setCoordinate(new Coordinate20160601());
-//        report.setCoordinate(new Coordinate20170504());
-//        report.setBackground(true);
-//
-//        String pdf = report.createPdf(bc);
-//        Log.i(TAG, "PDF: " + pdf);
-//
-//        BcaManager.getInstance(appContext).init();
+        BcaManager.getInstance(appContext).init();
     }
 
     //直接还原真实的值

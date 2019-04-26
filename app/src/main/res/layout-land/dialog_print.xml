@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="record" type="com.kangear.bodycompositionanalyzer.Record"/>
-        <variable name="company" type="java.lang.String"/>
-        <variable name="number" type="java.lang.String"/>
     </data>
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
@@ -37,8 +35,6 @@
             android:id="@+id/pdf"
             layout="@layout/pdf"
             app:record="@{record}"
-            app:company="@{company}"
-            app:number="@{number}"
             android:visibility="visible" />
     </android.support.constraint.ConstraintLayout>
 
