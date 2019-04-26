@@ -30,7 +30,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.kangear.bodycompositionanalyzer"
+        applicationId "com.jinghai.bca"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode(getDate())
