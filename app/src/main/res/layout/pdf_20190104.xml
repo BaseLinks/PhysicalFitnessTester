@@ -14,7 +14,6 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:background="@drawable/jh318_pdf_20190104"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:layout_width="595dp"
