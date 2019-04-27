@@ -192,7 +192,7 @@ public class TestActivity extends BaseActivity {
                     // test
                     break;
                 case SHOW_WAIT: // 等待测试 界面
-                    WatchDog.getInstance(getApplicationContext()).feed();
+                    WatchDog.getInstance(getApplicationContext()).feedSecond(115);
                     mWaitView.setVisibility(View.VISIBLE);
                     mTestView.setVisibility(View.GONE);
 //                    mHandler.sendEmptyMessageDelayed(SHOW_TEST, 3 * 1000);

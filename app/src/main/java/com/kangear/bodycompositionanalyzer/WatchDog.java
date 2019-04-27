@@ -62,9 +62,9 @@ public class WatchDog {
                 .setView(myLayout)
 //                .setHeight(Screen.height, 1)
 //                .setWidth(Screen.width, 1)
-                .setWidth(30)                               //设置控件宽高
+                .setWidth(50)                               //设置控件宽高
                 .setHeight(30)
-                .setX(Screen.width, 0.96f)                                   //设置控件初始位置
+                .setX(Screen.width, 0.94f)                                   //设置控件初始位置
                 .setY(Screen.height,0.0f)
                 .setDesktopShow(true)                        //桌面显示
                 .setViewStateListener(mViewStateListener)    //监听悬浮控件状态改变
