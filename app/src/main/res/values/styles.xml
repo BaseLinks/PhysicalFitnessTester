@@ -14,6 +14,32 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="SettingButton">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_width">393dp</item>
+        <item name="android:layout_height">102dp</item>
+        <item name="android:background">@drawable/_120_settings_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:textColor">#434343</item>
+        <item name="android:textSize">52sp</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="SettingTextButton" parent="@style/SettingButton">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_width">393dp</item>
+        <item name="android:layout_height">102dp</item>
+        <item name="android:background">@drawable/_120_settings_data_background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:textColor">#434343</item>
+        <item name="android:textSize">52sp</item>
+    </style>
+
     <!-- Customize theme for transparent activity -->
     <style name="Theme.AppCompat.Transparent.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Transparent the theme here -->
@@ -117,13 +143,11 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style
-        name="resultEditText"
-        parent="@style/Base.V7.Widget.AppCompat.EditText">
+    <style name="resultEditText" parent="@style/Base.V7.Widget.AppCompat.EditText">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">#777777</item>
-        <item name="android:enabled" >false</item>
-        <item name="android:text" >TEST</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">TEST</item>
         <item name="android:textSize">20sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:inputType">text</item>
@@ -131,34 +155,29 @@
         <item name="android:background">@null</item>
     </style>
 
-    <style
-        name="resultTextview">
+    <style name="resultTextview">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">#777777</item>
-        <item name="android:enabled" >false</item>
-        <item name="android:text" >TEST</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">TEST</item>
         <item name="android:textSize">20sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@null</item>
     </style>
 
-    <style
-        name="yelloHumanItem"
-        parent="resultEditText">
+    <style name="yelloHumanItem" parent="resultEditText">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">#FFFFFF</item>
     </style>
 
-    <style
-        name="resultLabel">
+    <style name="resultLabel">
         <item name="android:background">#E7E7E7</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style
-        name="resultYelloItemLabel">
+    <style name="resultYelloItemLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#EA961D</item>
@@ -166,8 +185,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style
-        name="resultItemLabel">
+    <style name="resultItemLabel">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">24sp</item>
@@ -175,19 +193,17 @@
         <item name="android:background">@drawable/_70_result_label_black</item>
     </style>
 
-    <style
-        name="resultsmallItemLabel" parent="resultItemLabel">
+    <style name="resultsmallItemLabel" parent="resultItemLabel">
         <item name="android:layout_width">107px</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style
-        name="resultmiddleItemLabel" parent="resultItemLabel">
+
+    <style name="resultmiddleItemLabel" parent="resultItemLabel">
         <item name="android:layout_width">135px</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style
-        name="resultlargeItemLabel" parent="resultItemLabel">
+    <style name="resultlargeItemLabel" parent="resultItemLabel">
         <item name="android:layout_width">186px</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -223,9 +239,17 @@
         <item name="colorControlHighlight">#d50000</item>
     </style>
 
-    <style
-        name="pdf_text" >
+    <style name="pdf_text">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

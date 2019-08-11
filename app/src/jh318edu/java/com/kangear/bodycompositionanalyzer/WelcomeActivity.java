@@ -40,7 +40,6 @@ import com.kangear.bodycompositionanalyzer.entry.SchoopiaStudent;
 import com.kangear.bodycompositionanalyzer.tool.SerialDevice;
 import com.kangear.common.utils.ByteArrayUtils;
 import com.kangear.common.utils.TimeUtils;
-import com.kangear.qr.PrinterIntence;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
@@ -51,10 +50,8 @@ import org.w3c.dom.Text;
 import org.xutils.DbManager;
 import org.xutils.x;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -66,7 +63,6 @@ import static com.kangear.bodycompositionanalyzer.BcaService.installApks;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBootAnimation;
 import static com.kangear.bodycompositionanalyzer.BcaService.installBusybox;
 import static com.kangear.bodycompositionanalyzer.BcaService.installPrinterDriver;
-import static com.kangear.bodycompositionanalyzer.BodyComposition.tixingfenxiString;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_01_NEW_TEST;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_02_VIP_TEST;
 import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_03_WEIGHT_DONE;
@@ -90,7 +86,6 @@ import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_TESTING_4;
 import static com.kangear.bodycompositionanalyzer.Protocol.MSG_STATE_WAIT;
 import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_FEMALE;
 import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
-import static com.kangear.qr.PrinterIntence.getJiaoHao;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -192,8 +187,6 @@ public class WelcomeActivity extends BaseActivity {
         WatchDog.getInstance(this).feed(Color.WHITE);
 
         addVersionNameView();
-
-        Log.e(TAG, "" + tixingfenxiString[1][2]);
     }
 
     private void addVersionNameView() {

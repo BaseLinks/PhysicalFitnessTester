@@ -3,6 +3,9 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT" />
+        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.2" />
@@ -15,6 +18,7 @@
             <option value="$PROJECT_DIR$/common-debug" />
             <option value="$PROJECT_DIR$/d2xx" />
             <option value="$PROJECT_DIR$/javaapk.com-comassistant" />
+            <option value="$PROJECT_DIR$/openCVLibrary320" />
             <option value="$PROJECT_DIR$/touchid" />
             <option value="$PROJECT_DIR$/trineaandroidcommon-debug" />
           </set>

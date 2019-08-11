@@ -66,6 +66,9 @@ public class MusicService extends Service {
     }
 
     public static void play(Context context, int number) {
+        if (context == null) {
+            return;
+        }
         Intent intent = new Intent(context, MusicService.class);
         intent.putExtra(CONST_MUSIC_ID, number);
         context.startService(intent);

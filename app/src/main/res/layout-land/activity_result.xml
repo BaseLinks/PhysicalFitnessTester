@@ -30,5 +30,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/pdfpicture_view"
+        android:layout_width="595dp"
+        android:layout_height="842dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="595dp"
+            android:layout_height="842dp"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline134"
+            app:layout_constraintTop_toTopOf="@+id/guideline134">
+
+            <include
+                android:id="@+id/pdf"
+                layout="@layout/pdf_20190104"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:record="@{record}"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline134"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".5" />
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>
 </layout>

@@ -37,6 +37,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.REQUEST_CODE_T
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.checkRadio;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
+import static com.kangear.bodycompositionanalyzer.application.App.startUploadData;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -125,6 +126,17 @@ public class SettingsActivity extends BaseActivity {
     public void onClick(View v) {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
+            case R.id.prev_page_button:
+                findViewById(R.id.prev_pageview).setVisibility(View.VISIBLE);
+                findViewById(R.id.next_pageview).setVisibility(View.INVISIBLE);
+                break;
+            case R.id.next_page_button:
+                findViewById(R.id.prev_pageview).setVisibility(View.INVISIBLE);
+                findViewById(R.id.next_pageview).setVisibility(View.VISIBLE);
+                break;
+            case R.id.upload_data:
+                startUploadData(this);
+                break;
             case R.id.read_radio_button:
                 try {
                     Protocol.Radio radio = UartBca.getInstance(mContext).readTichengfen();
@@ -137,6 +149,7 @@ public class SettingsActivity extends BaseActivity {
                     Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.back2_button:
             case R.id.back_button:
                 finish();
                 break;

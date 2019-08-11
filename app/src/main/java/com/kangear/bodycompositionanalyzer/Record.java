@@ -6,6 +6,7 @@ import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -43,6 +44,8 @@ public class Record {
      */
     @Column(name = "date")
     private String date;
+    @Column(name = "img")
+    private String img;
     @Column(name = "time")
     private long time;
     @Column(name = "data")
@@ -108,6 +111,14 @@ public class Record {
         this.time = time;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getName() {
         return name;
     }
@@ -167,6 +178,10 @@ public class Record {
                 ", gender='" + gender + '\'' +
                 ", weight=" + weight +
                 ", date='" + date + '\'' +
+                ", img='" + img + '\'' +
+                ", time=" + time +
+                ", data=" + Arrays.toString(data) +
+                ", bodyComposition=" + bodyComposition +
                 '}';
     }
 

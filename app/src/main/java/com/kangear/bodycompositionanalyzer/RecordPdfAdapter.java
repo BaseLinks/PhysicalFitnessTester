@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kangear.bodycompositionanalyzer.entry.SchoopiaRecord;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ import static com.kangear.bodycompositionanalyzer.PdfActivity.DATE_FORMAT;
 import static com.kangear.bodycompositionanalyzer.ResultActivity.FLOAT_1_FORMAT;
 
 public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.ViewHolder> {
-    private List<Record> mDataset;
+    private List<SchoopiaRecord> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -35,7 +37,7 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecordPdfAdapter(List<Record> myDataset) {
+    public RecordPdfAdapter(List<SchoopiaRecord> myDataset) {
         mDataset = myDataset;
     }
 
@@ -56,17 +58,17 @@ public class RecordPdfAdapter extends RecyclerView.Adapter<RecordPdfAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        Record record = mDataset.get(position);
+        SchoopiaRecord record = mDataset.get(position);
         if (record != null) {
-            BodyComposition bc = record.getBodyComposition();
-            if (bc != null) {
-                holder.mWeightTextView.setText(String.format(FLOAT_1_FORMAT, bc.体重.getCur()));
-                holder.mGugejiTextView.setText(String.format(FLOAT_1_FORMAT, bc.骨骼肌.getCur()));
-                holder.mTizhibaifenbiTextView.setText(String.format(FLOAT_1_FORMAT, bc.体脂百分比.getCur()) + bc.体脂百分比.getUnit());
+//            BodyComposition bc = record.getBodyComposition();
+//            if (bc != null) {
+                holder.mWeightTextView.setText(record.getRecord().getWeight().get(0) + "kg");
+                holder.mGugejiTextView.setText(record.getRecord().getTrunkMuscle().get(0) + "kg");
+                holder.mTizhibaifenbiTextView.setText(record.getRecord().getPbf().get(0) + "%");
                 SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-                Date resultdate = new Date(record.getTime());
+                Date resultdate = record.getCompleteTimeAsLong();
                 holder.mTestDate.setText(sdf.format(resultdate));
-            }
+//            }
         }
     }
 

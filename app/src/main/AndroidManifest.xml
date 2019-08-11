@@ -25,13 +25,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".mvp.ui.activity.UploadDataActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.Main2Activity" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="face"/>
+            android:value="face" />
+
         <activity
             android:name=".mvp.ui.activity.FaceIdActivity"
-            android:screenOrientation="landscape"
-            android:label="@string/title_activity_face_id">
+            android:label="@string/title_activity_face_id"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN2" />
             </intent-filter>
@@ -116,7 +126,7 @@
             android:name=".MemRegActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MemRegActivity" />
             </intent-filter>
@@ -145,7 +155,7 @@
             android:name=".HistoryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.HistoryActivity" />
             </intent-filter>
@@ -182,9 +192,10 @@
             android:name=".DeviceErrorDialogActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleDialog" />
-        <activity android:name=".mvp.ui.activity.FdActivity"
-            android:screenOrientation="landscape"
-            android:label="@string/title_activity_face_id">
+        <activity
+            android:name=".mvp.ui.activity.FdActivity"
+            android:label="@string/title_activity_face_id"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.FdActivity" />
             </intent-filter>

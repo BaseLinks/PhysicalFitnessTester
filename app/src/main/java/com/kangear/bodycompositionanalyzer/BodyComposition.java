@@ -85,12 +85,19 @@ public class BodyComposition {
     public static final Third 评分        = new Third("评分", 187, INVALID_POSIONT, INVALID_POSIONT,2, 1, UNIT_SCORE);
     public static final Third 基础代谢     = new Third("基础代谢", 196, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
     public static final Third 总能耗       = new Third("总能耗", 198, INVALID_POSIONT, INVALID_POSIONT,2, 0, UNIT_KCAL);
-    public static final Third 身体年龄     = new Third("身体年龄", 198, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_KCAL);
+    public static final Third 身体年龄     = new Third("身体年龄", 198, INVALID_POSIONT, INVALID_POSIONT,1, 0, UNIT_AGE);
     public final List<Third> mList = new ArrayList<Third>();
 
     public static final int LEVEL_LOW    = 0;
     public static final int LEVEL_NORMAL = 1;
     public static final int LEVEL_HIGH   = 2;
+
+    public static String tixingfenxiString[][] = {
+            {"低脂肪", "低脂肪肌肉型", "超重肌肉型", "运动员型"},
+            {"消瘦", "正常", "超重", "临界性"},
+            {"低肌肉", "脂肪过量", "临界性肥胖", "肥胖"},
+            {"隐形肥胖", "临界性肥胖", "肥胖", "中度肥胖"},
+            {"隐形肥胖", "隐形肥胖", "中度肥胖", "重度肥胖"}};
 
     /**
      * 数据类
@@ -135,6 +142,10 @@ public class BodyComposition {
             this.length = length;
             this.dot = dot;
             this.unit = unit;
+        }
+
+        public int getDot() {
+            return dot;
         }
 
         public int getCurStart() {
@@ -201,6 +212,13 @@ public class BodyComposition {
         }
 
         public String formatCurUnit(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return String.format("%." + dot + "f", getCur()) + getUnit();
+        }
+
+        public String formatCurUnit() {
             if (dot < 0) {
                 dot = 0;
             }

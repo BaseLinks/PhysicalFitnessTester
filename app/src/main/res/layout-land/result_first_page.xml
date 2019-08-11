@@ -525,7 +525,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <include
-        android:id="@+id/weight_progressbar"
+        android:id="@+id/weight2_progressbar"
         layout="@layout/screen_progress"
         android:layout_width="0dp"
         android:layout_height="30px"

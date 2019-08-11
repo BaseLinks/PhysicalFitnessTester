@@ -2,21 +2,34 @@ package com.kangear.qr;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.kangear.bodycompositionanalyzer.BodyComposition;
+import com.kangear.bodycompositionanalyzer.Record;
+import com.kangear.bodycompositionanalyzer.entry.SchoopiaRecord;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import android_serialport_api.SerialPort;
+
+import static com.kangear.bodycompositionanalyzer.BodyComposition.tixingfenxiString;
 
 /**
  * Created by Administrator on 2017/1/19.
  */
 
 public class PrinterIntence {
+    private static final String TAG = "PrinterIntence";
     private String charsetName = "gbk";
     private static BasePrinterPort myPrinterPort;
     private SerialPort mSerialPort;
@@ -30,6 +43,245 @@ public class PrinterIntence {
             Open();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /** 5.1 打印机初始化 */
+    public static final byte[] INIT_PRINTER = {0x1B, 0x40};
+    /** 5.1 打印走纸 换行符 */
+    public static final byte[] CRLF         = {0x0D, 0x0A};
+    /** 5.1 选择对齐方式 居中 */
+    public static final byte[] CENTER       = {0x1B, 0x61, 0x01};
+    /** 5.1 选择字符尺寸 0号 */
+    public static final byte[] GS_SIZE_0    = {0x1D, 0x21, 0x00};
+    /** 5.1 选择字符尺寸 1号 */
+    public static final byte[] GS_SIZE_1    = {0x1D, 0x21, 0x00};
+    /** 5.1 Bank name */
+    public static final byte[] QIEDAO       = {0x1B, 0x69};
+    /** 汉字编码格式 */
+    public static final String GB2312       = "gb2312";
+    private static final int BYTE_BUFFER_ALLOCATE = 8192;
+
+
+    public static final byte[] getTichengfenxiItem(String label, BodyComposition.Third t) {
+        String UNIT = t.getUnit();
+        if (UNIT.equals("%")) {
+            UNIT = "%%";
+        }
+        String FORMAT = " %s: " + "%." + t.getDot() + "f" + UNIT + "\n 正常范围: %." + t.getDot() + "f-%." + t.getDot() + "f" + UNIT + "\n";
+        //Log.e(TAG, "" + FORMAT);
+        String str = String.format(FORMAT, label, t.getCur(), t.getMin(), t.getMax());
+        /* 2. 测试号 */
+        byte[] tmp = new Text(str, Text.ALIGNMENT_LEFT, Text.TEXTSIZE_NORMAL).getTextByteArray();
+        return tmp;
+    }
+
+    /**
+     * 叫号小票样板：
+     *                中国农业银行
+     *          临夏分行城内支行(居中0号字)
+     *                   /n
+     *  -------------------------------------------
+     *                   /n
+     *             六一大转盘抽奖活动(居中1号字)
+     *                   /n
+     *           兑奖码：(0号字)二等奖(1号字)
+     *                   /n
+     *        请联系银行管理人员领取奖品，当时有效
+     *  -------------------------------------------
+     *  (空2格)本活动最终解释权归农行临夏城内支行所有/n
+     *         2012年01月02日 13:26:58(居中)
+     */
+    public static final byte[] getJiaoHao(SchoopiaRecord sr, Record record) {
+        byte[] byteArray = null;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date date = new Date();
+        dateFormat.format(date);
+
+        BodyComposition bc = record.getBodyComposition();
+
+        ByteBuffer target = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
+        /* 1. 初始化 */
+        target.put(INIT_PRINTER);
+
+        /* 2. 总评价 */
+        byte[] tmp = new Text("\n\n体成分分析报告\n\n", Text.ALIGNMENT_CENTER,
+                Text.TEXTSIZE_LARGE).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试者信息 */
+        tmp = new Text("\n测试者信息\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试号 */
+        tmp = new Text(" 测试号: " + sr.getUid() + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试号 */
+        tmp = new Text(" 性别: " + (sr.getRecord().getGender().get(0).equals("1")  ? "男" : "女") + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试号 */
+        tmp = new Text(" 年龄: " + (sr.getRecord().getAge().get(0)) + "岁\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试号 */
+        tmp = new Text(" 身高: " + (sr.getRecord().getHeight().get(0)) + "cm\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 测试号 */
+        tmp = new Text(" 时间: " + (sr.getCompleteTime()) + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+
+        /* 2. 体成分分析 */
+        tmp = new Text("\n体成分分析\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        target.put(getTichengfenxiItem("体    重", bc.体重));
+        target.put(getTichengfenxiItem("Ｂ.Ｍ.Ｉ", bc.BMI));
+        target.put(getTichengfenxiItem("脂 肪 率", bc.体脂百分比));
+        target.put(getTichengfenxiItem("脂 肪 量", bc.体脂肪量));
+        target.put(getTichengfenxiItem("骨 骼 肌", bc.骨骼肌));
+        target.put(getTichengfenxiItem("总 水 分", bc.身体水分));
+        target.put(getTichengfenxiItem("无 机 盐", bc.无机盐));
+        target.put(getTichengfenxiItem("蛋 白 质", bc.蛋白质));
+        target.put(getTichengfenxiItem("细胞内液", bc.细胞内液含量));
+        target.put(getTichengfenxiItem("细胞外液", bc.细胞外液含量));
+        target.put(getTichengfenxiItem("内脏面积", bc.内脏面积));
+        target.put(getTichengfenxiItem("腰 臀 比", bc.腰臀比));
+        target.put(getTichengfenxiItem("水肿系数", bc.水肿系数));
+
+        /* 2. 体成分分析 */
+        tmp = new Text("\n调节量\n 项  目　当前　调节值\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text(" 脂肪量 " + bc.体脂肪量.formatCurUnit() + "  " + bc.体脂肪量.getAdjustmentMinWithUnit(bc.体脂肪量.getDot()) + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text(" 肌肉量 " + bc.肌肉量.formatCurUnit() + "  " + bc.肌肉量.getAdjustmentMaxWithUnit(bc.肌肉量.getDot()) + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text("\n\n  体      型: " + tixingfenxiString[(int)bc.体型分析.getMax() - 1][(int)bc.体型分析.getMin() - 1] + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text("  基础代谢量: " + bc.基础代谢.formatCurUnit() + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text("  总能量消耗: " + bc.总能耗.formatCurUnit() + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text("    身体年龄: " + bc.身体年龄.formatCurUnit() + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        /* 2. 体成分分析 */
+        tmp = new Text("\n总评价:        " + bc.评分.formatCurUnit() + "\n", Text.ALIGNMENT_LEFT,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        tmp = new Text("\n\n\n\n\n\n\n\n\n", Text.ALIGNMENT_CENTER,
+                Text.TEXTSIZE_NORMAL).getTextByteArray();
+        target.put(tmp);
+
+        tmp = QIEDAO;
+        target.put(tmp);
+
+        target.limit(target.remaining());
+        target.rewind();
+        /* 提取 */
+        byteArray = new byte[BYTE_BUFFER_ALLOCATE - target.remaining()];
+        target.get(byteArray);
+        /* 将byteBuffer清理 */
+        target.clear();
+        return byteArray;
+    }
+
+    public static final class Text {
+        public static final String CHARACTER_ENCODING_GB2312 = "gb2312";
+        /** 对齐方式 无效 */
+        public static final byte   ALIGNMENT_INVALID         = -1;
+        /** 对齐方式 左对齐 */
+        public static final byte   ALIGNMENT_LEFT            = 0;
+        /** 对齐方式 中对齐 */
+        public static final byte   ALIGNMENT_CENTER          = 1;
+        /** 对齐方式 右对齐 */
+        public static final byte   ALIGNMENT_RIGHT           = 2;
+        /** 字体大小 无效 */
+        public static final byte   TEXTSIZE_INVALID         = -1;
+        /** 字体大小 正常大小 */
+        public static final byte   TEXTSIZE_NORMAL           = 0x00;
+        /** 字体大小 放大1倍 */
+        public static final byte   TEXTSIZE_LARGE            = 0x11;
+
+        public static final byte   ROATE_0                   = 0x00;
+
+        /** 文字内容 */
+        String text;
+        /** 对齐方式 */
+        byte alignment;
+        /** 字体大小 */
+        byte size;
+        byte roate;
+
+        /**
+         * @param text 文字内容 注意要自行在「行后」添加换行符
+         * @param alignment 对齐方式
+         * @param size 字体放大倍数
+         */
+        public Text(String text, byte alignment, byte size) {
+            super();
+            this.text = text;
+            this.alignment = alignment;
+            this.size = size;
+        }
+
+        public final byte[] getTextByteArray() {
+            byte[] byteArray = null;
+            try {
+                ByteBuffer bbuf = ByteBuffer.allocate(BYTE_BUFFER_ALLOCATE);
+                /* 1. 选择对齐方式 */
+                if (alignment != ALIGNMENT_INVALID)
+                    bbuf.put(new byte[] { 0x1B, 0x61, alignment });
+                /* 2. 选择字体大小 */
+//                if (size != TEXTSIZE_INVALID)
+//                    bbuf.put(new byte[] { 0x1D, 0x21, size });
+//                 Reverse
+                bbuf.put(new byte[]{0x1B, 0x63, 0x00});
+//                bbuf.put(new byte[]{0x1c, 0x49, 0x01});
+//                new byte[]{0x1b, 0x57, (byte) magnify}
+                /* 3. 文字 */
+                bbuf.put(text.getBytes(GB2312));
+                bbuf.limit(bbuf.remaining());
+                bbuf.rewind();
+                /* 提取 */
+                byteArray = new byte[BYTE_BUFFER_ALLOCATE - bbuf.remaining()];
+                bbuf.get(byteArray);
+                /* 将byteBuffer清理 */
+                bbuf.clear();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return byteArray;
         }
     }
 
@@ -80,6 +332,11 @@ public class PrinterIntence {
             data = content.getBytes();
 
         }
+        this.sendBytesData(data);
+        this.sendBytesData(new byte[]{0x0A});
+    }
+
+    public void printRaw(byte[] data) {
         this.sendBytesData(data);
     }
 

@@ -216,7 +216,7 @@ public class WatchDog {
     // 请使用Application context
     public static WatchDog getInstance(Context context) {
         if (singleton == null) {
-            synchronized (TouchID.class) {
+            synchronized (WatchDog.class) {
                 if (singleton == null) {
                     singleton = new WatchDog(context.getApplicationContext());
                 }
