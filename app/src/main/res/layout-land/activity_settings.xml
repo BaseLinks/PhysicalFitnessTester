@@ -540,8 +540,9 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/binding_admin"
                 style="@style/SettingButton"
-                android:text="" />
+                android:text="绑定管理员" />
 
             <Button
                 style="@style/SettingButton"

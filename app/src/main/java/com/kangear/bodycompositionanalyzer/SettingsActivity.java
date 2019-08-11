@@ -1,9 +1,11 @@
 package com.kangear.bodycompositionanalyzer;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -15,6 +17,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,13 +25,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.kangear.bodycompositionanalyzer.application.App;
+import com.kangear.qr.PrinterIntence;
+import com.kangear.utils.QRCodeUtil;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.nio.ByteBuffer;
+
+import static com.kangear.bodycompositionanalyzer.BodyComposition.腰臀比;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.评分;
+import static com.kangear.bodycompositionanalyzer.BodyComposition.身体年龄;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
@@ -38,6 +53,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.checkRadio;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.doVipTest;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.hideSystemUI;
 import static com.kangear.bodycompositionanalyzer.application.App.startUploadData;
+import static com.kangear.common.utils.ByteArrayUtils.bytesToHex;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -123,9 +139,30 @@ public class SettingsActivity extends BaseActivity {
         });
     }
 
+    private Bitmap createQr() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("sn", App.getSn());
+            obj.put("action", "add_admin");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return QRCodeUtil.createQRCodeBitmap(obj.toString(), 450, 450);
+    }
+
     public void onClick(View v) {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
+            case R.id.binding_admin:
+                ImageView image = new ImageView(this);
+                image.setImageBitmap(createQr());
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(this).
+                                setMessage("微信小程序「体测318」扫此码添加数据即可添加成本设备管理员").
+                                setView(image);
+                builder.create().show();
+                break;
             case R.id.prev_page_button:
                 findViewById(R.id.prev_pageview).setVisibility(View.VISIBLE);
                 findViewById(R.id.next_pageview).setVisibility(View.INVISIBLE);
