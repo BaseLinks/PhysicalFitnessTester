@@ -37,6 +37,7 @@ public class SchoopiaRecord {
     private String uid;
     private RecordBean record;
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private String img;
 
     public String getCompleteTime() {
         return completeTime;
@@ -79,6 +80,14 @@ public class SchoopiaRecord {
 
     public void setRecord(RecordBean record) {
         this.record = record;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
     }
 
     public static class RecordBean {
@@ -466,7 +475,7 @@ public class SchoopiaRecord {
             return sr;
         }
         BodyComposition bc = record.getBodyComposition();
-        SchoopiaRecord.RecordBean recordBean = new SchoopiaRecord.RecordBean();
+        RecordBean recordBean = new RecordBean();
 
         recordBean.setAge(insertThird(bc.年龄, FLOAT_0_FORMAT));
         recordBean.setBasalMetabolism(insertThird(bc.基础代谢, FLOAT_0_FORMAT));
@@ -506,6 +515,7 @@ public class SchoopiaRecord {
         recordBean.setZ50k(insertThird(bc._50k电阻, FLOAT_2_FORMAT));
         recordBean.setZ250k(insertThird(bc._250k电阻, FLOAT_2_FORMAT));
 
+        sr.setImg(record.getImg());
         sr.setRecord(recordBean);
         sr.setSn(App.getSn());
         sr.setUid(record.getName());
@@ -532,6 +542,7 @@ public class SchoopiaRecord {
                 ", sn='" + sn + '\'' +
                 ", uid='" + uid + '\'' +
                 ", record=" + record +
+                ", img='" + img + '\'' +
                 '}';
     }
 

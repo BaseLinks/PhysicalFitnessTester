@@ -72,7 +72,6 @@ public class UploadImage implements MainApiService {
 
     public static void doSomething(Activity act, Record record) {
         uploadReportImg(act, record);
-        uploadReport(record);
     }
 
     public static void createPdfFromView(View content, final OutputStream os) {
@@ -144,6 +143,7 @@ public class UploadImage implements MainApiService {
                             Log.e(TAG, "上传成功: " + id);
                             record.setImg(id);
                             RecordBean.getInstance(act.getApplicationContext()).update(record);
+                            uploadReport(record);
                         }
 
                         @Override
