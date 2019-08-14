@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.application.App;
@@ -27,11 +28,12 @@ public class IDActivity extends Com2Activity {
     private Button mSoftwareBoardButton;
     private String TAG = "IDActivity";
     private EditText mEditText;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context mContext = this;
+        mContext = this;
         setContentView(R.layout.activity_id);
         hideSystemUI(getWindow().getDecorView());
         setView(false, getWindow().getDecorView(), null);
@@ -42,32 +44,44 @@ public class IDActivity extends Com2Activity {
 
         SerialDevice.getInstance(getApplicationContext()).setOnResponse(new SerialDevice.Response() {
             public void onResponse(byte[] content) {
-                String msg = new String(content, StandardCharsets.UTF_8);
-                Log.e(TAG, "" + msg);
-                Gson gson = new Gson();
-                SchoopiaStudent student = gson.fromJson(msg, SchoopiaStudent.class);
-                final Person p = SchoopiaStudent.toPerson(student);
-                Log.e(TAG, "SchoopiaStudent: " + student);
-                Log.e(TAG, "Person: " + p);
-
-                runOnUiThread(() -> mEditText.setText(p.getName()));
-
-                App.getRecord().setName(p.getName());
-                App.getRecord().setAge(p.getAge());
-                App.getRecord().setGender(p.getGender());
-                App.getRecord().setHeight(p.getHeight());
-
                 try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
+                    handleMsg(content);
+                } catch (Exception e) {
                     e.printStackTrace();
+                    runOnUiThread(() -> {
+                        Toast.makeText(mContext, "二维码无效", Toast.LENGTH_SHORT).show();
+                    });
                 }
-
-                runOnUiThread(() -> {
-                    WelcomeActivity.doTest(mContext);
-                    finish();
-                });
             }
+        });
+    }
+
+    private void handleMsg(byte[] content) {
+        final Context c = mContext;
+        String msg = new String(content, StandardCharsets.UTF_8);
+        Log.e(TAG, "" + msg);
+        Gson gson = new Gson();
+        SchoopiaStudent student = gson.fromJson(msg, SchoopiaStudent.class);
+        final Person p = SchoopiaStudent.toPerson(student);
+        Log.e(TAG, "SchoopiaStudent: " + student);
+        Log.e(TAG, "Person: " + p);
+
+        runOnUiThread(() -> mEditText.setText(p.getName()));
+
+        App.getRecord().setName(p.getName());
+        App.getRecord().setAge(p.getAge());
+        App.getRecord().setGender(p.getGender());
+        App.getRecord().setHeight(p.getHeight());
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        runOnUiThread(() -> {
+            WelcomeActivity.doTest(c);
+            finish();
         });
     }
 
