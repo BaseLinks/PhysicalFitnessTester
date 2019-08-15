@@ -494,23 +494,23 @@ public class ResultActivity extends BaseActivity {
 
         int BYTE_BUFFER_ALLOCATE = 1024;
         ByteBuffer target = ByteBuffer.allocate(1024);
-//        target.put(Arrays.copyOfRange(qrData, 性别.getCurStart(), 体重.getCurStart() + 体重.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 体重.getMinStart(), 体重.getMaxStart() + 体重.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 体脂肪量.getCurStart(), 体脂肪量.getMaxStart() + 体脂肪量.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 骨骼肌.getCurStart(), 无机盐.getMaxStart() + 无机盐.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 左上肢肌肉量.getCurStart(), 右下脂肪量.getMaxStart() + 右下脂肪量.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, BMI.getCurStart(), 体脂百分比.getMaxStart() + 体脂百分比.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 腰臀比.getCurStart(), 腰臀比.getMaxStart() + 腰臀比.getLength()));
-//        target.put(Arrays.copyOfRange(qrData, 内脏面积.getCurStart(), 内脏面积.getCurStart() + 内脏面积.getLength()));
-//        target.put(Protocol.getDataFromShort((int) 评分.getCur()));
-//        target.put((byte) 身体年龄.getCur()); // 身体年龄
-//        Log.i(TAG, "身体年龄: " + 身体年龄.getCur());
-//        target.put((byte) 0x00); //肌肉调整符号
-//        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
-//        target.put((byte) 0x01); //脂肪调整符号
-//        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getZhifangAdjustment() * 10.0)));
-//        target.put(Protocol.getDataFromShort((int) (基础代谢.getCur())));
-//        target.put(Arrays.copyOfRange(qrData, 总能耗.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 性别.getCurStart(), 体重.getCurStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体重.getMinStart(), 体重.getMaxStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体脂肪量.getCurStart(), 体脂肪量.getMaxStart() + 体脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 骨骼肌.getCurStart(), 无机盐.getMaxStart() + 无机盐.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 左上肢肌肉量.getCurStart(), 右下脂肪量.getMaxStart() + 右下脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, BMI.getCurStart(), 体脂百分比.getMaxStart() + 体脂百分比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 腰臀比.getCurStart(), 腰臀比.getMaxStart() + 腰臀比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 内脏面积.getCurStart(), 内脏面积.getCurStart() + 内脏面积.getLength()));
+        target.put(Protocol.getDataFromShort((int) 评分.getCur()));
+        target.put((byte) 身体年龄.getCur()); // 身体年龄
+        Log.i(TAG, "身体年龄: " + 身体年龄.getCur());
+        target.put((byte) 0x00); //肌肉调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
+        target.put((byte) 0x01); //脂肪调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getZhifangAdjustment() * 10.0)));
+        target.put(Protocol.getDataFromShort((int) (基础代谢.getCur())));
+        target.put(Arrays.copyOfRange(qrData, 总能耗.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
         target.limit(target.remaining());
         target.rewind();
         /* 提取 */
@@ -551,50 +551,22 @@ public class ResultActivity extends BaseActivity {
             obj.put("bodyage", 身体年龄.formatCurWithoutUnit(0));
             obj.put("whr", 腰臀比.formatCurWithoutUnit(2));
             obj.put("database64", qrcontent);
-            obj.put("img", mRecord.getImg());
+//            obj.put("img", mRecord.getImg());
 
             PrinterIntence mp = PrinterIntence.getPrinterIntence(new File(App.XIAOPIAO_PRINTER), 9600, 0);
-//            mp.setQrCode2(1, 4, 1, 1, obj.toString());
-//            mp.Label(true);
-//            mp.drawFont(TextType.TYPE_TWO, false, false, false, 0, 0, false);
-//            mp.initPrinter();
-            mp.printText("体成");
+            mp.setQrCode2(1, 4, 1, 1, obj.toString());
+            mp.Label(true);
 
             obj.put("tel", n);
             obj.put("addr", c);
+            obj.put("img", mRecord.getImg());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//
-//
-//        // two qr image:
-//        // 1nd: without tel & addr (paper)
-//        // 2nd: with tel & addr (screen)
-//        JSONObject obj = new JSONObject();
-//        try {
-//            obj.put("date", mRecord.getTime());
-//            obj.put("tel", "");
-//            obj.put("addr", "");
-//            obj.put("score", 评分.formatCurWithoutUnit(1));
-//            obj.put("bodyage", 身体年龄.formatCurWithoutUnit(0));
-//            obj.put("whr", 腰臀比.formatCurWithoutUnit(2));
-//            obj.put("database64", qrcontent);
-//            obj.put("img", mRecord.getImg());
-//
-//            PrinterIntence mp = PrinterIntence.getPrinterIntence(new File(App.XIAOPIAO_PRINTER), 9600, 0);
-//            mp.setQrCode2(1, 4, 1, 1, obj.toString());
-//            mp.Label(true);
-//
-//            obj.put("tel", n);
-//            obj.put("addr", c);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         return QRCodeUtil.createQRCodeBitmap(obj.toString(), 450, 450);
     }
 
+    // 打印小票
     public static void doPrint(Record record) {
         SchoopiaRecord sr = SchoopiaRecord.toHere(record);
         PrinterIntence mp = PrinterIntence.getPrinterIntence(new File(App.XIAOPIAO_PRINTER), 9600, 0);
@@ -630,17 +602,20 @@ public class ResultActivity extends BaseActivity {
                 page(FIRST_PAGE_NUMBER);
                 break;
             case R.id.qr_button:
-//                Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
-//                ImageView image = new ImageView(this);
-//                image.setImageBitmap(createQr());
+                // 318: 打印二维码（显示「二维码」）
+                // 318EDU:打印文字版本小票（显示「小票」）
+                // 303+: 打印文字版小票（显示「二维码」）
+                Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
+                ImageView image = new ImageView(this);
+                image.setImageBitmap(createQr());
 
                 doPrint(mRecord);
-//
-//                AlertDialog.Builder builder =
-//                        new AlertDialog.Builder(this).
-//                                setMessage("微信扫一扫收藏本次测试结果").
-//                                setView(image);
-//                builder.create().show();
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(this).
+                                setMessage("微信扫一扫收藏本次测试结果").
+                                setView(image);
+                builder.create().show();
                 break;
             case R.id.print_button:
                 if (AntiShakeUtils.isInvalidClick(v, 3000)) {
