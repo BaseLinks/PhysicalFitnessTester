@@ -35,6 +35,7 @@
         android:id="@+id/pdfpicture_view"
         android:layout_width="595dp"
         android:layout_height="842dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent">
 
         <android.support.constraint.ConstraintLayout

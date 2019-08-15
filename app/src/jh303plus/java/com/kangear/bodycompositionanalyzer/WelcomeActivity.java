@@ -118,7 +118,7 @@ public class WelcomeActivity extends BaseActivity {
     private static DbManager mDb;
 
     public static DbManager getDB() {
-        return mDb;
+        return App.getDB();
     }
 
     public static final String CONST_ACTION_TOUCHID_OK = "CONST_ACTION_TOUCHID_OK";
@@ -554,30 +554,7 @@ public class WelcomeActivity extends BaseActivity {
         mSelfCheckProgressDialog.setMessage("自检请稍候");
         mTimeUtils = new TimeUtils((TextView) findViewById(R.id.time_textview), (TextView)findViewById(R.id.date_textview));
 
-        DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
-                .setDbName("test2.db")
-                // 不设置dbDir时, 默认存储在app的私有目录.
-                .setDbDir(getFilesDir()) // "sdcard"的写法并非最佳实践, 这里为了简单, 先这样写了.
-                .setDbVersion(2)
-                .setDbOpenListener(new DbManager.DbOpenListener() {
-                    @Override
-                    public void onDbOpened(DbManager db) {
-                        // 开启WAL, 对写入加速提升巨大
-                        db.getDatabase().enableWriteAheadLogging();
-                    }
-                })
-                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
-                    @Override
-                    public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
-                        // TODO: ...
-                        // db.addColumn(...);
-                        // db.dropTable(...);
-                        // ...
-                        // or
-                        // db.dropDb();
-                    }
-                });
-        mDb = x.getDb(daoConfig);
+        mDb = App.getDB();
         // id 1 for ANONYMOUS
         Record tmp = RecordBean.getInstance(mContext).query(RECORD_ID_ANONYMOUS);
         if (tmp == null) {

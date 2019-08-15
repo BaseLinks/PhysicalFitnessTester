@@ -6,12 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Handler;
 import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.kangear.bodycompositionanalyzer.BuildConfig;
 import com.kangear.bodycompositionanalyzer.R;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.RecordBean;
@@ -61,7 +63,7 @@ public class UploadImage implements MainApiService {
         return singleton;
     }
 
-    public static void uploadReport(Record record) {
+    private static void uploadReport(Record record) {
         // 上报报告
         SchoopiaRecord sr = SchoopiaRecord.toHere(record);
         Gson gson = new Gson();
@@ -70,8 +72,23 @@ public class UploadImage implements MainApiService {
         SchoopiaRecord.sendPost(json);
     }
 
+    // Do something
+    // 318 NO: uploadReportImg
+    // 318 EDU: uploadReport
     public static void doSomething(Activity act, Record record) {
-        uploadReportImg(act, record);
+        if (BuildConfig.FLAVOR_model.equals("jh318")) {
+            if (BuildConfig.FLAVOR_sub.equals("normal")) {
+                if (act != null) {
+                    uploadReportImg(act, record);
+                } else {
+                    uploadReport(record);
+                }
+            } else if (BuildConfig.FLAVOR_sub.equals("edu")) {
+                uploadReport(record);
+            }
+        } else {
+            // do not report upload
+        }
     }
 
     public static void createPdfFromView(View content, final OutputStream os) {

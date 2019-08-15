@@ -21,6 +21,7 @@ import com.kangear.bodycompositionanalyzer.R;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.application.App;
 import com.kangear.bodycompositionanalyzer.entry.SchoopiaRecord;
+import com.kangear.bodycompositionanalyzer.tool.UploadImage;
 
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
@@ -34,7 +35,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.kangear.bodycompositionanalyzer.Record.DB_COL_TIME;
-import static com.kangear.bodycompositionanalyzer.entry.SchoopiaRecord.post;
 
 public class UploadDataActivity extends BaseActivity {
     private static final String TAG = "Main2Activity";
@@ -124,18 +124,17 @@ public class UploadDataActivity extends BaseActivity {
 
                         for (int i=0; i<rList.size(); i++) {
                             Record r = rList.get(i);
-                            r.getBodyComposition();
-                            SchoopiaRecord sr = SchoopiaRecord.toHere(r);
-                            Gson gson = new Gson();
-                            String json = gson.toJson(sr);
-                            Log.e(TAG, json);
-
+//                            r.getBodyComposition();
+//                            SchoopiaRecord sr = SchoopiaRecord.toHere(r);
+//                            Gson gson = new Gson();
+//                            String json = gson.toJson(sr);
+//                            Log.e(TAG, json);
                             Message msg = new Message();
                             msg.what = UPDATE_PROGRESS;
                             msg.arg1 = (i+1) * 100 / rList.size();
 
                             try {
-                                post(json);
+                                UploadImage.doSomething(null, r);
                             } catch (Exception e) {
                                 e.printStackTrace();
 //                                msg.arg1 = -1;

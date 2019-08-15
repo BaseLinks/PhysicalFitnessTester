@@ -553,6 +553,10 @@ public class WelcomeActivity extends BaseActivity {
      * 初始化
      */
     private void preInit() {
+
+        // hide edu
+        findViewById(R.id.textView73).setVisibility(BuildConfig.FLAVOR_sub.contains("edu") ? View.VISIBLE : View.INVISIBLE);
+
         if (!BuildConfig.DEBUG)
             hideNavigation(this);
 

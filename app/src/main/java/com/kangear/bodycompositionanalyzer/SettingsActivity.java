@@ -154,14 +154,19 @@ public class SettingsActivity extends BaseActivity {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
             case R.id.binding_admin:
-                ImageView image = new ImageView(this);
-                image.setImageBitmap(createQr());
+                if (BuildConfig.FLAVOR_model.contains("jh303plus")) {
+                    Toast.makeText(this, "暂未开通此服务", Toast.LENGTH_SHORT).show();
+                    break;
+                } else {
+                    ImageView image = new ImageView(this);
+                    image.setImageBitmap(createQr());
 
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(this).
-                                setMessage("微信小程序「体测318」扫此码添加数据即可添加成本设备管理员").
-                                setView(image);
-                builder.create().show();
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(this).
+                                    setMessage("微信小程序「体测318」扫此码添加数据即可添加成本设备管理员").
+                                    setView(image);
+                    builder.create().show();
+                }
                 break;
             case R.id.prev_page_button:
                 findViewById(R.id.prev_pageview).setVisibility(View.VISIBLE);
@@ -172,7 +177,12 @@ public class SettingsActivity extends BaseActivity {
                 findViewById(R.id.next_pageview).setVisibility(View.VISIBLE);
                 break;
             case R.id.upload_data:
-                startUploadData(this);
+                if (BuildConfig.FLAVOR_model.equals("jh303plus")) {
+                    Toast.makeText(this, "暂未开通此服务", Toast.LENGTH_SHORT).show();
+                    break;
+                } else {
+                    startUploadData(this);
+                }
                 break;
             case R.id.read_radio_button:
                 try {

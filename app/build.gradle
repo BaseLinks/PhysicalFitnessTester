@@ -56,20 +56,22 @@ android {
         abortOnError false
     }
 
-    flavorDimensions("model")
+    flavorDimensions("model", "sub")
 
     productFlavors {
-        jh318edu {
+        edu {
             buildConfigField 'String', 'BUGLY_APPID', '"7acab19e4e"'
-            minSdkVersion 19
-            dimension "model"
-            signingConfig signingConfigs.config
-            targetSdkVersion 19
-            testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+            buildConfigField 'String', 'REPORT_URL', '"http://b.schoopia.com/bpc/sport-dt/dt/physical/remote"'
+            dimension "sub"
+        }
+
+        normal {
+            buildConfigField 'String', 'BUGLY_APPID', '"cb731b8519"'
+            buildConfigField 'String', 'REPORT_URL', '"https://www.kangear.com/lala/physical"'
+            dimension "sub"
         }
 
         jh318 {
-            buildConfigField 'String', 'BUGLY_APPID', '"cb731b8519"'
             minSdkVersion 19
             dimension "model"
             signingConfig signingConfigs.config

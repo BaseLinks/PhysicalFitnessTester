@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.BodyComposition;
+import com.kangear.bodycompositionanalyzer.BuildConfig;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.application.App;
 
@@ -561,14 +562,13 @@ public class SchoopiaRecord {
         thread.start();
     }
 
-    public static void post(String json) throws Exception {
+    private static void post(String json) throws Exception {
         // 同时传递到两个位置
         Log.i(TAG, "REPORT: " + json);
-        post2(json, "http://b.schoopia.com/bpc/sport-dt/dt/physical/remote");
-        post2(json, "https://www.kangear.com/lala/physical");
+        post2(json, BuildConfig.REPORT_URL);
     }
 
-    public static void post2(String json, String urlStr) throws Exception {
+    private static void post2(String json, String urlStr) throws Exception {
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
