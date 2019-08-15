@@ -1048,7 +1048,6 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <include
-                    android:id="@+id/tizhifang_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
                     android:layout_width="212dp"
                     android:layout_height="13dp"
@@ -1062,7 +1061,6 @@
                     app:third="@{bc.BMI}" />
 
                 <include
-                    android:id="@+id/tizhifang_progressbar"
                     layout="@layout/pdf_tichengfenfenxi_progress"
                     android:layout_width="212dp"
                     android:layout_height="13dp"
