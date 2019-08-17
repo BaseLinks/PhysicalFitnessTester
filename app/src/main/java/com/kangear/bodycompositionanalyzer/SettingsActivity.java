@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -154,7 +155,7 @@ public class SettingsActivity extends BaseActivity {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
             case R.id.binding_admin:
-                if (BuildConfig.FLAVOR_model.contains("jh303plus")) {
+                if (BuildConfig.FLAVOR_model.contains("jh303plus") || BuildConfig.FLAVOR_sub.equals("edu")) {
                     Toast.makeText(this, "暂未开通此服务", Toast.LENGTH_SHORT).show();
                     break;
                 } else {
