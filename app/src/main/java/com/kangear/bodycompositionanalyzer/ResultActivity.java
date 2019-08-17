@@ -556,6 +556,7 @@ public class ResultActivity extends BaseActivity {
             PrinterIntence mp = PrinterIntence.getPrinterIntence(new File(App.XIAOPIAO_PRINTER), 9600, 0);
             mp.setQrCode2(1, 4, 1, 1, obj.toString());
             mp.Label(true);
+            mp.printText("\n\n\n\n\n\n");
 
             obj.put("tel", n);
             obj.put("addr", c);

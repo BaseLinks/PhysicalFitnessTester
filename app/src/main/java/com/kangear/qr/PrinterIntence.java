@@ -199,7 +199,7 @@ public class PrinterIntence {
                 Text.TEXTSIZE_NORMAL).getTextByteArray();
         target.put(tmp);
 
-        tmp = new Text("\n\n\n\n\n\n\n\n\n", Text.ALIGNMENT_CENTER,
+        tmp = new Text("\n\n\n", Text.ALIGNMENT_CENTER,
                 Text.TEXTSIZE_NORMAL).getTextByteArray();
         target.put(tmp);
 
