@@ -602,20 +602,22 @@ public class ResultActivity extends BaseActivity {
                 page(FIRST_PAGE_NUMBER);
                 break;
             case R.id.qr_button:
-                // 318: 打印二维码（显示「二维码」）
-                // 318EDU:打印文字版本小票（显示「小票」）
-                // 303+: 打印文字版小票（显示「二维码」）
-                Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
-                ImageView image = new ImageView(this);
-                image.setImageBitmap(createQr());
-
+                // 318: 打印二维码
+                // 318EDU:打印文字版本小票
+                // 303+: 打印文字版小票
                 doPrint(mRecord);
 
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(this).
-                                setMessage("微信扫一扫收藏本次测试结果").
-                                setView(image);
-                builder.create().show();
+                if (!BuildConfig.FLAVOR_sub.equals("edu")) {
+                    Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
+                    ImageView image = new ImageView(this);
+                    image.setImageBitmap(createQr());
+
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(this).
+                                    setMessage("微信扫一扫收藏本次测试结果").
+                                    setView(image);
+                    builder.create().show();
+                }
                 break;
             case R.id.print_button:
                 if (AntiShakeUtils.isInvalidClick(v, 3000)) {
