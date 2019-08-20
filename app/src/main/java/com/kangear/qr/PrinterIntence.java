@@ -175,7 +175,7 @@ public class PrinterIntence {
         target.put(tmp);
 
         /* 2. 体成分分析 */
-        tmp = new Text("\n\n  体      型: " + tixingfenxiString[(int)bc.体型分析.getMax() - 1][(int)bc.体型分析.getMin() - 1] + "\n", Text.ALIGNMENT_LEFT,
+        tmp = new Text("\n\n  体      型: " + tixingfenxiString[(int)bc.体型分析.getMax()][(int)bc.体型分析.getMin()] + "\n", Text.ALIGNMENT_LEFT,
                 Text.TEXTSIZE_NORMAL).getTextByteArray();
         target.put(tmp);
 
