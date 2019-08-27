@@ -32,6 +32,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.kangear.bodycompositionanalyzer.application.App;
+import com.kangear.bodycompositionanalyzer.mvp.ui.activity.AboutActivity;
 import com.kangear.qr.PrinterIntence;
 import com.kangear.utils.QRCodeUtil;
 import com.tencent.bugly.beta.Beta;
@@ -154,6 +155,9 @@ public class SettingsActivity extends BaseActivity {
     public void onClick(View v) {
         Log.i(TAG, "onClick");
         switch (v.getId()) {
+            case R.id.about_button:
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
             case R.id.binding_admin:
                 if (BuildConfig.FLAVOR_model.contains("jh303plus") || BuildConfig.FLAVOR_sub.equals("edu")) {
                     Toast.makeText(this, "暂未开通此服务", Toast.LENGTH_SHORT).show();

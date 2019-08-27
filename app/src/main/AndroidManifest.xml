@@ -26,6 +26,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".mvp.ui.activity.AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name=".mvp.ui.activity.AboutActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".mvp.ui.activity.UploadDataActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
@@ -169,7 +176,11 @@
             android:name=".SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name=".SettingsActivity" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".TimeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

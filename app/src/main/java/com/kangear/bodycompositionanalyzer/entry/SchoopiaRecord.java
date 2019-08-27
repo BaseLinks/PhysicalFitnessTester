@@ -497,7 +497,7 @@ public class SchoopiaRecord {
         recordBean.setLlFat(insertThird(bc.左下脂肪量, FLOAT_2_FORMAT));
         recordBean.setLlMuscle(insertThird(bc.左下肌肉量, FLOAT_2_FORMAT));
         recordBean.setMineralSalt(insertThird(bc.无机盐, FLOAT_2_FORMAT));
-        recordBean.setMuscle(insertThird(bc.肌肉量, FLOAT_0_FORMAT));
+        recordBean.setMuscle(insertThird(bc.肌肉量, FLOAT_2_FORMAT));
 //        recordBean.setName(insertThird(, FLOAT_0_FORMAT)); // Not bodyCompsition
         recordBean.setPbf(insertThird(bc.体脂百分比, FLOAT_2_FORMAT));
         recordBean.setProtein(insertThird(bc.蛋白质, FLOAT_2_FORMAT));

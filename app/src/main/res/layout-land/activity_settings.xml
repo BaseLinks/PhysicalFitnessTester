@@ -545,8 +545,9 @@
                 android:text="绑定管理员" />
 
             <Button
+                android:id="@+id/about_button"
                 style="@style/SettingButton"
-                android:text="" />
+                android:text="关于设备" />
         </TableRow>
 
         <TableRow
