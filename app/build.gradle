@@ -67,7 +67,7 @@ android {
 
         normal {
             buildConfigField 'String', 'BUGLY_APPID', '"cb731b8519"'
-            buildConfigField 'String', 'REPORT_URL', '"https://www.kangear.com/lala/physical"'
+            buildConfigField 'String', 'REPORT_URL', '"https://328s.cn/v1/318/physical"'
             dimension "sub"
         }
 
