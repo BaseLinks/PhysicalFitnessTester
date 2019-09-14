@@ -219,6 +219,13 @@ public class BodyComposition {
             return String.format("%." + dot + "f", getCur()) + getUnit();
         }
 
+        public String formatRangeUnit(int dot) {
+            if (dot < 0) {
+                dot = 0;
+            }
+            return "(" + String.format("%." + dot + "f", getMin()) + "-" + String.format("%." + dot + "f", getMax()) + ")";
+        }
+
         public String formatCurUnit() {
             if (dot < 0) {
                 dot = 0;
