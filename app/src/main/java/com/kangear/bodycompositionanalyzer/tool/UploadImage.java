@@ -45,7 +45,6 @@ import java.nio.charset.Charset;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.createPdfFromView;
 
 public class UploadImage implements MainApiService {
-    public String HOST = "https://kangear.com";
     public static final String TAG = "UploadImage";
 
     /**
@@ -228,7 +227,7 @@ public class UploadImage implements MainApiService {
                             .setType(MultipartBody.FORM)
                             .addPart(filePart)
                             .build();
-                    Request request = new Request.Builder().url(HOST + "/upload/img_pdf_multipart").post(requestBody).build();
+                    Request request = new Request.Builder().url("https://328s.cn/v1/318/reportimg").post(requestBody).build();
                     OkHttpClient client = new OkHttpClient();
                     Response response = client.newCall(request).execute();
                     String result =  response.body().string();

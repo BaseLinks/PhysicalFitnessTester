@@ -567,6 +567,56 @@ public class ResultActivity extends BaseActivity {
         return QRCodeUtil.createQRCodeBitmap(obj.toString(), 450, 450);
     }
 
+    /**
+     * 临时版本
+     * @return
+     */
+    private String createQrContent() {
+        byte[] qrData = mRecord.getData().clone();
+
+        int BYTE_BUFFER_ALLOCATE = 1024;
+        ByteBuffer target = ByteBuffer.allocate(1024);
+        target.put(Arrays.copyOfRange(qrData, 性别.getCurStart(), 体重.getCurStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体重.getMinStart(), 体重.getMaxStart() + 体重.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 体脂肪量.getCurStart(), 体脂肪量.getMaxStart() + 体脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 骨骼肌.getCurStart(), 无机盐.getMaxStart() + 无机盐.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 左上肢肌肉量.getCurStart(), 右下脂肪量.getMaxStart() + 右下脂肪量.getLength()));
+        target.put(Arrays.copyOfRange(qrData, BMI.getCurStart(), 体脂百分比.getMaxStart() + 体脂百分比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 腰臀比.getCurStart(), 腰臀比.getMaxStart() + 腰臀比.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 内脏面积.getCurStart(), 内脏面积.getCurStart() + 内脏面积.getLength()));
+        target.put(Protocol.getDataFromShort((int) 评分.getCur()));
+        target.put((byte) 身体年龄.getCur()); // 身体年龄
+        // Log.i(TAG, "身体年龄: " + 身体年龄.getCur());
+        target.put((byte) 0x00); //肌肉调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getJirouAdjustment() * 10.0)));
+        target.put((byte) 0x01); //脂肪调整符号
+        target.put(Protocol.getDataFromShort((int) (mBodyComposition.getZhifangAdjustment() * 10.0)));
+        target.put(Protocol.getDataFromShort((int) (基础代谢.getCur())));
+        target.put(Arrays.copyOfRange(qrData, 总能耗.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
+        target.put(Arrays.copyOfRange(qrData, 评分.getCurStart(), 总能耗.getCurStart() + 总能耗.getLength()));
+        target.limit(target.remaining());
+        target.rewind();
+        /* 提取 */
+        byte[] byteArray = new byte[BYTE_BUFFER_ALLOCATE - target.remaining()];
+        target.get(byteArray);
+        /* 将byteBuffer清理 */
+        target.clear();
+
+        // 加密 -0xAA
+        for (int i=0; i<byteArray.length; i++) {
+            byteArray[i] -= (byte)0xAA;
+        }
+        return bytesToHex(byteArray);
+    }
+
+    public static String bytesToHex(byte[] in) {
+        final StringBuilder builder = new StringBuilder();
+        for(byte b : in) {
+            builder.append(String.format("%02X", b));
+        }
+        return builder.toString();
+    }
+
     // 打印小票
     public static void doPrint(Record record) {
         SchoopiaRecord sr = SchoopiaRecord.toHere(record);
@@ -606,12 +656,22 @@ public class ResultActivity extends BaseActivity {
                 // 318: 打印二维码
                 // 318EDU:打印文字版本小票
                 // 303+: 打印文字版小票
+
+                // 临时版本打印
+                // String createQrContent = createQrContent();
+
                 doPrint(mRecord);
 
                 if (!BuildConfig.FLAVOR_sub.equals("edu")) {
                     Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
                     ImageView image = new ImageView(this);
                     image.setImageBitmap(createQr());
+
+                    // 临时版本打印
+//                    PrinterIntence mp = PrinterIntence.getPrinterIntence(new File(App.XIAOPIAO_PRINTER), 9600, 0);
+//                    mp.setQrCode2(1, 4, 1, 1, createQrContent);
+//                    mp.Label(true);
+//                    mp.printText("\n\n\n\n\n\n");
 
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(this).
