@@ -1,27 +1,5 @@
 package com.kangear.bodycompositionanalyzer.mvp.ui.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.samples.facedetect.DetectionBasedTracker;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,10 +12,38 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.aip.face.AipFace;
 import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.samples.facedetect.DetectionBasedTracker;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+
 import cn.xsshome.taip.face.TAipFace;
+import cn.xsshome.taip.util.Base64Util;
+import cn.xsshome.taip.util.FileUtil;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 
@@ -72,6 +78,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
 
     private final String FACEID_GROUP_ID = "group20180513";
     private static final String PATH = "/sdcard/fff.jpg";
+
+    //设置APPID/AK/SK
+    public static final String APP_ID = "15948914";
+    public static final String API_KEY = "1LqlAMRRDIoChzN7aQZtQoBR";
+    public static final String SECRET_KEY = "I2T44Wq6lV8fZdAeNmgyNDGeRwsGGtGG";
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -228,6 +239,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
     int state = 0;
     // 初始化一个TAipPtu
     TAipFace aipFace = new TAipFace("2114617797", "nyFobjtIqgIH1MXW");
+    // 初始化一个AipFace
+    AipFace client = new AipFace(APP_ID, API_KEY, SECRET_KEY);
 
     void handleFace(Rect[] facesArray, CvCameraViewFrame inputFrame) {
         if (this.state != 1) {
@@ -247,10 +260,316 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         }
     }
 
+    public FdActivity.baiduSearchEntity baiduSearch(AipFace client, String personId, String imgPath) throws IOException, JSONException {
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<String, String>();
+        options.put("max_face_num", "1");
+        options.put("match_threshold", "70");
+        options.put("quality_control", "NORMAL");
+        options.put("liveness_control", "LOW");
+        options.put("user_id", personId);
+        options.put("max_user_num", "1");
+
+        byte[] image = FileUtil.readFileByBytes(imgPath);
+        String base64Content = Base64Util.encode(image);
+        String imageType = "BASE64";
+        String groupIdList = FACEID_GROUP_ID;
+
+        // 人脸搜索
+        JSONObject res = client.search(base64Content, imageType, groupIdList, options);
+        Gson gson = new Gson();
+        FdActivity.baiduSearchEntity ret = gson.fromJson(res.toString(), FdActivity.baiduSearchEntity.class);
+        System.out.println(res.toString(2));
+        return ret;
+    }
+
+    final static class BaiduMultiSearch {
+        /**
+         * error_code : 0
+         * error_msg : SUCCESS
+         * log_id : 240483475
+         * timestamp : 1535533440
+         * cached : 0
+         * result : {"face_num":2,"face_list":[{"face_token":"6fe19a6ee0c4233db9b5bba4dc2b9233","location":{"left":31.95568085,"top":120.3764267,"width":87,"height":85,"rotation":-5},"user_list":[{"group_id":"group1","user_id":"5abd24fd062e49bfa906b257ec40d284","user_info":"userinfo1","score":69.85684967041},{"group_id":"group1","user_id":"2abf89cffb31473a9948268fde9e1c3f","user_info":"userinfo2","score":66.586112976074}]},{"face_token":"fde61e9c074f48cf2bbb319e42634f41","location":{"left":219.4467773,"top":104.7486954,"width":81,"height":77,"rotation":3},"user_list":[{"group_id":"group1","user_id":"088717532b094c3990755e91250adf7d","user_info":"userinfo","score":65.154159545898}]}]}
+         */
+
+        private int error_code;
+        private String error_msg;
+        private long log_id;
+        private int timestamp;
+        private int cached;
+        private ResultBean result;
+
+        public int getError_code() {
+            return error_code;
+        }
+
+        public void setError_code(int error_code) {
+            this.error_code = error_code;
+        }
+
+        public String getError_msg() {
+            return error_msg;
+        }
+
+        public void setError_msg(String error_msg) {
+            this.error_msg = error_msg;
+        }
+
+        public long getLog_id() {
+            return log_id;
+        }
+
+        public void setLog_id(long log_id) {
+            this.log_id = log_id;
+        }
+
+        public int getTimestamp() {
+            return timestamp;
+        }
+
+        public void setTimestamp(int timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public int getCached() {
+            return cached;
+        }
+
+        public void setCached(int cached) {
+            this.cached = cached;
+        }
+
+        public ResultBean getResult() {
+            return result;
+        }
+
+        public void setResult(ResultBean result) {
+            this.result = result;
+        }
+
+        public static class ResultBean {
+            /**
+             * face_num : 2
+             * face_list : [{"face_token":"6fe19a6ee0c4233db9b5bba4dc2b9233","location":{"left":31.95568085,"top":120.3764267,"width":87,"height":85,"rotation":-5},"user_list":[{"group_id":"group1","user_id":"5abd24fd062e49bfa906b257ec40d284","user_info":"userinfo1","score":69.85684967041},{"group_id":"group1","user_id":"2abf89cffb31473a9948268fde9e1c3f","user_info":"userinfo2","score":66.586112976074}]},{"face_token":"fde61e9c074f48cf2bbb319e42634f41","location":{"left":219.4467773,"top":104.7486954,"width":81,"height":77,"rotation":3},"user_list":[{"group_id":"group1","user_id":"088717532b094c3990755e91250adf7d","user_info":"userinfo","score":65.154159545898}]}]
+             */
+
+            private int face_num;
+            private List<FaceListBean> face_list;
+
+            public int getFace_num() {
+                return face_num;
+            }
+
+            public void setFace_num(int face_num) {
+                this.face_num = face_num;
+            }
+
+            public List<FaceListBean> getFace_list() {
+                return face_list;
+            }
+
+            public void setFace_list(List<FaceListBean> face_list) {
+                this.face_list = face_list;
+            }
+
+            public static class FaceListBean {
+                /**
+                 * face_token : 6fe19a6ee0c4233db9b5bba4dc2b9233
+                 * location : {"left":31.95568085,"top":120.3764267,"width":87,"height":85,"rotation":-5}
+                 * user_list : [{"group_id":"group1","user_id":"5abd24fd062e49bfa906b257ec40d284","user_info":"userinfo1","score":69.85684967041},{"group_id":"group1","user_id":"2abf89cffb31473a9948268fde9e1c3f","user_info":"userinfo2","score":66.586112976074}]
+                 */
+
+                private String face_token;
+                private LocationBean location;
+                private List<UserListBean> user_list;
+
+                public String getFace_token() {
+                    return face_token;
+                }
+
+                public void setFace_token(String face_token) {
+                    this.face_token = face_token;
+                }
+
+                public LocationBean getLocation() {
+                    return location;
+                }
+
+                public void setLocation(LocationBean location) {
+                    this.location = location;
+                }
+
+                public List<UserListBean> getUser_list() {
+                    return user_list;
+                }
+
+                public void setUser_list(List<UserListBean> user_list) {
+                    this.user_list = user_list;
+                }
+
+                public static class LocationBean {
+                    /**
+                     * left : 31.95568085
+                     * top : 120.3764267
+                     * width : 87
+                     * height : 85
+                     * rotation : -5
+                     */
+
+                    private double left;
+                    private double top;
+                    private int width;
+                    private int height;
+                    private int rotation;
+
+                    public double getLeft() {
+                        return left;
+                    }
+
+                    public void setLeft(double left) {
+                        this.left = left;
+                    }
+
+                    public double getTop() {
+                        return top;
+                    }
+
+                    public void setTop(double top) {
+                        this.top = top;
+                    }
+
+                    public int getWidth() {
+                        return width;
+                    }
+
+                    public void setWidth(int width) {
+                        this.width = width;
+                    }
+
+                    public int getHeight() {
+                        return height;
+                    }
+
+                    public void setHeight(int height) {
+                        this.height = height;
+                    }
+
+                    public int getRotation() {
+                        return rotation;
+                    }
+
+                    public void setRotation(int rotation) {
+                        this.rotation = rotation;
+                    }
+                }
+
+                public static class UserListBean {
+                    /**
+                     * group_id : group1
+                     * user_id : 5abd24fd062e49bfa906b257ec40d284
+                     * user_info : userinfo1
+                     * score : 69.85684967041
+                     */
+
+                    private String group_id;
+                    private String user_id;
+                    private String user_info;
+                    private double score;
+
+                    public String getGroup_id() {
+                        return group_id;
+                    }
+
+                    public void setGroup_id(String group_id) {
+                        this.group_id = group_id;
+                    }
+
+                    public String getUser_id() {
+                        return user_id;
+                    }
+
+                    public void setUser_id(String user_id) {
+                        this.user_id = user_id;
+                    }
+
+                    public String getUser_info() {
+                        return user_info;
+                    }
+
+                    public void setUser_info(String user_info) {
+                        this.user_info = user_info;
+                    }
+
+                    public double getScore() {
+                        return score;
+                    }
+
+                    public void setScore(double score) {
+                        this.score = score;
+                    }
+                }
+            }
+        }
+    }
+
+    public FdActivity.BaiduMultiSearch baiduMultiSearch(AipFace client, String imgPath) throws IOException, JSONException {
+        Log.e(TAG, "baiduMultiSearch start");
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<String, String>();
+        options.put("max_face_num", "1");
+        options.put("match_threshold", "80");
+        options.put("quality_control", "NORMAL");
+        options.put("liveness_control", "LOW");
+        options.put("max_user_num", "1");
+
+        byte[] image = FileUtil.readFileByBytes(imgPath);
+        String base64Content = Base64Util.encode(image);
+        String imageType = "BASE64";
+        String groupIdList = FACEID_GROUP_ID;
+
+        // 人脸搜索
+        JSONObject res = client.multiSearch(base64Content, imageType, groupIdList, options);
+        Gson gson = new Gson();
+        Log.e(TAG, " result: " + res.toString());
+        Log.e(TAG, "baiduMultiSearch start 2");
+        FdActivity.BaiduMultiSearch ret = gson.fromJson(res.toString(), FdActivity.BaiduMultiSearch.class);
+        Log.e(TAG, "baiduMultiSearch end");
+        return ret;
+    }
+
+    public boolean baiduAddUser(AipFace client, String personId, String imgPath) throws IOException, JSONException {
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<String, String>();
+        options.put("user_info", "user's info");
+        options.put("quality_control", "NORMAL");
+        options.put("liveness_control", "LOW");
+        options.put("action_type", "REPLACE");
+
+        byte[] image = FileUtil.readFileByBytes(imgPath);
+        String base64Content = Base64Util.encode(image);
+        JSONObject res = client.addUser(base64Content, "BASE64", FACEID_GROUP_ID, personId, options);
+        Log.e(TAG, "result1: " + res.toString(2));
+        return res.getInt("error_code") == 0;
+    }
+
+    public void baiduDelUser(AipFace client, String personId) throws JSONException {
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<String, String>();
+
+        String userId = personId;
+        String groupId = FACEID_GROUP_ID;
+
+        // 删除用户
+        JSONObject res = client.deleteUser(userId, groupId, options);
+        System.out.println(res.toString(2));
+
+    }
+
     /**
      * sech or add new one
      */
-    private void netWork1() {
+    private void netWork2() {
         File file = new File(PATH);
         Gson gson = new Gson();
         if (file.exists()) {
@@ -321,6 +640,166 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private static class baiduSearchEntity {
+
+        /**
+         * face_token : fid
+         * user_list : [{"group_id":"test1","user_id":"u333333","user_info":"Test User","score":99.3}]
+         */
+
+        private String face_token;
+        private List<UserListBean> user_list;
+
+        public String getFace_token() {
+            return face_token;
+        }
+
+        public void setFace_token(String face_token) {
+            this.face_token = face_token;
+        }
+
+        public List<UserListBean> getUser_list() {
+            return user_list;
+        }
+
+        public void setUser_list(List<UserListBean> user_list) {
+            this.user_list = user_list;
+        }
+
+        public static class UserListBean {
+            /**
+             * group_id : test1
+             * user_id : u333333
+             * user_info : Test User
+             * score : 99.3
+             */
+
+            private String group_id;
+            private String user_id;
+            private String user_info;
+            private double score;
+
+            public String getGroup_id() {
+                return group_id;
+            }
+
+            public void setGroup_id(String group_id) {
+                this.group_id = group_id;
+            }
+
+            public String getUser_id() {
+                return user_id;
+            }
+
+            public void setUser_id(String user_id) {
+                this.user_id = user_id;
+            }
+
+            public String getUser_info() {
+                return user_info;
+            }
+
+            public void setUser_info(String user_info) {
+                this.user_info = user_info;
+            }
+
+            public double getScore() {
+                return score;
+            }
+
+            public void setScore(double score) {
+                this.score = score;
+            }
+        }
+    }
+
+    /**
+     * sech or add new one
+     */
+    private void netWork1() {
+        File file = new File(PATH);
+        Gson gson = new Gson();
+        if (file.exists()) {
+            try {
+                String result;
+                // zhuce
+                if (zhuce) {
+                    String personId = String.valueOf(System.currentTimeMillis() / 1000);
+                    boolean ret = baiduAddUser(client, personId, PATH);
+                    if (!ret) {
+                        state = 0;
+                        return;
+                    }
+                    Log.e(TAG, "result2: baiduAddUser 成功");
+                    FdActivity.BaiduMultiSearch bs = baiduMultiSearch(client, PATH);
+//                    Log.e(TAG, "result2: " + result);
+//                    FaceReg faceReg = gson.fromJson(result, FaceReg.class);
+//                    List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
+                    if (bs.error_code == 0
+                            && bs.getResult().face_num > 0
+                            && bs.getResult().getFace_list().get(0).getUser_list().size() > 0
+                            && bs.getResult().getFace_list().get(0).getUser_list().get(0).getUser_id().equals(personId)) {
+                        Log.e(TAG, "注册成功: " + personId);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((ImageView)findViewById(R.id.faceid_imageview)).setImageResource(R.drawable._80_faceid_green);
+                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_ok);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(CONST_FINGER_ID, Integer.valueOf(personId));
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                }, 1 * 1000);
+                            }
+                        });
+                    } else {
+                        Log.e(TAG, "个体创建: " + personId);
+                        //aipFace.faceDelperson(personId);//个体创建
+                        baiduDelUser(client, personId);
+                        state = 0;
+                    }
+                } else {
+                    FdActivity.BaiduMultiSearch bs = baiduMultiSearch(client, PATH);
+//                    Log.e(TAG, "result2: " + result);
+//                    FaceReg faceReg = gson.fromJson(result, FaceReg.class);
+//                    List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
+                    if (bs.error_code == 0
+                            && bs.getResult().face_num > 0
+                            && bs.getResult().getFace_list().get(0).getUser_list().size() > 0
+                            && bs.getResult().getFace_list().get(0).getUser_list().get(0).getScore() > 80) {
+                        final String personId = bs.getResult().getFace_list().get(0).getUser_list().get(0).getUser_id();
+                        Log.e(TAG, "识别成功: " + personId);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((ImageView) findViewById(R.id.faceid_imageview)).setImageResource(R.drawable._80_faceid_green);
+                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_ok);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent();
+                                        intent.putExtra(CONST_FINGER_ID, Integer.valueOf(personId));
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                }, 1 * 1000);
+                            }
+                        });
+                    } else {
+                        fail();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, e.getLocalizedMessage());
             }
         }
     }

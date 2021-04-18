@@ -123,6 +123,7 @@ dependencies {
 
     implementation 'com.github.florent37:singledateandtimepicker:2.1.4'
     implementation 'cn.xsshome:taip:4.3.2'
+    implementation 'com.baidu.aip:java-sdk:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
     implementation 'commons-codec:commons-codec:1.11'
