@@ -258,6 +258,15 @@ public class WelcomeActivity extends BaseActivity {
 
     /**
      * 判断身高是否合法
+     * @param val
+     * @return
+     */
+    public static boolean checkId(int val) {
+        return true;
+    }
+
+    /**
+     * 判断身高是否合法
      * @param height cm
      * @return
      */
@@ -323,8 +332,38 @@ public class WelcomeActivity extends BaseActivity {
         return ishide;
     }
 
+//    隐藏导航栏和状态栏:
+    //A83T
+    public static String ACTION_HIDE_NAV_BAR = "com.xrd.action.hide_nav_bar";
+    public static String ACTION_SHOW_NAV_BAR = "com.xrd.action.show_nav_bar";
+
+    public static String ACTION_SHOW_STATUS_BAR = "com.xrd.action.show_status_bar";
+    public static String ACTION_HIDE_STATUS_BAR = "com.xrd.action.hide_status_bar";
+    //A33:
+//    public static String ACTION_HIDE_NAV_BAR = "gzsd.hclydao.action.hide_nav_bar";
+//    public static String ACTION_SHOW_NAV_BAR = "gzsd.hclydao.action.show_nav_bar";
+//
+//    public static String ACTION_SHOW_STATUS_BAR = "gzys.hclydao.action.show_status_bar";
+//    public static String ACTION_HIDE_STATUS_BAR = "gzys.hclydao.action.hide_status_bar";
+
     /*显示虚拟按键*/
-    public static boolean showNavigation(Context context){
+    public boolean showNavigation(Context context){
+        boolean isshow = true;
+        try {
+            Intent intent = new Intent(ACTION_SHOW_NAV_BAR);
+            Intent intent1 = new Intent(ACTION_SHOW_STATUS_BAR);
+            sendBroadcast(intent);
+            sendBroadcast(intent1);
+        }
+        catch (Exception e){
+            isshow = false;
+            e.printStackTrace();
+        }
+        return isshow;
+    }
+
+    /*显示虚拟按键*/
+    public static boolean showNavigation2(Context context){
         boolean isshow;
         try
         {
