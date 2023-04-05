@@ -102,6 +102,8 @@
             android:lineSpacingExtra="0dp"
             android:maxLength="18"
             android:padding="0dp"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
             android:text="A11023"
             android:singleLine="true"
             android:textColor="#434343"

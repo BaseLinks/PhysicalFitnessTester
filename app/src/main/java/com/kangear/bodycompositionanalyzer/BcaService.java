@@ -45,13 +45,13 @@ public class BcaService extends Service {
                 .copy("system/bootanimation", destDir);
 
         ShellUtils.CommandResult cr;
-        String cmd = "busybox cp " + context.getCacheDir() + "/bootanimation.zip /data/local/";
+        String cmd = "/system/bin/busybox cp " + context.getCacheDir() + "/bootanimation.zip /system/media/";
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
         }
 
-        cmd = "busybox chmod 777 /data/local/bootanimation.zip";
+        cmd = "/system/bin/busybox chmod 777 /system/media/bootanimation.zip";
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
@@ -86,7 +86,7 @@ public class BcaService extends Service {
         }
 
 
-        cmd = "busybox rm " + destDir.getAbsolutePath() + "/wifi.apk";
+        cmd = "/system/bin/busybox rm " + destDir.getAbsolutePath() + "/wifi.apk";
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");
@@ -134,7 +134,7 @@ public class BcaService extends Service {
                 .copy("system/printer", destDir);
 
         ShellUtils.CommandResult cr;
-        String cmd = "busybox tar xvf " + context.getCacheDir() + "/phaser_3020_driver.tgz -C /";
+        String cmd = "/system/bin/busybox tar xvf " + context.getCacheDir() + "/phaser_3020_driver.tgz -C /";
         cr = ShellUtils.execCommand(cmd, true);
         if(cr.result != 0) {
             throw new Exception(cmd +" fail");

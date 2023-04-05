@@ -92,6 +92,16 @@ public class MemRegActivity2 extends Com2Activity {
 
         @Override
         public void afterTextChanged(Editable s) {
+            try {
+                int val = Integer.parseInt(s.toString());
+                if(WelcomeActivity.checkId(val)) {
+                    mIdEditText.setTextColor(Color.BLACK);
+                } else {
+                    mIdEditText.setTextColor(Color.RED);
+                }
+            } catch (NumberFormatException ex) {
+                // Do something
+            }
             onContentChanged();
         }
     };

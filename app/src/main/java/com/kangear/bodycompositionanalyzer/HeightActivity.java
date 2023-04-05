@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.exitAsFail;
@@ -25,6 +26,8 @@ public class HeightActivity extends Com2Activity {
         setContentView(R.layout.activity_height);
         setView(true, getWindow().getDecorView(), null);
         hideSystemUI(getWindow().getDecorView());
+        Button dot = findViewById(R.id.kb_dot_button);
+        dot.setEnabled(false);
         mEditText = findViewById(R.id.tizhibi_edittext);
         mEditText.setClickable(false);
         mEditText.setEnabled(false);;

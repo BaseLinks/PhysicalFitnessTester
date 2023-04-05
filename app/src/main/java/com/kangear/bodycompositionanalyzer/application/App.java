@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class App extends Application {
     public static final String SERIAL_QR_SCAN = "/dev/ttyS3";
-    public static final String XIAOPIAO_PRINTER = "/dev/ttyS2";
+    public static final String XIAOPIAO_PRINTER = "/dev/ttyS3"; //ttyS3
     private static final String TAG = "Application";
     private static boolean isInit = false;
     private static Record mCurRecord;

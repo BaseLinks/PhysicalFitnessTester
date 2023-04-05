@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.baidu.aip.face.AipFace;
 import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.R;
+import com.kangear.bodycompositionanalyzer.application.App;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,9 +81,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
     private static final String PATH = "/sdcard/fff.jpg";
 
     //设置APPID/AK/SK
-    public static final String APP_ID = "15948914";
-    public static final String API_KEY = "1LqlAMRRDIoChzN7aQZtQoBR";
-    public static final String SECRET_KEY = "I2T44Wq6lV8fZdAeNmgyNDGeRwsGGtGG";
+    public static final String APP_ID = "24025288";
+    public static final String API_KEY = "xzWDoAt8c3K0quEFxW8ct42s";
+    public static final String SECRET_KEY = "5Wky1guGLMginW0jcHDqXXGMxmfmgBPy";
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -236,13 +237,13 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         return mRgba;
     }
 
-    int state = 0;
+    volatile int state = 0;
     // 初始化一个TAipPtu
     TAipFace aipFace = new TAipFace("2114617797", "nyFobjtIqgIH1MXW");
     // 初始化一个AipFace
     AipFace client = new AipFace(APP_ID, API_KEY, SECRET_KEY);
 
-    void handleFace(Rect[] facesArray, CvCameraViewFrame inputFrame) {
+    synchronized void handleFace(Rect[] facesArray, CvCameraViewFrame inputFrame) {
         if (this.state != 1) {
             int faceNumber = facesArray.length;
             if (faceNumber == 1) {
@@ -526,7 +527,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         byte[] image = FileUtil.readFileByBytes(imgPath);
         String base64Content = Base64Util.encode(image);
         String imageType = "BASE64";
-        String groupIdList = FACEID_GROUP_ID;
+        String groupIdList = App.getSn();
 
         // 人脸搜索
         JSONObject res = client.multiSearch(base64Content, imageType, groupIdList, options);
@@ -548,7 +549,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
 
         byte[] image = FileUtil.readFileByBytes(imgPath);
         String base64Content = Base64Util.encode(image);
-        JSONObject res = client.addUser(base64Content, "BASE64", FACEID_GROUP_ID, personId, options);
+        JSONObject res = client.addUser(base64Content, "BASE64", App.getSn(), personId, options);
         Log.e(TAG, "result1: " + res.toString(2));
         return res.getInt("error_code") == 0;
     }
@@ -558,7 +559,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         HashMap<String, String> options = new HashMap<String, String>();
 
         String userId = personId;
-        String groupId = FACEID_GROUP_ID;
+        String groupId = App.getSn();
 
         // 删除用户
         JSONObject res = client.deleteUser(userId, groupId, options);
@@ -729,6 +730,34 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                 // zhuce
                 if (zhuce) {
                     String personId = String.valueOf(System.currentTimeMillis() / 1000);
+//
+//                    FdActivity.BaiduMultiSearch bs1 = baiduMultiSearch(client, PATH);
+////                    Log.e(TAG, "result2: " + result);
+////                    FaceReg faceReg = gson.fromJson(result, FaceReg.class);
+////                    List<FaceReg.DataBean.CandidatesBean> candidatesBeans = faceReg.getData().getCandidates();
+//                    if (bs1.error_code == 0
+//                            && bs1.getResult().face_num > 0
+//                            && bs1.getResult().getFace_list().get(0).getUser_list().size() > 0
+//                            && bs1.getResult().getFace_list().get(0).getUser_list().get(0).getScore() > 90) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                ((ImageView)findViewById(R.id.faceid_imageview)).setImageResource(R.drawable._80_faceid_green);
+//                                ((TextView) findViewById(R.id.cameraInfo)).setText(R.string.face_id_fail2);
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Intent intent = new Intent();
+//                                        intent.putExtra(CONST_FINGER_ID, Integer.valueOf(personId));
+//                                        setResult(RESULT_CANCELED, intent);
+//                                        finish();
+//                                    }
+//                                }, 1 * 1000);
+//                            }
+//                        });
+//                        return;
+//                    }
+
                     boolean ret = baiduAddUser(client, personId, PATH);
                     if (!ret) {
                         state = 0;

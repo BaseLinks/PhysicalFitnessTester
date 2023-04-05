@@ -159,7 +159,7 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.binding_admin:
-                if (BuildConfig.FLAVOR_model.contains("jh303plus") || BuildConfig.FLAVOR_sub.equals("edu")) {
+                if (BuildConfig.FLAVOR_model.contains("jh303plus") || BuildConfig.FLAVOR_sub.contains("edu")) {
                     Toast.makeText(this, "暂未开通此服务", Toast.LENGTH_SHORT).show();
                     break;
                 } else {

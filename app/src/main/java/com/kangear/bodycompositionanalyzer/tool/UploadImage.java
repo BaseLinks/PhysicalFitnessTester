@@ -18,6 +18,7 @@ import com.kangear.bodycompositionanalyzer.R;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.RecordBean;
 import com.kangear.bodycompositionanalyzer.entry.HttpResult;
+import com.kangear.bodycompositionanalyzer.entry.MasterFitEntity;
 import com.kangear.bodycompositionanalyzer.entry.SchoopiaRecord;
 import com.kangear.bodycompositionanalyzer.entry.UploadResult;
 import com.kangear.bodycompositionanalyzer.track.MainApiService;
@@ -71,6 +72,15 @@ public class UploadImage implements MainApiService {
         SchoopiaRecord.sendPost(json);
     }
 
+    private static void uploadReportMasterfit(Record record) {
+        // 上报报告
+        MasterFitEntity sr = MasterFitEntity.toHere(record);
+        Gson gson = new Gson();
+        String json = gson.toJson(sr);
+//        Log.e(TAG, json);
+        SchoopiaRecord.sendPost(json);
+    }
+
     // Do something
     // 318 NO: uploadReportImg
     // 318 EDU: uploadReport
@@ -82,8 +92,8 @@ public class UploadImage implements MainApiService {
                 } else {
                     uploadReport(record);
                 }
-            } else if (BuildConfig.FLAVOR_sub.equals("edu")) {
-                uploadReport(record);
+            } else if (BuildConfig.FLAVOR_sub.contains("edu")) {
+                uploadReportMasterfit(record);
             }
         } else {
             // do not report upload

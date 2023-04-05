@@ -213,7 +213,7 @@ public class ResultActivity extends BaseActivity {
 
         binding.setRecord(mRecord);
 
-        UploadImage.doSomething(this, mRecord);
+        //UploadImage.doSomething(this, mRecord);
 
         if (true)
             return;
@@ -662,7 +662,7 @@ public class ResultActivity extends BaseActivity {
 
                 doPrint(mRecord);
 
-                if (!BuildConfig.FLAVOR_sub.equals("edu")) {
+                if (!BuildConfig.FLAVOR_sub.contains("edu")) {
                     Toast.makeText(this, "打印二维码", Toast.LENGTH_SHORT).show();
                     ImageView image = new ImageView(this);
                     image.setImageBitmap(createQr());

@@ -20,10 +20,10 @@
     <integer name="radio_max">5000</integer>
 
     <string name="height_hint"><font color="yellow" size="30">可输入范围90-220</font></string>
-    <string name="id_hint"><font color="yellow" size="30">可输入数字或者汉字</font></string>
+    <string name="id_hint"><font color="yellow" size="30">可输入数字</font></string>
     <string name="age_hint"><font color="yellow" size="30">可输入7-99岁</font></string>
 
-    <string name="id_hint_gray"><font color="gray" size="30">可输入数字或者汉字</font></string>
+    <string name="id_hint_gray"><font color="gray" size="30">可输入数字</font></string>
     <string name="age_hint_gray"><font color="gray" size="30">可输入7-99岁</font></string>
     <string name="height_hint_gray"><font color="gray" size="30">可输入范围90-220</font></string>
     <string name="error_tip">测试未完成，请检查后重新测试</string>
@@ -42,6 +42,7 @@
     <string name="face_id_info">请将脸部对准上方摄像头</string>
     <string name="face_id_ok">识别成功</string>
     <string name="face_id_fail">识别失败</string>
+    <string name="face_id_fail2">已经注册过</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_about">AboutActivity</string>
 </resources>

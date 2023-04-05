@@ -316,7 +316,7 @@ public class Printer {
     };
 
     private void afterGetUsbPermission(Context context, UsbManager usbManager, UsbDevice usbDevice,  UsbInterface intf){
-        Log.i(LOG_TAG, "Printer#afterGetUsbPermission");
+        Log.i(LOG_TAG, "Printer#afterGetUsbPermission: " + usbDevice);
         //call method to set up device communication
 //        context.unregisterReceiver(mUsbPermissionActionReceiver);
         if(USB_EVENT_DEBUG) Toast.makeText(context, String.valueOf("Got permission for usb device: " + usbDevice), Toast.LENGTH_LONG).show();
@@ -359,13 +359,13 @@ public class Printer {
             UsbDeviceConnection connection = usbManager.openDevice(device);
             if (connection != null) {
                 Log.i(LOG_TAG, "open succeeded");
-                if (connection.claimInterface(intf, false)) {
+                if (connection.claimInterface(intf, true)) {
                     Log.i(LOG_TAG, "claim interface succeeded");
                     mDevice = device;
                     mDeviceConnection = connection;
                     mUsbInterface = intf;
                 } else {
-                    Log.i(LOG_TAG, "claim interface failed");
+                    Log.e(LOG_TAG, "claim interface failed");
                     connection.close();
                 }
             } else {
@@ -423,7 +423,7 @@ public class Printer {
      * @param intf UsbInterface
      */
     private void initPrinterDeviceEndpoint(UsbDeviceConnection connection,
-                                   UsbInterface intf) {
+                                           UsbInterface intf) {
         Log.i(LOG_TAG, "Printer#initPrinterDeviceEndpoint");
         mDeviceConnection = connection;
         mSerial = connection.getSerial();
@@ -774,7 +774,7 @@ public class Printer {
         Log.i(LOG_TAG, "Printer # printPdf");
         boolean ret = false;
         if(isConnected()) {
-//            Toast.makeText(mContext, getModel().getDes(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, getModel().getD 0 0es(), Toast.LENGTH_LONG).show();
         } else {
 //            Toast.makeText(mContext, "打印机未连接", Toast.LENGTH_LONG).show();
             throw new Exception("打印机未连接");

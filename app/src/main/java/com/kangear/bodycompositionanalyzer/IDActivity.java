@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,6 +41,10 @@ public class IDActivity extends Com2Activity {
         mEditText = findViewById(R.id.tizhibi_edittext);
         mEditText.setText("");
         setNumberLength(18);
+        //
+        mSoftwareBoardButton = findViewById(R.id.kb_softboard_button);
+        mSoftwareBoardButton.setEnabled(false);
+
         Log.i(TAG, "onCreate");
 
         SerialDevice.getInstance(getApplicationContext()).setOnResponse(new SerialDevice.Response() {

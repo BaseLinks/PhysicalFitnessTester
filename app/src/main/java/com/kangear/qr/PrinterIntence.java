@@ -337,6 +337,7 @@ public class PrinterIntence {
     }
 
     public void printRaw(byte[] data) {
+        Log.e(TAG, "printRaw: " + Arrays.toString(data));
         this.sendBytesData(data);
     }
 

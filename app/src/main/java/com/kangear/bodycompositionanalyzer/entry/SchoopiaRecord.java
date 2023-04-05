@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class SchoopiaRecord {
     private RecordBean record;
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private String img;
+    private String timestamp;
+    private String sign;
 
     public String getCompleteTime() {
         return completeTime;
@@ -89,6 +93,22 @@ public class SchoopiaRecord {
 
     public String getImg() {
         return img;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getSign() {
+        return sign;
     }
 
     public static class RecordBean {
@@ -520,8 +540,35 @@ public class SchoopiaRecord {
         sr.setRecord(recordBean);
         sr.setSn(App.getSn());
         sr.setUid(record.getName());
+        sr.setTimestamp(System.currentTimeMillis() + "");
+        sr.setSign(md5(sr.timestamp + "dj^_HNma2#1aPf"));
         sr.setCompleteTime(formatter.format(record.getTime()));
         return sr;
+    }
+
+    public static String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static final String FLOAT_2_FORMAT                      = "%.2f";
