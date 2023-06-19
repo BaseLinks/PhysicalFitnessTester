@@ -555,14 +555,16 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/qingkong_finger"
                 style="@style/SettingButton"
-                android:text=""
+                android:text="清空人员"
                 android:textSize="50sp" />
 
 
             <Button
+                android:id="@+id/clear_record"
                 style="@style/SettingButton"
-                android:text=""
+                android:text="删除所有记录"
                 android:textSize="50sp" />
         </TableRow>
 
@@ -571,8 +573,9 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/report_url"
                 style="@style/SettingButton"
-                android:text="" />
+                android:text="服务器地址" />
 
             <TextView
                 style="@style/SettingButton"

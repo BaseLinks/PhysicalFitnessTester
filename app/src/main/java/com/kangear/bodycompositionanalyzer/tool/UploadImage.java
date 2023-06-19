@@ -63,37 +63,37 @@ public class UploadImage implements MainApiService {
         return singleton;
     }
 
-    private static void uploadReport(Record record) {
+    private static void uploadReport(Record record, String url) {
         // 上报报告
         SchoopiaRecord sr = SchoopiaRecord.toHere(record);
         Gson gson = new Gson();
         String json = gson.toJson(sr);
 //        Log.e(TAG, json);
-        SchoopiaRecord.sendPost(json);
+        SchoopiaRecord.sendPost(json, url);
     }
 
-    private static void uploadReportMasterfit(Record record) {
+    private static void uploadReportMasterfit(Record record, String url) {
         // 上报报告
         MasterFitEntity sr = MasterFitEntity.toHere(record);
         Gson gson = new Gson();
         String json = gson.toJson(sr);
 //        Log.e(TAG, json);
-        SchoopiaRecord.sendPost(json);
+        SchoopiaRecord.sendPost(json, url);
     }
 
     // Do something
     // 318 NO: uploadReportImg
     // 318 EDU: uploadReport
-    public static void doSomething(Activity act, Record record) {
+    public static void doSomething(Activity act, Record record, String url) {
         if (BuildConfig.FLAVOR_model.equals("jh318")) {
             if (BuildConfig.FLAVOR_sub.equals("normal")) {
                 if (act != null) {
-                    uploadReportImg(act, record);
+                    uploadReportImg(act, record, url);
                 } else {
-                    uploadReport(record);
+                    uploadReport(record, url);
                 }
             } else if (BuildConfig.FLAVOR_sub.contains("edu")) {
-                uploadReportMasterfit(record);
+                uploadReportMasterfit(record, url);
             }
         } else {
             // do not report upload
@@ -138,7 +138,7 @@ public class UploadImage implements MainApiService {
         }
     }
 
-    public static void uploadReportImg(Activity act, Record record) {
+    public static void uploadReportImg(Activity act, Record record, String url) {
         // 上报图片
         View v = act.findViewById(R.id.pdfpicture_view);
         if (v == null) {
@@ -169,7 +169,7 @@ public class UploadImage implements MainApiService {
                             Log.e(TAG, "上传成功: " + id);
                             record.setImg(id);
                             RecordBean.getInstance(act.getApplicationContext()).update(record);
-                            uploadReport(record);
+                            uploadReport(record, url);
                         }
 
                         @Override

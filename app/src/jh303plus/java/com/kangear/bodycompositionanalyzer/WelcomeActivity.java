@@ -223,6 +223,15 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     /**
+     * 判断身高是否合法
+     * @param val
+     * @return
+     */
+    public static boolean checkId(int val) {
+        return true;
+    }
+
+    /**
      * 判断年龄是否合法
      * @param age
      * @return

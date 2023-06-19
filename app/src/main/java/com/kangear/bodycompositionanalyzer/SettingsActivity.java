@@ -3,6 +3,7 @@ package com.kangear.bodycompositionanalyzer;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -31,12 +33,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.application.App;
+import com.kangear.bodycompositionanalyzer.entry.PgyEntity;
 import com.kangear.bodycompositionanalyzer.mvp.ui.activity.AboutActivity;
 import com.kangear.qr.PrinterIntence;
 import com.kangear.utils.QRCodeUtil;
+import com.pgyer.pgyersdk.PgyerSDKManager;
+import com.pgyer.pgyersdk.callback.CheckoutVersionCallBack;
+import com.pgyer.pgyersdk.model.CheckSoftModel;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
+//import com.xuexiang.xupdate.XUpdate;
+//import com.xuexiang.xupdate.entity.UpdateEntity;
+//import com.xuexiang.xupdate.listener.IUpdateParseCallback;
+//import com.xuexiang.xupdate.proxy.IUpdateParser;
 
 import org.json.JSONObject;
 
@@ -240,7 +251,24 @@ public class SettingsActivity extends BaseActivity {
 //                Toast.makeText(this, "系统升级", Toast.LENGTH_SHORT).show();
 //                if (BuildConfig.DEBUG)
 //                    CrashReport.testJavaCrash();
-                Beta.checkUpgrade();
+//                Beta.checkUpgrade();
+//                PgyerSDKManager.
+                PgyerSDKManager.checkSoftwareUpdate(new CheckoutVersionCallBack() {
+                    @Override
+                    public void onSuccess(CheckSoftModel checkSoftModel) {
+                        Log.e(TAG, "checkSoftModel: " + checkSoftModel);
+                    }
+
+                    @Override
+                    public void onFail(String s) {
+                    }
+                });
+
+//                String mUpdateUrl3 = "https://www.pgyer.com/apiv2/app/check?_api_key=7b0205ac1ee5a2d600f3b2205092c9ee&token=4fcc4ad01edc93c1a2d4dd8205eb8ea0&buildVersion=" + BuildConfig.VERSION_CODE;
+//                XUpdate.newBuild(this)
+//                        .updateUrl(mUpdateUrl3)
+//                        .updateParser(new CustomUpdateParser()) //设置自定义的版本更新解析器
+//                        .update();
                 break;
             case R.id.wifi_button:
 //                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -251,11 +279,67 @@ public class SettingsActivity extends BaseActivity {
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(new Intent(this, WiFiActivity.class));
                 break;
+            case R.id.qingkong_finger:
+                Toast.makeText(this, "清空指纹", Toast.LENGTH_SHORT).show();
+                TouchID.getInstance(mContext).clearAll();
+                PersonBean.getInstance(this).clearAll();
+                break;
+            case R.id.clear_record:
+                Toast.makeText(this, "删除所有记录", Toast.LENGTH_SHORT).show();
+                RecordBean.getInstance(this).clearAll();
+                break;
+            case R.id.report_url:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("上传服务器地址");
+                Other o2 = OtherBean.getInstance(this).queryByName(Other.REPORT_URL);
+                String url = o2 == null ? "" : o2.getStrValue();
+                // Set up the input
+                final EditText input = new EditText(this);
+                input.setText(url);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("保存", (dialog, which) -> {
+                    String url2 = input.getText().toString();
+                    OtherBean.getInstance(this).insert(new Other(Other.REPORT_URL, url2));
+                });
+                builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
+
+                builder.show();
+                break;
 
         }
     }
 
-
+//    public static class CustomUpdateParser implements IUpdateParser {
+//        @Override
+//        public UpdateEntity parseJson(String json) throws Exception {
+//            Gson gson = new Gson();
+//            PgyEntity pgy = gson.fromJson(json, PgyEntity.class);
+//            if (pgy != null && pgy.getData() != null) {
+//                return new UpdateEntity()
+//                        .setHasUpdate(pgy.getData().isBuildHaveNewVersion())
+//                        .setVersionCode(Integer.parseInt(pgy.getData().getBuildVersionNo()))
+//                        .setVersionName(pgy.getData().getBuildName())
+//                        .setUpdateContent(pgy.getData().getBuildUpdateDescription())
+//                        .setDownloadUrl(pgy.getData().getDownloadURL())
+//                        .setSize(Integer.parseInt(pgy.getData().getBuildFileSize()));
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        public void parseJson(String json, IUpdateParseCallback callback) throws Exception {
+//
+//        }
+//
+//        @Override
+//        public boolean isAsyncParser() {
+//            return false;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

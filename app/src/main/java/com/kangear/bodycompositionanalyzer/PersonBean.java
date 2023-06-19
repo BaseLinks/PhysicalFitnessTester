@@ -52,6 +52,20 @@ public class PersonBean {
 //        }
     }
 
+    public boolean clearAll() {
+        boolean ret = false;
+        try {
+            WelcomeActivity.getDB().dropTable(Person.class);
+            ret = true;
+            init(); // 这里需要date
+        } catch (DbException e) {
+            e.printStackTrace();
+            Log.e(TAG, "WelcomeActivity.getDB().save(mRecord); error!!!");
+        } finally {
+        }
+        return ret;
+    }
+
     /**
      * @param pageNumber 当前页面
      * @param itemsPerPage  页面长度

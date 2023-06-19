@@ -594,12 +594,12 @@ public class SchoopiaRecord {
                 '}';
     }
 
-    public static void sendPost(final String json) {
+    public static void sendPost(final String json, String url) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    post(json);
+                    post(json, url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -609,10 +609,10 @@ public class SchoopiaRecord {
         thread.start();
     }
 
-    private static void post(String json) throws Exception {
+    private static void post(String json, String url) throws Exception {
         // 同时传递到两个位置
         Log.i(TAG, "REPORT: " + json);
-        post2(json, BuildConfig.REPORT_URL);
+        post2(json, url);
     }
 
     private static void post2(String json, String urlStr) throws Exception {

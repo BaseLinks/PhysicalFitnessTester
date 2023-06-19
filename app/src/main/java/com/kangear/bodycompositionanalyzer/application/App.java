@@ -9,9 +9,15 @@ import com.kangear.bodycompositionanalyzer.BuildConfig;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.mvp.ui.activity.UploadDataActivity;
 import com.kangear.qr.PrinterIntence;
+//import com.kangear.utils.OKHttpUpdateHttpService;
+import com.pgyer.pgyersdk.PgyerSDKManager;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
+//import com.xuexiang.xupdate.XUpdate;
+//import com.xuexiang.xupdate.entity.UpdateError;
+//import com.xuexiang.xupdate.listener.OnUpdateFailureListener;
+//import com.xuexiang.xupdate.utils.UpdateUtils;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -23,6 +29,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import cn.trinea.android.common.util.ToastUtils;
+
+//import static com.xuexiang.xupdate.entity.UpdateError.ERROR.CHECK_NO_NEW_VERSION;
+
 public class App extends Application {
     public static final String SERIAL_QR_SCAN = "/dev/ttyS3";
     public static final String XIAOPIAO_PRINTER = "/dev/ttyS3"; //ttyS3
@@ -30,6 +40,15 @@ public class App extends Application {
     private static boolean isInit = false;
     private static Record mCurRecord;
     private static String mSN;
+    /**
+     *  初始化蒲公英SDK
+     * @param application
+     */
+    private static void initPgyerSDK(App application){
+        new PgyerSDKManager.Init()
+                .setContext(application) //设置上下问对象
+                .start();
+    }
 
     @Override
     public void onCreate() {
@@ -39,6 +58,29 @@ public class App extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
         strategy.setAppReportDelay(20000);   //改为20s
         Bugly.init(getApplicationContext(), BuildConfig.BUGLY_APPID, true, strategy);
+        //在attachBaseContext方法中调用初始化sdk
+        initPgyerSDK(this);
+
+//        XUpdate.get()
+//                .debug(true)
+//                .isWifiOnly(true)                                               //默认设置只在wifi下检查版本更新
+//                .isGet(true)                                                    //默认设置使用get请求检查版本
+//                .isAutoMode(false)                                              //默认设置非自动模式，可根据具体使用配置
+//                .param("versionCode", UpdateUtils.getVersionCode(this))         //设置默认公共请求参数
+//                .param("appKey", getPackageName())
+//                .setOnUpdateFailureListener(new OnUpdateFailureListener() {     //设置版本更新出错的监听
+//                    @Override
+//                    public void onFailure(UpdateError error) {
+//                        if (error.getCode() != CHECK_NO_NEW_VERSION) {          //对不同错误进行处理
+////                            ToastUtils.show(this, error.toString());
+//                        }
+//                    }
+//                })
+//                .supportSilentInstall(true)                                     //设置是否支持静默安装，默认是true
+//                .setIUpdateHttpService(new OKHttpUpdateHttpService())           //这个必须设置！实现网络请求功能。
+//                .init(this);                                                    //这个必须初始化
+//
+
 
         DbManager.DaoConfig daoConfig = new DbManager.DaoConfig()
                 .setDbName("test2.db")

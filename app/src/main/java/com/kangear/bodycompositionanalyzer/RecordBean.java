@@ -12,6 +12,7 @@ import java.util.List;
 
 import static com.kangear.bodycompositionanalyzer.Record.DB_COL_PERSON_ID;
 import static com.kangear.bodycompositionanalyzer.Record.DB_COL_TIME;
+import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_ANONYMOUS;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.PERSON_ID_INVALID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.RECORD_ID_ANONYMOUS;
 
@@ -67,6 +68,8 @@ public class RecordBean {
                         mVipRecords.add(record);
                     }
                 }
+            } else {
+                mVipRecords.clear();
             }
 
             // 倒序
@@ -132,6 +135,7 @@ public class RecordBean {
         Record record;
 
         if (pageNumber < 0 || itemsPerPage < 1 || mVipRecords == null || mVipRecords.size() == 0) {
+            Log.e(TAG, "mVipRecords.size: " + mVipRecords);
             return records;
         }
         for (int i = pageNumber * itemsPerPage; i < (pageNumber + 1) * itemsPerPage; i++) {
@@ -161,6 +165,29 @@ public class RecordBean {
         try {
             mDbManager.deleteById(Record.class, recordid);
             init(); // 这里需要date
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public void insertAnonymous() {
+        // id 1 for ANONYMOUS
+        Record tmp = query(RECORD_ID_ANONYMOUS);
+        if (tmp == null) {
+            tmp = new Record();
+            tmp.setId(RECORD_ID_ANONYMOUS);
+            tmp.setPersonId(PERSON_ID_ANONYMOUS);
+            insert(tmp);
+        }
+    }
+
+    public boolean clearAll() {
+//        Log.i(TAG, "delete recordid: " + recordid);
+        try {
+            mDbManager.dropTable(Record.class);
+            insertAnonymous();
+            init();
         } catch (DbException e) {
             e.printStackTrace();
         }

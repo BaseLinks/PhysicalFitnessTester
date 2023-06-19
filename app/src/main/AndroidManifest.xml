@@ -42,6 +42,18 @@
         </activity>
 
         <meta-data
+            android:name="PGYER_API_KEY"
+            android:value="7b0205ac1ee5a2d600f3b2205092c9ee"></meta-data>
+        <meta-data
+            android:name="PGYER_FRONTJS_KEY"
+            android:value="4fcc4ad01edc93c1a2d4dd8205eb8ea0"></meta-data>
+
+        <!--添加新版本检测-->
+        <meta-data
+            android:name="PGYER_FEATURE_CHECK_UNPDATE"
+            android:value="true"></meta-data>
+
+        <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="face" />
 

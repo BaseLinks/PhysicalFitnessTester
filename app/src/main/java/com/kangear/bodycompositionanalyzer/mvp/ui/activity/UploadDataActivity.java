@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
 import com.google.gson.Gson;
 import com.kangear.bodycompositionanalyzer.BaseActivity;
+import com.kangear.bodycompositionanalyzer.Other;
+import com.kangear.bodycompositionanalyzer.OtherBean;
 import com.kangear.bodycompositionanalyzer.R;
 import com.kangear.bodycompositionanalyzer.Record;
 import com.kangear.bodycompositionanalyzer.application.App;
@@ -49,6 +51,7 @@ public class UploadDataActivity extends BaseActivity {
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat QUERY_DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     List<Long> mDates = new ArrayList<>();
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,9 @@ public class UploadDataActivity extends BaseActivity {
         this.simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd(EEE) HH:mm:ss", Locale.getDefault());
         mProgressBar = findViewById(R.id.progressBar2);
         mProgressBar.setProgress(0);
+
+        Other o2 = OtherBean.getInstance(this).queryByName(Other.REPORT_URL);
+        url = o2 == null ? "" : o2.getStrValue();
     }
 
     private Handler mHandler = new Handler() {
@@ -134,7 +140,8 @@ public class UploadDataActivity extends BaseActivity {
                             msg.arg1 = (i+1) * 100 / rList.size();
 
                             try {
-                                UploadImage.doSomething(null, r);
+
+                                UploadImage.doSomething(null, r, url);
                             } catch (Exception e) {
                                 e.printStackTrace();
 //                                msg.arg1 = -1;

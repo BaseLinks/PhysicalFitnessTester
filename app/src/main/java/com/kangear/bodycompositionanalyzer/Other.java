@@ -14,6 +14,7 @@ public class Other {
     public static final String OTHER_NAME_NUMBER          = "number";
     public static final String FIRST_TIME                 = "isFirstTime";
     public static final String FIRST_TIME_FALSE           = "false";
+    public static final String REPORT_URL                 = "report_url";
 
     @Column(name = "id", isId = true)
     private int id;

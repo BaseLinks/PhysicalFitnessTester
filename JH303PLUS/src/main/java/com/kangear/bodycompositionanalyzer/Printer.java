@@ -359,7 +359,7 @@ public class Printer {
             UsbDeviceConnection connection = usbManager.openDevice(device);
             if (connection != null) {
                 Log.i(LOG_TAG, "open succeeded");
-                if (connection.claimInterface(intf, false)) {
+                if (connection.claimInterface(intf, true)) {
                     Log.i(LOG_TAG, "claim interface succeeded");
                     mDevice = device;
                     mDeviceConnection = connection;
