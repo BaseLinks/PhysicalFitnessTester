@@ -9,12 +9,12 @@ android {
             storePassword '7660454'
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.example.tony.bodycompositionanalyzer"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 5
         versionName "1.3"
     }
