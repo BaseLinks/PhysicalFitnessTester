@@ -450,6 +450,7 @@ public class WelcomeActivity extends BaseActivity {
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:
+                // 会员测试
                 getRecord().setTime(System.currentTimeMillis());
                 startVipTest(this);
                 break;

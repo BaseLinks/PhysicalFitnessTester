@@ -35,7 +35,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 19
         versionCode(2209)
-        versionName("v2.2.9")
+        versionName("v2.2.11")
         setProperty("archivesBaseName", "${versionName}")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config

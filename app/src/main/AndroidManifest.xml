@@ -101,7 +101,7 @@
             android:name=".WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -112,9 +112,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name=".WeightActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Com2Activity"
@@ -216,9 +217,10 @@
             android:screenOrientation="landscape"
             android:theme="@style/NoTitleDialog" />
         <activity
+            android:launchMode="singleTop"
             android:name=".mvp.ui.activity.FdActivity"
             android:label="@string/title_activity_face_id"
-            android:screenOrientation="landscape">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.FdActivity" />
             </intent-filter>

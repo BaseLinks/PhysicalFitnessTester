@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" filepath="$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common-debug/common-debug.iml" filepath="$PROJECT_DIR$/common-debug/common-debug.iml" />
-      <module fileurl="file://$PROJECT_DIR$/d2xx/d2xx.iml" filepath="$PROJECT_DIR$/d2xx/d2xx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" filepath="$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" filepath="$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" />
-      <module fileurl="file://$PROJECT_DIR$/touchid/touchid.iml" filepath="$PROJECT_DIR$/touchid/touchid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" filepath="$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzer/BodyCompositionAnalyzer.iml" group="BodyCompositionAnalyzerProject/BodyCompositionAnalyzer" />
+      <module fileurl="file://$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" filepath="$PROJECT_DIR$/BodyCompositionAnalyzerProject.iml" group="BodyCompositionAnalyzerProject" />
+      <module fileurl="file://$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" filepath="$PROJECT_DIR$/JH303PLUS/JH303PLUS.iml" group="BodyCompositionAnalyzerProject/JH303PLUS" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BodyCompositionAnalyzerProject/app" />
+      <module fileurl="file://$PROJECT_DIR$/common-debug/common-debug.iml" filepath="$PROJECT_DIR$/common-debug/common-debug.iml" group="BodyCompositionAnalyzerProject/common-debug" />
+      <module fileurl="file://$PROJECT_DIR$/d2xx/d2xx.iml" filepath="$PROJECT_DIR$/d2xx/d2xx.iml" group="BodyCompositionAnalyzerProject/d2xx" />
+      <module fileurl="file://$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" filepath="$PROJECT_DIR$/javaapk.com-comassistant/javaapk.com-comassistant.iml" group="BodyCompositionAnalyzerProject/javaapk.com-comassistant" />
+      <module fileurl="file://$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" filepath="$PROJECT_DIR$/openCVLibrary320/openCVLibrary320.iml" group="BodyCompositionAnalyzerProject/openCVLibrary320" />
+      <module fileurl="file://$PROJECT_DIR$/touchid/touchid.iml" filepath="$PROJECT_DIR$/touchid/touchid.iml" group="BodyCompositionAnalyzerProject/touchid" />
+      <module fileurl="file://$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" filepath="$PROJECT_DIR$/trineaandroidcommon-debug/trineaandroidcommon-debug.iml" group="BodyCompositionAnalyzerProject/trineaandroidcommon-debug" />
     </modules>
   </component>
 </project>

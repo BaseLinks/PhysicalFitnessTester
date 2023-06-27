@@ -105,6 +105,7 @@ public class WeightActivity extends BaseActivity {
                 switch (bootTag) {
                     case WEIGHT_VIP_TEST:
                         startTouchId(this);
+                        finish();
                         break;
                     case WEIGHT_NEW_TEST:
                         WelcomeActivity.doTmpTest(this);
