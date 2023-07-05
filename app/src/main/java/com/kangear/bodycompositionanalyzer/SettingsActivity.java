@@ -42,6 +42,7 @@ import com.kangear.utils.QRCodeUtil;
 import com.pgyer.pgyersdk.PgyerSDKManager;
 import com.pgyer.pgyersdk.callback.CheckoutVersionCallBack;
 import com.pgyer.pgyersdk.model.CheckSoftModel;
+import com.pgyersdk.update.PgyUpdateManager;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 //import com.xuexiang.xupdate.XUpdate;
@@ -201,16 +202,23 @@ public class SettingsActivity extends BaseActivity {
                 }
                 break;
             case R.id.read_radio_button:
-                try {
-                    Protocol.Radio radio = UartBca.getInstance(mContext).readTichengfen();
-                    if (radio != null)
-                        mRadioTextView.setText(String.valueOf(radio.getWeigthRatio()));
-                    else
+                // 318 读取系数
+
+                    Thread method =new Thread(new ThreadEnd());
+                    method.start();
+                    try{
+                        method.join(10*1000);
+                        if (radio != null)
+                            mRadioTextView.setText(String.valueOf(radio.getWeigthRatio()));
+                        else
+                            Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
+
+                    }catch (Exception e){
+
                         Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
-                } catch (Protocol.ProtocalExcption protocalExcption) {
-                    protocalExcption.printStackTrace();
-                    Toast.makeText(this, "读取系数失败", Toast.LENGTH_SHORT).show();
-                }
+
+                    }
+                    method.interrupt();
                 break;
             case R.id.back2_button:
             case R.id.back_button:
@@ -253,16 +261,26 @@ public class SettingsActivity extends BaseActivity {
 //                    CrashReport.testJavaCrash();
 //                Beta.checkUpgrade();
 //                PgyerSDKManager.
-                PgyerSDKManager.checkSoftwareUpdate(new CheckoutVersionCallBack() {
-                    @Override
-                    public void onSuccess(CheckSoftModel checkSoftModel) {
-                        Log.e(TAG, "checkSoftModel: " + checkSoftModel);
-                    }
+//                PgyerSDKManager.checkSoftwareUpdate(new CheckoutVersionCallBack() {
+//                    @Override
+//                    public void onSuccess(CheckSoftModel checkSoftModel) {
+//                        Log.e(TAG, "checkSoftModel: " + checkSoftModel);
+//                    }
+//
+//                    @Override
+//                    public void onFail(String s) {
+//                    }
+//                });
+                new PgyUpdateManager.Builder()
+                        .register();
 
-                    @Override
-                    public void onFail(String s) {
-                    }
-                });
+/** 可选配置集成方式 **/
+                new PgyUpdateManager.Builder()
+                        .setForced(true)                //设置是否强制提示更新
+                        // v3.0.4+ 以上同时可以在官网设置强制更新最高低版本；网站设置和代码设置一种情况成立则提示强制更新
+                        .setUserCanRetry(false)         //失败后是否提示重新下载
+                        .setDeleteHistroyApk(false)     // 检查更新前是否删除本地历史 Apk， 默认为true
+                        .register();
 
 //                String mUpdateUrl3 = "https://www.pgyer.com/apiv2/app/check?_api_key=7b0205ac1ee5a2d600f3b2205092c9ee&token=4fcc4ad01edc93c1a2d4dd8205eb8ea0&buildVersion=" + BuildConfig.VERSION_CODE;
 //                XUpdate.newBuild(this)
@@ -340,7 +358,17 @@ public class SettingsActivity extends BaseActivity {
 //            return false;
 //        }
 //    }
-
+Protocol.Radio radio;
+class ThreadEnd implements Runnable{
+    @Override
+    public void run() {
+        try {
+            radio = UartBca.getInstance(mContext).readTichengfen();
+        } catch (Protocol.ProtocalExcption protocalExcption) {
+            protocalExcption.printStackTrace();
+        }
+    }
+}
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);

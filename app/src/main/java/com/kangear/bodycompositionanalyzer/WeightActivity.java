@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kangear.bodycompositionanalyzer.mvp.ui.activity.FdActivity;
+
+import static com.kangear.bodycompositionanalyzer.MusicService.SOUND_13_VIP_TOUCH_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.CONST_FINGER_ID;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.DEFAULT_WEIGHT;
 import static com.kangear.bodycompositionanalyzer.WelcomeActivity.FORMAT_WEIGHT;
@@ -33,6 +36,7 @@ import static com.kangear.bodycompositionanalyzer.WelcomeActivity.startWelcome;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
+ * 303+  开始新测试
  */
 public class WeightActivity extends BaseActivity {
     private static final String TAG = "WeightActivity";
@@ -101,11 +105,15 @@ public class WeightActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.next_button:
+                // 下一页
                 WelcomeActivity.getRecord().setWeight(Float.valueOf(mTextView.getText().toString()));
                 switch (bootTag) {
                     case WEIGHT_VIP_TEST:
-                        startTouchId(this);
-                        finish();
+                        // 会员测试
+//                        startTouchId(this);
+                        MusicService.play(mContext, SOUND_13_VIP_TOUCH_ID);
+                        startActivityForResult(new Intent(this, FdActivity.class), REQUEST_CODE_TOUCHID);
+//                        finish();
                         break;
                     case WEIGHT_NEW_TEST:
                         WelcomeActivity.doTmpTest(this);

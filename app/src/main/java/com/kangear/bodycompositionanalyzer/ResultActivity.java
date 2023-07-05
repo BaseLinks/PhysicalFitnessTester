@@ -681,6 +681,7 @@ public class ResultActivity extends BaseActivity {
                 }
                 break;
             case R.id.print_button:
+                // 测试结果 打印
                 if (AntiShakeUtils.isInvalidClick(v, 3000)) {
                     Log.e(TAG, "无效点击");
                     break;

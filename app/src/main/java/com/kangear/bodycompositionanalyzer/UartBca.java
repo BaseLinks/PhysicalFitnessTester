@@ -137,12 +137,12 @@ public class UartBca extends Protocol {
         serialCtrl.send(buf);
         return true;
     }
-
     @Override
     public byte[] recv(int timeout) {
         Log.e(TAG, "recv: start =========================================== ");
         while (!hasData){
-            if (Thread.currentThread().isInterrupted()) {
+            if (Thread.currentThread().isInterrupted()||timeout<=1) {
+
                 break;
             }
         }

@@ -21,6 +21,7 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.os.Process;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
 import android.support.annotation.ColorInt;
@@ -319,7 +320,7 @@ public class WelcomeActivity extends BaseActivity {
         {
             String command;
             command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib service call activity 42 s16 com.android.systemui";
-            Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
+            java.lang.Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
             proc.waitFor();
             ishide = true;
         }
@@ -369,7 +370,7 @@ public class WelcomeActivity extends BaseActivity {
         {
             String command;
             command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib am startservice -n com.android.systemui/.SystemUIService";
-            Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
+            java.lang.Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", command });
             proc.waitFor();
             isshow = true;
         }
@@ -505,6 +506,7 @@ public class WelcomeActivity extends BaseActivity {
                 startActivityForResult(intent, REQUEST_CODE_VIP_REGISTE);
                 break;
             case R.id.vip_test_imageview:
+                // 318 会员测试
                 getRecord().setTime(System.currentTimeMillis());
                 startVipTest(this);
                 break;
@@ -609,9 +611,11 @@ public class WelcomeActivity extends BaseActivity {
             public void onClick(View arg0) {
                 System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
                 mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 4000)) {
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
                     Arrays.fill(mHits, 0);
                     showNavigation(mContext);
+                    finishAffinity();
+                    Process.killProcess(Process.myPid());
                     Toast.makeText(mContext, "虚拟按键已启用", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -174,6 +174,7 @@ public class PdfActivity extends BaseActivity {
 
         int recordId = getIntent().getIntExtra(CONST_RECORD_ID, 0);
         if (recordId == RECORD_ID_INVALID) {
+            // 测试结果 打印小票失败
             Log.e(TAG, "recordId can not be RECORD_ID_INVALID");
             mHandler.sendEmptyMessage(HANDLE_EVENT_PRINT_FAIL);
             return;
@@ -320,8 +321,10 @@ public class PdfActivity extends BaseActivity {
                         public void run() {
                             super.run();
                             try {
-                                final String PDF_PATH = "/sdcard/test.pdf";
-                                final String RASTER_PATH = "/sdcard/xerox3020.bin";
+//                                final String PDF_PATH = "/sdcard/test.pdf";
+//                                final String RASTER_PATH = "/sdcard/xerox3020.bin";
+                                final String PDF_PATH = mContext.getCacheDir().getAbsolutePath() + "/test.pdf";
+                                final String RASTER_PATH = mContext.getCacheDir().getAbsolutePath() + "/xerox3020.bin";
                                 createPdfFromView(pdf.getPdfView(), PDF_PATH);
                                 Log.d(TAG, "HANDLE_EVENT_PRINT:2 " + System.currentTimeMillis() / 1000);
                                 Printer.getInstance(mContext).printPdf(RASTER_PATH, PDF_PATH);

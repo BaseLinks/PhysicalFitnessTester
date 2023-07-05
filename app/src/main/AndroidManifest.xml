@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kangear.bodycompositionanalyzer"
     android:sharedUserId="android.uid.system">
 
     <uses-feature android:name="android.hardware.usb.host" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -15,6 +16,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 必选-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".application.App"
@@ -40,18 +46,22 @@
                 <action android:name="android.intent.action.Main2Activity" />
             </intent-filter>
         </activity>
+        <activity android:name="com.pgyersdk.feedback.FeedbackActivity"/>
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="c2f4e60ead2cdbdf1ea75c2877d6df79" >
+        </meta-data>
+<!--        <meta-data-->
+<!--            android:name="PGYER_API_KEY"-->
+<!--            android:value="7b0205ac1ee5a2d600f3b2205092c9ee"></meta-data>-->
+<!--        <meta-data-->
+<!--            android:name="PGYER_FRONTJS_KEY"-->
+<!--            android:value="4fcc4ad01edc93c1a2d4dd8205eb8ea0"></meta-data>-->
 
-        <meta-data
-            android:name="PGYER_API_KEY"
-            android:value="7b0205ac1ee5a2d600f3b2205092c9ee"></meta-data>
-        <meta-data
-            android:name="PGYER_FRONTJS_KEY"
-            android:value="4fcc4ad01edc93c1a2d4dd8205eb8ea0"></meta-data>
-
-        <!--添加新版本检测-->
-        <meta-data
-            android:name="PGYER_FEATURE_CHECK_UNPDATE"
-            android:value="true"></meta-data>
+<!--        &lt;!&ndash;添加新版本检测&ndash;&gt;-->
+<!--        <meta-data-->
+<!--            android:name="PGYER_FEATURE_CHECK_UNPDATE"-->
+<!--            android:value="true"></meta-data>-->
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -101,7 +111,7 @@
             android:name=".WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

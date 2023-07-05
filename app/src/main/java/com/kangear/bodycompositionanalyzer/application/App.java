@@ -11,6 +11,7 @@ import com.kangear.bodycompositionanalyzer.mvp.ui.activity.UploadDataActivity;
 import com.kangear.qr.PrinterIntence;
 //import com.kangear.utils.OKHttpUpdateHttpService;
 import com.pgyer.pgyersdk.PgyerSDKManager;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -45,9 +46,10 @@ public class App extends Application {
      * @param application
      */
     private static void initPgyerSDK(App application){
-        new PgyerSDKManager.Init()
-                .setContext(application) //设置上下问对象
-                .start();
+//        new PgyerSDKManager.Init()
+//                .setContext(application) //设置上下问对象
+//                .start();
+        PgyCrashManager.register();
     }
 
     @Override

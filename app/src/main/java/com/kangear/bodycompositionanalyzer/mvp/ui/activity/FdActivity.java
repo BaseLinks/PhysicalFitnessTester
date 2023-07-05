@@ -806,6 +806,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
                             && bs.getResult().getFace_list().get(0).getUser_list().get(0).getScore() > 80) {
                         final String personId = bs.getResult().getFace_list().get(0).getUser_list().get(0).getUser_id();
                         Log.e(TAG, "识别成功: " + personId);
+
+                        // 会员人脸识别成功
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

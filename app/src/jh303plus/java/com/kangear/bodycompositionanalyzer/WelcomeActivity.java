@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.os.Process;
 import android.os.SystemClock;
 import android.print.PrintAttributes;
 import android.util.Log;
@@ -72,6 +73,7 @@ import static com.kangear.bodycompositionanalyzer.Protocol.PROTOCAL_GENDER_MALE;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
+ * 303+体测首页
  */
 public class WelcomeActivity extends BaseActivity {
     private static final String TAG = "WelcomeActivity";
@@ -455,6 +457,7 @@ public class WelcomeActivity extends BaseActivity {
                 startVipTest(this);
                 break;
             case R.id.start_new_test_imageview:
+                // 开始新测试
                 getRecord().setTime(System.currentTimeMillis());
                 startTmpTest(this);
                 break;
@@ -551,10 +554,12 @@ public class WelcomeActivity extends BaseActivity {
             public void onClick(View arg0) {
                 System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
                 mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 4000)) {
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 7000)) {
                     Arrays.fill(mHits, 0);
-                    showNavigation(mContext);
-                    Toast.makeText(mContext, "虚拟按键已启用", Toast.LENGTH_SHORT).show();
+                    finishAffinity();
+                    Process.killProcess(Process.myPid());
+//                    showNavigation(mContext);
+//                    Toast.makeText(mContext, "虚拟按键已启用", Toast.LENGTH_SHORT).show();
                 }
             }
         });
