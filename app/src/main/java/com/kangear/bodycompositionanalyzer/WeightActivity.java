@@ -110,9 +110,9 @@ public class WeightActivity extends BaseActivity {
                 switch (bootTag) {
                     case WEIGHT_VIP_TEST:
                         // 会员测试
-//                        startTouchId(this);
+                        startTouchId(this);
                         MusicService.play(mContext, SOUND_13_VIP_TOUCH_ID);
-                        startActivityForResult(new Intent(this, FdActivity.class), REQUEST_CODE_TOUCHID);
+                        startActivityForResult(new Intent(this, TouchIdActivity.class), REQUEST_CODE_TOUCHID);
 //                        finish();
                         break;
                     case WEIGHT_NEW_TEST:

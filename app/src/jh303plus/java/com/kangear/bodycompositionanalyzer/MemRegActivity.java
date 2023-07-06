@@ -54,7 +54,7 @@ public class MemRegActivity extends Com2Activity {
         logoView.setVisibility(View.GONE);
         mFingerButton = findViewById(R.id.finger_button);
         mIdEditText = findViewById(R.id.id_edittext);
-        mHeightEditText = findViewById(R.id.height_edittext);
+        mHeightEditText = findViewById(R.id.height_edittextheight_edittext);
         mAgeEditText = findViewById(R.id.age_edittext);
         mNextButton = findViewById(R.id.keyboard_back_del_next).findViewById(R.id.kb_next_button);
         mMaleRadio = findViewById(R.id.male_radiobutton);
